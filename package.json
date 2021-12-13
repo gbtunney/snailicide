@@ -16,5 +16,10 @@
   ],
   "dependencies": {
     "lerna": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.4.1",
+    "eslint-plugin-vue": "^8.2.0"
   }
 }
