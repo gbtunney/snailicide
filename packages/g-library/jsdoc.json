@@ -16,8 +16,10 @@
     "monospaceLinks": true
   },
   "opts": {
+    "verbose": true,
     "destination": "public",
     "recurse": true,
-    "readme": "README.md"
+    "readme": "README.md",
+    "template": "templates/docdash"
   }
 }
