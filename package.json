@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "styleguide": "yarn --cwd apps/styleguide styleguide"
+    "styleguide": "yarn --cwd apps/styleguide styleguide",
+    "lib:test": "yarn --cwd packages/g-library test:watch"
   },
   "author": "Gillian Tunney",
   "license": "ISC",

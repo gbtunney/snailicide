@@ -20,6 +20,6 @@
     "destination": "public",
     "recurse": true,
     "readme": "README.md",
-    "template": "templates/docdash"
+    "template": "templates/default"
   }
 }

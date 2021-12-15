@@ -14,3 +14,9 @@ function getVeganFood (food) {
     const veganizedFood = 'vegan ' + food;
     return  veganizedFood;
 }
+
+import * as RA from "ramda-adjunct";
+
+export function getDigitCount(value) {
+    return Math.log(toInteger(value)) * Math.LOG10E + 1 | 0;
+}

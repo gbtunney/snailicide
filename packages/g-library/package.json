@@ -17,7 +17,8 @@
   "main": "index.js",
   "dependencies": {
     "core-js": "^3.6.5",
-    "docdash": "^1.2.0",
+    "ramda": "^0.27.1",
+    "ramda-adjunct": "^2.35.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
