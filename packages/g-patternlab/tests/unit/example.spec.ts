@@ -1,9 +1,8 @@
 import { shallowMount } from '@vue/test-utils'
 import HelloWorld from '@/components/HelloWorld.vue'
-import {cleanIntegerType} from '@/scripts/_type'
 
 describe('HelloWorld.vue', () => {
-  it('renders props.msg when pkklkassed', () => {
+  it('renders props.msg when passed', () => {
     const msg = 'new message'
     const wrapper = shallowMount(HelloWorld, {
       propsData: { msg }
@@ -11,4 +10,3 @@ describe('HelloWorld.vue', () => {
     expect(wrapper.text()).toMatch(msg)
   })
 })
-

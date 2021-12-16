@@ -1,24 +1,18 @@
 {
-  "name": "@snailicide/g-library",
-  "version": "1.0.0",
-  "private": true,
+  "name": "g-patternlab",
+  "version": "0.1.0",
   "author": "Gillian Tunney",
-  "main": "index.js",
-  "description": "Library of functions for use in multiple projects",
+  "description": "Pattern UI Library",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "jest --watch ",
-    "test:watch": "jest --watch ",
+    "test": "jest --watch",
+    "test:watch": "jest --watch",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "docs": "jsdoc --configure jsdoc.json",
-    "docs:build": "jsdoc --configure jsdoc.json"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "ramda": "^0.27.1",
-    "ramda-adjunct": "^2.35.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -32,16 +26,11 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "^1.0.3",
-    "docdash": "^1.2.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "jsdoc": "^3.6.7",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~4.1.5",
     "vue-template-compiler": "^2.6.11"
-  },
-  "_id": "@snailicide/g-library@1.0.0",
-  "license": "MIT",
-  "readme": "ERROR: No README data found!"
+  }
 }

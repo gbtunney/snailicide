@@ -34,3 +34,4 @@ export const trimCharacters = function (value: boolean | string | number = true,
         }, (value).toString());
     return (parseIntFlag === true && isInteger(result)) ? toInteger(result) : result
 }
+export default trimCharacters

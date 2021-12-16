@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "styleguide": "yarn --cwd apps/styleguide styleguide",
-    "lib:test": "yarn --cwd packages/g-library test:watch"
+    "lib:test": "yarn --cwd packages/g-library test:watch",
+    "ui:test": "yarn --cwd packages/g-patternlab test:watch"
   },
   "author": "Gillian Tunney",
   "license": "ISC",
