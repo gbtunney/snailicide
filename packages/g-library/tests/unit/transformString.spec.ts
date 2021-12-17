@@ -1,5 +1,5 @@
 import {trimCharacters, replaceCharacters} from "@/scripts/transformString";
-import {transformString} from "@/scripts/transformString/_transformString";
+import {transformString, transformStringAll, validateString} from "@/scripts/transformString/_transformString";
 import * as RA from "ramda-adjunct";
 
 /* * UNIT TESTS * */
@@ -18,7 +18,6 @@ describe("Transform String Function", () => {
         expect(trimCharacters(12.02, bl)).toEqual(12.02);
         expect(trimCharacters((.8).toString(), [...bl, "0"], false, true, true)).toEqual("8");
         expect(trimCharacters((1.8).toString(), [...bl, "0"])).toEqual("1.8");
-
         expect(trimCharacters("  var (--color-var)", [" ", "var(", "px", ")"], true, true, true, true)).toEqual('ar (--color-var')
     });
     test("replaceCharacters", () => {
@@ -46,5 +45,34 @@ describe("Transform String Function", () => {
         expect(transformString("spynx sucks", [" "],
             ["sentenceCase", "clean"]
         )).toEqual("Spynxsucks");
+    });
+    test("transformStringAll", () => {
+        expect(transformStringAll(["abcdefg", ",,.  var (--col...or-v)ar)"], [" "], {
+            "trim": {blacklist: [")", "-", "."],}, "clean": [[",", " ", "e", "var("], true],
+        })).toEqual(['abcdfg', '.--col...or-v)ar']);
+
+        expect(transformStringAll({simi: "abcdefg", spynx: ",,.  var (--col...or-v)ar)"}, [" "], {
+            "trim": {blacklist: [")", "-", "."],}, "clean": [[",", " ", "e", "var("], true],
+        })).toEqual({"simi": "abcdfg", "spynx": ".--col...or-v)ar"});
+
+        expect(transformStringAll(["im a dumbass", "spynx sucks"], [" "],
+            ["sentenceCase", "clean"]
+        )).toEqual(["Imadumbass", "Spynxsucks"]);
+
+        expect(transformStringAll("im a dumbass2", [" ", "2"],
+            ["sentenceCase", "clean"]
+        )).toEqual("Imadumbass");
+
+        expect(transformStringAll("    2 ", [" "],
+            ["clean"]
+        )).toEqual(2);
+    });
+    test("validateString", () => {
+
+        expect(validateString("kitten", ["kit", "hi"], "startsWith")).toEqual(true)
+        expect(validateString("kitten", ["kitten", "test"], "eq")).toEqual(true)
+        expect(validateString("Hi", "hi", "eq", false)).toEqual(true)
+        expect(validateString("ggg", "gGg", "includes")).toEqual(false)
+        expect(validateString("ggg", "gGg", "includes", false)).toEqual(true)
     });
 });
