@@ -13,7 +13,7 @@ export const colorThemeMixin = {
             type: [Boolean, String],
         },
         /**
-         * Sets the background color
+         * Sets the color
          * @values css variable, valid chroma.js color, boolean (on/off)
          */
         color: {
