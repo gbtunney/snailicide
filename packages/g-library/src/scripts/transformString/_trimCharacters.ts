@@ -3,18 +3,20 @@ import * as R from "ramda"
 import {isInteger, toInteger} from "@/scripts/_type";
 
 /* * Function trimCharacters * * * *
-* @param { Boolean | String | Number } - single value
-* @param {Boolean | string|array<string>} blacklist (list)-character blacklist (single character only)
+* @param { boolean | string | number } - single value
+* @param { boolean | string | Array<string | boolean> } blacklist (list)-character blacklist
+* @param { boolean } [d=true] parseIntFlag - if return value is a int, return as number
+
 * @param {boolean} [d=false] trimStart - flag: trim characters at start of string ( see: RA.trimCharsStart )
 * @param {boolean} [d=false] trimEnd - flag: trim characters at end of string ( see: RA.trimCharsEnd )
 * @param {boolean} [d=true] parseIntFlag - if return value is a int, return as number
-* @return {string|number} - trimmed string (or number if parseInt == true */
+* @return {boolean|string|number} - trimmed string (or number if parseInt == true */
 
 export const trimCharacters = function (value: boolean | string | number = true,
                                         blacklist: boolean | string | Array<string | boolean> = ' ',
+                                        parseIntFlag: boolean = true,
                                         trimStart: boolean = true,
-                                        trimEnd: boolean = true,
-                                        parseIntFlag: boolean = true) {
+                                        trimEnd: boolean = true) {
     if (RA.isNotString(value) || R.isEmpty(blacklist)) return value
     blacklist = RA.ensureArray(blacklist).map(function (_char) {
         if (RA.isString(_char) && RA.isNotEmpty(_char)) {
