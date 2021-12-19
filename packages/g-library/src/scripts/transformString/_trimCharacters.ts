@@ -5,7 +5,6 @@ import {isInteger, toInteger} from "@/scripts/_type";
 /* * Function trimCharacters * * * *
 * @param { boolean | string | number } - single value
 * @param { boolean | string | Array<string | boolean> } blacklist (list)-character blacklist
-* @param { boolean } [d=true] parseIntFlag - if return value is a int, return as number
 * @param {boolean} [d=true] trimStart - flag: trim characters at start of string ( see: RA.trimCharsStart )
 * @param {boolean} [d=true] trimEnd - flag: trim characters at end of string ( see: RA.trimCharsEnd )
 * @param {boolean} [d=false] truncate_bl_char name - truncate blacklist characters longer than 0
@@ -13,7 +12,6 @@ import {isInteger, toInteger} from "@/scripts/_type";
 
 export const trimCharacters = function (value: boolean | string | number = true,
                                         blacklist: boolean | string | Array<string | boolean> = ' ',
-                                        parseIntFlag: boolean = true,
                                         trimStart: boolean = true,
                                         trimEnd: boolean = true,
                                         truncate_bl_char: boolean = false) {
@@ -29,11 +27,10 @@ export const trimCharacters = function (value: boolean | string | number = true,
         }
         return false
     })
-    const result = [...(trimStart) ? [RA.trimCharsStart] : [], ...(trimEnd) ? [RA.trimCharsEnd] : []]
+    return [...(trimStart) ? [RA.trimCharsStart] : [], ...(trimEnd) ? [RA.trimCharsEnd] : []]
         .reduce((accumulator, currentValue) => {
             // @ts-expect-error
             return (RA.isBoolean(blacklist)) ? accumulator : currentValue(blacklist, accumulator)
         }, (value).toString());
-    return (parseIntFlag === true && isInteger(result)) ? toInteger(result) : result
 }
 export default trimCharacters
