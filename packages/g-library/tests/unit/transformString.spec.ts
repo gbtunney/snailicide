@@ -1,5 +1,5 @@
 import {trimCharacters, replaceCharacters} from "@/scripts/transformString";
-import {transformString, transformStringAll, validateString} from "@/scripts/transformString/_transformString";
+import {transformString, transformStringAll, validateString} from "@/scripts/transformString";
 import * as RA from "ramda-adjunct";
 
 /* * UNIT TESTS * */
@@ -68,7 +68,6 @@ describe("Transform String Function", () => {
         )).toEqual(2);
     });
     test("validateString", () => {
-
         expect(validateString("kitten", ["kit", "hi"], "startsWith")).toEqual(true)
         expect(validateString("kitten", ["kitten", "test"], "eq")).toEqual(true)
         expect(validateString("Hi", "hi", "eq", false)).toEqual(true)
