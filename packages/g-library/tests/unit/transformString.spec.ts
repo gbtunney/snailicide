@@ -39,8 +39,16 @@ describe("Transform String Function", () => {
             ["sentenceCase", "clean"]
         )).toEqual("Imadumbass");
 
-     /*   expect(transformStringAll("    2 ", [" "],
-            ["clean"]
-        )).toEqual(2);*/
+       expect(transformStringAll("    2 ", [" "],
+            ["clean","stringToInt"]
+        )).toEqual(2);
+
+        expect(transformStringAll("    55) ", [" ",")"],
+            ["clean","stringToInt"]
+        )).toEqual(55);
+
+        expect(transformStringAll("    55) ", [" "],
+            ["clean","stringToInt"]
+        )).toEqual("55)");
     });
 });

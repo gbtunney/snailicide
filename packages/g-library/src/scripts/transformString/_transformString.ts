@@ -17,13 +17,13 @@ import {
     removeNonWord
 } from './../string'
 import {cleanIntegerType} from "@/scripts/_type";
-import {stringContainsNumber} from "@/scripts/_string";
 
-const stringToInt=cleanIntegerType
 
 export const TRANSFORM_FUNCTIONS = {
     trim: trimCharacters,
     clean: replaceCharacters,
+    stringToInt: cleanIntegerType,
+    parseInt: cleanIntegerType,
     case_sensitive: lowerCase,
     lowerCase,
     upperCase,
