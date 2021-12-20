@@ -1,7 +1,18 @@
-import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import chroma from "chroma-js";
+import {transformString, validateString} from "@snailicide/g-library";
 
+const css_blacklist = [" ", ";", "var(", ")"]
+//todo: allowed values
+const Color_Var_Prefix = ['--color-']
+
+export const getColorCssUnit = function (value: string | boolean): string | boolean {
+    if (RA.isNotString(value)) return false
+    const cleanedColorString = transformString(value, css_blacklist)
+    if (chroma.valid(cleanedColorString)) return chroma(cleanedColorString).hex()
+    if (validateString(cleanedColorString, "--", "startsWith")) return `var(${cleanedColorString})`
+    return cleanedColorString
+}
 export const colorThemeMixin = {
     props: {
         /**
@@ -21,26 +32,5 @@ export const colorThemeMixin = {
             type: [Boolean, String],
         },
     },
-    getColorCssUnit(value: string | boolean): string | boolean {
-        return true
-        /* if ( RA.isNotString(value))return false
-
-        const cleanedColorString =  transformString( value, {trim:true, clean:css_blacklist })
-        console.warn("colorClean!!!!!!!!!!!",value,"after" ,cleanedColorString )
-        if ( chroma.valid(cleanedColorString) ) return chroma(cleanedColorString).hex()
-
-        if (validateString (cleanedColorString , ['--color-'], "starts With" ,true) ) return `var(${cleanedColorString})`
-        return cleanedColorString//if its a proper string???/
-        ///validate if prefixed variable
-          const validCssVariableWithVar = validateString (colorClean ,
-                ['var('],
-                " starts With" ,
-                true,
-                {trim:false})
-            console.warn("validCssVariableWithVar!!!!!!!!!!!" ,validCssVariableWithVar )
-            if (validCssVariableWithVar ) return*/
-
-        ///validate if prefixed variable
-    }
-
 }
+export default colorThemeMixin

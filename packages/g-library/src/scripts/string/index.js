@@ -18,3 +18,5 @@ export {
     unescapeHtml,
     escapeUnicode
 } from './_stringUtils'
+
+export {stringContainsNumber,stringContainsLetter} from "./_string"

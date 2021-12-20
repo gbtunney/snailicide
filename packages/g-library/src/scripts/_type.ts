@@ -1,5 +1,5 @@
 import * as RA from "ramda-adjunct";
-import {stringContainsNumber} from "./_string";
+import {stringContainsNumber} from "./string";
 
 export const toInteger = (value): any => cleanIntegerType(value, false)
 
@@ -13,7 +13,7 @@ export const isInteger = (value: any):boolean => (RA.isValidNumber(toInteger(val
  *      cleanIntegerType('2px', true)
  *      => 2.0
 */
-export function cleanIntegerType(value:any = false , removeNonDigits:boolean = false):any {
+export function cleanIntegerType(value = false , removeNonDigits = false):any {
     if (RA.isNotString(value) || !stringContainsNumber(value)) return value
     const castToNumber = parseInt((value).toString())
     return (removeNonDigits === true || (castToNumber).toString() === value) ? castToNumber : value

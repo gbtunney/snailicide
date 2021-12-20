@@ -1,7 +1,7 @@
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
-import {replaceCharacters} from './_replaceCharacters'
-import {trimCharacters} from './_trimCharacters'
+import {replaceCharacters} from '.'
+import {trimCharacters} from '.'
 import {
     lowerCase,
     upperCase,
@@ -16,7 +16,7 @@ import {
     underscore,
     removeNonWord
 } from './../string'
-import {cleanBooleanType, cleanIntegerType} from "@/scripts/_type";
+import {cleanBooleanType, cleanIntegerType} from "./../_type";
 
 
 export const TRANSFORM_FUNCTIONS = {
@@ -89,8 +89,8 @@ export const transformString = function (value: boolean | string | number = true
 export function transformStringAll(value: any = true,
                                    ...args: any) {
     if (RA.isBoolean(value) || R.isEmpty(value)) return false
-    let _keys = (RA.isPlainObj(value)) ? Array.from(Object.keys(value)) : false
-    let workingArr = (RA.isPlainObj(value)) ? Array.from(Object.values(value)) : RA.ensureArray(value)
+    const _keys = (RA.isPlainObj(value)) ? Array.from(Object.keys(value)) : false
+    const workingArr = (RA.isPlainObj(value)) ? Array.from(Object.values(value)) : RA.ensureArray(value)
     const RESULT = workingArr.map(function (_str) {
         return transformString(_str, ...args)
     })

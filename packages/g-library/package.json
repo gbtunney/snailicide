@@ -4,6 +4,7 @@
   "private": true,
   "author": "Gillian Tunney",
   "main": "index.js",
+  "license": "MIT",
   "description": "Library of functions for use in multiple projects",
   "scripts": {
     "serve": "vue-cli-service serve",
