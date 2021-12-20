@@ -24,5 +24,24 @@
     "700": "#839e92",
     "800": "#697f74",
     "900": "#56675f"
+  },
+  "brandGrey": {
+    "dk": "#585858",
+    "dk-op80": "rgba(88,88,88,0.8)",
+    "DEFAULT": "#7f7f7f",
+    "lt": "#b0b0b0"
+  },
+  "white": {
+    "DEFAULT": "#FFFFFF",
+    "op80": "rgba(255,255,255,0.8)"
+  },
+  "grey": {
+    "DEFAULT": "#7f7f7f"
+  },
+  "black": {
+    "DEFAULT": "#000000"
+  },
+  "transparent": {
+    "DEFAULT": "transparent"
   }
 }
