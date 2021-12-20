@@ -1,12 +1,14 @@
 import * as RA from "ramda-adjunct"
 import chroma from "chroma-js";
 import {transformString, validateString} from "@snailicide/g-library";
+import {cleanBooleanType} from "@snailicide/g-library/src/scripts/_type";
 
 const css_blacklist = [" ", ";", "var(", ")"]
 //todo: allowed values
 const Color_Var_Prefix = ['--color-']
 
 export const getColorCssUnit = function (value: string | boolean): string | boolean {
+    value = cleanBooleanType(value);
     if (RA.isNotString(value)) return false
     const cleanedColorString = transformString(value, css_blacklist)
     if (chroma.valid(cleanedColorString)) return chroma(cleanedColorString).hex()
@@ -29,6 +31,14 @@ export const colorThemeMixin = {
          */
         color: {
             default: false,
+            type: [Boolean, String],
+        },
+        /**
+         * Sets the border color using foreground color if true
+         * @values  foreground- color prop, css variable, valid chroma.js color, boolean (on/off)
+         */
+        border:{
+            default:false,
             type: [Boolean, String],
         },
     },

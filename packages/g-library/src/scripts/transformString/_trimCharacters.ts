@@ -1,6 +1,5 @@
 import * as RA from "ramda-adjunct"
 import * as R from "ramda"
-import {isInteger, toInteger} from "@/scripts/_type";
 
 /* * Function trimCharacters * * * *
 * @param { boolean | string | number } - single value
@@ -12,9 +11,9 @@ import {isInteger, toInteger} from "@/scripts/_type";
 
 export const trimCharacters = function (value: boolean | string | number = true,
                                         blacklist: boolean | string | Array<string | boolean> = ' ',
-                                        trimStart: boolean = true,
-                                        trimEnd: boolean = true,
-                                        truncate_bl_char: boolean = false) {
+                                        trimStart = true,
+                                        trimEnd = true,
+                                        truncate_bl_char = false) : boolean | string | number{
     if (RA.isNotString(value) || R.isEmpty(blacklist)) return value
     blacklist = RA.ensureArray(blacklist).map(function (_char) {
         if (RA.isString(_char) && RA.isNotEmpty(_char)) {
@@ -29,7 +28,7 @@ export const trimCharacters = function (value: boolean | string | number = true,
     })
     return [...(trimStart) ? [RA.trimCharsStart] : [], ...(trimEnd) ? [RA.trimCharsEnd] : []]
         .reduce((accumulator, currentValue) => {
-            // @ts-expect-error
+            // @ts-expect-error this is a thing!
             return (RA.isBoolean(blacklist)) ? accumulator : currentValue(blacklist, accumulator)
         }, (value).toString());
 }

@@ -16,9 +16,9 @@ export const STRING_VALIDATE_OPTIONS = ['startsWith', 'includes', 'endsWith']
 ///TODO:  validate an array of strings ? all? or pass in flag array???
 export function validateString(value: boolean | string = false,
                                test_values: string | Array<string> = [],
-                               operation: string = "eq",
-                               case_sensitive: any = true, /// you can also use straigt transform object or array here
-) {
+                               operation = "eq",
+                               case_sensitive = true, /// you can also use straigt transform object or array here
+):boolean {
     const op = camelCase((operation).toString()) //vsalidate enum????
     if (op !== "eq" && op !== "startsWith" && op !== "endsWith" && op !== "includes") {
         console.warn(`validateString operation: "${op}" is not permitted\nAllowed: eq, includes, startsWith, endsWith",`)
