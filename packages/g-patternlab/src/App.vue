@@ -1,31 +1,33 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <g-svg width="80" color="rebeccapurple" bg_color="orange" wrapper-el="div" border="true">
-      <svg viewBox="0 0 220 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Simple rectangle -->
-        <rect width="100" height="100"/>
+    <g-kabob path="leaves-a.svg"
+        classes="p-2 w-full gsvg"
 
-        <!-- Rounded corner rectangle -->
-        <rect x="120" width="100" height="100" rx="15"/>
-      </svg>
-    </g-svg>
+        height="20" color="red" bg_color="yellow" border="red"
+        :hr="false"
+    ><h2>I am gillian</h2>
+    </g-kabob>
+    <g-svg path="leaves-a.svg" width="80" color="rebeccapurple" :classes="'gbt'" bg_color="orange" wrapper-el="div" border="true"/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import gSvg from '@/components/ui/gSvg.vue'
+import gKabob from '@/components/ui/gKabob.vue'
 
 export default Vue.extend({
   name: 'App',
   components: {
-    gSvg
+    gSvg,
+    gKabob
   }
 });
 </script>
 
 <style lang="scss">
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -33,5 +35,60 @@ export default Vue.extend({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/
+  v2.0 | 20110126
+  License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 </style>
