@@ -1,30 +1,16 @@
 {
-  "name": "@snailicide/g-patternlab",
+  "name": "@snailicide/g-tailwind",
   "version": "0.1.0",
-  "description": "Pattern UI Library",
-  "author": "Gillian Tunney",
+  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "test": "jest --watch",
-    "test:watch": "jest --watch"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@snailicide/g-library": "1.0.0",
-    "@tailwindcss/postcss7-compat": "^2.2.17",
-    "autoprefixer": "^9",
-    "chroma-js": "^2.1.2",
     "core-js": "^3.6.5",
-    "is-valid-css-unit": "^1.2.0",
-    "postcss": "^7",
-    "ramda": "^0.27.1",
-    "ramda-adjunct": "^2.35.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
-    "vue": "^2.6.11",
-    "vue-inline-svg": "^2.1.0",
-    "vue-styled-components": "^1.6.0"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
