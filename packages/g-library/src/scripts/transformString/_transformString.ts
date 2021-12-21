@@ -18,6 +18,7 @@ import {
 } from './../string'
 import {cleanBooleanType, cleanIntegerType} from "./../_type";
 
+const trimCharsBlacklistDefault = ['.', "'", '"', ' ', '-', "[", "]", "(", ")"]
 
 export const TRANSFORM_FUNCTIONS = {
     trim: trimCharacters,

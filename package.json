@@ -4,16 +4,18 @@
   "private": true,
   "description": "Monorepo",
   "main": "index.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "styleguide": "yarn --cwd apps/styleguide styleguide",
     "lib:test": "yarn --cwd packages/g-library test:watch",
     "lib:build": "yarn --cwd packages/g-library build",
-
     "ui:test": "yarn --cwd packages/g-patternlab test:watch",
     "ui:build": "yarn --cwd packages/g-patternlab build",
     "ui:serve": "yarn --cwd packages/g-patternlab serve",
+    "ui:sb": "yarn --cwd packages/g-patternlab storybook:serve",
+    "ui:style": "yarn --cwd packages/g-patternlab styleguide",
+    "ui:vsg": "yarn --cwd packages/g-patternlab styleguide:build",
+    "ui:sbbuild": "yarn --cwd packages/g-patternlab storybook:build",
 
     "tw:serve": "yarn --cwd packages/g-tailwind serve",
     "tw:build": "yarn --cwd packages/g-tailwind build"
@@ -24,5 +26,8 @@
     "packages/*",
     "apps/*",
     "services/*"
-  ]
+  ],
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
 }

@@ -18,7 +18,7 @@ export const replaceCharacters = function (value: boolean | string | number = tr
             : false
     if (replace_string === false) return value
     return RA.ensureArray(blacklist).reduce((accumulator, currentValue) => {
-        // @ts-expect-error
+        // @ts-expect-error dont know why this is like this
         return RA.replaceAll((currentValue).toString(), replace_string, accumulator)
     }, (value).toString());
 }
