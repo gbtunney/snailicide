@@ -1,6 +1,7 @@
 {
   "name": "@snailicide/g-patternlab",
   "version": "0.1.0",
+  "license": "MIT",
   "description": "Pattern UI Library",
   "author": "Gillian Tunney",
   "scripts": {
@@ -8,14 +9,17 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
+    "storybook:build": "vue-cli-service storybook:build -c config/storybook",
+    "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook",
     "test": "jest --watch",
     "test:watch": "jest --watch"
   },
   "dependencies": {
     "@snailicide/g-library": "1.0.0",
+    "@snailicide/g-tailwind": "0.1.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/postcss7-compat": "^2.2.17",
-    "@tailwindcss/typography": "^0.5.0",
+    "@tailwindcss/typography": "@0.5.0-alpha.2",
     "autoprefixer": "^9",
     "chroma-js": "^2.1.2",
     "core-js": "^3.6.5",
@@ -31,6 +35,9 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/vue": "^6.0.26",
     "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
@@ -46,6 +53,7 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~4.1.5",
+    "vue-cli-plugin-storybook": "~2.1.0",
     "vue-cli-plugin-tailwind": "~2.2.18",
     "vue-template-compiler": "^2.6.11"
   }

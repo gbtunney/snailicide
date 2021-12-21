@@ -51,7 +51,6 @@ import dimensionsMixin, {getDistanceCssUnit} from "@/mixins/DimensionsMixin";
 import gSVG from '@/components/ui/gSvg.vue'
 
 Vue.component('g-svg', gSVG);
-
 Vue.component('styled-element', styledElement);
 
 export default {

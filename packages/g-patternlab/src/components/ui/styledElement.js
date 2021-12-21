@@ -5,10 +5,6 @@ import dimensionsMixin, {getDistanceCssUnit} from "../../mixins/DimensionsMixin"
 import {cleanBooleanType} from "@snailicide/g-library";
 
 const PROPS = {
-    svg_flag: {
-        default: true,
-        type: Boolean
-    },
     ...colorThemeMixin.props, ...dimensionsMixin.props
 }
 
@@ -19,9 +15,7 @@ const getCSSString = function (value = false, property = false) {
 }
 
 const getSvgString = function (props = false) {
-    const {svg_flag = true, border_flag = false} = props
-    console.log("SVG FLAG ", svg_flag)
-    return (svg_flag) ? `svg {
+    return  `svg {
     display: block;
     width: 100%;
     height: 100%;
@@ -29,7 +23,7 @@ const getSvgString = function (props = false) {
        ${getCSSString(props.color, "fill")}
        ${getCSSString(props.bg_color, "background-color")}
     }
-  }` : ``
+  }`
 }
 
 const _StyledElement = styled('div', {...PROPS})`
@@ -49,7 +43,7 @@ const _StyledElement = styled('div', {...PROPS})`
   //border style
   ${props => getCSSString(
           (cleanBooleanType(props.border) !== false
-                  && (cleanBooleanType(props.border_size) === false))
+                  || (cleanBooleanType(props.border_size) !== false))
                   ? 'solid'
                   : false, "border-style")};
 
@@ -57,9 +51,16 @@ const _StyledElement = styled('div', {...PROPS})`
   ${props => (cleanBooleanType(props.border) === true) 
           ? getCSSString(getColorCssUnit(props.color), "border-color")
           : getCSSString(getColorCssUnit(props.border), "border-color")};
-
-  ${props => getSvgString(props)},
 `
+/**
+ * Extend Styled Element for svg
+ */
+const _StyledElementSvg = styled(_StyledElement, {...PROPS})`
+  ${props => getSvgString(props)}
+`;
+export const StyledElementSvg = _StyledElementSvg
+
+
 export default {
     name: "styledElement",
     extends: _StyledElement,

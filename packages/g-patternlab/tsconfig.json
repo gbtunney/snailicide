@@ -35,6 +35,8 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "packages/g-patternlab/src/stories",
+    "packages/g-library/src/scripts/string"
   ]
 }
