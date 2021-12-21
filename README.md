@@ -6,8 +6,8 @@
 
 ###add package 
     yarn --cwd packages/g-library add
-    yarn --cwd apps/styleguide add 
-    yarn --cwd packages/g-patternlab add vue-styled-components
+    yarn --cwd apps/testapp add @snailicide/g-tailwind
+    yarn --cwd packages/g-patternlab add faker
 
 ###Helpful Links
 - [JSdoc Cheatsheet](https://devhints.io/jsdoc)

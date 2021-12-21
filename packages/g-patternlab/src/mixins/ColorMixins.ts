@@ -5,7 +5,7 @@
 import * as RA from "ramda-adjunct"
 import chroma from "chroma-js";
 import {transformString, validateString} from "@snailicide/g-library";
-import {cleanBooleanType} from "@snailicide/g-library/src/scripts/_type";
+import {cleanBooleanType} from "@snailicide/g-library";
 
 const css_blacklist = [" ", ";", "var(", ")"]
 //todo: allowed values

@@ -3,7 +3,7 @@
  */
 import * as RA from "ramda-adjunct"
 import {transformString, validateString} from "@snailicide/g-library";
-import {cleanBooleanType} from "@snailicide/g-library/src/scripts/_type";
+import {cleanBooleanType} from "@snailicide/g-library";
 
 const Distance_Var_Prefix = ['--w-', '--h-']
 const Distance_Unit_Strings = [...Distance_Var_Prefix, 'var(', 'calc(', 'auto', 'initial']

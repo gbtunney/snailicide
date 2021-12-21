@@ -6,7 +6,7 @@ const {variants, theme} = config_object
 
 const boolPURGE = false
 
-const PLUGIN_CONFIG = {
+ const PLUGIN_CONFIG = {
     'typography': {
         enabled: true,
         source: require('@tailwindcss/typography'),
@@ -42,7 +42,6 @@ module.exports = {
     variants: variants,
     plugins: getPluginConfig(PLUGIN_CONFIG)
 }
-
 /*const obj = {
     purge: {
         // learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css

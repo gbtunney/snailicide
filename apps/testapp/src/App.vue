@@ -1,18 +1,26 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <g-kabob color="red">fffdsfdfddfd</g-kabob>
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
+import {cleanIntegerType} from "@snailicide/g-library"
+import patternlab from "@snailicide/g-patternlab"
+
+const {gKabob}  = patternlab
+//console.log("jkjkjk",patternlab)
+
+
 
 export default Vue.extend({
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,gKabob
   }
 });
 </script>
