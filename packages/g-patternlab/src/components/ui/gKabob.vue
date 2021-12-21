@@ -136,3 +136,33 @@ export default {
   transform: scale(-1, 1);
 }
 </style>
+
+<docs lang="md">
+## Examples
+
+Kabob Divider (using css properties):
+
+```jsx
+<g-kabob  classes="w-1/12 fg-fill-accent-secondary-dk bg-accent-primary"></g-kabob>
+
+```
+Icon with Tailwind color
+
+```jsx
+<g-kabob path="leaves-a.svg"
+    classes="p-2 w-full gsvg"
+    height="20"
+    color="--color-red-700"
+    bg_color="--color-red-700"
+    border="true"
+    border_size="2"
+    :hr="false"
+><h2>I am gillian</h2>
+</g-kabob>
+
+```
+Icon with Hex color & Percent Width
+
+```jsx
+```
+</docs>

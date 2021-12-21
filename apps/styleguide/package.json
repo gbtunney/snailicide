@@ -12,6 +12,7 @@
     "styleguide:build": "vue-cli-service styleguidist:build"
   },
   "dependencies": {
+    "@snailicide/g-patternlab": "0.1.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },

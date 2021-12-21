@@ -3,7 +3,6 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <g-kabob path="leaves-a.svg"
         classes="p-2 w-full gsvg"
-
         height="20" color="red" bg_color="yellow" border="red"
         :hr="false"
     ><h2>I am gillian</h2>
