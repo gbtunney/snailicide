@@ -1,7 +1,15 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <styled-element bg_color="green" color="red">HEADINF 1</styled-element>
+    <styled-element :bg_color="getColor(1)" color="red">HEADINF 1</styled-element>
+
+    <styled-element :bg_color="getColor(2)" color="red">HEADINF 1</styled-element>
+    <styled-element :bg_color="getColor(3)" color="red">HEADINF 1</styled-element>
+    <styled-element :bg_color="getColor(4)" color="red">HEADINF 1</styled-element>
+    <styled-element :bg_color="getColor(5)" color="red">HEADINF 1</styled-element>
+
+    <styled-element :bg_color="getColor(1)" color="red">HEADINF 1</styled-element>
+
     <styled-element-svg bg_color="blue" color="pink" border="true"  :border_size="4">HEADINF 1
       <g-svg path="leaves-a.svg" width="80" color="red"  :classes="'gbt'" wrapper-el="div" />
     </styled-element-svg>
@@ -17,9 +25,23 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import gSvg from '@/components/ui/gSvg.vue'
-import gKabob from '@/components/ui/gKabob.vue'
-import styledElement,{StyledElementSvg} from '@/components/ui/styledElement.js'
+import gSvg from './components/ui/gSvg.vue'
+import gKabob from './components/ui/gKabob.vue'
+import styledElement,{StyledElementSvg} from './components/ui/styledElement.vue'
+
+
+import chroma from "chroma-js";
+//const f=chroma.scale('Spectral');
+
+//const f=chroma.scale(['yellow', 'red', 'green']);
+//classes(5)
+const f=chroma.scale(['yellow', 'red', 'green']).classes(8)
+
+
+//console.warn("color",chroma.scale('OrRd').classes(2)(1))
+
+
+
 export default Vue.extend({
   name: 'App',
   components: {
@@ -27,6 +49,10 @@ export default Vue.extend({
     gKabob,
     StyledElementSvg,
     styledElement
+  },methods:{
+    getColor(value){
+    return  f(value).hex()
+    }
   }
 });
 </script>

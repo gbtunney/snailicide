@@ -1,3 +1,6 @@
+/**
+ * @mixin
+ */
 import * as RA from "ramda-adjunct"
 import {transformString, validateString} from "@snailicide/g-library";
 import {cleanBooleanType} from "@snailicide/g-library/src/scripts/_type";

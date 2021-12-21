@@ -43,12 +43,12 @@
 </template>
 <script>
 import Vue from "vue";
-import styledElement from '@/components/ui/styledElement'
+import styledElement from './styledElement'
 
-import {colorThemeMixin, getColorCssUnit} from '@/mixins/ColorMixins'
-import dimensionsMixin, {getDistanceCssUnit} from "@/mixins/DimensionsMixin";
+import {colorThemeMixin, getColorCssUnit} from './../../mixins/ColorMixins'
+import dimensionsMixin, {getDistanceCssUnit} from "./../../mixins/DimensionsMixin";
 
-import gSVG from '@/components/ui/gSvg.vue'
+import gSVG from './gSvg.vue'
 
 Vue.component('g-svg', gSVG);
 Vue.component('styled-element', styledElement);
@@ -149,10 +149,10 @@ Icon with Tailwind color
 
 ```jsx
 <g-kabob path="leaves-a.svg"
-    classes="p-2 w-full gsvg"
+    classes="p-2 "
     height="20"
-    color="--color-red-700"
-    bg_color="--color-red-700"
+    color="orange"
+    bg_color="blue"
     border="true"
     border_size="2"
     :hr="false"
@@ -163,5 +163,11 @@ Icon with Tailwind color
 Icon with Hex color & Percent Width
 
 ```jsx
+<g-kabob path="leaves-a.svg"
+    classes="p-4 w-full gsvg"
+    height="20" color="red" bg_color="yellow" border="red"
+    :hr="false"
+><h2 class="font-style-sm-caps">I am gillian</h2>
+</g-kabob>
 ```
 </docs>

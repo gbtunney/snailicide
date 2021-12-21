@@ -1,5 +1,5 @@
 import { shallowMount , mount} from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from './../../src/components/HelloWorld.vue'
 
 describe('HelloWorld.vue', () => {
   it('renders props.msg when passed', () => {
@@ -11,9 +11,9 @@ describe('HelloWorld.vue', () => {
   })
 })
 
-import styledElement from '@/components/ui/styledElement'
+//import styledElement from './../../src/components/ui/styledElement.vue'
 
-describe('styledElement', () => {
+/*describe('styledElement', () => {
   it('renders css when passed', () => {
     const msg = 'new message'
     const wrapper = mount(styledElement, {
@@ -27,4 +27,4 @@ describe('styledElement', () => {
   //  expect(wrapper.contains('div')).toBe(true)
   //  expect(wrapper.text()).toMatch(msg)
   })
-})
+})*/

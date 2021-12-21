@@ -3,7 +3,7 @@ const path = require('path')
 const colors = require('tailwindcss/colors')
 //const getPluginConfig=require(path.join(__dirname, '/src/tailwind/twGetPluginConfig.js'))
 //const custom_colors=require(path.join(__dirname, '/src/config/tw-colors.json'))
-
+const boolPURGE = false
 const mergeSystemFont = function (_family, _system_family = DEFAULT_FONTS.serif) {
     return [_family, ..._system_family]
 };

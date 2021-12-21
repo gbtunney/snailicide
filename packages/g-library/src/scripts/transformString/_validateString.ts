@@ -19,7 +19,7 @@ export function validateString(value: boolean | string = false,
                                operation = "eq",
                                case_sensitive = true, /// you can also use straigt transform object or array here
 ):boolean {
-    const op = camelCase((operation).toString()) //vsalidate enum????
+    const op =( operation).toString() //svsalidate enum????
     if (op !== "eq" && op !== "startsWith" && op !== "endsWith" && op !== "includes") {
         console.warn(`validateString operation: "${op}" is not permitted\nAllowed: eq, includes, startsWith, endsWith",`)
     }

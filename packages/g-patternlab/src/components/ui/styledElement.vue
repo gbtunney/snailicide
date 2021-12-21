@@ -1,3 +1,5 @@
+<script>
+
 import * as RA from "ramda-adjunct"
 import styled from 'vue-styled-components'
 import colorThemeMixin, {getColorCssUnit} from "../../mixins/ColorMixins";
@@ -39,7 +41,7 @@ const _StyledElement = styled('div', {...PROPS})`
                   && (cleanBooleanType(props.border_size) === false))
                   ? getDistanceCssUnit(true)
                   : getDistanceCssUnit(props.border_size), "border-width")};
- 
+
   //border style
   ${props => getCSSString(
           (cleanBooleanType(props.border) !== false
@@ -48,7 +50,7 @@ const _StyledElement = styled('div', {...PROPS})`
                   : false, "border-style")};
 
   //border color
-  ${props => (cleanBooleanType(props.border) === true) 
+  ${props => (cleanBooleanType(props.border) === true)
           ? getCSSString(getColorCssUnit(props.color), "border-color")
           : getCSSString(getColorCssUnit(props.border), "border-color")};
 `
@@ -58,14 +60,41 @@ const _StyledElement = styled('div', {...PROPS})`
 const _StyledElementSvg = styled(_StyledElement, {...PROPS})`
   ${props => getSvgString(props)}
 `;
-export const StyledElementSvg = _StyledElementSvg
-
-
+export const StyledElementSvg=_StyledElementSvg /*{
+  functional:true,
+  name: "styledElementSVG",
+  extends: _StyledElementSvg,
+  mixins: [colorThemeMixin,dimensionsMixin],
+  mounted() {
+    console.log("border wicth ", this.$props)
+  }
+}*/
 export default {
+
     name: "styledElement",
     extends: _StyledElement,
-    mixins: [],
+    mixins: [colorThemeMixin,dimensionsMixin],
     mounted() {
         console.log("border wicth ", this.$props)
     }
 }
+</script>
+<docs lang="md">
+styled element:
+## Examples
+
+styled element:
+
+```jsx
+<styled-element bg_color="--color-gumleaf-500" color="pink" border="true"  :border_size="4">HEADINF 1
+  <g-svg path="leaves-a.svg" width="80" color="red"  :classes="'gbt'" wrapper-el="div" />
+</styled-element>
+```
+styled element svg:
+
+```jsx
+<styled-element-svg bg_color="blue" color="pink" border="true"  :border_size="4">HEADINF 1
+  <g-svg path="leaves-a.svg" width="80" color="red"  :classes="'gbt'" wrapper-el="div" />
+</styled-element-svg>
+```
+</docs>

@@ -21,9 +21,9 @@
 import Vue from "vue";
 import InlineSvg from 'vue-inline-svg';
 
-import {StyledElementSvg} from '@/components/ui/styledElement'
-import {colorThemeMixin} from '@/mixins/ColorMixins'
-import dimensionsMixin from "@/mixins/DimensionsMixin";
+import {StyledElementSvg} from './styledElement'
+import {colorThemeMixin} from './../../mixins/ColorMixins'
+import {dimensionsMixin} from "./../../mixins/DimensionsMixin"
 
 Vue.component('inline-svg', InlineSvg);
 Vue.component('styled-element-svg', StyledElementSvg);
