@@ -1,8 +1,8 @@
 <template functional>
   <styled-element-svg class="svg-wrapper"
-      :class="props.classes"
       :as="props.wrapperEl"
       :bg_color="props.bg_color"
+      :class="props.classes ? $options.getClasses(props.classes):''"
       :color="props.color"
       :width="props.width"
       :height="props.height"
@@ -20,7 +20,7 @@
 <script>
 import Vue from "vue";
 import InlineSvg from 'vue-inline-svg';
-
+import {addlClassNames} from './../../mixins/AddlClassMixins'
 import {StyledElementSvg} from './styledElement'
 import {colorThemeMixin} from './../../mixins/ColorMixins'
 import {dimensionsMixin} from "./../../mixins/DimensionsMixin"
@@ -31,7 +31,7 @@ Vue.component('styled-element-svg', StyledElementSvg);
 export default {
   name: "gSvg",
   components: {},
-  mixins: [colorThemeMixin, dimensionsMixin],
+  mixins: [colorThemeMixin, dimensionsMixin, addlClassNames],
   data: function () {
     return {}
   },
@@ -49,14 +49,6 @@ export default {
     path: {
       default: false,
       type: [Boolean, String]
-    },
-    /**
-     * Additional CSS classes
-     */
-    //todo: thhe whole cleaning thing
-    classes: {
-      default: false,
-      type: [String, Array, Boolean]
     },
   }
 }

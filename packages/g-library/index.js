@@ -29,9 +29,10 @@ export {
 } from './src/scripts/_type'
 
 export {
+    transformExplodeArray,
     replaceCharacters,
     trimCharacters,
     transformString,
     transformStringAll,
-    validateString
+    validateString,
 } from './src/scripts/transformString'
