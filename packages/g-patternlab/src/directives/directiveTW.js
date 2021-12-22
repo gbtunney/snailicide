@@ -1,9 +1,6 @@
-// noinspection JSVoidFunctionReturnValueUsed
-import {randomInt} from "./../scripts/generic";
-const R = window.R
-const RA = window.RA
-import { isArray, isInteger, toInteger} from "../scripts/generic";
-import {explodeClassesString} from "./index";
+import {transformExplodeArray, isInteger, toInteger, randomInt} from "@snailicide/g-library";
+import * as R from "ramda"
+import * as RA from "ramda-adjunct"
 
 //todo: add remove classes maybe??
 export const vTWFunction = function (el, binding, vnode) {
@@ -24,7 +21,7 @@ export const vTWFunction = function (el, binding, vnode) {
     if (value.length == 0 && !binding.classes) return
     if (value.length == 0 && binding.classes) value = binding.classes
 
-    let dataArray = (isArray(value)) ? value : [value]
+    let dataArray = RA.ensureArray(value)
     let modifiers = {
         variant: false,
         limit: false
@@ -45,13 +42,13 @@ export const vTWFunction = function (el, binding, vnode) {
         let workingDataObj = {};
         if (RA.isObject(dataObj) && R.has('classes')(dataObj)) {
             workingDataObj = {...workingDataObj, ...dataObj};
-        } else if (RA.isString(dataObj) || isArray(dataObj)) {
+        } else if (RA.isString(dataObj) || RA.isArray(dataObj)) {
             workingDataObj = {...workingDataObj, ...{classes: dataObj}};
         }
         //*******merge defaults, override with modifiers
         workingDataObj = {...dataObjDefault, ...{...modifiers, ...workingDataObj}}
         //******* explode classes to array
-        const _classes = explodeClassesString(workingDataObj.classes, workingDataObj.variant)
+        const _classes = transformExplodeArray(workingDataObj.classes, workingDataObj.variant)
         workingDataObj = {...workingDataObj, classes: _classes}
 
         const opFunc = function () {

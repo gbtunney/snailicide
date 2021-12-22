@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <styled-element-grid bg_color="yellow" column_count="8">
-      <styled-background-line color="red">giklllllll</styled-background-line>
+    <h2 v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]'>Test element ello!!!!!</h2>
+    <styled-element-grid v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]' column_count="8">
+      <styled-background-line >giklllllll</styled-background-line>
     </styled-element-grid>
-    <g-kabob color="yellow" align="center" bg_color="blue" width="300" border="true" height="90">i am a kabob</g-kabob>
+    <g-kabob color="yellow" align="center" bg_color="red" width="300" border="true" height="90">i am a kabob</g-kabob>
     <g-svg
         path="leaves-a.svg" width="80"
         color="rebeccapurple"
@@ -18,9 +19,12 @@ import gSvg from './components/ui/gSvg.vue'
 import {StyledBackgroundLine} from './components/ui/styledElement.vue'
 import gKabob from './components/ui/gKabob.vue'
 import {StyledGrid} from './components/ui/styledElement.vue'
+import {vTW} from './directives'
 
 Vue.component('styled-element-grid', StyledGrid);
 import chroma from "chroma-js";
+Vue.directive("tw",vTW)
+////v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]'
 
 //const f=chroma.scale('Spectral');
 //const f=chroma.scale(['yellow', 'red', 'green']);

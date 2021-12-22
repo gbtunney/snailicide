@@ -28,6 +28,7 @@ export {
     isInteger,
 } from './src/scripts/_type'
 
+export {randomInt,getRandomNumber} from './src/scripts/_number'
 export {
     transformExplodeArray,
     replaceCharacters,

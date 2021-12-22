@@ -43,11 +43,9 @@
 import Vue from 'vue';
 import gSvg from './components/ui/gSvg.vue'
 import gKabob from './components/ui/gKabob.vue'
-import styledElement, {StyledElementSvg } from './components/ui/styledElement.vue'
-import {StyledGrid}  from './components/ui/styledElementWrapper.vue'
+import styledElement, {StyledElementSvg,StyledGrid ,StyledBackgroundLine} from './components/ui/styledElement.vue'
 
 import chroma from "chroma-js";
-import StyledBackgroundLine from "./components/ui/styledElementGradient.vue";
 //const f=chroma.scale('Spectral');
 //const f=chroma.scale(['yellow', 'red', 'green']);
 //classes(5)

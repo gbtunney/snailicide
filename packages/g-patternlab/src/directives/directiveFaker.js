@@ -1,8 +1,8 @@
 import faker from "faker"
-
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 //import {sentenceCase} from '../scripts/stringUtils'
+import {sentenceCase} from "@snailicide/g-library";
 
 export  const vFaker = {
     bind: function (el, binding, vnode) {
@@ -31,7 +31,7 @@ const getFakeString = function (_arg = false, _value = false, _variant = false) 
 }
 const formatString = function (str, format = false) {
     if (!format) return str
-    if (format == 'cap') return str // sentenceCase(str)
+    if (format == 'cap') return sentenceCase(str)
     else if (format == 'uppercase') return String(str).toUpperCase();
     else if (format == 'lowercase') return String(str).toLowerCase();
     return str

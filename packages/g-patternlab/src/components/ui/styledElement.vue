@@ -4,7 +4,6 @@ import styled from 'vue-styled-components'
 import colorThemeMixin, {getColorCssUnit} from "../../mixins/ColorMixins";
 import dimensionsMixin, {getDistanceCssUnit} from "../../mixins/DimensionsMixin";
 import {cleanBooleanType} from "@snailicide/g-library";
-import {getCSSString} from "../../mixins/AddlClassMixins";
 import {wrapperFlex, wrapperGrid} from "@/mixins/WrapperMixins";
 
 /* * getCSSString function  * */
