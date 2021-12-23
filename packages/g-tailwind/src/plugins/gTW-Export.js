@@ -1,5 +1,6 @@
 const flattenColorPalette = require("tailwindcss/lib/util/flattenColorPalette")
     .default;
+var _ = require("lodash");
 
 const defaultVariablesNames = {
     colors: "color",
@@ -27,39 +28,66 @@ const defaultVariablesNames = {
 
 module.exports = ({addUtilities, addComponents, theme, config, variants}) => {
     const flatten_colors = flattenColorPalette(theme('colors'));
-    //const flatten_text = flattenColorPalette(theme('colors'));
-    const exampleObj =
-        {
-            'backgroundColor': 'bg',
-            'borderColor': 'border',
-            'textColor': 'text',
-            'textColor': 'fg-fill'
-        }
-    const colorTypeObject = Array.from(Object.entries(exampleObj)).map(function ([key, value]) {
-        //theme('screens', {})
-        let variantsArr = variants(key)
-         const newvariantsArr  = variantsArr.reduce((accumulator, currentValue, currentIndex, array) => {
-           return [...accumulator, ...(currentValue == "responsive") ? Object.keys(theme('screens', {})) : [currentValue] ]
-         }, []);
-        return {
-            prefix: value,
-            variants: newvariantsArr
-        }
-    })
-    let colorDataObject = {}
 
-     const tw_color_export = Object.entries(flatten_colors).reduce((accumulator, currentValue, currentIndex, array) => {
-         const [_key, _value] = currentValue
-       return { ...accumulator, ...{ [ _key ]:_value}}
-     }, {});
-   /* const tw_color_export = Array.from(Object.entries(flatten_colors)).map((value, key) => {
-        const [_key, _value] = value
-        return {...colorDataObject, ...{[_key]: _value}}
-    })*/
-    const colorObject = {
-        swatches: tw_color_export,
-        types: colorTypeObject
+    let modifiedConfig = {...config('theme'), colors: flatten_colors}
+    modifiedConfig = {...modifiedConfig, fontSize: flattenFontSize(config('theme.fontSize'))}
+    modifiedConfig = {...modifiedConfig, fontFamily: flattenFontFamily(config('theme.fontFamily'))}
+    const newKeys = {
+        ...defaultVariablesNames, ...{
+            colors: ['bg', 'border', 'text'],
+            fontFamily: ["font"],
+            fontSize: ["text"],
+            padding: ["p", "px", "py", "pt", "pb", "pl", "pr"],
+            margin: ["m", "mx", "my", "mt", "mb", "ml", "mr"],
+            width: ["w"],
+            height: ["h"]
+        }
     }
-    console.log(JSON.stringify(colorObject, null, "  "))
+    modifiedConfig = {...modifiedConfig, keys: newKeys}
+    writeToFile(modifiedConfig)
 };
+const flattenFontSize = (obj) => {
+    console.log("flattening font size@@@", obj)
+    return Object.entries(obj).reduce((prevObj, [key, value]) => {
+        const [fontSize, options] = Array.isArray(value) ? value : [value];
+        const {lineHeight, letterSpacing} = _.isPlainObject(options)
+            ? options
+            : {
+                lineHeight: options,
+            };
 
+        return {
+            ...prevObj,
+            [key]: fontSize,
+            ...(lineHeight === undefined
+                ? {}
+                : {
+                    [`${key}-line-height`]: lineHeight,
+                }),
+            ...(letterSpacing === undefined
+                ? {}
+                : {
+                    [`${key}-letter-spacing`]: letterSpacing,
+                }),
+        };
+    }, {});
+};
+const flattenFontFamily = (obj) => {
+    return Object.entries(obj).reduce((prevObj, [key, value]) => {
+        return {
+            ...prevObj,
+            [key]: value.join(","),
+        };
+    }, {});
+};
+const writeToFile = function (obj, path = 'tailwindDump.json') {
+    const fs = require('fs');
+    let data = JSON.stringify(obj, null, 4);
+    //todo: resolve path
+    fs.writeFile(path, data, (err) => {
+        if (err) throw err;
+        console.log('Data written to file');
+    });
+
+    console.log('This is after the write call');
+}
