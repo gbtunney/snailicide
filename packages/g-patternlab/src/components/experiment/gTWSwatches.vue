@@ -1,10 +1,11 @@
 <template>
   <div class="gTWSwatches font-style-sm-caps">
     <div v-for="(swatch, name,index) in TW_Swatches" :key="index">
-      <h1 v-text="name"></h1>
+      <!-- swatch group name --->
+      <h1 v-text="name"/>
       <hr>
-      <ul class="flex" :style="GridStyle">
-        <li v-for="(item,index ) in swatch" :key="index" class="w-1/8 m-1">
+      <styled-grid as="ul" :columns="10">
+        <li v-for="(item,index ) in swatch" :key="index" class="w-full">
           <div class="p-2 flex flex-column justify-end" :style="getStyle(item.hex_color)" style="flex-direction: column;justify-content: space-between;">
             <p class="text-lg" v-text="item.name"/>
             <ul class="border border-opacity-80 border-primary border-1 border-solid m-0">
@@ -15,20 +16,23 @@
             </ul>
           </div>
         </li>
-      </ul>
+        </styled-grid>
     </div>
   </div>
 </template>
 <script>
 import * as R from 'ramda'
-
-import twcolors from "./../../data/twcolors.json"
+import * as RA from "ramda-adjunct"
+import twcolors from "./../../../tailwindDump.json"
 import chroma from "chroma-js";
-import {isInteger} from "../../scripts/generic";
+import {isInteger}  from "@snailicide/g-library";
+import {StyledGrid} from "@/components/ui/styledElement";
 
 export default {
   name: "gTWSwatches",
-  components: {},
+  components: {
+    StyledGrid
+  },
   data: function () {
     return {}
   },
@@ -38,7 +42,7 @@ export default {
      */
     column_count: {
       type: [Number, Boolean, String],
-      default: 6
+      default: 12
     },
     /** Height
      * String with unit, int will have px added
@@ -76,23 +80,17 @@ export default {
   },
   computed: {
     TW_Swatches() {
-      const {swatches = {}, types = []} = twcolors
-      return  this.groupByPrefix(Array.from(Object.entries(swatches)).map(function ([key, value]) {
+      const {colors = {}, keys :{ colors:colorkey=[] } } = twcolors
+      return  this.groupByPrefix(Array.from(Object.entries(colors)).map(function ([key, value]) {
             return {
               name: key,
               hex_color: value,
-              classes: types.map(function ({prefix}) {
+              classes: RA.ensureArray(colorkey).map(function (prefix) {
                 return `${prefix}-${key}`
               })
             }
           }
       ))
-    },
-    GridStyle: function () {
-      return {
-        ...(this.$props.column_count && isInteger(this.$props.column_count)) ? {'grid-template-columns': `repeat(${this.$props.column_count}, 1fr)`} : {},
-        'display': 'grid'
-      }
     },
   }
 }
@@ -109,4 +107,3 @@ Tailwind Color Swatches
 ```
 
 </docs>
-

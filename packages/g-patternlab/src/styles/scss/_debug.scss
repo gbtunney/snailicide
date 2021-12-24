@@ -1,0 +1,55 @@
+@mixin debug-boundaries-parent() {
+	* > & {
+		border: 2px solid red;
+		background: yellow;
+	}
+	background: orange;
+}
+
+@mixin debug-boundaries-children( $color: blue ) {
+	background: rgba($color,.5);
+	border: 2px solid $color;
+
+
+	& > * {
+		$invert: invert($color);
+		background: rgba($invert,.5);
+		border: 2px solid $invert;
+	}
+}
+
+@mixin debug-boundaries-grandchildren( $color: yellow) {
+
+	background: rgba($color,.5);
+	border: 2px solid $color;
+
+
+	& > * {
+		$invert: invert($color);
+		background: rgba($invert,.5);
+		border: 2px solid $invert;
+
+		& > * {
+			border: 2 px solid blue;
+		}
+	}
+}
+
+@mixin debug-class-names(){
+
+
+	&  * {
+		&:before {
+			content: attr(class);
+			background: green;
+			height: 40px;
+			width: 40px;
+			color:red;
+		}
+	}
+	//        [class^="g_"],
+	//        [class*=" g_"]
+	//[class="g_gallery"] {
+	//            outline: 5px solid cyan;
+
+}

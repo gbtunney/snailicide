@@ -10,6 +10,7 @@
     "testapp": "yarn --cwd apps/testapp serve",
     "lib:test": "yarn --cwd packages/g-library test:watch",
     "lib:build": "yarn --cwd packages/g-library build",
+    "lib:docs": "yarn --cwd packages/g-library docs",
     "ui:test": "yarn --cwd packages/g-patternlab test:watch",
     "ui:build": "yarn --cwd packages/g-patternlab build",
     "ui:serve": "yarn --cwd packages/g-patternlab serve",

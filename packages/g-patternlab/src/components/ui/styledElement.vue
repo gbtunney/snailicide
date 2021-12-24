@@ -5,26 +5,7 @@ import colorThemeMixin, {getColorCssUnit} from "../../mixins/ColorMixins";
 import dimensionsMixin, {getDistanceCssUnit} from "../../mixins/DimensionsMixin";
 import {cleanBooleanType} from "@snailicide/g-library";
 import {wrapperFlex, wrapperGrid} from "@/mixins/WrapperMixins";
-
-/* * getCSSString function  * */
-export const getCSSString = function (value = false, property = false) {
-  value = cleanBooleanType(value);
-  if (RA.isBoolean(value)) return ""
-  return (value === false || property === false) ? "" : `${property}:${value};`
-}
-
-/* * getSvgString * */
-const getSvgString = function (props = false) {
-  return `svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    & path, & g, & rect, & circle {
-       ${getCSSString(props.color, "fill")}
-       ${getCSSString(props.bg_color, "background-color")}
-    }
-  }`
-}
+import {getCSSString} from "@/mixins/FunctionMixins";
 
 /* *  getLineString * */
 const getLineString = function (props = false) {
@@ -91,30 +72,11 @@ const _StyledBackgroundLine = styled(_StyledElement, {...GRADIENT_LINE_PROPS})`
 `;
 export const StyledBackgroundLine = _StyledBackgroundLine
 
-/* * Styled Grid
-* @extends StyledElement _StyledGrid StyledGrid Wrapper Component  * */
-const _StyledGrid = styled(_StyledElement, {...wrapperGrid.props})`
-  display: grid;
-  ${props => (props.column_count) ? getCSSString(`repeat(${props.column_count}, 1fr)`, "grid-template-columns") : ""};
-  ${props => (props.row_count) ? getCSSString(`repeat(${props.row_count}, 1fr)`, "grid-template-rows") : ""};
-`;
-export const StyledGrid = _StyledGrid
-
-/* * Styled Flex
-* @extends StyledElement _StyledFlex - StyledFlex Wrapper Component  * */
-const _StyledFlex = styled(_StyledElement, {...wrapperFlex.props})`
-  display: flex;
-  ${props => (props.direction) ? getCSSString(`${props.direction}`, "flex-direction") : ""};
-  ${props => (props.wrap !== true) ? getCSSString('wrap', "flex-wrap") : getCSSString('nowrap', "flex-wrap")};
-  ${props => (props.justify) ? getCSSString(`${props.justify}`, "justify-content") : ""};
-  ${props => (props.align) ? getCSSString(`${props.align}`, "align-items") : ""};
-`;
-export const StyledFlex = _StyledFlex
 
 export default {
   name: "styledElement",
   extends: _StyledElement,
-  mixins: [colorThemeMixin, dimensionsMixin,wrapperFlex],
+  mixins: [colorThemeMixin, dimensionsMixin],
 }
 </script>
 <docs lang="md">

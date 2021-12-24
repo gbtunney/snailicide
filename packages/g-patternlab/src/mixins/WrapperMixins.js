@@ -3,14 +3,21 @@ export const wrapperGrid = {
      * Sets the Column count
      */
     props: {
-        column_count: {
+        columns: {
             default: false,
             type: [Boolean, Number, String]
         },
         /**
          * Sets the row count
          */
-        row_count: {
+        rows: {
+            default: false,
+            type: [Boolean, Number, String]
+        },
+         /**
+          * Grid Gap
+          */
+        grid_gap: {
             default: false,
             type: [Boolean, Number, String]
         }

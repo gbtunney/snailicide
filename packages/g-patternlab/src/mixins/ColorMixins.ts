@@ -3,20 +3,17 @@
  */
 import * as RA from "ramda-adjunct"
 import chroma from "chroma-js";
-import {transformString, validateString,cleanBooleanType } from "@snailicide/g-library";
+import {getCssPropertyUnit} from "@/mixins/FunctionMixins";
 
 const css_blacklist = [" ", ";", "var(", ")"]
 //todo: allowed values
 const Color_Var_Prefix = ['--color-']
 
-export const getColorCssUnit = function (value: string | boolean): string | boolean {
-    value = cleanBooleanType(value);
-    if (RA.isNotString(value)) return false
-    const cleanedColorString = transformString(value, css_blacklist)
-    if (chroma.valid(cleanedColorString)) return chroma(cleanedColorString).hex()
-    if (validateString(cleanedColorString, "--", "startsWith")) return `var(${cleanedColorString})`
-    return cleanedColorString
+export function getColorCssUnit(value: string | boolean ): string | boolean {
+    const cleanedColorString = getCssPropertyUnit(value)
+    return ( RA.isString(value)  && chroma.valid(cleanedColorString) ) ? chroma(cleanedColorString).hex() : cleanedColorString
 }
+
 export const colorThemeMixin = {
     props: {
         /**

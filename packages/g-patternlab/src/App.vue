@@ -1,15 +1,26 @@
 <template>
   <div id="app">
-    <h2 v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]'>Test element ello!!!!!</h2>
-    <styled-element-grid v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]' column_count="8">
-      <styled-background-line >giklllllll</styled-background-line>
-    </styled-element-grid>
-    <g-kabob color="yellow" align="center" bg_color="red" width="300" border="true" height="90">i am a kabob</g-kabob>
-    <g-svg
-        path="leaves-a.svg" width="80"
-        color="rebeccapurple"
-        :classes="'p-4   w-full '" bg_color="orange"
-        wrapper-el="div" border="true"/>
+    <test-extended color="red">Gillian was hhere</test-extended>
+    <gTWSwatches  :height="200">Tailwind</gTWSwatches>
+    <g-class-finder>
+      <h2 v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]'>Test element ello!!!!!</h2>
+      <styled-element-grid v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]' column_count="8">
+        <styled-background-line >giklllllll</styled-background-line>
+      </styled-element-grid>
+      <g-kabob color="yellow" align="center" classes="p-8 bg-accent-secondary" width="300" border="true" height="90">i am a kabob</g-kabob>
+      <g-svg
+          path="leaves-a.svg" width="80"
+          color="rebeccapurple"
+          :classes="'p-4  '" bg_color="orange"
+          wrapper-el="div" border="true"/>
+      <h2 class="">Heading 1</h2>
+      <ul class="bg-accent-primary-dk hi-svg-test">
+        <li>LIST 1</li>
+        <li>LIST 1</li>
+        <li class="bg-accent-primary-dk">LIST 1</li>
+      </ul>
+    </g-class-finder>
+
   </div>
 </template>
 
@@ -20,11 +31,18 @@ import {StyledBackgroundLine} from './components/ui/styledElement.vue'
 import gKabob from './components/ui/gKabob.vue'
 import {StyledGrid} from './components/ui/styledElement.vue'
 import {vTW} from './directives'
+import gClassFinder from './components/experiment/gClassFinder.vue';
+import TestExtended  from './components/experiment/TestExtended';
+import gTWSwatches from './components/experiment/gTWSwatches.vue';
 
 Vue.component('styled-element-grid', StyledGrid);
+
 import chroma from "chroma-js";
 Vue.directive("tw",vTW)
 ////v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]'
+console.log( "hjnkjhh", chroma('#efc618').name())
+
+//efc618
 
 //const f=chroma.scale('Spectral');
 //const f=chroma.scale(['yellow', 'red', 'green']);
@@ -36,8 +54,14 @@ export default Vue.extend({
   components: {
     gSvg,
     StyledBackgroundLine,
-    gKabob
-  }, methods: {
+    gKabob,
+    gClassFinder,gTWSwatches,
+    TestExtended
+  },
+  data: function () {
+    return { strSearch: "bg-"}
+  },
+  methods: {
     getColor(value) {
       return f(value).hex()
     }
