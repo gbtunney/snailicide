@@ -1,27 +1,15 @@
 <template>
-
 	<button :style="styles" @click="handleClick">
-   <g-svg>I am an svg</g-svg>
 		<!-- @slot Use this slot to place the button content -->
-		<slot>
-
-
-    </slot>
+		<slot></slot>
 	</button>
 </template>
 
 <script>
 import sizeMixin from './sizeMixin'
-import gSvg from  '@snailicide/g-patternlab'
-import Vue from "vue";
-
-Vue.component('g-svg', gSvg);
-
-
 export default {
 	name: 'app-button',
 	mixins: [sizeMixin],
-  components:[],
 	props: {
 		/**
 		 * Sets the button font color
