@@ -1,4 +1,4 @@
-export const wrapperGrid = {
+export const layoutGridMixin = {
     /**
      * Sets the Column count
      */
@@ -24,7 +24,7 @@ export const wrapperGrid = {
     },
 }
 
-export const wrapperFlex = {
+export const layoutFlexMixin = {
     props: {
         /**
          * Sets the flex direction
@@ -60,4 +60,4 @@ export const wrapperFlex = {
     },
 }
 
-export default wrapperFlex
+export default layoutFlexMixin

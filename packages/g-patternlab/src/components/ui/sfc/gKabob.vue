@@ -40,26 +40,25 @@
 </template>
 <script>
 import Vue from "vue";
-import styledElement  from './styledElement'
-import {StyledFlex,StyledBackgroundLine}  from './styledElement'
+import StyledElement,{StyledContainerFlex,StyledBackgroundLine}  from '../styled'
 
-import{addlClassNames} from './../../mixins/AddlClassMixins'
-import {wrapperFlex} from "./../../mixins/WrapperMixins"
-import {colorThemeMixin, getColorCssUnit} from './../../mixins/ColorMixins'
-import dimensionsMixin, {getDistanceCssUnit} from "./../../mixins/DimensionsMixin";
+import{addlClassNames} from '../../../mixins/AddlClassMixins'
+import {layoutFlexMixin} from "../../../mixins/LayoutContainerMixins"
+import {colorThemeMixin, getColorCssUnit} from '../../../mixins/ColorMixins'
+import dimensionsMixin, {getDistanceCssUnit} from "../../../mixins/DimensionsMixin";
 
 import gSVG from './gSvg.vue'
 
 Vue.component('g-svg', gSVG);
-Vue.component('styled-element', styledElement);
-Vue.component('styled-element-flex', StyledFlex);
+Vue.component('styled-element', StyledElement);
+Vue.component('styled-element-flex', StyledContainerFlex);
 Vue.component('styled-background-line', StyledBackgroundLine);
 
  //
 export default {
   name: "gKabob",
   components: {},
-  mixins: [colorThemeMixin, dimensionsMixin,addlClassNames,wrapperFlex],
+  mixins: [colorThemeMixin, dimensionsMixin,addlClassNames,layoutFlexMixin],
   data: function () {
     return {}
   },

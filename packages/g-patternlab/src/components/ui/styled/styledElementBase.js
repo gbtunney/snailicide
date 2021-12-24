@@ -1,17 +1,17 @@
 import styled from "vue-styled-components";
-import {getCSSString} from "../../mixins/FunctionMixins";
-import colorThemeMixin, {getColorCssUnit} from "../../mixins/ColorMixins";
-import dimensionsMixin, {getDistanceCssUnit} from "../../mixins/DimensionsMixin";
+import {getCSSString} from "../../../mixins/FunctionMixins";
+import colorThemeMixin, {getColorCssUnit} from "../../../mixins/ColorMixins";
+import dimensionsMixin, {getDistanceCssUnit} from "../../../mixins/DimensionsMixin";
 import {cleanBooleanType} from "@snailicide/g-library";
 
 //************** _StyledElement Base component  *****************//
 
 /* * base props * */
-export const PROPS = {
+const props = {
     ...colorThemeMixin.props, ...dimensionsMixin.props
 }
 
-const _StyledElement = styled('div', {...PROPS})`
+const _StyledElement = styled('div', {...props})`
   ${props => getCSSString(getColorCssUnit(props.color), "color")};
   ${props => getCSSString(getColorCssUnit(props.bg_color), "background-color")};
 

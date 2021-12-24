@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import StyledClassFinder from './styled-class-finder.vue';
+import StyledClassFinder from './styled/styledClassFinder';
 import Vue from "vue";
 
 Vue.component('styled-class-finder', StyledClassFinder);

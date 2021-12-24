@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <test-extended color="red">Gillian was hhere</test-extended>
     <gTWSwatches  :height="200">Tailwind</gTWSwatches>
     <g-class-finder>
       <h2 v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]'>Test element ello!!!!!</h2>
@@ -26,16 +25,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import gSvg from './components/ui/gSvg.vue'
-import {StyledBackgroundLine} from './components/ui/styledElement.vue'
-import gKabob from './components/ui/gKabob.vue'
-import {StyledGrid} from './components/ui/styledElement.vue'
+import gSvg from './components/ui/sfc/gSvg.vue'
+import {StyledBackgroundLine} from './components/ui/styled'
+import gKabob from './components/ui/sfc/gKabob.vue'
+import {StyledContainerGrid} from './components/ui/styled'
 import {vTW} from './directives'
 import gClassFinder from './components/experiment/gClassFinder.vue';
-import TestExtended  from './components/experiment/TestExtended';
 import gTWSwatches from './components/experiment/gTWSwatches.vue';
 
-Vue.component('styled-element-grid', StyledGrid);
+Vue.component('styled-element-grid', StyledContainerGrid);
 
 import chroma from "chroma-js";
 Vue.directive("tw",vTW)
@@ -56,7 +54,6 @@ export default Vue.extend({
     StyledBackgroundLine,
     gKabob,
     gClassFinder,gTWSwatches,
-    TestExtended
   },
   data: function () {
     return { strSearch: "bg-"}

@@ -43,7 +43,7 @@
 import Vue from 'vue';
 import gSvg from './components/ui/gSvg.vue'
 import gKabob from './components/ui/gKabob.vue'
-import styledElement, {StyledElementSvg,StyledGrid ,StyledBackgroundLine} from './components/ui/styledElement.vue'
+import styledElement, {StyledElementSvg,StyledContainerGrid ,StyledBackgroundLine} from './components/styled'
 
 import chroma from "chroma-js";
 //const f=chroma.scale('Spectral');
@@ -54,7 +54,7 @@ const f = chroma.scale(['yellow', 'red', 'green']).classes(8)
 export default Vue.extend({
   name: 'App',
   components: {
-    StyledGrid,
+    StyledContainerGrid,
     gSvg,
     gKabob,
     StyledElementSvg,

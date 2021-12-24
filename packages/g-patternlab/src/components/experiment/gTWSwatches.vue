@@ -4,7 +4,7 @@
       <!-- swatch group name --->
       <h1 v-text="name"/>
       <hr>
-      <styled-grid as="ul" :columns="10">
+      <styled-container-grid as="ul" :columns="10">
         <li v-for="(item,index ) in swatch" :key="index" class="w-full">
           <div class="p-2 flex flex-column justify-end" :style="getStyle(item.hex_color)" style="flex-direction: column;justify-content: space-between;">
             <p class="text-lg" v-text="item.name"/>
@@ -16,7 +16,7 @@
             </ul>
           </div>
         </li>
-        </styled-grid>
+        </styled-container-grid>
     </div>
   </div>
 </template>
@@ -26,12 +26,12 @@ import * as RA from "ramda-adjunct"
 import twcolors from "./../../../tailwindDump.json"
 import chroma from "chroma-js";
 import {isInteger}  from "@snailicide/g-library";
-import {StyledGrid} from "@/components/ui/styledElement";
+import {StyledContainerGrid} from "@/components/ui/styled";
 
 export default {
   name: "gTWSwatches",
   components: {
-    StyledGrid
+    StyledContainerGrid
   },
   data: function () {
     return {}
