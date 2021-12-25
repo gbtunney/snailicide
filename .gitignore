@@ -105,7 +105,4 @@ dist
 # TernJS port file
 .tern-port
 compiler.0a41ffdd.js
-packages/g-patternlab/src/stories
-packages/g-patternlab/styleguide/build
-packages/g-patternlab/styleguide
 apps/styleguide/styleguide/build/
