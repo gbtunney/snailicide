@@ -1,8 +1,9 @@
 //todo: upgrade postcss + tailwind?????
 const path = require('path')
 const colors = require('tailwindcss/colors')
+const chroma = require('chroma-js')
+
 //const getPluginConfig=require(path.join(__dirname, '/src/tailwind/twGetPluginConfig.js'))
-//const custom_colors=require(path.join(__dirname, '/src/config/tw-colors.json'))
 const boolPURGE = false
 const mergeSystemFont = function (_family, _system_family = DEFAULT_FONTS.serif) {
     return [_family, ..._system_family]
@@ -39,8 +40,40 @@ const DEFAULT_TW_COLORS = {
 }
 
 ///**** PROJECT CUSTOM (BASE) COLORS **** uses numbers for shades. ***///
-const CUSTOM_BASE_COLORS = require(path.join(__dirname, '/src/config/tw-colors.json'))
+const colorScaleObj = {
+    "newgumleaf": {
+        _default: "afd3c2"
+    },
+    "gradient": {
+        scale: ['yellow', 'red', 'black'],
+        _default: 'red',
+        colors: 9
+    },
+    "potter-winkle": {
+        _default: 'CCCCFF'
+    }
+}
+const mappedColorScaleObj = Object.entries(colorScaleObj).reduce((accumulator, [key, value], currentIndex, array) => {
+    let {scale = true, _default} = value
+    scale = (scale === true) ? [chroma(_default).luminance(0).hex(), chroma(_default).luminance(0.5).hex(), chroma(_default).luminance(1).hex()] : scale
+    const scalebal = colorscale({
+        ...value, "_name": key, scale
+    })
+    return {...accumulator, ...scalebal}
+}, {});
 
+function colorscale({scale = [], _name = "notset", _default = false, colors = 5}) {
+    const _scale = chroma.scale(scale).correctLightness().colors(colors)
+    const flattenedScale = Object.entries(_scale).reduce((accumulator, [key, value], currentIndex, array) => {
+        return {...accumulator, ...{[`${(parseInt(key) + 1)}00`]: value}}
+    }, {["DEFAULT"]: _default});
+    return {[_name]: flattenedScale}
+}
+
+const CUSTOM_BASE_COLORS = {
+    ...require(path.join(__dirname, '/src/config/tw-colors.json')),
+    ...mappedColorScaleObj
+}
 
 ///**** PROJECT CUSTOM (BRAND) COLORS **** use base values to reference ***///
 const CUSTOM_THEME_COLORS = {
@@ -125,7 +158,7 @@ const PLUGIN_CONFIG = {
         source: require(path.join(__dirname, '/src/plugins/gSVG.js'))
     },
     'tw-export': {
-        enabled: false,
+        enabled: true,
         source: require(path.join(__dirname, '/src/plugins/gTW-Export.js'))
     },
     'rotate': false,
