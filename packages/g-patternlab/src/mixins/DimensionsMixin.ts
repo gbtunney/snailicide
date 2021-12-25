@@ -1,13 +1,10 @@
 /**
  * @mixin
  */
-import * as RA from "ramda-adjunct"
-import {transformString, validateString} from "@snailicide/g-library";
-import {cleanBooleanType} from "@snailicide/g-library";
-import {getCssPropertyUnit} from "@/mixins/FunctionMixins";
+import {getCssPropertyUnit} from "./FunctionMixins";
 
-const Distance_Var_Prefix = ['--w-', '--h-']
-const Distance_Unit_Strings = [...Distance_Var_Prefix, 'var(', 'calc(', 'auto', 'initial']
+//const Distance_Var_Prefix = ['--w-', '--h-']
+//const Distance_Unit_Strings = [...Distance_Var_Prefix, 'var(', 'calc(', 'auto', 'initial']
 
 export function getDistanceCssUnit(value: string | boolean | number, defaultvalue = 1): string | boolean {
    return getCssPropertyUnit(value,defaultvalue,"px" )

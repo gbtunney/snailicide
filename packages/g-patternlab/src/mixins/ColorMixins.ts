@@ -3,11 +3,11 @@
  */
 import * as RA from "ramda-adjunct"
 import chroma from "chroma-js";
-import {getCssPropertyUnit} from "@/mixins/FunctionMixins";
+import {getCssPropertyUnit} from "./FunctionMixins";
 
-const css_blacklist = [" ", ";", "var(", ")"]
+//const css_blacklist = [" ", ";", "var(", ")"]
 //todo: allowed values
-const Color_Var_Prefix = ['--color-']
+//const Color_Var_Prefix = ['--color-']
 
 export function getColorCssUnit(value: string | boolean ): string | boolean {
     const cleanedColorString = getCssPropertyUnit(value)
