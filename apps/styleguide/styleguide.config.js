@@ -1,31 +1,39 @@
 const path = require("path");
+const glob = require("glob")
+const  Minimatch = require("minimatch").Minimatch
+
 let packagePath =require.resolve('@snailicide/g-patternlab').replace('/index.js', '')
 const gPatternLabPath = path.join(packagePath,"src")
 
+let twpackagePath =require.resolve('@snailicide/g-tailwind').replace('/index.js', '')
+
+//dist/css/app.0c023b9f.css
+
 module.exports = {
 	// set your styleguidist configuration here
-	title: 'Default Style Guide',
+	title: 'Snail Style Guide',
 	// components: 'src/components/**/[A-Z]*.vue',
 	// defaultExample: true,
 	 sections: [
-	 {
-	    name: 'First Section',
-	    components: 'src/components/**/[A-Z]*.vue'
-	  },
 		 {
-			 name: 'Secojd Section',
-			 components: `${gPatternLabPath}/AppButton.vue`
-		 },
-		 {
-			 name: 'UI',
-			 components: `${gPatternLabPath}/components/ui/sfc/*.vue`
+			 name:"UI Components",
+			 sections:[
+				 {
+					 name: 'SFC',
+					 components: `${gPatternLabPath}/components/ui/sfc/*.vue`
+				 },
+				 {
+					 name: 'Styled Components',
+					 components: `${gPatternLabPath}/components/ui/styled/docs/*.vue`
+				 }
+			 ]
 		 }
 	 ],
 	// webpackConfig: {
 	//   // custom config goes here
 	// },
-	exampleMode: 'expand',
+
 	require: [
-		path.join(gPatternLabPath ,'/main.styleguide.js')
+		path.join(twpackagePath,"dist/css/app.0c023b9f.css")
 	]
 }

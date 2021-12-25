@@ -1,9 +1,9 @@
 <template functional>
   <styled-element-flex class="g-kabob"
+      :as="props.wrapperEl"
       :direction="props.direction"
       :align="props.align"
       :class="$options.getClasses(props.classes)"
-      :as="props.wrapperEl"
       :bg_color="props.bg_color"
       :color="props.color"
       :width="props.width"
@@ -20,8 +20,8 @@
           :height="props.height"
       />
     </slot>
-    <styled-background-line width="100%" :color=" props.hr === true ? props.color: false" >
-      <styled-element :bg_color="props.bg_color" class="inline-block p-px" width="auto" >
+    <styled-background-line width="100%" class="flex justify-center" :color=" props.hr === true ? props.color: false">
+      <styled-element :bg_color="props.bg_color" class="inline-flex p-px" width="auto">
         <slot>
           <div v-text="empty"/>
         </slot>
@@ -40,9 +40,9 @@
 </template>
 <script>
 import Vue from "vue";
-import StyledElement,{StyledContainerFlex,StyledBackgroundLine}  from '../styled'
+import StyledElement, {StyledContainerFlex, StyledBackgroundLine} from '../styled'
 
-import{addlClassNames} from '../../../mixins/AddlClassMixins'
+import {addlClassNames} from '../../../mixins/AddlClassMixins'
 import {layoutFlexMixin} from "../../../mixins/LayoutContainerMixins"
 import {colorThemeMixin, getColorCssUnit} from '../../../mixins/ColorMixins'
 import dimensionsMixin, {getDistanceCssUnit} from "../../../mixins/DimensionsMixin";
@@ -54,31 +54,9 @@ Vue.component('styled-element', StyledElement);
 Vue.component('styled-element-flex', StyledContainerFlex);
 Vue.component('styled-background-line', StyledBackgroundLine);
 
- //
 export default {
   name: "gKabob",
-  components: {},
-  mixins: [colorThemeMixin, dimensionsMixin,addlClassNames,layoutFlexMixin],
-  data: function () {
-    return {}
-  },
-  getColorCssUnit(value) {
-    return getColorCssUnit(value)
-  },
-  getDistanceCssUnit(value) {
-    return getDistanceCssUnit(value)
-  },
-  local_styles(_direction, _align_content = false) {
-    return {
-      "display": "flex",
-      "flex-direction": _direction,
-      ...(_align_content !== false)
-          ? (_direction == "column")
-              ? {"justify-content": _align_content}
-              : {"align-items": _align_content}
-          : {}
-    }
-  },
+  mixins: [colorThemeMixin, dimensionsMixin, addlClassNames, layoutFlexMixin],
   props: {
     /**
      * Sets the svg wrapper element ( div, span, etc )
@@ -109,13 +87,7 @@ export default {
       default: '100%',
       type: [String, Number, Boolean],
     },
-    /** direction
-     * @values row, column
-     */
-
-
   }
-
 }
 //todo: SCOPED is wierd on style
 </script>
@@ -127,12 +99,13 @@ export default {
 
 <docs lang="md">
 ## Examples
-
 Kabob Divider (using css properties):
-
 ```jsx
-<g-kabob  classes="w-1/12 fg-fill-accent-secondary-dk bg-accent-primary"></g-kabob>
-
+<g-kabob path="divider.svg"
+    width="100%"
+    height="20"
+    color="--color-primary"
+    :hr="true"/>
 ```
 Icon with Tailwind color
 
@@ -141,11 +114,11 @@ Icon with Tailwind color
     classes="p-2 "
     height="20"
     color="orange"
-    bg_color="blue"
+    bg_color="--color-gumleaf-800"
     border="true"
     border_size="2"
-    :hr="false"
-><h2>I am gillian</h2>
+    :hr="true"
+><h2>Test Kabob</h2>
 </g-kabob>
 
 ```
