@@ -1,6 +1,6 @@
 import {cleanBooleanType, cleanIntegerType, isInteger} from "@/scripts/_type"
 import {batchtest} from "../helpers";
-
+import {getPaths} from '@/scripts/_paths'
 const generic_test_values = [
     'gillian',
     {testobj: "testing!!!!"},
@@ -32,5 +32,84 @@ describe("Function libTest", () => {
         expect(isInteger('3')).toEqual(true)
         expect(isInteger(true)).toEqual(false)
         expect(isInteger(["22", 4])).toEqual(false)
+    });
+});
+
+describe("Get Paths ", () => {
+    test("getPaths", () => {
+        const colors_obj = {"colors":
+                {"corn": {
+                "50"
+            :
+                "#fefcf3",
+                    "100"
+            :
+                "#fdf9e8",
+                    "200"
+            :
+                "#fbf1c5",
+                    "300"
+            :
+                "#f9e8a3",
+                    "400"
+            :
+                "#f4d75d",
+                    "500"
+            :
+                "#efc618",
+                    "600"
+            :
+                "#d7b216",
+                    "700"
+            :
+                "#b39512",
+                    "800"
+            :
+                "#8f770e",
+                    "900"
+            :
+                "#75610c",
+                    "DEFAULT"
+            :
+                "#efc618"
+            }, "gumleaf": {
+                "50"
+            :
+                "#fbfdfc",
+                    "100"
+            :
+                "#f7fbf9",
+                    "200"
+            :
+                "#ebf4f0",
+                    "300"
+            :
+                "#dfede7",
+                    "400"
+            :
+                "#c7e0d4",
+                    "500"
+            :
+                "#afd3c2",
+                    "600"
+            :
+                "#9ebeaf",
+                    "700"
+            :
+                "#839e92",
+                    "800"
+            :
+                "#697f74",
+                    "900"
+            :
+                "#56675f",
+                    "DEFAULT"
+            :
+                "#afd3c2"
+            }}}
+        const obj = {a: {x: 1, y: 3}, b: {c: 2, d: {x: 3}, e: {f: {x: 5, g: {x: 3}}}}}
+        const result = [[], ["a"], ["a", "x"], ["a", "y"], ["b"], ["b", "c"], ["b", "d"],
+   ["b", "d", "x"], ["b", "e"], ["b", "e", "f"], ["b", "e", "f", "x"], ["b", "e", "f", "g"], ["b", "e", "f", "g", "x"]]
+      expect(getPaths(obj)).toEqual(result);
     });
 });

@@ -14,10 +14,14 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "docs": "jsdoc --configure jsdoc.json",
+    "docs:test": "jsdoc -X ./public/index.html > jsdoc-ast.json",
     "docs:build": "jsdoc --configure jsdoc.json"
   },
   "dependencies": {
+    "better-docs": "^2.3.2",
+    "chroma-js": "^2.1.2",
     "core-js": "^3.6.5",
+    "modular-scale": "^5.1.2",
     "ramda": "^0.27.1",
     "ramda-adjunct": "^2.35.0",
     "vue": "^2.6.11"
@@ -43,6 +47,5 @@
     "vue-template-compiler": "^2.6.11"
   },
   "_id": "@snailicide/g-library@1.0.0",
-  "license": "MIT",
   "readme": "ERROR: No README data found!"
 }

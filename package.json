@@ -19,7 +19,8 @@
     "ui:vsg": "yarn --cwd packages/g-patternlab styleguide:build",
     "ui:sbbuild": "yarn --cwd packages/g-patternlab storybook:build",
     "tw:serve": "yarn --cwd packages/g-tailwind serve",
-    "tw:build": "yarn --cwd packages/g-tailwind build"
+    "tw:build": "yarn --cwd packages/g-tailwind build",
+    "twv" : "yarn --cwd apps/tw-viewer tailwind-config-viewer"
   },
   "author": "Gillian Tunney",
   "license": "ISC",
