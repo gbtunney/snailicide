@@ -23,7 +23,6 @@ const ALL_MODELS = [
 ]
 
 export const Models = ALL_MODELS;
-
 export {
     Product,
     Variant,

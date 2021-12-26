@@ -1,6 +1,11 @@
-import {cloneObject} from "../scripts/generic";
+//import {cloneObject} from "../scripts/generic";
+import * as R from "ramda"
+import * as RA from "ramda-adjunct"
 
-const R =window.R
+///this file is a mess. pls fix
+/*export function getClone(mode = false, idList = []) {
+    return cloneObject(this.$toJson(), mode, idList)
+}*/
 
 /** FUNCTIONS ORM * */
 import {ProductInstanceBase} from "../models";
@@ -29,10 +34,7 @@ export function updateWhereID(where = {}, values = false) {
         where: 2,
         data: { age: 24 }
     })*/
-
-
     if (!values || R.isEmpty(where)) return false;
-
     const predWhere = R.whereEq(where);
     //todoL    ??????????
     ProductInstanceBase.update({
@@ -42,8 +44,6 @@ export function updateWhereID(where = {}, values = false) {
         data: {active: true}
     })
 }
-
-
 
 ///DEMO FUNCTION
 //MOVE TO ACTION?? wtf??????????
@@ -60,9 +60,7 @@ export function updateWhere(where = {}, values = false) {
 }
 
 ///** STATIC METHHIDS KEEP!!!!!! */  ////MOVE IDK ????
-export function getClone(mode = false, idList = []) {
-    return cloneObject(this.$toJson(), mode, idList)
-}
+
 //DEMO FUNCTION
 //REMOVE?
 /*export function getProductByObject(where={}) {
@@ -87,11 +85,10 @@ export function getModel(instance = false, store_ref = false, key = "entity") { 
         return instance.$store().$db().model(entityString);
     } else if (R.is(String, instance)) entityString = instance; //is string
     if (!entityString || !store_ref) return false
-    let db = (store_ref.$store)
+    const db = (store_ref.$store)
         ? store_ref.$store.$db() :
         (store_ref.$db()) ? store_ref.$db() : false
     if (db) return store_ref.$store.$db().model(entityString);
-    return
 }
 
 //DEMO FUNCTION get multiple where

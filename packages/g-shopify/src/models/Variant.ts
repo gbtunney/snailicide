@@ -1,7 +1,7 @@
 /* * Variant *
 * @model  - Variant
 * @entity  - variants */
-
+import * as R from "ramda"
 import {Model} from '@vuex-orm/core'
 import {getRandomNumber, slugify} from "./../scripts/generic"
 import {Product, ProductImage, ProductOptionValue, VariantOption} from "./"
@@ -14,7 +14,7 @@ export class Variant extends Model {
   static entity = 'variants';
 
   static beforeCreate(model) {
-    let temp_option_array = []
+    const temp_option_array = []
     if (model.option1) temp_option_array.push(`[${model.product_id},"${model.option1}"]`);
     if (model.option2) temp_option_array.push(`[${model.product_id},"${model.option2}"]`);
     if (model.option3) temp_option_array.push(`[${model.product_id},"${model.option3}"]`);
@@ -64,9 +64,9 @@ export class Variant extends Model {
   }
   get Image() {
     //only pulls the image once.
-    let _id = this.id;
+    const _id = this.id;
     if (this.image) return this.image;
-    let result = ProductImage.query().whereHas('Variants', (query) => {
+    const result = ProductImage.query().whereHas('Variants', (query) => {
       query.where('id', _id)
     }).with('Variants').first()
    /* if (result && result.id){

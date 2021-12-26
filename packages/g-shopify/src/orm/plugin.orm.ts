@@ -5,21 +5,18 @@ import VuexORMisDirtyPlugin from '@vuex-orm/plugin-change-flags';
 import VuexORMSearch from "@vuex-orm/plugin-search";
 
 import settings from "./../settings.json"
-
 import {registerModels} from "./database";
-import {registerGlobalVariable} from "../scripts/vuehelpers";
-import {importantConsoleLog} from "../scripts/generic";
+import {registerGlobalVariable,importantConsoleLog} from "@snailicide/g-library";
 
 const {SHOPIFY_BASE_URL}= settings
 
 export const PluginOrm = {
     install (Vue, options = {}) {
-       // if (install.installed) return
-       // install.installed = true
 
         registerGlobalVariable('axios',axios)
         console.important = importantConsoleLog;
 
+        //************** Register ORM Plugins  *****************//
         VuexORM.use( VuexORMAxios, {
             axios,
             baseURL: SHOPIFY_BASE_URL
@@ -36,14 +33,5 @@ export const PluginOrm = {
             exposeFlagsExternally: false
         })
 
-        // const finalOptions = {}
-        //merge(finalOptions, defaultOptions, options)
-
-        //plugin.options = finalOptions
-        //vtooltip.options = finalOptions
-
-        //  Vue.directive('tooltip', vtooltip)
-        // Vue.directive('close-popover', vclosepopover)
-        // Vue.component('VPopover', Popover)
     }
 }

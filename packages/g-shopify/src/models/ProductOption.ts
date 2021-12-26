@@ -21,15 +21,16 @@
 * */
 
 //todo: import {ID_LENGTH} from "../settings";
+import * as R from "ramda"
 import {Model} from '@vuex-orm/core'
-import {Product, ProductImage} from "./"
-import Variant from './Variant'
 import chroma from "chroma-js"
 
-import {getRandomNumber, slugify} from "./../scripts/generic"
-import settings from "./../settings.json"
-const {UID_LENGTH} = settings
+import {Product, ProductImage} from "./"
+import Variant from './Variant'
 
+import {getRandomNumber, slugify} from "@snailicide/g-library"
+import settings from "./../../settings.json"
+const {UID_LENGTH} = settings
 
 //************** End Imports *****************//
 

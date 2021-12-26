@@ -13,10 +13,9 @@ export const isInteger = (value: any):boolean => (RA.isValidNumber(toInteger(val
  *      cleanIntegerType('2px', true)
  *      => 2.0
 */
-export function cleanIntegerType(value = false , removeNonDigits = false):any {
+export function cleanIntegerType(value :any= false , removeNonDigits = false):any {
     if (RA.isNotString(value) || !stringContainsNumber(value)) return value
     const castToNumber :number= parseInt((value).toString())
-    // @ts-expect-error dont know
     return (removeNonDigits === true || (castToNumber).toString() === value) ? castToNumber : value
 }
 

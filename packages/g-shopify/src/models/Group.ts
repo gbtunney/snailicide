@@ -18,8 +18,8 @@
 
 import {Model} from '@vuex-orm/core'
 import {ProductInstanceSingle, LineItem} from './'
-import {getRandomNumber} from "../scripts/generic";
-import settings from "./../settings.json";
+import {getRandomNumber} from "@snailicide/g-library";
+import settings from "./../../settings.json";
 const {UID_LENGTH} = settings
 
 const R = window.R;
@@ -98,7 +98,7 @@ export class Cart extends ProductGroupBase {
     static apiConfig = {
         actions: {
             updateItems(item_array, useServer = true) {
-                let _items = item_array;
+                const _items = item_array;
                 if (useServer) {
                     Cart.commit((state) => {
                         state.fetching = true
@@ -115,13 +115,13 @@ export class Cart extends ProductGroupBase {
             },
             addItems(item_array, useServer = true) {
 
-                let _items = item_array;
+                const _items = item_array;
 
                 if (useServer) {
                     Cart.commit((state) => {
                         state.fetching = true
                     })
-                    let convertedItems = _items.map(function (_item) {
+                    const convertedItems = _items.map(function (_item) {
                         return _item.NewLineItem;
                     })
                     return this.post(`/cart/add.js`,
@@ -133,7 +133,7 @@ export class Cart extends ProductGroupBase {
                 } else {
                     ///TODO: THIS IS KIND OF BROKEN.
                     console.log("SERVER :: ADD ITEMS  ", _items)
-                    let newArr = _items.map(function (_item) {
+                    const newArr = _items.map(function (_item) {
                         let cleaned = _item.$toJson();
 
                         if (_item.quantity) cleaned =

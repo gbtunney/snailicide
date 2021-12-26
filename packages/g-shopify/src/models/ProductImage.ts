@@ -1,7 +1,7 @@
 /* * ProductImage *
 * @model  - ProductImage
 * @entity  - productimages */
-
+import * as R from "ramda"
 import {Model} from '@vuex-orm/core'
 import {Product} from './'
 import Variant from './Variant'

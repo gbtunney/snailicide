@@ -2,13 +2,11 @@
  * @model Product
  * @entity - products */
 
-import {Model} from '@vuex-orm/core'
+
 import {ProductImage, ProductOption, ProductOptionValue, VariantOption} from './index'
 import Variant from './Variant'
-import {axios_wait, getRandomNumber, isInteger, randomInt, slugify, toInteger} from "./../scripts/generic";
-import {isShopifyID} from "../scripts/shopify";
 
-const R = window.R
+
 //todo: get this from settings
 import settings from "./../settings.json"
 const {UID_LENGTH} = settings
@@ -41,7 +39,7 @@ export class Product extends Model {
                             return APITransformProductData(response.data.product)
                         }
                     }
-                ).then(value => axios_wait(randomInt(6000, 9000), value))
+                )//.then(value => axios_wait(randomInt(6000, 9000), value))
             },
             fetchAll() {
                 Product.commit((state) => {
@@ -51,7 +49,7 @@ export class Product extends Model {
                 return this.get(`/products.json`,
                     {
                         dataTransformer: (response) => {
-                            let _products = response.data.products;
+                            const _products = response.data.products;
                             if (_products.length > 0) return _products.map(function (_product) {
                                 return APITransformProductData(_product)
                             })
@@ -75,7 +73,7 @@ export class Product extends Model {
             vendor: this.string(null),
             product_type: this.string(null),
             tags: this.attr([], function (value) {
-                var newarr = value.toString().split(',');
+                const newarr = value.toString().split(',');
                 return newarr.map(function (item) {
                     return item.toString().trim();
                 })
@@ -111,7 +109,7 @@ export class Product extends Model {
     ///get the parent options
     getOption(value = false) {
         if (!value || R.isEmpty(value)) return
-        var _optionHandle = false
+        let _optionHandle = false
 
         if (R.is(Object, value) && value['handle']) {
             _optionHandle = value['handle']
@@ -132,8 +130,8 @@ export class Product extends Model {
                        sortBy = 'title',
                        colorCompareHex= '#FF0000') {
         if (!value || R.isEmpty(value)) return
-        var _optionParentHandle = false
-        var _query;
+        let _optionParentHandle = false
+        let _query;
         if (R.is(Object, value) && value['handle']) {
             _optionParentHandle = value['handle']
         }
@@ -170,7 +168,7 @@ export class Product extends Model {
     //************** STATIC METHODS  *****************//
     /** Any product handle to ID  */
     static productHandleToID(handle) {
-        var _product = Product.query().where("handle", handle).first();
+        const _product = Product.query().where("handle", handle).first();
         if (_product && _product.id && isShopifyID(_product.id)) return toInteger(_product.id)
         return false;
     }
@@ -189,13 +187,13 @@ export class Product extends Model {
 /*INCOMING DATA: n*/ //TODO: shoud be switched to static method.
 export const APITransformProductData = function (_product) {
     //make id public
-    let product_ID = _product.id;
+    const product_ID = _product.id;
     let option_arr = []
     if (_product.options) {
 
         option_arr = _product.options.map(function (_option) {
-            let parent = _option;
-            let expandedValues = _option.values.map(function (value, index) {
+            const parent = _option;
+            const expandedValues = _option.values.map(function (value, index) {
                 return {
                     product_id: product_ID, ///from parent
                     sid: parent.id, //hthhihs shhould probs  be an option id
@@ -206,7 +204,7 @@ export const APITransformProductData = function (_product) {
                 }
             })
             //new parent option props
-            let newOptionProps = {
+            const newOptionProps = {
                 sid: _option.id,
                 handle: slugify(_option.name),
                 title: _option.name,

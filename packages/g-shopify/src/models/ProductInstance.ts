@@ -26,10 +26,9 @@ import settings from "./../settings.json"
 const {EDITABLE_DEFAULTS, SELECTION_MODE_OPTIONS} = options
 const {UID_LENGTH} = settings
 
-import {isShopifyID} from "../scripts/shopify"
-import {getRandomNumber, toInteger} from "../scripts/generic"
+import {isShopifyID} from "./../scripts/shopify"
+import {getRandomNumber,toInteger} from "@snailicide/g-library";
 
-const R = window.R
 //************** End Imports *****************//
 
 const BASE_ENTITY = 'productbase' //todo: change name
