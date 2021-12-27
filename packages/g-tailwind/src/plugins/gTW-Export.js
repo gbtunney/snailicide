@@ -29,25 +29,31 @@ const defaultVariablesNames = {
 module.exports = ({addUtilities, addComponents, theme, config, variants}) => {
     const flatten_colors = flattenColorPalette(theme('colors'));
 
-    let modifiedConfig = {...config('theme'), colors: flatten_colors}
-    modifiedConfig = {...modifiedConfig, fontSize: flattenFontSize(config('theme.fontSize'))}
-    modifiedConfig = {...modifiedConfig, fontFamily: flattenFontFamily(config('theme.fontFamily'))}
+    function * getPaths(o, p = []) {
+        yield p
+        if (Object(o) === o)
+            for (let k of Object .keys (o))
+                yield * getPaths (o[k], [...p, k])
+    }
+    console.log("flattened",[...getPaths(theme('colors'))])
+    let modifiedConfig = { config: config('theme')}
+   // modifiedConfig = {...modifiedConfig, fontSize: flattenFontSize(config('theme.fontSize'))}
+   // modifiedConfig = {...modifiedConfig, fontFamily: flattenFontFamily(config('theme.fontFamily'))}
     const newKeys = {
         ...defaultVariablesNames, ...{
             colors: ['bg', 'border', 'text'],
-            fontFamily: ["font"],
-            fontSize: ["text"],
+            fontFamily: "font",
+            fontSize: "text",
             padding: ["p", "px", "py", "pt", "pb", "pl", "pr"],
             margin: ["m", "mx", "my", "mt", "mb", "ml", "mr"],
-            width: ["w"],
-            height: ["h"]
+            width: "w",
+            height: "h"
         }
     }
     modifiedConfig = {...modifiedConfig, keys: newKeys}
     writeToFile(modifiedConfig)
 };
 const flattenFontSize = (obj) => {
-    console.log("flattening font size@@@", obj)
     return Object.entries(obj).reduce((prevObj, [key, value]) => {
         const [fontSize, options] = Array.isArray(value) ? value : [value];
         const {lineHeight, letterSpacing} = _.isPlainObject(options)

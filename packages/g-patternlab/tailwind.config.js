@@ -8,7 +8,7 @@ const boolPURGE = false
 
  const PLUGIN_CONFIG = {
     'typography': {
-        enabled: true,
+        enabled: false,
         source: require('@tailwindcss/typography'),
     },
     'forms': {
@@ -27,7 +27,7 @@ const boolPURGE = false
     },
     'tw-export': {
         source: gTWExport,
-        enabled: false,
+        enabled: true,
     },
     'rotate': false,
     'icons': false,
@@ -39,7 +39,7 @@ module.exports = {
     },
     darkMode: false, // or 'media' or 'class'
     theme: theme,
-    variants: variants,
+    variants: [],
     plugins: getPluginConfig(PLUGIN_CONFIG)
 }
 /*const obj = {

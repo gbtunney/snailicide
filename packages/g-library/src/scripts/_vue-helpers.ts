@@ -8,7 +8,7 @@ import * as RA from "ramda-adjunct"
 * @example
  *      registerGlobalVariable('faker', import )
 */
-export function registerGlobalVariable(key: string=false, value: object|boolean=false): void {
+export function registerGlobalVariable(key:boolean|string=false, value: object|boolean=false): void {
     if ( RA.isNotString(key) || value === false )return
     Vue[`$${key}`] = value
     Vue.prototype[`$${key}`] = value
