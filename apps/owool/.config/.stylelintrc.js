@@ -20,8 +20,12 @@ module.exports = {
      * add custom rules
      * docs: https://stylelint.io/user-guide/rules/list
      */
+    'no-duplicate-selectors': null,
+    'no-extra-semicolons':null,
+    'block-no-empty':null,
+    'font-family-no-missing-generic-family-keyword': null,
+    'function-linear-gradient-no-nonstandard-direction': null,
     'at-rule-no-unknown': null,
     'no-descending-specificity': null
-  },
-  customSyntax: 'postcss-html'
+  }
 }

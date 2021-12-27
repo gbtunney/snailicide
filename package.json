@@ -20,7 +20,10 @@
     "ui:sbbuild": "yarn --cwd packages/g-patternlab storybook:build",
     "tw:serve": "yarn --cwd packages/g-tailwind serve",
     "tw:build": "yarn --cwd packages/g-tailwind build",
-    "twv" : "yarn --cwd apps/tailwind-config-viewer serve"
+    "twv" : "yarn --cwd apps/tailwind-config-viewer serve",
+    "shopify" : "yarn --cwd packages/g-shopify serve",
+    "owool" : "yarn --cwd apps/owool start"
+
   },
   "author": "Gillian Tunney",
   "license": "ISC",

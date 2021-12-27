@@ -1,9 +1,40 @@
 /**
  * imports
  */
-import { createApp } from 'vue'
-import { createStore } from 'vuex'
-import './css/main.css'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
+
+/*
+import {gVueUtils} from "gbt-shopify/src/library/plugin/gVueUtils.plugin";
+import init from "gbt-shopify/src/library/plugin/init"
+import store from '@lib/store'
+*/
+
+//import './css/main.css'
+import './styles/scss/main.scss'
+// import './styles/scss/timber.scss'
+// import './styles/scss/theme.scss'
+
+/* * STYLES * */
+//import '@lib/styles/scss/tailwind.scss'
+//import '@lib/styles/project/project.scss'
+import 'vue-select/dist/vue-select.css'
+import '@storefront-ui/vue/styles.scss'
+Vue.use(Vuex)
+
+/* * 3rd party plugins * */
+import VTooltip from "v-tooltip";
+import Clipboard from 'v-clipboard'
+Vue.use(VTooltip)
+Vue.use(Clipboard)
+
+/* * Custom Project Vue Init Stuff * */
+import {gVueUtils} from "@lib/plugin/gVueUtils.plugin";
+import init from "@lib/plugin/init"
+import store from '@lib/store'
+Vue.use(gVueUtils,init)
+Vue.use(Vuex)
 
 /**
  * vuex
@@ -12,67 +43,57 @@ import './css/main.css'
 const vuexModules = require.context('./vue/store/', true, /\.js$/)
 const modules = {}
 
+
 vuexModules.keys().forEach(key => {
-  const name = key.replace(/\.(\/|js)/g, '').replace(/\s/g, '-')
-  modules[name] = vuexModules(key).default
+    const name = key.replace(/\.(\/|js)/g, '').replace(/\s/g, '-')
+    modules[name] = vuexModules(key).default
 })
 
-const store = createStore({
-  strict: process.env.NODE_ENV !== 'production',
-  modules
-})
+var router = new VueRouter({
+    mode: 'history',
+    routes: []
+});
+
+/**
+ * create vue instance
+ */
 
 /**
  * create vue instance function
  */
 const createVueApp = () => {
-  const app = createApp({})
 
-  /**
-   * vue components
-   * auto-import all vue components
-   */
-  const vueComponents = require.context('./vue/components/', true, /\.(vue|js)$/)
+    const app = Vue
+    /**
+     * vue components
+     * auto-import all vue components
+     */
+    const vueComponents = require.context('./vue/components/', true, /\.(vue|js)$/)
 
-  vueComponents.keys().forEach(key => {
-    const component = vueComponents(key).default
 
-    // if a component has a name defined use the name, else use the path as the component name
-    const name = component.name
-      ? component.name
-      : key.replace(/\.(\/|vue|js)/g, '').replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase())
+    vueComponents.keys().forEach(key => {
+        const component = vueComponents(key).default
 
-    app.component(name, component)
-  })
+        // if a component has a name defined use the name, else use the path as the component name
+        const name = component.name
+            ? component.name
+            : key.replace(/\.(\/|vue|js)/g, '').replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase())
+        console.log("installing" , name ,component)
+        app.component(name, component)
+    })
 
-  /**
-   * vue mixins
-   * auto-register all mixins with a 'global' keyword in their filename
-   */
-  const mixins = require.context('./vue/mixins/', true, /.*global.*\.js$/)
+    /**
+     * vue directives
+     * auto-register all directives with a 'global' keyword in their filename
+     */
+    const directives = require.context('./vue/directives/', true, /.*global.*\.js$/)
 
-  mixins.keys().forEach(key => {
-    app.mixin(mixins(key).default)
-  })
+    directives.keys().forEach(key => {
+        const directive = directives(key).default
+        app.directive(directive.name, directive.directive)
+    })
 
-  /**
-   * vue directives
-   * auto-register all directives with a 'global' keyword in their filename
-   */
-  const directives = require.context('./vue/directives/', true, /.*global.*\.js$/)
-
-  directives.keys().forEach(key => {
-    const directive = directives(key).default
-    app.directive(directive.name, directive.directive)
-  })
-
-  /**
-   * vue plugins
-   * extend with additional features
-   */
-  app.use(store)
-
-  return app
+    return app
 }
 
 /**
@@ -81,10 +102,19 @@ const createVueApp = () => {
 const appElement = document.querySelector('#app')
 
 if (appElement) {
-  createVueApp().mount(appElement)
+    Vue.use(store)
+    Vue.use(gVueUtils, init)
+    createVueApp()
+    console.log("Hihih",init)
+
+    new Vue({
+        el: '#app',
+        store,
+        router
+    })
 } else {
-  const vueElements = document.querySelectorAll('[vue]')
-  if (vueElements) vueElements.forEach(el => createVueApp().mount(el))
+    //\\const vueElements = document.querySelectorAll('[vue]')
+    // if (vueElements) vueElements.forEach(el => createVueApp().mount(el))
 }
 
 /**
@@ -99,10 +129,15 @@ if (appElement) {
  * }
  * {% endschema %}
  */
-if (Shopify.designMode) {
+/*if (Shopify.designMode) {
   document.addEventListener('shopify:section:load', (event) => {
     if (event.target.classList.value.includes('vue')) {
-      createVueApp().mount(event.target)
+      new Vue({
+        el: event.target,
+        store,
+        router
+      })
+    //  createVueApp().mount(event.target)
     }
   })
 } else if (!Shopify.designMode && process.env.NODE_ENV === 'development') {
@@ -115,4 +150,4 @@ if (Shopify.designMode) {
     childList: true,
     subtree: true
   })
-}
+}*/

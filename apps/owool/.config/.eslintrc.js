@@ -3,13 +3,13 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 module.exports = {
   extends: [
     'eslint:recommended',
-    'plugin:vue/vue3-recommended' // use 'plugin:vue/vue3-essential' for less strict linting rules - https://eslint.vuejs.org/rules
+    'plugin:vue/recommended' // use 'plugin:vue/vue3-essential' for less strict linting rules - https://eslint.vuejs.org/rules
   ],
   plugins: [
     'vue'
   ],
   parserOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 2022,
     sourceType: 'module'
   },
   env: {
@@ -34,6 +34,9 @@ module.exports = {
      * add custom rules
      * docs: https://eslint.org/docs/rules
      */
+    'vue/no-deprecated-filter':'off',
+    'vue/no-unused-vars':'off',
+    'vue/no-deprecated-slot-scope-attribute':'off',
     'no-unused-vars': isDevelopment ? 'off' : 'error',
     // 'quotes': ['error', 'single'],
     // 'semi': ['error', 'never']

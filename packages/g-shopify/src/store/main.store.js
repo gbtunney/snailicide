@@ -31,7 +31,6 @@ export const store = new Vuex.Store({
     actions: {},
     modules: {
         global: globalSettings,
-        page_styler2: modulePageStyler,
         productloader: moduleProductLoader,
         orm: ormmodule
     },
