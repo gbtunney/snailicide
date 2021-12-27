@@ -1,23 +1,7 @@
+node_modules/
 .DS_Store
-node_modules
-/dist
+*.log
 
-
-# local env files
-.env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# ignore all files inside shopify/assets/ except files with 'static' keyword in their filename
+shopify/assets/*
+!shopify/assets/*static*
