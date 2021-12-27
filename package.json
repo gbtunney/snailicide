@@ -22,8 +22,9 @@
     "tw:build": "yarn --cwd packages/g-tailwind build",
     "twv" : "yarn --cwd apps/tailwind-config-viewer serve",
     "shopify" : "yarn --cwd packages/g-shopify serve",
-    "owool" : "yarn --cwd apps/owool start"
-
+    "owool" : "yarn --cwd apps/owool start",
+    "dep:list" : "find . -name 'node_modules' -type d -prune",
+    "dep:rm":"find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
   },
   "author": "Gillian Tunney",
   "license": "ISC",
