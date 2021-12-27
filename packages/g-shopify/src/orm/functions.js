@@ -1,4 +1,3 @@
-//import {cloneObject} from "../scripts/generic";
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 
@@ -26,55 +25,6 @@ export function getEntity(instance) {
     return false
 }
 
-export function updateWhereID(where = {}, values = false) {
-
-
-   /* store.dispatch('entities/update', {
-        entity: 'users',
-        where: 2,
-        data: { age: 24 }
-    })*/
-    if (!values || R.isEmpty(where)) return false;
-    const predWhere = R.whereEq(where);
-    //todoL    ??????????
-    ProductInstanceBase.update({
-        where: (instance) => {
-            return predWhere(instance)
-        },
-        data: {active: true}
-    })
-}
-
-///DEMO FUNCTION
-//MOVE TO ACTION?? wtf??????????
-export function updateWhere(where = {}, values = false) {
-    if (!values || R.isEmpty(where)) return false;
-    const predWhere = R.whereEq(where);
-    //todoL    ??????????
-    ProductInstanceBase.update({
-        where: (instance) => {
-            return predWhere(instance)
-        },
-        data: {active: true}
-    })
-}
-
-///** STATIC METHHIDS KEEP!!!!!! */  ////MOVE IDK ????
-
-//DEMO FUNCTION
-//REMOVE?
-/*export function getProductByObject(where={}) {
-    if (  R.isEmpty(where) ) return false;
-    const predWhere = R.whereEq(where);
-    const user = Product.query()
-        .where((_record, query) => {
-            return ( predWhere(_record) ) ? _record : false
-            // query.where('age', 20).orWhere('id', 1)
-        })
-        .get()
-    console.log("seatching " ,  user)
-    return user;
-}*/
 //get model by string or instance.
 //store ref is a THHIS from any component
 export function getModel(instance = false, store_ref = false, key = "entity") {  //other 'baseEntity'
@@ -91,20 +41,49 @@ export function getModel(instance = false, store_ref = false, key = "entity") { 
     if (db) return store_ref.$store.$db().model(entityString);
 }
 
-//DEMO FUNCTION get multiple where
-//REMOVE?
-export function getProductByObject(where = {}) {
-    /* if (R.isEmpty(where)) return false;
-     const predWhere = R.whereEq(where);
-     const user = Product.query()
-         .where((_record, query) => {
-             return (predWhere(_record)) ? _record : false
-             // query.where('age', 20).orWhere('id', 1)
-         })
-         .get()
-     console.log("seatching ", user)
-     return user;*/
+/* store.dispatch('entities/update', {
+     entity: 'users',
+     where: 2,
+     data: { age: 24 }
+ })*/
+export function updateWhereID(where = {}, values = false) {
+    if (!values || R.isEmpty(where)) return false;
+    const predWhere = R.whereEq(where);
+    //todoL    ??????????
+    ProductInstanceBase.update({
+        where: (instance) => {
+            return predWhere(instance)
+        },
+        data: {active: true}
+    })
 }
 
+///DEMO FUNCTION
+//MOVE TO ACTION?? wtf??????????
+export function updateWhere(where = {}, values = false) {
+    if (!values || R.isEmpty(where)) return false;
+    const predWhere = R.whereEq(where);
+    ProductInstanceBase.update({
+        where: (instance) => {
+            return predWhere(instance)
+        },
+        data: {active: true}
+    })
+}
 
+///** STATIC METHHIDS KEEP!!!!!! */  ////MOVE IDK ????
+//DEMO FUNCTION
+//REMOVE?
+/*export function getProductByObject(where={}) {
+    if (  R.isEmpty(where) ) return false;
+    const predWhere = R.whereEq(where);
+    const user = Product.query()
+        .where((_record, query) => {
+            return ( predWhere(_record) ) ? _record : false
+            // query.where('age', 20).orWhere('id', 1)
+        })
+        .get()
+    console.log("seatching " ,  user)
+    return user;
+}*/
 //this.$store.$db().model('products').query().withAll().first()

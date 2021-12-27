@@ -1,11 +1,11 @@
 // {isVariantAvailable, isShopifyID, isGetMaxQuantity, shopifyMediaURL }
-
-import {getDigitCount, stringContainsNumber, toInteger} from "./generic";
+import * as RA from "ramda-adjunct"
+import {getDigitCount, toInteger} from "@snailicide/g-library";
 
 /**
  * isShopifyID
- * @constructor
  * @param {*} value - value to validate
+ * @param {number} min_digits
  * @return {boolean} bool if invalid
  * - isInteger = true AND value > 9 digits */
 export function isShopifyID(value = false, min_digits =9) {
@@ -15,13 +15,18 @@ export function isShopifyID(value = false, min_digits =9) {
 /**
  * ShopifyMediaURL
  * @constructor
- * @param {string} src - Shopify Image url. (usually from ProductImage)
+ * @param {boolean|string} src - Shopify Image url. (usually from ProductImage)
  * @param {string}  - dimensions '100x100'
  * @param {string}- crop values : top, center,bottom,left, right
  * @return {string} - url. ? needs validate?
  * bc they make it a pain in the ass to get a specific size image. IDEA? maybe do aspect ratio instead
  */
-export function ShopifyMediaURL(src = "", width = false, height = false, crop = false,scale=false) {
+export function ShopifyMediaURL(src:string|boolean = false,
+                                width = false,
+                                height = false,
+                                crop = false,
+                                scale=false) : boolean|string {
+    if ( RA.isBoolean(src) )return false
     if (!width) return src;
     const _width = toInteger(width)
     let _height = toInteger(height)

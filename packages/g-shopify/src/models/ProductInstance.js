@@ -15,19 +15,13 @@
 * @extends {class}- ProductInstanceBase
 * @entity {string}- lineitem
 * @baseentity {string}- productbase */
-
-import {Model} from '@vuex-orm/core'
 import {Product, ProductInstanceGroup, Cart} from "./"
 import Variant from './Variant'
 
-import options from './../options.json'
-import settings from "./../settings.json"
+import {R, Model, getRandomNumber, randomInt, slugify, toInteger, isShopifyID, settings, options} from "./imports"
 
 const {EDITABLE_DEFAULTS, SELECTION_MODE_OPTIONS} = options
 const {UID_LENGTH} = settings
-
-import {isShopifyID} from "./../scripts/shopify"
-import {getRandomNumber,toInteger} from "@snailicide/g-library";
 
 //************** End Imports *****************//
 
@@ -196,7 +190,7 @@ export class LineItem extends ProductInstanceBase {
                         }
                     }
                 )
-            },
+            }
         }
     }
 }

@@ -16,13 +16,10 @@
  * @entity  - cart
  * * @baseentity  - productgroupbase */
 
-import {Model} from '@vuex-orm/core'
+import {R, Model, getRandomNumber, randomInt, slugify, toInteger, isShopifyID, settings, options} from "./imports"
 import {ProductInstanceSingle, LineItem} from './'
-import {getRandomNumber} from "@snailicide/g-library";
-import settings from "./../../settings.json";
-const {UID_LENGTH} = settings
 
-const R = window.R;
+const {UID_LENGTH} = settings
 
 import {isDevMode} from "../scripts/vuehelpers";
 import MockAdapter from "axios-mock-adapter";
@@ -152,7 +149,7 @@ export class Cart extends ProductGroupBase {
             },
             async fetchCart(mock = isDevMode(), useServer = true) {
                 if (mock) {
-                   const myaxios =  mockaxios("/cart", CartData)
+                    const myaxios = mockaxios("/cart", CartData)
                     return this.get("/cart").then(function (response) {
                         console.log("MOCK CART ", response);
                         myaxios.restore();

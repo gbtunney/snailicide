@@ -1,13 +1,10 @@
 /* * ProductImage *
 * @model  - ProductImage
 * @entity  - productimages */
-import * as R from "ramda"
-import {Model} from '@vuex-orm/core'
+import {R, Model, getRandomNumber, randomInt, slugify, toInteger, isShopifyID, settings, options} from "./imports"
 import {Product} from './'
 import Variant from './Variant'
-import {ShopifyMediaURL} from "./../scripts/shopify"
-import {getRandomNumber} from "../scripts/generic"
-import settings from "./../settings.json"
+
 const {UID_LENGTH} = settings
 
 export class ProductImage extends Model {
@@ -54,6 +51,7 @@ export class ProductImage extends Model {
         return ShopifyMediaURL(this.src, ...args);
     }
 }
+
 export default ProductImage
 /* SRC SET!!!!!!!!!
     [

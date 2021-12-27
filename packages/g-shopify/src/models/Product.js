@@ -3,12 +3,10 @@
  * @entity - products */
 
 
-import {ProductImage, ProductOption, ProductOptionValue, VariantOption} from './index'
-import Variant from './Variant'
+import {ProductImage, ProductOption, ProductOptionValue, VariantOption, Variant} from './index'
+//import Variant from './Variant'
+import {R, Model, getRandomNumber, randomInt, slugify, toInteger, isShopifyID, settings, options} from "./imports"
 
-
-//todo: get this from settings
-import settings from "./../settings.json"
 const {UID_LENGTH} = settings
 
 export class Product extends Model {
@@ -92,6 +90,7 @@ export class Product extends Model {
              download: this.hasOne()(ProductMetaAttr,  id) */
         }
     }
+
     //************** GETTERS  *****************//
     get Images() {
         return ProductImage.query().where("product_id", this.id).orderBy('position').with('Variants.options.Variants').all()
@@ -128,7 +127,7 @@ export class Product extends Model {
     getOptionValueList(value = false,
                        relations = true,
                        sortBy = 'title',
-                       colorCompareHex= '#FF0000') {
+                       colorCompareHex = '#FF0000') {
         if (!value || R.isEmpty(value)) return
         let _optionParentHandle = false
         let _query;
@@ -148,19 +147,19 @@ export class Product extends Model {
         if (relations == true) return _query.withAll().all();
         if (relations == false) return _query.all();
         if (R.is(String, relations)) return _query.with(relations).all();
-     /*   _query.map(function(value){
-            value.compareColor( colorCompareHex )
-                //const orderedArray = inventors.sort((personA, personB) => personA.year > personB.year ? 1 : -1)
-        })*/
+        /*   _query.map(function(value){
+               value.compareColor( colorCompareHex )
+                   //const orderedArray = inventors.sort((personA, personB) => personA.year > personB.year ? 1 : -1)
+           })*/
         return false
     }
 
-     createVariantOptionPivot() {
+    createVariantOptionPivot() {
         const _variants = Variant.query().where("product_id", this.id).with('options').all()
         const product_pivot = _variants.reduce((accumulator, currentValue, currentIndex, array) => {
             return [...accumulator, ...currentValue.pivots]
         }, []);
-         VariantOption.create({
+        VariantOption.create({
             data: product_pivot
         })
     }
@@ -198,7 +197,7 @@ export const APITransformProductData = function (_product) {
                     product_id: product_ID, ///from parent
                     sid: parent.id, //hthhihs shhould probs  be an option id
                     handle: slugify(value), //for some reason this doesnt property apply mutation for handle.
-                    parent_handle : slugify(_option.name),
+                    parent_handle: slugify(_option.name),
                     title: value,
                     position: (index + 1),
                 }

@@ -1,9 +1,6 @@
 /* eslint-disable */
-import {Model} from '@vuex-orm/core'
-import {getRandomNumber} from "../scripts/generic"
-import settings from "./../settings.json"
 const {UID_LENGTH} = settings
-
+import {R,Model,getRandomNumber, randomInt, slugify,toInteger,isShopifyID,settings,options} from "./imports"
 export default class ProductMetaAttr extends Model {
     static entity = 'productmetaattrs'
     static fields() {
