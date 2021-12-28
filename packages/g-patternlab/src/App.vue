@@ -32,6 +32,7 @@ import {StyledContainerGrid} from './components/ui/styled'
 import {vTW} from './directives'
 import gClassFinder from './components/experiment/gClassFinder.vue';
 import gTWSwatches from './components/experiment/gTWSwatches.vue';
+import {cleanBooleanType,validateString,transformString} from "@snailicide/g-library";
 
 Vue.component('styled-element-grid', StyledContainerGrid);
 

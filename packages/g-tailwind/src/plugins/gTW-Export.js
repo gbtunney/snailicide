@@ -35,7 +35,7 @@ module.exports = ({addUtilities, addComponents, theme, config, variants}) => {
             for (let k of Object .keys (o))
                 yield * getPaths (o[k], [...p, k])
     }
-    console.log("flattened",[...getPaths(theme('colors'))])
+  //  console.log("flattened",[...getPaths(theme('colors'))])
     let modifiedConfig = { config: config('theme')}
    // modifiedConfig = {...modifiedConfig, fontSize: flattenFontSize(config('theme.fontSize'))}
    // modifiedConfig = {...modifiedConfig, fontFamily: flattenFontFamily(config('theme.fontFamily'))}
