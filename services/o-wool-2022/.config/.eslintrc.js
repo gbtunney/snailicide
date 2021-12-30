@@ -3,7 +3,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 module.exports = {
   extends: [
     'eslint:recommended',
-    'plugin:vue/vue3-recommended' // use 'plugin:vue/vue3-essential' for less strict linting rules - https://eslint.vuejs.org/rules
+    'plugin:vue/recommended' // use 'plugin:vue/vue3-essential' for less strict linting rules - https://eslint.vuejs.org/rules
   ],
   plugins: [
     'vue'
@@ -34,6 +34,10 @@ module.exports = {
      * add custom rules
      * docs: https://eslint.org/docs/rules
      */
+    "vue/multi-word-component-names": "off",
+    'vue/no-unused-components': process.env.NODE_ENV === "production" ? "warn" : "off",
+    'vue/no-unused-vars': "off",
+    "@typescript-eslint/no-this-alias":'off',
     'no-unused-vars': isDevelopment ? 'off' : 'error',
     // 'quotes': ['error', 'single'],
     // 'semi': ['error', 'never']

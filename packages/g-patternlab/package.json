@@ -6,6 +6,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "lib": "vue-cli-service build --target lib --inline-vue",
+    "libtest": "vue-cli-service build --target wc --name g-kabob ./src/main.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "styleguide": "vue-cli-service styleguidist",

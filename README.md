@@ -5,11 +5,13 @@
     @snailicide/styleguide
 
 ###add package 
-    yarn --cwd packages/g-tailwind add  @snailicide/g-library
-    yarn --cwd apps/styleguide add @tailwindcss/typography@0.5.0-alpha.2  @tailwindcss/forms tailwind-css-variables
+    yarn --cwd packages/g-shopify-orm add  @snailicide/g-library @snailicide/g-patternlab
+    yarn --cwd apps/styleguide add   @tailwindcss/typography@0.5.0-alpha.2  @tailwindcss/forms tailwind-css-variables
     yarn --cwd packages/g-patternlab add 
-
-yarn --cwd apps/tw-viewer add  @snailicide/g-tailwind    add tailwind-config-viewer -D
+^15.9.8
+yarn --cwd apps/o-wool-2022 add vue-select v-tooltip @snailicide/g-library @snailicide/g-patternlab  @snailicide/g-shopify-orm
+yarn --cwd packages/g-shopify-orm
+yarn --cwd packages/g-shopify-orm  apps/tw-viewer add  @snailicide/g-tailwind    add tailwind-config-viewer -D
 tailwind-config-viewer
 ###Helpful Links
 - [JSdoc Cheatsheet](https://devhints.io/jsdoc)

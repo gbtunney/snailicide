@@ -1,5 +1,5 @@
 <template functional>
-  <styled-element-flex class="g-kabob"
+  <styled-container-flex class="g-kabob"
       :as="props.wrapperEl"
       :direction="props.direction"
       :align="props.align"
@@ -36,7 +36,7 @@
           :height="props.height"
       />
     </slot>
-  </styled-element-flex>
+  </styled-container-flex>
 </template>
 <script>
 import Vue from "vue";
@@ -51,7 +51,7 @@ import gSVG from './gSvg.vue'
 
 Vue.component('g-svg', gSVG);
 Vue.component('styled-element', StyledElement);
-Vue.component('styled-element-flex', StyledContainerFlex);
+Vue.component('styled-container-flex', StyledContainerFlex);
 Vue.component('styled-background-line', StyledBackgroundLine);
 
 export default {
@@ -89,7 +89,6 @@ export default {
     },
   }
 }
-//todo: SCOPED is wierd on style
 </script>
 <style lang="postcss" type="text/css">
 .reflect-x {

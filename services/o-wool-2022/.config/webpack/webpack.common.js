@@ -3,6 +3,8 @@ const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const CopyPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   stats: 'minimal',
   entry: path.resolve(__dirname, '../../src/main.js'),
@@ -22,6 +24,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
@@ -36,12 +43,6 @@ module.exports = {
           }
         ]
       },
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-
       ... (() => {
         const rules = []
 
@@ -81,6 +82,22 @@ module.exports = {
      */
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/*', '!*static*']
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../../src/assets/svg/'),
+          to: path.resolve(__dirname, '../../shopify/assets/')
+        },
+        {
+          from: path.resolve(__dirname, '../../src/assets/fonts/'),
+          to: path.resolve(__dirname, '../../shopify/assets/')
+        },
+        {
+          from: path.resolve(__dirname, '../../src/assets/brooklyn_assets/'),
+          to: path.resolve(__dirname, '../../shopify/assets/')
+        },
+      ],
     }),
     /**
      * docs: https://webpack.js.org/plugins/mini-css-extract-plugin

@@ -14,6 +14,7 @@ module.exports = {
   },
   rules: {
     "vue/multi-word-component-names": "off",
+    'vue/no-unused-components': process.env.NODE_ENV === "production" ? "warn" : "off",
     'vue/no-unused-vars': process.env.NODE_ENV === "production" ? "warn" : "off",
     "@typescript-eslint/no-this-alias":'off',
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
