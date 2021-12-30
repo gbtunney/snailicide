@@ -11,7 +11,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['*', '.js', '.vue', '.json'],
+    extensions: ['*', '.js', '.vue', '.json','.tsx', '.ts'],
     alias: {
       /*'vue$': 'vue/dist/vue.esm-bundler.js',*/
       'vue$': 'vue/dist/vue.esm.js',
@@ -36,6 +36,12 @@ module.exports = {
           }
         ]
       },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+
       ... (() => {
         const rules = []
 
