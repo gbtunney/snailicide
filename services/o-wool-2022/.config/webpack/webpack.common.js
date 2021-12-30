@@ -2,8 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
-
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
   stats: 'minimal',
   entry: path.resolve(__dirname, '../../src/main.js'),
@@ -14,7 +13,8 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm-bundler.js',
+      /*'vue$': 'vue/dist/vue.esm-bundler.js',*/
+      'vue$': 'vue/dist/vue.esm.js',
       '@': path.resolve(__dirname, '../../src/'),
       '@shopify-directory': path.resolve(__dirname, '../../shopify/')
     }

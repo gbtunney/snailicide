@@ -30,8 +30,7 @@
   "license": "ISC",
   "workspaces": [
     "packages/*",
-    "apps/*",
-    "services/*"
+    "apps/*"
   ],
   "dependencies": {
     "cross-env": "^7.0.3"
