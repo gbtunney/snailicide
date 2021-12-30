@@ -7,7 +7,7 @@ import * as RA from "ramda-adjunct"
 }*/
 
 /** FUNCTIONS ORM * */
-import {ProductInstanceBase} from "../models";
+import {ProductInstanceBase} from "./models";
 
 /**
  * getEntity

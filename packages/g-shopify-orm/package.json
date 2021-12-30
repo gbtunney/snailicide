@@ -1,5 +1,5 @@
 {
-  "name": "g-shopify-orm",
+  "name": "@snailicide/g-shopify-orm",
   "version": "0.1.0",
   "private": true,
   "scripts": {
