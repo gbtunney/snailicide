@@ -34,5 +34,5 @@ module.exports = {
   //   // custom config goes here
   // },
 
-  require: [path.join(twpackagePath, "dist/css/app.9a327e06.css")],
+  require: [path.join(twpackagePath, "dist/css/app.css")],
 };
