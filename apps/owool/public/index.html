@@ -11,7 +11,19 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="inner">
+		<g-kabob path="leaves-a.svg"
+				height="20" color="red" bg_color="yellow" border="red"
+				:hr="false"
+		><h2 class="font-style-sm-caps">I am gillian</h2>
+		</g-kabob>
+		<product-child  handle="local" :variant_id="8" :load_handle="true">
+			<div id="shopify-section-product-template" class="flex container w-full shopify-section"
+					slot-scope="{Ready,Quantity , addToCart, QuantityAvailable,loadTest,Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,UpdateInstance,Images,Instance,UpdateVariant}">
+			{{SelectedVariant}}
+			</div>
+		</product-child>
+			</div>
     <!-- built files will be auto injected -->
   </body>
 </html>

@@ -1,14 +1,15 @@
 import Vue from "vue";
 import App from "./App.vue";
-import "./assets/tailwind.css";
-//import store from './store'
-
+import "./styles/scss/main.scss";
+import { store } from  "@snailicide/g-shopify-orm";
+import {ProductChild} from "@snailicide/g-shopify-orm"
 import plugin from "@snailicide/g-patternlab";
 
 Vue.use(plugin);
-
+Vue.component("product-child",ProductChild)
 const root_el = "inner"; /// using inner because the other liquid one errors
 const element = document.getElementById(root_el);
+
 
 /*
 new Vue({
@@ -22,8 +23,8 @@ if (
   document.getElementById(root_el) != null
 ) {
   // Exists.
-  alert();
   new Vue({
+    store,
     el: `#${root_el}`,
   });
   //   vm.$mount('#app');

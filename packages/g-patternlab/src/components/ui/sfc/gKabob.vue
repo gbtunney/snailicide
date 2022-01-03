@@ -2,7 +2,7 @@
   <styled-container-flex class="g-kabob"
       :as="props.wrapperEl"
       :direction="props.direction"
-      :align="props.align"
+      :align="(props.align) ? props.align: 'center'"
       :class="$options.getClasses(props.classes)"
       :bg_color="props.bg_color"
       :color="props.color"
