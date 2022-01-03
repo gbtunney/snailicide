@@ -8,32 +8,30 @@ module.exports = {
     extract: true,
   },
   configureWebpack: {
-    plugins: [
-      new CopyPlugin({
-        //
-        patterns: [
-          {
-            from: path.resolve(__dirname, "dist/css/app.css"),
-            to: path.resolve(__dirname, "shopify/assets/"),
-          },
-          {
-            from: path.resolve(__dirname, "dist/js/app.js"),
-            to: path.resolve(__dirname, "shopify/assets/"),
-          },
-          {
-            from: path.resolve(__dirname, "src/assets/svg/"),
-            to: path.resolve(__dirname, "shopify/assets/"),
-          },
-          {
-            from: path.resolve(__dirname, "src/assets/fonts/"),
-            to: path.resolve(__dirname, "shopify/assets/"),
-          },
-          {
-            from: path.resolve(__dirname, "src/assets/brooklyn_assets/"),
-            to: path.resolve(__dirname, "shopify/assets/"),
-          },
-        ],
-      }),
-    ],
+    plugins: [],
   },
 };
+
+if (process.env.NODE_ENV === undefined) {
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.configureWebpack.plugins = (
+    module.exports.configureWebpack.plugins || []
+  ).concat([
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "dist/css/*.css"),
+          to: path.resolve(__dirname, "shopify/assets/[name].[ext]"),
+        },
+        {
+          from: path.resolve(__dirname, "dist/js/*.js"),
+          to: path.resolve(__dirname, "shopify/assets/[name].[ext]"),
+        },
+        {
+          from: path.resolve(__dirname, "src/assets/**/*"),
+          to: path.resolve(__dirname, "shopify/assets/[name].[ext]"),
+        },
+      ],
+    }),
+  ]);
+}
