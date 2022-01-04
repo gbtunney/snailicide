@@ -9,19 +9,16 @@ const router = new VueRouter({
   mode: "history",
   routes: [],
 });
-console.log("myrouter", router);
 
 import plugin from "@snailicide/g-patternlab";
 import { store } from "@snailicide/g-shopify-orm";
 
 Vue.use(plugin);
 
-import BrooklynProductTemplate from "./components/NewDefaultProductPage.vue";
-
-Vue.component("default-product-page", BrooklynProductTemplate);
+import DefaultProductPage from "./components/product/DefaultProductPage.vue";
+Vue.component("default-product-page", DefaultProductPage);
 
 import { ProductChild } from "@snailicide/g-shopify-orm";
-
 Vue.component("product-child", ProductChild);
 
 /* * 3rd party plugins * */

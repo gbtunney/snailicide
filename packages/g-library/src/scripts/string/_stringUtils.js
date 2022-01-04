@@ -1,7 +1,11 @@
+
 /**
  * GENERAL STRING UTILS
  * @author  https://github.com/mout/mout/tree/master/src/string
  */
+ import * as RA from "ramda-adjunct";
+ import * as R from "ramda";
+
 export function lowerCase(str) {
     return (str).toString().toLowerCase()
     // return str.toLowerCase();
@@ -65,20 +69,25 @@ export function sentenceCase(str) {
  * replace spaces with the specified delimeter.
  * Does not split camelCase text.
  */
-export function slugify(str, delimeter) {
-    if (delimeter == null) {
-        delimeter = "-";
-    }
+export function slugify(value) {
+    if (value == null
+        || value == ""
+        || value == "null"
+        || value == undefined
+        || (R.type(value) == "Boolean")
+        || (R.type(value) == "Array")
+        || (R.type(value) == "Object"))
+        return;
 
-    str = replaceAccents(str);
-    str = removeNonWord(str);
-    str = trim(str) //should come after removeNonWord
-        .replace(/ +/g, delimeter) //replace spaces with delimeter
-        .toLowerCase();
-
-    return str;
+    // https://gist.github.com/mathewbyrne/1280286
+    return value.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '')             // Trim - from end of text
+        .replace(/[\s_-]+/g, '-');
 }
-
 /**
  * Replaces spaces with hyphens, split camelCase text, remove non-word chars, remove accents and convert to lower case.
  */

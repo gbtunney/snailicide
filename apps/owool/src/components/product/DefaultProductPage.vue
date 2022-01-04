@@ -127,16 +127,13 @@ export default {
     Variant: function () {
       console.log("route", this)
       return 2;
-
       //return (this.$route.query && this.$route.query.variant) ? parseInt(this.$route.query.variant) : 5;
     }
   },
   methods: {
     variantChanged(_variant) {
       console.log("route", this, this.$route)
-
       console.log("--------------------variant changed", _variant);
-
     }
   }
 }
@@ -148,7 +145,7 @@ export default {
 }
 </style>
 <style lang="scss" type="text/css" scoped>
-@import "./../styles/scss/gMixins";
+@import "./../../styles/scss/gMixins";
 
 .is_selected {
   @include includeTailwindStyles(bg-primary-dk text-white);
@@ -164,7 +161,7 @@ export default {
 </style>
 <style lang="scss" type="text/scss">
 
-@import "./../styles/scss/gMixins";
+@import "./../../styles/scss/gMixins";
 
 .sf-gallery {
   --gallery-flex-direction: column;
@@ -198,7 +195,6 @@ export default {
 
 .vs__dropdown-option--highlight {
   background-color: transparent !important;
-
   .product_option {
     $base-list: bg-accent-primary text-light-lt;
     @include includeTailwindStyles($base-list);

@@ -4,9 +4,6 @@ const _getPaths = function* (o, p = []) {
         for (const k of Object.keys(o))
             yield* _getPaths(o[k], [...p, k])
 }
-export const getPaths = (value: Object) =>( [..._getPaths(value)])
+export const getPaths = (value: any) =>( [..._getPaths(value)])
 
-export const concatPaths= function(){
-
-}
 export default getPaths

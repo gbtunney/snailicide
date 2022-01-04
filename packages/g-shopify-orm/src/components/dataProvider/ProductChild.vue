@@ -1,27 +1,22 @@
 <script>
-import {getRandomNumber, isInteger, toInteger,validateEnum} from "./../../scripts/generic"
-import {isShopifyID} from "./../../scripts/shopify"
-const R = window.R
-const RA = window.RA
-import {LoaderMixin} from './../../mixins/LoaderMixin'
+import {getRandomNumber, isInteger, toInteger} from "@snailicide/g-library"
+import * as R from "ramda"
+import * as RA from "ramda-adjunct"
+import {LoaderMixin} from './../mixins/LoaderMixin'
 
-import options from "../../options.json"
+import options from "./../../options.json"
 const {EDITABLE_DEFAULTS,LOAD_MODE,SELECTION_MODE_OPTIONS } = options
-console.log("SELECTION_MODE_OPTIONS",SELECTION_MODE_OPTIONS)
 import {
   ProductInstanceSingle,
   Product,
   Variant,
   ProductImage,
-  ProductOption,
-  ProductOptionValue,
-  VariantOption,
   Cart,
-  LineItem, ProductInstanceBase
-} from '../../orm/models'
+  ProductInstanceBase
+} from '../orm/models'
+
 import {mapState} from "vuex";
-import Vue from "vue";
-import {getEntity} from "../../orm/functions";
+import {getEntity} from "../orm/functions";
 
 const defaultInstance = ProductInstanceSingle.fields();
 
@@ -31,9 +26,7 @@ export default {
   components: {},
   data: function () {
     return {
-      _refID: false,
-      _handle: false,
-      _initialized:false,
+
     }
   },
   props: {
@@ -195,12 +188,9 @@ export default {
     },
     OptionValueList: function (option) {
       if (!this.Product || !this.Instance | !option) return false;
-     // console.log("total amoubnt if values ",option, ProductOptionValue.query().where("product_id",this.Product.id ).count() )
-
       let that = this;
       let valueListForOption = this.Product.getOptionValueList(option, "Variants|Images")
       return valueListForOption.map(function (_value) {
-      // console.log( "VALUULUU compare!!!",_value,_value.compareColor('#FF0000') )
         let variantArr = that.getVariantsByOptionValues(that.getMergedOptionArray(_value));
         let isDisabled = false;
         if (variantArr && variantArr.length == 0) isDisabled = true;
@@ -228,7 +218,7 @@ export default {
     updateOption(option) {
       if (!this.$props.enableoptions || !this.Product || !this.Product.id) return false
       let newVarArray = this.getVariantsByOptionValues(this.getMergedOptionArray(option));
-      console.log("updateOption ::: Called", newVarArray, getEntity(option) )
+      console.log("updateOption ::: Called",this.getMergedOptionArray(option),   newVarArray, getEntity(option) )
       if (newVarArray && newVarArray.length == 1) this.updateVariant(newVarArray[0])
     },
     updateVariant(variant = {}, variant_editable = (this.Instance) ? this.Instance.variant_editable : this.$props.variant_editable) {  //TODO: change this name - i hate it.
