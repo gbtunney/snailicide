@@ -39,7 +39,7 @@ import vSelect from "vue-select";
 
 Vue.component("v-select", vSelect);
 
-const root_el = "inner"; /// using inner because the other liquid one errors
+const root_el = "PageContainer"; /// using inner because the other liquid one errors
 
 /*
 new Vue({

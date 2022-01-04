@@ -3,6 +3,7 @@
 ##Packages
     @snailicide/g-library 
     @snailicide/styleguide
+open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security
 
 ###add package 
     yarn --cwd packages/g-shopify-orm add  @snailicide/g-library @snailicide/g-patternlab

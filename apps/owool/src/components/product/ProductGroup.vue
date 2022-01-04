@@ -28,8 +28,8 @@
 <script>
 
 import {SfQuantitySelector} from "@storefront-ui/vue";
-import {toInteger}  from "@snailicide/g-library"
-
+//import {toInteger}  from "@snailicide/g-library"
+import cartData from "./../../assets/data/cart.json"
 const groupData = {
   "id": 12345578899,
     "currency": "USD",
@@ -95,14 +95,15 @@ export default {
   components: {SfQuantitySelector},
   data: function () {
     return {
-      group: groupData,
+      group: cartData,
     }
   },
   props: {},
+
   methods: {
     getChildID(parent_id, index){
       const str   =`${parent_id}${index}`
-console.log("THE ID OF CHIHLD IS !!!" ,toInteger(str) )
+//console.log("THE ID OF CHIHLD IS !!!" ,toInteger(str) )
      // return toInteger(str)
 
     }

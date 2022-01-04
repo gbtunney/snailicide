@@ -1,16 +1,9 @@
 <script>
 import options from "./../../../options.json"
 const {EDITABLE_DEFAULTS } = options
-import {getRandomNumber, isInteger, toInteger} from "@snailicide/g-library"
-import * as R from "ramda"
-import * as RA from "ramda-adjunct"
+import {getRandomNumber} from "@snailicide/g-library"
+
 import {
-  Product,
-  Variant,
-  ProductImage,
-  ProductOption,
-  ProductOptionValue,
-  VariantOption,
   Cart,
   LineItem,
   ProductInstanceSingle,
@@ -19,14 +12,15 @@ import {
   ProductInstanceGroup,
 
 } from '../../orm/models'
-import Vue from 'vue'
-
-
 const defaultInstance = ProductGroupBase.fields();
 console.warn(defaultInstance);
 export default {
   name: "GroupInstance",
   components: {},
+ async mounted(){
+    const resp = await Cart.api().fetchCart()
+console.log("GILLLI CART",resp)
+  },
   data: function () {
     return {
       _refID: false,
