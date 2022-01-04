@@ -21,8 +21,17 @@ Vue.component("default-product-page", DefaultProductPage);
 import { ProductChild } from "@snailicide/g-shopify-orm";
 Vue.component("product-child", ProductChild);
 
+import { GroupInstance } from "@snailicide/g-shopify-orm";
+Vue.component("GroupInstance", GroupInstance);
+
+
+import ProductGroup from './components/product/ProductGroup.vue'
+Vue.component("product-group", ProductGroup);
+
+
 /* * 3rd party plugins * */
 import VTooltip from "v-tooltip";
+
 
 Vue.use(VTooltip);
 
@@ -43,6 +52,7 @@ if (
   typeof document.getElementById(root_el) != "undefined" &&
   document.getElementById(root_el) != null
 ) {
+
   new Vue({
     store,
     router,

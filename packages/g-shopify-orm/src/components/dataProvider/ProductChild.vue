@@ -2,9 +2,9 @@
 import {getRandomNumber, isInteger, toInteger} from "@snailicide/g-library"
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
-import {LoaderMixin} from './../mixins/LoaderMixin'
+import {LoaderMixin} from './../../mixins/LoaderMixin'
 
-import options from "./../../options.json"
+import options from "./../../../options.json"
 const {EDITABLE_DEFAULTS,LOAD_MODE,SELECTION_MODE_OPTIONS } = options
 import {
   ProductInstanceSingle,
@@ -13,10 +13,9 @@ import {
   ProductImage,
   Cart,
   ProductInstanceBase
-} from '../orm/models'
+} from '../../orm/models'
 
 import {mapState} from "vuex";
-import {getEntity} from "../orm/functions";
 
 const defaultInstance = ProductInstanceSingle.fields();
 
@@ -168,8 +167,8 @@ export default {
     },
     //reduces the variant list by relevant options.
     getVariantsByOptionValues(option_value_array, boolRequireAll = true) {
-      if (!option_value_array || option_value_array.length == 0) return false;
-      if (option_value_array && option_value_array.length == 1) return option_value_array[0].Variants
+      if (!option_value_array || option_value_array.length === 0) return false;
+      if (option_value_array && option_value_array.length === 1) return option_value_array[0].Variants
 
       const mappedArray = option_value_array.map(function (value) {
         return value.Variants;
@@ -194,7 +193,7 @@ export default {
         let variantArr = that.getVariantsByOptionValues(that.getMergedOptionArray(_value));
         let isDisabled = false;
         if (variantArr && variantArr.length == 0) isDisabled = true;
-        else if ((variantArr.length == 1 && variantArr[0].IsAvailable == false)) isDisabled = true;
+        else if ((variantArr.length === 1 && variantArr[0].IsAvailable === false)) isDisabled = true;
         return {
           ..._value,
           $isDisabled: isDisabled,
@@ -218,8 +217,8 @@ export default {
     updateOption(option) {
       if (!this.$props.enableoptions || !this.Product || !this.Product.id) return false
       let newVarArray = this.getVariantsByOptionValues(this.getMergedOptionArray(option));
-      console.log("updateOption ::: Called",this.getMergedOptionArray(option),   newVarArray, getEntity(option) )
-      if (newVarArray && newVarArray.length == 1) this.updateVariant(newVarArray[0])
+      console.log("updateOption ::: Called",this.getMergedOptionArray(option),   newVarArray )
+      if (newVarArray && newVarArray.length === 1) this.updateVariant(newVarArray[0])
     },
     updateVariant(variant = {}, variant_editable = (this.Instance) ? this.Instance.variant_editable : this.$props.variant_editable) {  //TODO: change this name - i hate it.
       if (!variant_editable) return false;

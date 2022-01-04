@@ -1,6 +1,7 @@
 <!-- /templates/product.liquid -->
 {%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
 <div id="inner">
+  <product-group></product-group>
   <default-product-page handle="{{ product.handle }}"></default-product-page>
 
 {% comment %}  <g-kabob path="{{ 'divider.svg' | asset_url }}"

@@ -3,14 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
     "start": "run-p -sr shopify:serve build-watch",
+    "deploy": "run-s build && webpack --config=webpack.copy.js &&  cd shopify && shopify theme push",
+    "webpack:copy": "webpack --config=webpack.copy.js",
+    "deploy:new": "run-s webpack:build && cd shopify && shopify theme push --unpublished",
+    "webpack:watch": "cross-env NODE_ENV=development BROWSERSLIST_ENV=development BROWSERSLIST_CONFIG=.config/.browserslistrc webpack --config .config/webpack/webpack.dev.js --watch --progress",
+    "webpack:build": "cross-env NODE_ENV=production BROWSERSLIST_ENV=production BROWSERSLIST_CONFIG=.config/.browserslistrc webpack --config .config/webpack/webpack.prod.js --progress",
     "shopify:serve": "cd shopify && shopify theme serve",
-    "deploy": "run-s webpack:build && cd shopify && shopify theme push",
-    "deploy:new": "run-s build && cd shopify && shopify theme push --unpublished",
+    "shopify:pull": "cd shopify && shopify theme pull",
+    "lint": "vue-cli-service lint",
+    "lint:js": "eslint src/**/*.{js,vue} --config .config/.eslintrc.js",
+    "lint:css": "stylelint src/**/*.{vue,css,sass,scss} --config .config/.stylelintrc.js",
+    "lint:shopify": "cd shopify && shopify theme check",
+    "fix": "run-s -c fix:*",
+    "fix:js": "eslint src/**/*.{js,vue} --config .config/.eslintrc.js --fix",
+    "fix:css": "stylelint src/**/*.{vue,css,sass,scss} --config .config/.stylelintrc.js --fix",
+    "fix:shopify": "cd shopify && shopify theme check -a",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
     "build-watch": "vue-cli-service build-watch"
   },
   "dependencies": {
@@ -33,7 +44,8 @@
     "vue-router": "^3.5.3",
     "vue-select": "^3.16.0",
     "vue-template-compiler": "^2.6.12",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "webpack": "4.46"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
@@ -54,6 +66,7 @@
     "sass-loader": "^8.0.2",
     "typescript": "~4.1.5",
     "vue-cli-plugin-build-watch": "~1.0.0",
-    "vue-cli-plugin-tailwind": "~2.2.18"
+    "vue-cli-plugin-tailwind": "~2.2.18",
+    "webpack-cli": "^4.9.1"
   }
 }

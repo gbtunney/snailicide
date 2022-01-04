@@ -1,0 +1,134 @@
+<template>
+  <StyledContainerGrid :columns="$props.columnCount">
+    <div v-for="(image,index) in Images" :key="index" class="grid-item">
+      <slot>
+        <div>
+          <img v-tooltip="getToolTip(image)"
+              @click="$emit('changed', { image: image, linked_option:  getLinkedOptionValue(image )} )"
+              :src="image.getSrc(...[...$props.image_size])"
+              :alt="image.title"
+              class="object-cover hover:cursor-pointer">
+        </div>
+      </slot>
+      <slot name="addl" v-bind:image="image" v-bind:url="image.getSrc($props.image_size)"></slot>
+    </div>
+  </StyledContainerGrid>
+</template>
+<script>
+//import {StyledContainerGrid}from "@snailicide/g-patternlab"
+export default {
+  name: "product-image-grid",
+  components: {},
+  data: function () {
+    return {
+      image_array: [],
+    }
+  },
+  props: {
+    columnCount: {
+      type: Number,
+      default: 8
+    },
+    images: {
+      type: [Array, Boolean],
+      default: () => []
+    },
+    image_size: {
+      type: [Number,Array],
+      default: 400
+    },
+    optionHandle: { //obbject binding.
+      type: [String, Boolean],
+      default: false
+    },
+  },
+  mounted(){
+    this.$emit('mounted', this)
+  },
+  methods: {
+    getToolTip: function (image) {
+      return {
+        content: this.getImageTitle(image),
+        classes: 'bg-brandGrey-dk-op80 shadow-2xl text-xl font-style-primary text-light py-2 px-6 z-50'
+      }
+    },
+    getImageTitle(image) {
+      const _linked = this.getLinkedOptionValue(image);
+      if (_linked && _linked.title) return _linked.title;
+    },
+    getLinkedOptionValue(image) {
+      if (!this.$props["optionHandle"] || !image) return;
+      if (image && image.Variants && image.Variants.length > 0) {
+        const [variant] = image.Variants
+        const _option_value = variant.getOptionValue(this.$props["optionHandle"]);
+        if (_option_value) return _option_value;
+      }
+      return;
+    }
+  },
+  computed: {
+    Images: function () {
+      return this.$props.images;
+    },
+  }
+}
+</script>
+<style type="text/css" lang="postcss" scoped>
+.grid-wrapper {
+  grid-gap: 8px;
+//todo: move this.
+}
+
+@supports (aspect-ratio: 1) {
+  .grid-item {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+}
+
+.grid-item {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+grid-item::before {
+  float: left;
+  padding-top: 100%;
+  content: "";
+}
+
+.grid-item::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .grid-item::before {
+    float: left;
+    padding-top: 100%;
+    content: "";
+  }
+
+  .grid-item::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+/*
+.vs__dropdown-option--highlight {
+  background: $vs-state-active-bg;
+  color: $vs-state-active-color;
+}
+
+.vs__dropdown-option--disabled {
+  background: inherit;
+  color: $vs-state-disabled-color;
+
+  &:hover {
+    cursor: inherit;
+  }
+}*/
+</style>

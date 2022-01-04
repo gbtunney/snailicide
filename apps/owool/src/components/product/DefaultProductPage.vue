@@ -2,7 +2,18 @@
 
   <product-child @changed="variantChanged" :handle="$props.handle" :variant_id="Variant" :load_handle="true">
     <brooklyn-product-template id="shopify-section-product-template"
-        slot-scope="{Ready,Quantity , addToCart, QuantityAvailable,loadTest,Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,UpdateInstance,Images,Instance,UpdateVariant}">
+        slot-scope="{Ready,Quantity ,SelectedVariantImage ,addToCart, QuantityAvailable,loadTest,Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,UpdateInstance,Images,Instance,UpdateVariant}">
+      <template #left-column>
+        <img v-if="SelectedVariant"
+            :src="SelectedVariantImage.getSrc(400)"
+            :alt="SelectedVariantImage.title"
+            class="object-cover hover:cursor-pointer">
+        <ProductImageGrid
+            :columnCount="8" @changed="imageChanged($event, false , UpdateOption) "
+            option-handle="color"
+            :images="Images">
+        </ProductImageGrid>
+      </template>
       <template #right-column>
         <h1 class="font-style-primary text-3xl" v-if="Product">{{ Product.title }}</h1>
         <div
@@ -101,11 +112,11 @@ import BrooklynProductTemplate from './BrooklynProductTemplate.vue'
 import {
   SfGallery, SfQuantitySelector
 } from "@storefront-ui/vue";
-
+import ProductImageGrid from './../images/ProductImageGrid.vue'
 
 export default {
   name: "NewDefaultProductPage",
-  components: {BrooklynProductTemplate, SfQuantitySelector, SfGallery},
+  components: {BrooklynProductTemplate, ProductImageGrid, SfQuantitySelector},
   data: function () {
     return {}
   },
@@ -131,6 +142,27 @@ export default {
     }
   },
   methods: {
+    getSrcSet(_images = []) {
+      if (!_images) return
+      return _images.map(function (image) {
+        console.log("imshrrr", image)
+        return image.srcset;
+      })
+    },
+    imageChanged(imageObj, slide_func, update_option_func) {
+      console.log("--------------------image changed", imageObj);
+
+      const {image, linked_option} = imageObj;
+      if (!image) return
+      console.log("--------------------image changed", this);
+      if (update_option_func && linked_option) update_option_func(linked_option);
+      if (slide_func) slide_func(image.position - 1)
+    },
+    setCallback(_func) {
+      ///THIS IS A HACK
+      console.log("--------------------func changed", _func);
+      this.$data.glide = _func
+    },
     variantChanged(_variant) {
       console.log("route", this, this.$route)
       console.log("--------------------variant changed", _variant);
@@ -195,6 +227,7 @@ export default {
 
 .vs__dropdown-option--highlight {
   background-color: transparent !important;
+
   .product_option {
     $base-list: bg-accent-primary text-light-lt;
     @include includeTailwindStyles($base-list);

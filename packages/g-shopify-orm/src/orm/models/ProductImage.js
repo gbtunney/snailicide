@@ -14,7 +14,7 @@ export class ProductImage extends Model {
         return {
             id: this.uid(() => getRandomNumber(UID_LENGTH)),
             position: this.number(null),
-            alt: this.string(null),
+            alt: this.string(null).nullable(),
             width: this.number(500),
             height: this.number(500),
             src: this.string(null),

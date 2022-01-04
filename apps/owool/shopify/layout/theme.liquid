@@ -29,6 +29,7 @@
      css bundle is not loaded during the development task, instead it displays a 404 error in the web console
    {% endcomment %}
   {{ 'app.css' | asset_url | stylesheet_tag }}
+  {{ 'chunk-vendors.css' | asset_url | stylesheet_tag }}
 
   <!-- Helpers ================================================== -->
   {% include 'social-meta-tags' %}
@@ -72,6 +73,8 @@
 
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   {{ 'app.css' | asset_url | stylesheet_tag }}
+  {{ 'chunk-vendors.css' | asset_url | stylesheet_tag }}
+
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
