@@ -21,10 +21,17 @@ export default {
     return {}
   },
   props: {
+     /**
+      * shopify product handle or boolean (if not loaded)
+      */
     handle: {
       type: [Boolean, String],
       default: false,
     },
+    /**
+     * Selected Variant SID(9 digits) or Position(integer)
+     * @values SID, position
+     */
     variant_id: {
       type: Number,  /* ID OR SID */
       default: 1
@@ -51,6 +58,13 @@ export default {
         );
       }, mappedArray[0]);
     },
+    /**
+     * Get list of Products's OptionValues ??by handle or boolean?
+     * todo: figure out how to bypass disabling proper
+     * @param {boolean|string|Object<productoption>} option
+     * @return {boolean|Object<productoptionvalue>} - list of ProductOptionValue entities
+     * @public
+     */
     OptionValueList: function (option) {
       if (!this.Product || !option) return false;
       let that = this;
@@ -74,6 +88,13 @@ export default {
       if (selected_value_for_parent) return (_value["$id"] === selected_value_for_parent["$id"]);
       return false;
     },
+    /**
+     * Get list of SelectedVariant's OptionValues ??by handle or boolean?
+     *
+     * @param {boolean|string|Object<productoption>} option
+     * @return {boolean|Object<productoptionvalue>} - list of ProductOptionValue entities
+     * @public
+     */
     SelectedOptionValue: function (option) {
       if (!this.Ready) return;
       if (!option) return false;
@@ -164,6 +185,20 @@ export default {
     },
   },
   render() {
+    /**
+     * @slot
+     * @binding {boolean} Ready - product & selected variant id resolve and are available.
+     * @binding {Array<variant>} Variants - list of variant entities for product
+     * @binding {Array<productimage>} Images - list of productimage entities for product
+     * @binding {Array<productoption>} Options - list of productoption entities
+     * @binding {Array<productoptionvalue>} OptionValueList - *function* list of productoptionvalue entities
+     *
+     * @binding {Object<product>} Product - Product Entity
+     * @binding {Object<productimage>} ProductImage - Default ProductImage Entity
+     * @binding {Object<variant>} SelectedVariant - Selected Variant Entity
+     * @binding {Object<productimage>} SelectedVariant - SelectedVariant ProductImage Entity
+
+     */
     return this.$scopedSlots.default(
         {
           Ready: this.Ready,
@@ -178,7 +213,8 @@ export default {
           ProductImage: this.ProductImage,
           SelectedVariant: this.SelectedVariant,
           SelectedVariantImage: this.SelectedVariantImage,
-          SelectedOptionList: this.SelectedOptionList, //  returns an array
+
+          SelectedOptionList: this.SelectedOptionList, //?????do i need this????? returns an array
           /** function that returns a optionvalue for a given option */
           SelectedOptionValue: this.SelectedOptionValue,//FUNCTION single optionvalues by option
         }
