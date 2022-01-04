@@ -481,18 +481,6 @@ $accentFontStack: var(--font-secondary);
 $accentFontWeight: var(--font-normal);;
 $accentFontWeightBold: 900;
 $accentFontStyle: normal;
-
-@font-face {
-  font-family: 'icons';
-  src: url('//cdn.shopify.com/s/files/1/0084/4044/7094/t/28/assets/icons.eot?v=11298153234806265256');
-  src: url('//cdn.shopify.com/s/files/1/0084/4044/7094/t/28/assets/icons.eot?v=11298153234806265256#iefix') format("embedded-opentype"),
-  url('//cdn.shopify.com/s/files/1/0084/4044/7094/t/28/assets/icons.woff?v=2408938297684835138') format("woff"),
-  url('//cdn.shopify.com/s/files/1/0084/4044/7094/t/28/assets/icons.ttf?v=17785143920645075297') format("truetype"),
-  url('//cdn.shopify.com/s/files/1/0084/4044/7094/t/28/assets/icons.svg?v=18275316767451022369#timber-icons') format("svg");
-  font-weight: normal;
-  font-style: normal;
-};
-
 $socialIconFontStack: 'icons';
 
 

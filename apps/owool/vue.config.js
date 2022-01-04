@@ -1,5 +1,6 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+
 module.exports = {
   // options...
   filenameHashing: false,
@@ -9,7 +10,12 @@ module.exports = {
   },
   configureWebpack: {
     plugins: [],
-  },
+    resolve: {
+      alias: {
+        '@node': path.resolve(__dirname, 'node_modules'),
+      },
+    }
+},
 };
 
 if (process.env.NODE_ENV === undefined) {

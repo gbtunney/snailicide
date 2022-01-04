@@ -1,19 +1,13 @@
 <!-- /templates/product.liquid -->
 {%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
 <div id="inner">
-  <product-child  handle="local" :variant_id="4" :load_handle="true">
-    <div id="shopify-section-product-template" class="flex container w-full shopify-section"
-            slot-scope="{Ready,Quantity , addToCart, QuantityAvailable,loadTest,Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,UpdateInstance,Images,Instance,UpdateVariant}">
-     <h1 v-if="SelectedVariant"> hello!  <span v-text="SelectedVariant.title"/></h1>
-    </div>
-  </product-child>
-  <g-kabob path="{{ 'divider.svg' | asset_url }}"
+  <default-product-page handle="{{ product.handle }}"></default-product-page>
+
+{% comment %}  <g-kabob path="{{ 'divider.svg' | asset_url }}"
           height="20" color="red" bg_color="--color-corn-600" border="red"
   ><h2 >I am gillian</h2>
   </g-kabob>
-  <g-svg classes="p-2" path="{{ 'leaves-a.svg' | asset_url }}" width="80" color="rebeccapurple" bg_color="orange" border="true"/>
-
-
+{% endcomment %}
 </div>
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">

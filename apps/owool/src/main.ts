@@ -1,15 +1,39 @@
 import Vue from "vue";
-import App from "./App.vue";
+import VueRouter from "vue-router";
+
+/* * STYLES * */
 import "./styles/scss/main.scss";
-import { store } from  "@snailicide/g-shopify-orm";
-import {ProductChild} from "@snailicide/g-shopify-orm"
+import "vue-select/dist/vue-select.css";
+
+const router = new VueRouter({
+  mode: "history",
+  routes: [],
+});
+console.log("myrouter", router);
+
 import plugin from "@snailicide/g-patternlab";
+import { store } from "@snailicide/g-shopify-orm";
 
 Vue.use(plugin);
-Vue.component("product-child",ProductChild)
-const root_el = "inner"; /// using inner because the other liquid one errors
-const element = document.getElementById(root_el);
 
+import BrooklynProductTemplate from "./components/NewDefaultProductPage.vue";
+
+Vue.component("default-product-page", BrooklynProductTemplate);
+
+import { ProductChild } from "@snailicide/g-shopify-orm";
+
+Vue.component("product-child", ProductChild);
+
+/* * 3rd party plugins * */
+import VTooltip from "v-tooltip";
+
+Vue.use(VTooltip);
+
+import vSelect from "vue-select";
+
+Vue.component("v-select", vSelect);
+
+const root_el = "inner"; /// using inner because the other liquid one errors
 
 /*
 new Vue({
@@ -22,29 +46,11 @@ if (
   typeof document.getElementById(root_el) != "undefined" &&
   document.getElementById(root_el) != null
 ) {
-  // Exists.
   new Vue({
     store,
+    router,
     el: `#${root_el}`,
   });
-  //   vm.$mount('#app');
-  // this does not
 }
-/*
-const vm = new Vue({
-    template: '<div>I\'m mounted</div>',
-    created(){
-        console.log('Created');
-    },
-    mounted(){
-        console.log('Mounted');
-    }
-});
-*/
+
 //Vue.config.productionTip = false
-/*
-new Vue({
-  store,
-  render: h => h(App)
-}).$mount('#app')
-*/

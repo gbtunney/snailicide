@@ -7,7 +7,7 @@
       </div>
     {% endif %}
 
-    <div class="grid collection-grid">
+    <div class="flex collection-grid">
 
       {% comment %}
         Show up to 9 collections.
@@ -49,7 +49,7 @@
 
       {% if isEmpty %}
         <div class="wrapper">
-          <div class="grid">
+          <div class="flex">
             <div class="grid__item">
               <div class="rte text-center">
                 {{ 'home_page.onboarding.no_content' | t }}
