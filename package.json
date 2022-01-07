@@ -20,11 +20,11 @@
     "ui:sbbuild": "yarn --cwd packages/g-patternlab storybook:build",
     "tw:serve": "yarn --cwd packages/g-tailwind serve",
     "tw:build": "yarn --cwd packages/g-tailwind build",
-    "twv" : "yarn --cwd apps/tailwind-config-viewer serve",
-    "orm" : "yarn --cwd packages/g-shopify-orm serve",
-    "owool" : "yarn --cwd apps/owool start",
-    "dep:list" : "find . -name 'node_modules' -type d -prune",
-    "dep:rm":"find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "twv": "yarn --cwd apps/tailwind-config-viewer serve",
+    "orm": "yarn --cwd packages/g-shopify-orm serve",
+    "owool": "yarn --cwd apps/owool start",
+    "dep:list": "find . -name 'node_modules' -type d -prune",
+    "dep:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "backstop:test": "yarn --cwd apps/backstop test",
     "chrome": "open -na Google\\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security"
   },
@@ -36,5 +36,8 @@
   ],
   "dependencies": {
     "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
   }
 }

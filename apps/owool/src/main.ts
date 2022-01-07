@@ -1,5 +1,7 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
 
 /* * STYLES * */
 import "./styles/scss/main.scss";
@@ -7,7 +9,10 @@ import "vue-select/dist/vue-select.css";
 
 const router = new VueRouter({
   mode: "history",
-  routes: [],
+
+  routes: [
+  ],
+
 });
 
 import plugin from "@snailicide/g-patternlab";
@@ -55,8 +60,9 @@ if (
 
   new Vue({
     store,
-    router,
+
     el: `#${root_el}`,
+    router,
   });
 }
 

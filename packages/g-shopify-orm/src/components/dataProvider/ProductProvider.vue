@@ -124,7 +124,7 @@ export default {
       return this.$props.handle
     },
     Ready: function () {
-      return (this.Product && this.SelectedVariant)
+      return (this.Product && this.SelectedVariant)? true:false
     },
     SelectedVariant: {
       get: function () {
@@ -134,7 +134,7 @@ export default {
           console.log("-----------------variant is position, need to update to SID", shopifyID, this.Instance.variant_id)
           this.updateInstance({variant_id: shopifyID})
         }*/
-        return Variant.query().whereId(this.Instance.variant_id).with('options.Variants|image').first()
+        return Variant.query().whereId(this.$props.variant_id).with('options.Variants|image').first()
       },
       set: function (value) {
         if (!this.Product) return false;
@@ -150,7 +150,7 @@ export default {
       return this.SelectedVariant.Image
     },
     SelectedOptionList: function () {
-      if (!this.Ready || !this.Instance.variant_id || !this.SelectedVariant) return
+      if (!this.Ready || !this.SelectedVariant) return
       return this.SelectedVariant.options;
     },
     /* Quantity: function () {
@@ -171,7 +171,7 @@ export default {
       return ProductImage.query().where("product_id", this.Product.id).where("position", 1).orderBy('position').withAll().first()
     },
     Variants: function () {
-      if (!this.Product || !this.Instance) return;
+      if (!this.Product ) return;
       return this.Product.Variants;
     },
     Options: function () {

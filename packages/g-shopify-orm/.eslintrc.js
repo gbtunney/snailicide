@@ -13,6 +13,7 @@ module.exports = {
     parser: "@typescript-eslint/parser",
   },
   rules: {
+    'vue/no-reserved-keys':'off',
     "vue/multi-word-component-names": "off",
     'vue/no-unused-components': process.env.NODE_ENV === "production" ? "warn" : "off",
     'vue/no-unused-vars': process.env.NODE_ENV === "production" ? "warn" : "off",

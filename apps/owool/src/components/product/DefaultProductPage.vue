@@ -1,9 +1,10 @@
 <template>
 
-  <product-child @changed="variantChanged" :handle="$props.handle" :variant_id="Variant" :load_handle="true">
+  <product-child @changed="variantChanged" :handle="$props.handle" :variant_id="Variant" >
     <brooklyn-product-template id="shopify-section-product-template"
-        slot-scope="{Ready,Quantity ,SelectedVariantImage ,addToCart, QuantityAvailable,loadTest,Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,UpdateInstance,Images,Instance,UpdateVariant}">
+        slot-scope="{Ready,Quantity ,Loading,SelectedVariantImage ,addToCart, QuantityAvailable,loadTest,Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,UpdateInstance,Images,Instance,UpdateVariant}">
       <template #left-column>
+        <h1 v-if="Loading">loading!!</h1>
         <img v-if="SelectedVariant"
             :src="SelectedVariantImage.getSrc(400)"
             :alt="SelectedVariantImage.title"
@@ -71,15 +72,12 @@
 
               <div :class="isSelected? 'bg-primary-lt' : '' "
                   class="flex font-secondary uppercase items-center text-lg flex-row h-full w-full p-2.5">
-                <SfProductOption color="#ff0000" :label="title">
-                  <template #color="">
+
                     <div v-if="image"
                         class="sf-product-option__color">
                       <img v-if='image' :src="image.src" class="object-cover"/>
                     </div>
 
-                  </template>
-                </SfProductOption>
                 <span :class="isSelected? 'font-bold' : '' ">{{ title }} </span>
               </div>
             </template>
@@ -108,6 +106,9 @@
 
 </template>
 <script>
+import VueRouter from "vue-router";
+
+
 import BrooklynProductTemplate from './BrooklynProductTemplate.vue'
 import {
   SfGallery, SfQuantitySelector
@@ -116,6 +117,7 @@ import ProductImageGrid from './../images/ProductImageGrid.vue'
 
 export default {
   name: "NewDefaultProductPage",
+
   components: {BrooklynProductTemplate, ProductImageGrid, SfQuantitySelector},
   data: function () {
     return {}
@@ -136,9 +138,7 @@ export default {
   },
   computed: {
     Variant: function () {
-      console.log("route", this)
-      return 2;
-      //return (this.$route.query && this.$route.query.variant) ? parseInt(this.$route.query.variant) : 5;
+      return (this.$route.query && this.$route.query.variant) ? parseInt(this.$route.query.variant) : 1;
     }
   },
   methods: {
@@ -164,7 +164,6 @@ export default {
       this.$data.glide = _func
     },
     variantChanged(_variant) {
-      console.log("route", this, this.$route)
       console.log("--------------------variant changed", _variant);
     }
   }

@@ -1,14 +1,21 @@
 const path = require("path");
-const glob = require("glob");
-const Minimatch = require("minimatch").Minimatch;
 
-let packagePath = require
-  .resolve("@snailicide/g-patternlab")
-  .replace("/index.js", "");
-const gPatternLabPath = path.join(packagePath, "src");
-let twpackagePath = require
-  .resolve("@snailicide/g-tailwind")
-  .replace("/index.js", "");
+//this is a hack to get an imported package resolved route.
+const getPackagePath = function(_package, replace = [ "/index.js" , ""]){
+  return require
+      .resolve("@snailicide/g-patternlab")
+      .replace("/index.js", "");
+}
+
+/* * PatternLab Package Path * */
+const gPatternLabPackagePath = path.join(getPackagePath("@snailicide/g-patternlab"), "src");
+
+/* * Shopify Components Package Path * */
+const gShopifyOrmPackagePath = path.join(getPackagePath("@snailicide/g-shopify-orm"), "src");
+
+
+/* * Tailwind Stylesheet Path * */
+const gTWCSSPath  = path.join(getPackagePath("@snailicide/g-tailwind"), "dist/css/app.css");
 
 module.exports = {
   // set your styleguidist configuration here
@@ -21,18 +28,29 @@ module.exports = {
       sections: [
         {
           name: "SFC",
-          components: `${gPatternLabPath}/components/ui/sfc/*.vue`,
+          components: `${gPatternLabPackagePath}/components/ui/sfc/*.vue`,
         },
         {
           name: "Styled Components",
-          components: `${gPatternLabPath}/components/ui/styled/docs/*.vue`,
+          components: `${gPatternLabPackagePath}/components/ui/styled/docs/*.vue`,
         },
       ],
     },
+   /* {
+      name: "Shopify Components",
+      sections: [
+        {
+          name: "Product Provider",
+          components: `${gShopifyOrmPackagePath}/components/dataProvider/ProductProvider.vue`,
+        },
+      ],
+    },*/
   ],
   // webpackConfig: {
   //   // custom config goes here
   // },
 
-  require: [path.join(twpackagePath, "dist/css/app.css")],
+/*
+  require: [gTWCSSPath],
+*/
 };
