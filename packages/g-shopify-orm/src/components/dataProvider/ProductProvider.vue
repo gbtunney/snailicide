@@ -19,10 +19,15 @@ export default {
   components: {},
   data: function () {
     return {
+      instance:false,
       selected_variant_id :false
     }
   },
   props: {
+   /* instance: {
+      type: [Object, Boolean],
+      default: false
+    }*/
   },
   methods: {
     //reduces the variant list by relevant options.
@@ -129,14 +134,6 @@ export default {
       if (!this.Ready || !this.SelectedVariant) return
       return this.SelectedVariant.options;
     },
-    /* Quantity: function () {
-       if (!this.Ready) return;
-       return this.Instance.quantity;
-     },
-     QuantityAvailable: function () {
-       if (!this.Ready || !this.Instance.variant_id || !this.SelectedVariant) return;
-       return (this.SelectedVariant.inventory_quantity - this.Instance.quantity);
-     },*/
     Product: function () {
       if (!this.Handle) return;
       return Product.getProductByHandle(this.Handle)
@@ -161,16 +158,6 @@ export default {
     },
   },
   render() {
-    /*   //instance variables
-          Instance: this.Instance,
-          QuantityAvailable: this.QuantityAvailable,
-          Quantity: this.Quantity,
-          UpdateInstance: this.updateInstance, //these are all functions
-          UpdateOption: this.updateOption,
-          UpdateVariant: this.updateVariant,
-          addToCartEnabled: this.$props.add_to_cart_enabled,
-          addToCart: this.addToCart,
-          loadTest: this.Status,*/
     /**
      * @slot
      * @binding {boolean} Ready - product & selected variant id resolve and are available.
