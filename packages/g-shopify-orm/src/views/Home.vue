@@ -3,9 +3,8 @@
     <img alt="Vue logo" src="../assets/logo.png">
 
     <!--    <DocProductProvider></DocProductProvider>-->
-    <ProductInstanceProvider   :id="999999" :handle="'local'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="10">
-      <div slot-scope="{Instance,ID,UpdateVariant,Variants}">
-
+    <ProductInstanceProvider   :id="999999" :handle="'local'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="6">
+      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart}">
         <ProductProvider v-bind="Instance.$toJson()">
           <div slot-scope="{Product,SelectedVariant,Variants}">
            {{ID}} {{Product.title }} -- {{SelectedVariant.title}}
@@ -15,12 +14,8 @@
                 :options="Variants"
                 label="title"
                 :clearable=false
-                @option:selecting="UpdateVariant"
-
-
-            >
+                @option:selecting="UpdateVariant">
               <template #option="{ isSelected,title,$isDisabled ,image }">
-
                 <div :class="isSelected? 'bg-primary-lt' : '' "
                     class="flex font-secondary uppercase items-center text-lg flex-row h-full w-full p-2.5">
                   <div v-if="image"
@@ -37,16 +32,14 @@
                 </div>
               </template>
             </v-select>
-            <button>Add to Cart</button>
+            <button @click="AddToCart">Add to Cart</button>
           </div>
-
         </ProductProvider>
       </div>
     </ProductInstanceProvider>
 
-    <ProductInstanceProvider   :id="99992299" :handle="'balance'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="2">
-      <div slot-scope="{Instance,ID,UpdateVariant,Variants}">
-
+    <ProductInstanceProvider   :id="999998989899" :handle="'balance'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="10">
+      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart}">
         <ProductProvider v-bind="Instance.$toJson()">
           <div slot-scope="{Product,SelectedVariant,Variants}">
             {{ID}} {{Product.title }} -- {{SelectedVariant.title}}
@@ -56,12 +49,8 @@
                 :options="Variants"
                 label="title"
                 :clearable=false
-                @option:selecting="UpdateVariant"
-
-
-            >
+                @option:selecting="UpdateVariant">
               <template #option="{ isSelected,title,$isDisabled ,image }">
-
                 <div :class="isSelected? 'bg-primary-lt' : '' "
                     class="flex font-secondary uppercase items-center text-lg flex-row h-full w-full p-2.5">
                   <div v-if="image"
@@ -78,16 +67,14 @@
                 </div>
               </template>
             </v-select>
-            <button>Add to Cart</button>
+            <button @click="AddToCart">Add to Cart</button>
           </div>
-
         </ProductProvider>
       </div>
     </ProductInstanceProvider>
 
-    <ProductInstanceProvider   :id="99945999" :handle="'local'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="10">
-      <div slot-scope="{Instance,ID,UpdateVariant,Variants}">
-
+    <ProductInstanceProvider   :id="99998989299" :handle="'local'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="10">
+      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart}">
         <ProductProvider v-bind="Instance.$toJson()">
           <div slot-scope="{Product,SelectedVariant,Variants}">
             {{ID}} {{Product.title }} -- {{SelectedVariant.title}}
@@ -97,12 +84,8 @@
                 :options="Variants"
                 label="title"
                 :clearable=false
-                @option:selecting="UpdateVariant"
-
-
-            >
+                @option:selecting="UpdateVariant">
               <template #option="{ isSelected,title,$isDisabled ,image }">
-
                 <div :class="isSelected? 'bg-primary-lt' : '' "
                     class="flex font-secondary uppercase items-center text-lg flex-row h-full w-full p-2.5">
                   <div v-if="image"
@@ -119,9 +102,8 @@
                 </div>
               </template>
             </v-select>
-            <button>Add to Cart</button>
+            <button @click="AddToCart">Add to Cart</button>
           </div>
-
         </ProductProvider>
       </div>
     </ProductInstanceProvider>
