@@ -45,6 +45,15 @@ export const ProductMixins = {
       default: 1,
     },
   },
+  computed:{
+    Product: function () {
+      if (!this.Handle) return;
+      return Product.getProductByHandle(this.Handle)
+    },
+    Handle: function () {
+      return this.$props.handle
+    },
+  },
   methods: { getVariantPositionToID },
 };
 

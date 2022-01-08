@@ -43,16 +43,17 @@ const actions = {
         const keys = Object.keys(R.indexBy(R.prop('handle'), items));
         return Promise.all(keys.map(function (item) {
                 const handle = item
+            console.log("TRYING TO LOADDDDDDDDD" ,getters.get_loader(handle)  )
                 if (getters.get_loader(handle)) {
                     return getters.get_loader(item)
                 } else {
-
                     let promise = false;
-                    if (load_mode == 'LOAD_ALL') {
+                    if (load_mode === 'LOAD_ALL') {
                         //load all
                         // Product.api().fetchAll();
-                    } else if (load_mode == 'LOAD_HANDLE_ALWAYS') {
+                    } else if (load_mode === 'LOAD_HANDLE_ALWAYS') {
                         //load by handle
+                        console.log("TRYING TO LOAD_HANDLE_ALWAY" )
                         if (!handle) return;
                         promise = Product.api().fetchByHandle(handle)
                     } else if (load_mode == 'LOAD_HANDLE_NOT_IN_DATABASE') {

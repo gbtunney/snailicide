@@ -3,7 +3,6 @@ import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import {LoaderMixin} from './../../mixins/LoaderMixin'
 import {ProductMixins} from './../../mixins/ProductMixins'
-
 import options from "./../../../options.json"
 const {EDITABLE_DEFAULTS, LOAD_MODE, SELECTION_MODE_OPTIONS} = options
 
@@ -12,7 +11,7 @@ import {
   Variant,
   ProductImage,
 } from '../../orm/models'
-import {isShopifyID} from "@/scripts/shopify";
+import {isShopifyID} from "./../../scripts/shopify";
 
 export default {
   name: "ProductProvider",
@@ -108,9 +107,6 @@ export default {
          return false//state.fetching
        }
      }),*/
-    Handle: function () {
-      return this.$props.handle
-    },
     Ready: function () {
       return (this.Product && this.SelectedVariant) ? true : false
     },
@@ -165,6 +161,16 @@ export default {
     },
   },
   render() {
+    /*   //instance variables
+          Instance: this.Instance,
+          QuantityAvailable: this.QuantityAvailable,
+          Quantity: this.Quantity,
+          UpdateInstance: this.updateInstance, //these are all functions
+          UpdateOption: this.updateOption,
+          UpdateVariant: this.updateVariant,
+          addToCartEnabled: this.$props.add_to_cart_enabled,
+          addToCart: this.addToCart,
+          loadTest: this.Status,*/
     /**
      * @slot
      * @binding {boolean} Ready - product & selected variant id resolve and are available.
@@ -177,7 +183,6 @@ export default {
      * @binding {Object<productimage>} ProductImage - Default ProductImage Entity
      * @binding {Object<variant>} SelectedVariant - Selected Variant Entity
      * @binding {Object<productimage>} SelectedVariant - SelectedVariant ProductImage Entity
-
      */
     return this.$scopedSlots.default(
         {
@@ -202,3 +207,54 @@ export default {
   },
 }
 </script>
+<docs lang="md">
+Product Provider Component (Renderless)
+
+## Examples
+with vue-select for variants.
+
+```jsx
+<ProductProvider handle="local" :variant_id="7">
+  <div slot-scope="{Ready,Variants,SelectedVariant}">
+    <h1>Test componnet</h1>
+    <div v-if="Ready">
+      <div v-if="SelectedVariant">
+        <v-select autocomplete="on"
+            v-if="Variants"
+            @option:selecting="updateVariant"
+            :value="SelectedVariant"
+            :options="Variants"
+            label="title"
+            :clearable=false>
+          <template #option="{ isSelected,title,$isDisabled ,image }">
+
+            <div :class="isSelected? 'bg-primary-lt' : '' "
+                class="flex font-secondary uppercase items-center text-lg flex-row h-full w-full p-2.5">
+              <div v-if="image"
+                  class="sf-product-option__color">
+                <img v-if='image' :src="image.src" class="object-cover"/>
+              </div>
+              <span :class="isSelected? 'font-bold' : '' ">{{ title }}</span>
+            </div>
+          </template>
+          <template #selected-option-container="{ option, deselect, multiple, disabled }">
+            <div class="vs__selected">
+              <span v-if="option.Product">{{ option }}</span>
+              <span>{{ option.title }}</span>
+            </div>
+          </template>
+        </v-select>
+
+        <!--
+                  <input type="number" :qty="Quantity" :min="0"
+                      :max="SelectedVariant.inventory_quantity"
+                      @input="UpdateInstance({ quantity: $event},Instance)"/>
+                  <h5 v-if="SelectedVariant">available units: {{ QuantityAvailable }}</h5>
+                  <h6 class="text-red-700 font-style-primary" v-if="QuantityAvailable <= 5">less than 5 available units: {{ QuantityAvailable }}</h6>
+        -->
+      </div>
+    </div>
+  </div>
+</ProductProvider>
+```
+</docs>

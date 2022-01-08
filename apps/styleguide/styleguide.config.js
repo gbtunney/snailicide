@@ -21,10 +21,11 @@ const gTWCSSPath = path.join(
   getPackagePath("@snailicide/g-tailwind"),
   "dist/css/app.css"
 );
-
+console.log("hjhj", path.join(gShopifyOrmPackagePath, "../config.vuex.js"));
 module.exports = {
   // set your styleguidist configuration here
   title: "Snail Style Guide",
+  renderRootJsx: path.join(__dirname, "config/styleguide.root.js"),
   require: [gTWCSSPath],
   // components: 'src/components/**/[A-Z]*.vue',
   // defaultExample: true,
@@ -48,6 +49,10 @@ module.exports = {
         {
           name: "Product Provider",
           components: `${gShopifyOrmPackagePath}/components/dataProvider/ProductProvider.vue`,
+        },
+        {
+          name: "Product Instance",
+          components: `${gShopifyOrmPackagePath}/components/dataProvider/ProductInstanceProvider.vue`,
         },
       ],
     },

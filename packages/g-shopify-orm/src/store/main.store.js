@@ -12,8 +12,8 @@ import createPersistedState from "vuex-persistedstate";
 /* * Modules * */
 import { Models } from "./../../src/orm/models";
 import globalSettings from "../modules/globalSettings";
-import moduleProductLoader from "../modules/moduleProductLoader";
 import ormmodule from "../modules/ormmodule";
+import moduleProductLoader from "../modules/moduleProductLoader";
 
 /* * Settings * */
 import settings from "./../../settings.json";
@@ -29,8 +29,8 @@ export const store = new Vuex.Store({
   actions: {},
   modules: {
     global: globalSettings,
-    productloader: moduleProductLoader,
     orm: ormmodule,
+    productloader:moduleProductLoader
   },
   plugins: [
     createEasyAccess(),
