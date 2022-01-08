@@ -45,16 +45,7 @@ module.exports = {
     },
     {
       name: "Shopify Components",
-      sections: [
-        {
-          name: "Product Provider",
-          components: `${gShopifyOrmPackagePath}/components/dataProvider/ProductProvider.vue`,
-        },
-        {
-          name: "Product Instance",
-          components: `${gShopifyOrmPackagePath}/components/dataProvider/ProductInstanceProvider.vue`,
-        },
-      ],
+      components: `${gShopifyOrmPackagePath}/components/dataProvider/*.vue`,
     },
   ],
   // webpackConfig: {

@@ -26,6 +26,13 @@ Vue.component("default-product-page", DefaultProductPage);
 import { ProductChild } from "@snailicide/g-shopify-orm";
 Vue.component("product-child", ProductChild);
 
+
+import { ProductProvider } from "@snailicide/g-shopify-orm";
+Vue.component("product-provider", ProductProvider);
+
+import { ProductInstanceProvider } from "@snailicide/g-shopify-orm";
+Vue.component("product-instance", ProductInstanceProvider);
+
 import { GroupInstance } from "@snailicide/g-shopify-orm";
 Vue.component("GroupInstance", GroupInstance);
 

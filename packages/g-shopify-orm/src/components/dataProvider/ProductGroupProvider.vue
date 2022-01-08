@@ -6,16 +6,16 @@ import LoadModeMixin from "../../mixins/LoadModeMixin";
 import {
   Cart,
   ProductGroupBase,
-  ProductInstanceBase, ProductInstanceGroup,
-  ProductInstanceSingle, Variant,
+  ProductInstanceBase,
+  ProductInstanceGroup,
+  ProductInstanceSingle,
 } from './../../orm/models'
 
 const defaultInstance = ProductInstanceSingle.fields();
-//import moduleProductLoader from "./../../modules/moduleProductLoader";
 
 export default {
   name: "ProductGroupProvider",
-  mixins: [ProductMixins, EditableOptionsMixins, LoadModeMixin],
+  mixins: [EditableOptionsMixins, LoadModeMixin],
   mounted() {
     this.initializeLoadInstance(this.Handle, this.LoadMode)
   },
@@ -33,13 +33,10 @@ export default {
    */
   /**
    * @slot
-   * @binding {Object<productbase>} Instance - The product instance entity
-   * @binding {number} QuantityAvailable - quantity left that can be added to cart (inventory count)
-   * @binding {number} Quantity - requested quantity
+   * @binding {Object<ProductGroupBase>} Instance - The ProductGroupBase entit
+   * @binding {Array<productbase>} Items - array of productbase entity
    * @binding {function} AddToCart - Add item to cart
    * @binding {function} UpdateInstance
-   * @binding {function} UpdateVariant
-   * @binding {function} UpdateOption
    */
   render() {
     return this.$scopedSlots.default({
@@ -47,7 +44,7 @@ export default {
 
       Children: this.Items,
       Items: this.Items,
-  /*    note: this.$props.note,*/
+      /*    note: this.$props.note,*/
 
       /*functions*/
       AddToCart: this.addToCart,
@@ -76,7 +73,7 @@ export default {
           console.log("GROUP : ID IS BEING CHANGED!!!!!!!!! new:", value, "REF :")
           this.initializeGroup()
           const response = await this.insertOrUpdateGroupInstance(this.$props);
-          console.log("response", response, "REF :",this.Instance, this.Items)
+          console.log("response", response, "REF :", this.Instance, this.Items)
         }
       }
     },
@@ -98,13 +95,14 @@ export default {
       const items = ProductInstanceBase.query().where("group_id", this.RefID).withAll().all();
       return items;
     },
-    ItemProps:function(){
+    ItemProps: function () {
       return {
         /*  load_mode: "LOAD_HANDLE_NOT_IN_DATABASE",*/
         quantity_editable: true,
         variant_editable: true,
         add_to_cart_enabled: true,
-        options_editable: false,}
+        options_editable: false,
+      }
     }
   },
   props: {
@@ -123,18 +121,18 @@ export default {
       type: String,
       default: defaultInstance.type.value,
     },
-     /**
-      * array of children items .
-      * @values  INSTANCE, LINE_ITEM
-      */
-    items:{
+    /**
+     * array of children items .
+     * @values  INSTANCE, LINE_ITEM
+     */
+    items: {
       type: [Array],
-      default:  () => ["empty"],
+      default: () => ["empty"],
     },
-     /**
-      * the total amount of items in the group
-      */
-    item_count:{
+    /**
+     * the total amount of items in the group
+     */
+    item_count: {
       type: [Number],
       default: 0,
     },
@@ -148,7 +146,7 @@ export default {
      * @public
      */
     async addToCart(instance) {
-    //  const addtoCartResponse = await Cart.api().addItems([this.Instance])
+      //  const addtoCartResponse = await Cart.api().addItems([this.Instance])
       console.log("GROUP TRYING TO ADD TO CART ", instance, [this.Instance.NewLineItem])
     },
     initializeGroup(data = this.$props) {
@@ -180,27 +178,3 @@ export default {
   },
 }
 </script>
-<docs lang="md">
-Product Instance Provider Component (Renderless)
-
-## Examples
-with loader working
-
-```jsx
-<ProductInstanceProvider :handle="'local'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="8">
-  <div slot-scope="{Instance,ID}">
-    {{ ID }}
-  </div>
-</ProductInstanceProvider>
-<ProductInstanceProvider :handle="'balance'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="8">
-  <div slot-scope="{Instance,ID}">
-    {{ ID }}
-  </div>
-</ProductInstanceProvider>
-<ProductInstanceProvider :handle="'balance'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="8">
-  <div slot-scope="{Instance,ID}">
-    {{ ID }}
-  </div>
-</ProductInstanceProvider>
-```
-</docs>
