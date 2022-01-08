@@ -1,5 +1,5 @@
 <template>
-  <product-instance :id="4334343" :handle="$props.handle" :variant_id="Variant">
+  <product-instance :handle="$props.handle" :variant_id="Variant">
     <div slot-scope="{Ready,Instance,Quantity,QuantityAvailable,AddToCart,UpdateVariant,UpdateInstance,UpdateOption}">
       <product-provider v-if="Instance" v-bind="Instance.$toJson()">
         <brooklyn-product-template id="shopify-section-product-template"
