@@ -1,25 +1,31 @@
 const path = require("path");
-
 //this is a hack to get an imported package resolved route.
-const getPackagePath = function(_package, replace = [ "/index.js" , ""]){
-  return require
-      .resolve("@snailicide/g-patternlab")
-      .replace("/index.js", "");
-}
+const getPackagePath = function (_package, replace = ["/index.js", ""]) {
+  return require.resolve(_package).replace("/index.js", "");
+};
 
 /* * PatternLab Package Path * */
-const gPatternLabPackagePath = path.join(getPackagePath("@snailicide/g-patternlab"), "src");
+const gPatternLabPackagePath = path.join(
+  getPackagePath("@snailicide/g-patternlab"),
+  "src"
+);
 
 /* * Shopify Components Package Path * */
-const gShopifyOrmPackagePath = path.join(getPackagePath("@snailicide/g-shopify-orm"), "src");
-
+const gShopifyOrmPackagePath = path.join(
+  getPackagePath("@snailicide/g-shopify-orm"),
+  "src"
+);
 
 /* * Tailwind Stylesheet Path * */
-const gTWCSSPath  = path.join(getPackagePath("@snailicide/g-tailwind"), "dist/css/app.css");
+const gTWCSSPath = path.join(
+  getPackagePath("@snailicide/g-tailwind"),
+  "dist/css/app.css"
+);
 
 module.exports = {
   // set your styleguidist configuration here
   title: "Snail Style Guide",
+  require: [gTWCSSPath],
   // components: 'src/components/**/[A-Z]*.vue',
   // defaultExample: true,
   sections: [
@@ -36,7 +42,7 @@ module.exports = {
         },
       ],
     },
-   /* {
+    {
       name: "Shopify Components",
       sections: [
         {
@@ -44,13 +50,9 @@ module.exports = {
           components: `${gShopifyOrmPackagePath}/components/dataProvider/ProductProvider.vue`,
         },
       ],
-    },*/
+    },
   ],
   // webpackConfig: {
   //   // custom config goes here
   // },
-
-/*
-  require: [gTWCSSPath],
-*/
 };

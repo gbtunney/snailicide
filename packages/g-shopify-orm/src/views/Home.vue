@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
+
 <!--
     <gKabob path="divider.svg"
         width="100%"

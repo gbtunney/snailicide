@@ -1,7 +1,15 @@
 <template>
   <div class="about">
-    <ProductProvider :handle="$data.handle" :variant_id="22589282975862" >
-<div               slot-scope="{Ready,Quantity , addToCart, QuantityAvailable,loadTest,Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,UpdateInstance,Images,Instance,UpdateVariant}">
+    <ProductProvider :handle="$data.handle" :variant_id="3" >
+<div slot-scope="{Ready,
+Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOptionValue,Images}">
+      <div v-if="Ready">
+        <ul v-for="(option,index) in Options" :key="index">
+          <li v-text="option.title"></li>
+          <li>{{OptionValueList(option.handle)}}</li>
+        </ul>
+
+      </div>
 </div>
     </ProductProvider>
     <h1>This is an about page</h1>

@@ -1,8 +1,8 @@
 <script>
-import {getRandomNumber, isInteger, toInteger} from "@snailicide/g-library"
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import {LoaderMixin} from './../../mixins/LoaderMixin'
+import {ProductMixins} from './../../mixins/ProductMixins'
 
 import options from "./../../../options.json"
 const {EDITABLE_DEFAULTS, LOAD_MODE, SELECTION_MODE_OPTIONS} = options
@@ -12,30 +12,18 @@ import {
   Variant,
   ProductImage,
 } from '../../orm/models'
+import {isShopifyID} from "@/scripts/shopify";
 
 export default {
   name: "ProductProvider",
-  mixins: [LoaderMixin],
+  mixins: [LoaderMixin,ProductMixins],
   components: {},
   data: function () {
-    return {}
+    return {
+      selected_variant_id :false
+    }
   },
   props: {
-     /**
-      * shopify product handle or boolean (if not loaded)
-      */
-    handle: {
-      type: [Boolean, String],
-      default: false,
-    },
-    /**
-     * Selected Variant SID(9 digits) or Position(integer)
-     * @values SID, position
-     */
-    variant_id: {
-      type: Number,  /* ID OR SID */
-      default: 1
-    },
   },
   methods: {
     //reduces the variant list by relevant options.
@@ -59,7 +47,7 @@ export default {
       }, mappedArray[0]);
     },
     /**
-     * Get list of Products's OptionValues ??by handle or boolean?
+     * Get list of Products's OptionValues option,option handle or boolean?
      * todo: figure out how to bypass disabling proper
      * @param {boolean|string|Object<productoption>} option
      * @return {boolean|Object<productoptionvalue>} - list of ProductOptionValue entities
@@ -124,26 +112,18 @@ export default {
       return this.$props.handle
     },
     Ready: function () {
-      return (this.Product && this.SelectedVariant)? true:false
+      return (this.Product && this.SelectedVariant) ? true : false
     },
-    SelectedVariant: {
-      get: function () {
+    SelectedVariant(){
         if (!this.Product) return;
-        /*const shopifyID = this.Instance.getVariantPositionToID()
-        if (shopifyID != this.Instance.variant_id) {
+        const shopifyID = this.getVariantPositionToID( this.$props.variant_id,this.Handle  )
+    /* if (shopifyID != this.Instance.variant_id) {
           console.log("-----------------variant is position, need to update to SID", shopifyID, this.Instance.variant_id)
           this.updateInstance({variant_id: shopifyID})
         }*/
-        return Variant.query().whereId(this.$props.variant_id).with('options.Variants|image').first()
-      },
-      set: function (value) {
-        if (!this.Product) return false;
-        //if ((value && !this.Instance.variant_id) || (value && value.id != this.Instance.variant_id)) {
-        //NOTE: We are resetting the quantity here.
-        //  this.updateInstance({variant_id: value.id, quantity: 1})
-        // this.$emit('changed', this.SelectedVariant)
-        //}
-      }
+        return  ( isShopifyID(shopifyID)  )
+            ?  Variant.query().whereId(shopifyID).with('options.Variants|image').first()
+            : false
     },
     SelectedVariantImage: function () {
       if (!this.Ready) return;
@@ -171,11 +151,11 @@ export default {
       return ProductImage.query().where("product_id", this.Product.id).where("position", 1).orderBy('position').withAll().first()
     },
     Variants: function () {
-      if (!this.Product ) return;
+      if (!this.Product) return;
       return this.Product.Variants;
     },
     Options: function () {
-      if (!this.Product || !this.Instance) return;
+      if (!this.Ready ) return;
       //if (!this.$props.enableoptions || !this.Ready) return false
       return this.Product.Options;
     },
@@ -222,8 +202,3 @@ export default {
   },
 }
 </script>
-<!--
-//{ Loading,Variants,Images,Options,OptionValueList,
-// Product,ProductImage,SelectedVariant,SelectedVariantImage,SelectedOptionList,SelectedOption,
-// RequestedQuantity , UpdateInstance , UpdateOption,UpdateVariant,addToCartEnabled}
--->

@@ -1,6 +1,6 @@
 // {isVariantAvailable, isShopifyID, isGetMaxQuantity, shopifyMediaURL }
 import * as RA from "ramda-adjunct"
-import {getDigitCount, toInteger} from "@snailicide/g-library";
+import {getDigitCount, toInteger,isInteger} from "@snailicide/g-library";
 
 /**
  * isShopifyID
@@ -8,8 +8,12 @@ import {getDigitCount, toInteger} from "@snailicide/g-library";
  * @param {number} min_digits
  * @return {boolean} bool if invalid
  * - isInteger = true AND value > 9 digits */
-export function isShopifyID(value = false, min_digits =9) {
-    return ( getDigitCount(value) >= min_digits ) ? true : false;
+export function isShopifyID(
+  value: boolean | number | string = false,
+  min_digits = 9
+) {
+  if (!isInteger(value)) return;
+  return getDigitCount(value) >= min_digits ? true : false;
 }
 
 /**
