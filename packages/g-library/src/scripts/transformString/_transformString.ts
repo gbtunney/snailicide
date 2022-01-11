@@ -26,6 +26,7 @@ export const TRANSFORM_FUNCTIONS = {
     stringToInt: cleanIntegerType,
     parseInt: cleanIntegerType,
     parseBool: cleanBooleanType,
+    capitalize: properCase,
     case_sensitive: lowerCase,
     lowerCase,
     upperCase,
@@ -42,6 +43,7 @@ export const TRANSFORM_FUNCTIONS = {
 }
 /**
  * transformString
+ * @public
  * @param {boolean | string | number} value - single value
  * @param {boolean|string|array<string>} [d=[' ']] blacklist
  * @param {operations}[d=['["trim", "clean","stringToInt"]']] operations list
@@ -79,6 +81,7 @@ export const transformString = function (value: boolean | string | number = true
 }
 
 /**
+ * @public
  * transformStringAll - Transforms a batch of strings
  * @param {Array| Object | boolean | string | number} value - single value
  * @param {*}  args - parses values along to transform string
