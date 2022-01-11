@@ -112,6 +112,27 @@ export default {
          return false//state.fetching
        }
      }),*/
+    SlotProps(){
+     return {
+       Testing:"elllllo !!HERE",
+        Ready: this.Ready,
+            /** Gets multiple items.  */
+            Variants: this.Variants,
+          Images: this.Images,
+          Options: this.Options,
+          OptionValueList: this.OptionValueList, //FUNCTION  function that gets list option values by option id
+
+          /** Gets single items.  */
+          Product: this.Product,
+          ProductImage: this.ProductImage,
+          SelectedVariant: this.SelectedVariant,
+          SelectedVariantImage: this.SelectedVariantImage,
+
+          SelectedOptionList: this.SelectedOptionList, //?????do i need this????? returns an array
+          /** function that returns a optionvalue for a given option */
+          SelectedOptionValue: this.SelectedOptionValue,//FUNCTION single optionvalues by option
+      }
+    },
     Ready: function () {
       return (this.Product && this.SelectedVariant) ? true : false
     },
@@ -172,24 +193,7 @@ export default {
      * @binding {Object<productimage>} SelectedVariant - SelectedVariant ProductImage Entity
      */
     return this.$scopedSlots.default(
-        {
-          Ready: this.Ready,
-          /** Gets multiple items.  */
-          Variants: this.Variants,
-          Images: this.Images,
-          Options: this.Options,
-          OptionValueList: this.OptionValueList, //FUNCTION  function that gets list option values by option id
-
-          /** Gets single items.  */
-          Product: this.Product,
-          ProductImage: this.ProductImage,
-          SelectedVariant: this.SelectedVariant,
-          SelectedVariantImage: this.SelectedVariantImage,
-
-          SelectedOptionList: this.SelectedOptionList, //?????do i need this????? returns an array
-          /** function that returns a optionvalue for a given option */
-          SelectedOptionValue: this.SelectedOptionValue,//FUNCTION single optionvalues by option
-        }
+        this.SlotProps
     )
   },
 }

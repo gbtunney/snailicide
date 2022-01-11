@@ -152,7 +152,9 @@ export class Cart extends ProductGroupBase {
                     const myaxios = mockaxios("/cart", CartData)
                     return this.get("/cart").then(function (response) {
                         console.log("MOCK CART ", response);
+
                         myaxios.restore();
+                        return response
                     }).catch(function (error) {
                         console.error("error ob", error);
                     })

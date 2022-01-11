@@ -39,19 +39,7 @@ export default {
    * @binding {function} UpdateInstance
    */
   render() {
-    return this.$scopedSlots.default({
-      Instance: this.Instance,
-
-      Children: this.Items,
-      Items: this.Items,
-      /*    note: this.$props.note,*/
-
-      /*functions*/
-      AddToCart: this.addToCart,
-      UpdateInstance: this.updateInstance, //these are all functions
-
-      ID: this.RefID
-    })
+    return this.$scopedSlots.default(this.SlotProps)
   },
   data: function () {
     return {
@@ -79,6 +67,21 @@ export default {
     },
   },
   computed: {
+    SlotProps() {
+      return {
+        Instance: this.Instance,
+
+        Children: this.Items,
+        Items: this.Items,
+        /*    note: this.$props.note,*/
+
+        /*functions*/
+        AddToCart: this.addToCart,
+        UpdateInstance: this.updateInstance, //these are all functions
+
+        ID: this.RefID
+      }
+    },
     RefID: function () {
       return this.$props.id
     },
@@ -94,6 +97,9 @@ export default {
     Items: function () {
       const items = ProductInstanceBase.query().where("group_id", this.RefID).withAll().all();
       return items;
+    },
+    ItemCount: function () {
+      return this.Items.length
     },
     ItemProps: function () {
       return {
