@@ -1,9 +1,12 @@
 <!-- /templates/product.liquid -->
 {%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
 <div id="inner">
-  {% comment %}<product-group></product-group>{% endcomment %}
-  <default-product-page handle="{{ product.handle }}"></default-product-page>
+  <default-product-page :handle="'{{ product.handle }}'">
+  </default-product-page>
+{% comment %}
+  <product-test >
 
+  </product-test>{% endcomment %}
 {% comment %}  <g-kabob path="{{ 'divider.svg' | asset_url }}"
           height="20" color="red" bg_color="--color-corn-600" border="red"
   ><h2 >I am gillian</h2>

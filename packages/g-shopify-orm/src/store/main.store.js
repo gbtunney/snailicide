@@ -13,11 +13,8 @@ import createPersistedState from "vuex-persistedstate";
 import { Models } from "./../../src/orm/models";
 import globalSettings from "../modules/globalSettings";
 import ormmodule from "../modules/ormmodule";
-import moduleProductLoader from "../modules/moduleProductLoader";
-//import cartModule from "../modules/cartModule";
-import cartModule from "../modules/newcartModule.ts";
-
-
+import moduleProductLoader from "../modules/ProductLoaderModule";
+import cartModule from "../modules/CartModule.ts";
 
 /* * Settings * */
 import settings from "./../../settings.json";

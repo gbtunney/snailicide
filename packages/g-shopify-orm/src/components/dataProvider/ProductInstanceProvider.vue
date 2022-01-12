@@ -1,36 +1,67 @@
-<script>import * as R from "ramda"
+<script>
+import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import {ProductMixins} from './../../mixins/ProductMixins'
 import {getRandomNumber} from "@snailicide/g-library";
+
+//MIXINS.
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
+
+//PRODUCT TO EXTEND.
+import ProductProvider from "./ProductProvider.vue"
 import {
-  Cart,
   ProductInstanceBase,
   ProductInstanceSingle, Variant,
 } from './../../orm/models'
 
 const defaultInstance = ProductInstanceSingle.fields();
-//import moduleProductLoader from "./../../modules/moduleProductLoader";
 
 export default {
-  name: "ProductInstanceProvider",
+  name: "ProductInstanceProviderExtended",
   mixins: [ProductMixins, EditableOptionsMixins, LoadModeMixin],
+  extends: ProductProvider,
+  props: {
+    /**
+     * id -to make a new instance if not provided.
+     */
+    id: {
+      type: [Number, Boolean],
+      default: getRandomNumber(1000000),
+    },
+    /**
+     * type of instance
+     * @values INSTANCE, LINE_ITEM , maybe group??  etc/
+     */
+    type: {
+      type: String,
+      default: defaultInstance.type.value,
+    },
+    quantity: {
+      type: Number,
+      default: 1
+    },
+  },
+  watch: {
+    id: {
+      immediate: true,
+      handler(value) {
+        if (value !== false/* && (value != this.RefID)*/) {
+          console.log(" id changed from ", value, this.$props)
+          this.insertOrUpdateInstance(this.$props);
+        }
+      }
+    },
+    quantity: {
+      handler(value) {
+        console.log(" quantity changed from ", value, this.$props)
+        this.insertOrUpdateInstance(this.$props);
+      }
+    },
+  },
   mounted() {
     this.initializeLoadInstance(this.Handle, this.LoadMode)
   },
-  /*
-     //instance variables
-          Instance: this.Instance,
-          QuantityAvailable: this.QuantityAvailable,
-          Quantity: this.Quantity,
-          UpdateInstance: this.updateInstance, //these are all functions
-          UpdateOption: this.updateOption,
-          UpdateVariant: this.updateVariant,
-          addToCartEnabled: this.$props.add_to_cart_enabled,
-          addToCart: this.addToCart,
-          loadTest: this.Status,
-   */
   /**
    * @slot
    * @binding {Object<productbase>} Instance - The product instance entity
@@ -43,34 +74,21 @@ export default {
    */
   render() {
     return this.$scopedSlots.default({
-      Instance: this.Instance,
-      QuantityAvailable: this.QuantityAvailable,
-      Quantity: this.Quantity,
+          ...{
+            Instance: this.Instance,
+            QuantityAvailable: this.QuantityAvailable,
+            Quantity: this.Quantity,
 
-      /*functions*/
-      AddToCart: this.addToCart,
-      UpdateInstance: this.updateInstance, //these are all functions
-      UpdateOption: this.updateOption,
-      UpdateVariant: this.updateVariant,
+            /*functions*/
+            AddToCart: this.addToCart,
+            UpdateInstance: this.updateInstance, //these are all functions
+            UpdateOption: this.updateOption,
+            UpdateVariant: this.updateVariant,
 
-      ID: this.RefID
-    })
-  },
-  data: function () {
-    return {
-      _refID: getRandomNumber(1000000)
-    }
-  },
-  watch: {
-    id: {
-      immediate: true,
-      handler(value) {
-        if (value !== false/* && (value != this.RefID)*/) {
-          console.log(" id changed from ", value, this.$props)
-          this.insertOrUpdateInstance(this.$props);
+            ID: this.RefID
+          }, ...this.SlotProps
         }
-      }
-    },
+    )
   },
   computed: {
     RefID: function () {
@@ -118,23 +136,6 @@ export default {
       }
     },
   },
-  props: {
-    /**
-     * id -to make a new instance if not provided.
-     */
-    id: {
-      type: [Number, Boolean],
-      default: getRandomNumber(1000000),
-    },
-    /**
-     * type of instance
-     * @values INSTANCE, LINE_ITEM , maybe group??  etc/
-     */
-    type: {
-      type: String,
-      default: defaultInstance.type.value,
-    },
-  },
   methods: {
     getMergedOptionArray(value) {
       const value_map = R.indexBy(R.prop('parent_handle'), RA.ensureArray(value));
@@ -172,9 +173,8 @@ export default {
      * @return {void}
      * @public
      */
-    async addToCart(instance) {
-      const addtoCartResponse = await Cart.api().addItems([this.Instance])
-      console.log("SERVER TRYING TO ADD ITEM ", instance, [this.Instance.NewLineItem], addtoCartResponse)
+    addToCart(instance) {
+      const updatedCart = this.$store.dispatch('shopifycart/addToCart', instance)
     },
     /**
      * Update Variant function

@@ -1,24 +1,26 @@
 <template>
   <div>
-    <buy-cart-provider @ready="cartReady">
+    <buy-cart-provider>
       <div slot-scope="{ Items,ItemCount,cartIsUpdating,updateItemQuantity}">
-        <h1>loading {{cartIsUpdating}}</h1>
-        <div v-for="(child, index) in Items" :key="index">
-          <product-instance v-bind="child">
-            <div slot-scope="{Product,SelectedVariant,Variants,SelectedVariantImage,Quantity,UpdateInstance,Instance}">
-              <!--        <div slot-scope="{Ready, Product,SelectedVariant,UpdateInstance,RequestedQuantity,Instance,SelectedVariantImage}">-->
-              <div v-if="child">child:{{ child.handle }}-</div>
-              <img v-if='SelectedVariantImage' :src="SelectedVariantImage.getSrc(200)"/>
-              <div class="flex" v-if="Product && SelectedVariant">
-                {{ Product.title }} -- {{ SelectedVariant.title }}
-                <input type="number" :value="Quantity" :min="0"
-                    :max="SelectedVariant.quantity"
-                    @input="updateItemQuantity({ quantity: $event.target.value},Instance)"/>
-                <button class="bg-accent-secondary" @click="Instance.$delete()">REMOVE ME</button>
+        <h1 v-if="cartIsUpdating">loading!!!</h1>
+        <div v-if="!cartIsUpdating">
+          <h2>CART COUNT{{ItemCount}}</h2>
+          <div v-for="(child, index) in Items" :key="index">
+            <product-instance v-bind="child">
+              <div slot-scope="{Product,SelectedVariant,Variants,SelectedVariantImage,Quantity,UpdateInstance,Instance}">
+                <!--        <div slot-scope="{Ready, Product,SelectedVariant,UpdateInstance,RequestedQuantity,Instance,SelectedVariantImage}">-->
+                <img v-if='SelectedVariantImage' :src="SelectedVariantImage.getSrc(100)"/>
+                <div class="flex" v-if="Product && SelectedVariant">
+                  {{ Product.title }} -- {{ SelectedVariant.title }}
+                  <SfQuantitySelector :qty="Quantity" :min="0"
+                      :max="SelectedVariant.inventory_quantity"
+                      @input="updateItemQuantity({  pid: child.pid,quantity: $event}) "/>
+                  <button class="bg-accent-secondary" @click="Instance.$delete( );updateItemQuantity({  pid: child.pid,quantity: 0}) ">X</button>
+                </div>
               </div>
-            </div>
-          </product-instance>
+            </product-instance>
           </div>
+        </div>
       </div>
     </buy-cart-provider>
     <product-instance :handle="$props.handle" :variant_id="Variant">
@@ -94,7 +96,7 @@
                   <template #option="{ isSelected,title,$isDisabled ,image }">
 
                     <div :class="isSelected? 'bg-primary-lt' : '' "
-                        class="flex font-secondary uppercase items-center tTotalPriceext-lg flex-row h-full w-full p-2.5">
+                        class="flex font-secondary uppercase items-center text-lg flex-row h-full w-full p-2.5">
 
                       <div v-if="image"
                           class="sf-product-option__color">
@@ -161,18 +163,11 @@ export default {
     }
   },
   computed: {
-CartState(){
-  return   ( this.$store.get('shopifycart/cart')&&this.$store.get('shopifycart/cart').lineItems ) ? this.$store.get('shopifycart/cart').lineItems.length:false;
-},
     Variant: function () {
       return (this.$route.query && this.$route.query.variant) ? parseInt(this.$route.query.variant) : 1;
     }
   },
   methods: {
-    cartReady(){
-      console.log("imshrrr")
-
-    },
     getSrcSet(_images = []) {
       if (!_images) return
       return _images.map(function (image) {

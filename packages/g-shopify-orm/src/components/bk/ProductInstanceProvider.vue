@@ -1,29 +1,23 @@
-<script>
-import * as R from "ramda"
+<script>import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import {ProductMixins} from './../../mixins/ProductMixins'
 import {getRandomNumber} from "@snailicide/g-library";
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
-import ProductProvider from "./ProductProvider.vue"
 import {
   Cart,
   ProductInstanceBase,
   ProductInstanceSingle, Variant,
 } from './../../orm/models'
-import Client from 'shopify-buy';
-//import {State} from "../../modules/Shopify";
 
 const defaultInstance = ProductInstanceSingle.fields();
 //import moduleProductLoader from "./../../modules/moduleProductLoader";
 
 export default {
-  name: "ProductInstanceProviderExtended",
+  name: "ProductInstanceProvider",
   mixins: [ProductMixins, EditableOptionsMixins, LoadModeMixin],
-  extends: ProductProvider,
   mounted() {
     this.initializeLoadInstance(this.Handle, this.LoadMode)
-    console.log("hhhih!!!!i", this.ReturnProps)
   },
   /*
      //instance variables
@@ -49,21 +43,18 @@ export default {
    */
   render() {
     return this.$scopedSlots.default({
-          ...{
-            Instance: this.Instance,
-            QuantityAvailable: this.QuantityAvailable,
-            Quantity: this.Quantity,
+      Instance: this.Instance,
+      QuantityAvailable: this.QuantityAvailable,
+      Quantity: this.Quantity,
 
-            /*functions*/
-            AddToCart: this.addToCart,
-            UpdateInstance: this.updateInstance, //these are all functions
-            UpdateOption: this.updateOption,
-            UpdateVariant: this.updateVariant,
+      /*functions*/
+      AddToCart: this.addToCart,
+      UpdateInstance: this.updateInstance, //these are all functions
+      UpdateOption: this.updateOption,
+      UpdateVariant: this.updateVariant,
 
-            ID: this.RefID
-          }, ...this.SlotProps
-        }
-    )
+      ID: this.RefID
+    })
   },
   data: function () {
     return {
@@ -143,10 +134,6 @@ export default {
       type: String,
       default: defaultInstance.type.value,
     },
-    quantity: {
-      type: Number,
-      default: 1
-    },
   },
   methods: {
     getMergedOptionArray(value) {
@@ -185,8 +172,12 @@ export default {
      * @return {void}
      * @public
      */
-    addToCart(instance) {
-      const updatedCart = this.$store.dispatch('shopifycart/addToCart', instance)
+    async addToCart(instance) {
+
+      const enccc = atob(`gid://shopify/ProductVariant/${this.Instance.variant_id}`)
+
+   //   const addtoCartResponse = await Cart.api().addItems([this.Instance])
+      console.log("!!!!!!SERVER TRYING TO ADD ITEM ", enccc)
     },
     /**
      * Update Variant function

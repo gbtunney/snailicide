@@ -5,17 +5,17 @@ import store from "./src/store";
 import ProductProvider from "./src/components/dataProvider/ProductProvider.vue";
 //import ProductInstanceProvider from "./src/components/dataProvider/ProductInstanceProvider.vue";
 
-import CartProvider from "./src/components/dataProvider/CartProvider.vue";
 import ProductGroupProvider from "./src/components/dataProvider/ProductGroupProvider.vue";
-import ProductInstanceProvider from "./src/components/dataProvider/ProductInstanceProviderUniversal.vue";
+import ProductInstanceProvider from "./src/components/dataProvider/ProductInstanceProvider.vue";
 
+import BuyCartProvider from "./src/components/dataProvider/BuyCartProvider.ts";
 import ShopifyAssetURLMixin from "./src/mixins/ShopifyAssetURLMixin";
 
 export {
   ProductProvider,
   ProductInstanceProvider,
-  CartProvider,
   ProductGroupProvider,
+  BuyCartProvider,
   ShopifyAssetURLMixin,
   store,
 };

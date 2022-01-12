@@ -165,13 +165,6 @@ export function replaceAccents(str) {
 }
 
 /**
- * Truncate string at full words.
- */
-export function crop(str, maxChars, append) {
-    return truncate(str, maxChars, append, true);
-}
-
-/**
  * Escape RegExp string chars.
  */
 export function escapeRegExp(str) {
@@ -235,23 +228,6 @@ export function removeNonASCII(str) {
     // Matches non-printable ASCII chars -
     // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
     return str.replace(/[^\x20-\x7E]/g, "");
-}
-
-/**
- * Pad string with `char` if its' length is smaller than `minLen`
- */
-export function rpad(str, minLen, ch) {
-    ch = ch || " ";
-    return str.length < minLen ? str + repeat(ch, minLen - str.length) : str;
-}
-
-/**
- * Pad string with `char` if its' length is smaller than `minLen`
- */
-export function lpad(str, minLen, ch) {
-    ch = ch || " ";
-
-    return str.length < minLen ? repeat(ch, minLen - str.length) + str : str;
 }
 
 export const WHITE_SPACES = [

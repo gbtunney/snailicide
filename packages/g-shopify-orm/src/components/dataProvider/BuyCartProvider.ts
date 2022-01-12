@@ -1,11 +1,8 @@
 import Vue, { VNode } from "vue";
 import { LineItem } from "shopify-buy";
-import {parseGidWithParams,composeGid} from '@shopify/admin-graphql-api-utilities';
-
+import {parseGidWithParams} from '@shopify/admin-graphql-api-utilities';
 import {
-  validateString,
-  transformString,
-  transformStringAll,
+ toInteger
 } from "@snailicide/g-library";
 
 export default Vue.extend({
@@ -29,27 +26,33 @@ export default Vue.extend({
     Items() {
       if (this.ItemCount <= 0) return false;
       const items = this.$store
-          .get("shopifycart/cart")
-          .lineItems.map(function (item) {
-            const {id} = parseGidWithParams(atob(item.id).toString())
-            console.log("dddd",atob(item.id).toString())
-            const {id: variant_id} = parseGidWithParams(atob(item.variant.id).toString());
-            const {quantity = false} = item;
-            const {handle = false} = item.variant.product;
-            return {
-              id: transformString(id, [], ["parseInt"]),
-              variant_id: transformString(variant_id, [], ["parseInt"]),
-              handle,
-              quantity,
-            };
-          });
+        .get("shopifycart/cart")
+        .lineItems.map(function (item) {
+          const { id, params } = parseGidWithParams(atob(item.id).toString());
+          const { id: variant_id } = parseGidWithParams(
+            atob(item.variant.id).toString()
+          );
+          const { quantity = false } = item;
+          const { handle = false } = item.variant.product;
+          return {
+            pid: item.id,
+            handle,
+            id: toInteger(id), //instance id.
+            variant_id: toInteger(variant_id),
+            quantity: toInteger(quantity),
+          };
+        });
       return items;
     },
     ItemCount() {
       return this.$store.get("shopifycart/cart") &&
         this.$store.get("shopifycart/cart").lineItems
-        ? this.$store.get("shopifycart/cart").lineItems.length
-        : 0;
+        ? this.$store
+            .get("shopifycart/cart")
+            .lineItems.reduce(
+              (accumulator, currentValue, currentIndex, array) => {
+                return currentValue.quantity + accumulator;
+              }, 0) : 0;
     },
     cartProps() {
       return {
@@ -59,29 +62,16 @@ export default Vue.extend({
       };
     },
   },
-
   methods: {
     removeItem(item: LineItem) {
       //  Shopify.removeItem(item)
     },
-
-    updateItemQuantity(obj,item) {
-     /* const {quantity}= obj
-        const {      id :idbase   }=   item;
-
-      const seach= this.$store
-          .get("shopifycart/cart")
-          .lineItems.find(function (item) {
-
-              const {id} = parseGidWithParams(atob(item.id).toString())              console.log("utems", idbase,id);
-
-              if (id===idbase )return true;
-            return false;
-          });
-        console.log("utems", seach,item);
-
-      this.$store.dispatch("shopifycart/updateItemQuantity", {item,quantity,seach})*/
-      //Shopify.updateItemQuantity(item, qty)
+    async updateItemQuantity(obj, item) {
+      const { quantity, pid: id, variantId } = obj;
+      console.log("!!!!updateItemQuantityAfter", { id, quantity });
+      await this.$store.dispatch("shopifycart/updateItemQuantity", [
+        { id, quantity },
+      ]);
     },
   },
 });
