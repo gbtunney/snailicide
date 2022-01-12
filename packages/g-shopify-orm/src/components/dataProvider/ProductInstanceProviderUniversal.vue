@@ -11,6 +11,8 @@ import {
   ProductInstanceBase,
   ProductInstanceSingle, Variant,
 } from './../../orm/models'
+import Client from 'shopify-buy';
+//import {State} from "../../modules/Shopify";
 
 const defaultInstance = ProductInstanceSingle.fields();
 //import moduleProductLoader from "./../../modules/moduleProductLoader";
@@ -141,6 +143,10 @@ export default {
       type: String,
       default: defaultInstance.type.value,
     },
+    quantity: {
+      type: Number,
+      default: 1
+    },
   },
   methods: {
     getMergedOptionArray(value) {
@@ -179,13 +185,8 @@ export default {
      * @return {void}
      * @public
      */
-    async addToCart(instance) {
-      const addtoCartResponse = await Cart.api().addItems([this.Instance])
-      console.log("SERVER TRYING TO ADD ITEM ", instance, [this.Instance.NewLineItem], addtoCartResponse)
-
-     const resp = await this.$store.dispatch("shopifycart/loadCart",{MOCK_CART:this.$props.mock})
-      console.log("CART!! ", resp)
-
+    addToCart(instance) {
+      const updatedCart = this.$store.dispatch('shopifycart/addToCart', instance)
     },
     /**
      * Update Variant function

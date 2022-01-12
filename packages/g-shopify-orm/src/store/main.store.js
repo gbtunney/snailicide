@@ -14,7 +14,8 @@ import { Models } from "./../../src/orm/models";
 import globalSettings from "../modules/globalSettings";
 import ormmodule from "../modules/ormmodule";
 import moduleProductLoader from "../modules/moduleProductLoader";
-import cartModule from "../modules/cartModule";
+//import cartModule from "../modules/cartModule";
+import cartModule from "../modules/newcartModule.ts";
 
 
 
