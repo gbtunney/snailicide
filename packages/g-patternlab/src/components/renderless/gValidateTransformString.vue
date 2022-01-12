@@ -47,6 +47,16 @@ export default {
     }
   },
   methods:{
+    /**
+     * @public
+     * transformString - Transforms a batch of strings
+     * @param {Array| Object | boolean | string | number} value - single value
+     * @param {*}  args - parses values along to transform string
+     * @return {Array| Object  | boolean | string | number} returns batch ( or single ) transformed string.
+     * @example
+     *      transformString("spynx sucks", [" "],["sentenceCase", "clean"])
+     *      =>"Spynxsucks"
+     */
     transformString : transformStringAll
   },
   computed: {

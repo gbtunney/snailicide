@@ -182,6 +182,10 @@ export default {
     async addToCart(instance) {
       const addtoCartResponse = await Cart.api().addItems([this.Instance])
       console.log("SERVER TRYING TO ADD ITEM ", instance, [this.Instance.NewLineItem], addtoCartResponse)
+
+     const resp = await this.$store.dispatch("shopifycart/loadCart",{MOCK_CART:this.$props.mock})
+      console.log("CART!! ", resp)
+
     },
     /**
      * Update Variant function

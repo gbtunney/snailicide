@@ -1,3 +1,4 @@
+// @ts-expect-error this breaks alot
 export {
     lowerCase,
     upperCase,
@@ -17,6 +18,6 @@ export {
     escapeHtml,
     unescapeHtml,
     escapeUnicode
-} from './_stringUtils'
+} from './_stringUtils.js'
 
 export {stringContainsNumber,stringContainsLetter} from "./_string"

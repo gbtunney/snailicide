@@ -1,12 +1,40 @@
 <template>
   <div id="app">
+    <gValidateTransformString :value="'material-alpaca'" list="alpaca" operation="contains" delimiter="-">
+      <div slot-scope="[transformString,material=false,value=false]">
+       hhere {{transformString(['material'],["mat"],["trim" ])}}
+      <h1 v-if="material">
+          {{transformString([material],[],["capitalize" ]) }} : {{ value}}
+        </h1>
+        <div v-if="value==='alpaca'">
+          <g-kabob path="llama.svg" color="white" align="center" classes="p-2 text-bold bg-accent-secondary-dk" width="100%" border="true" height="30">Alpaca Certified!</g-kabob>
+        </div>
+
+
+
+      </div>
+    </gValidateTransformString>
+    <gValidateTransformString :value="'material-sheep'" list="sheep" operation="contains" delimiter="-">
+      <div slot-scope="[transformString,material=false,value=false]">
+        hhere {{transformString(['material'],["mat"],["trim" ])}}
+        <h1 v-if="material">
+          {{transformString([material],[],["capitalize" ]) }} : {{ value}}
+        </h1>
+          <g-kabob path="sheep.svg" color="white" align="center" classes="p-2 text-bold bg-accent-secondary-dk" width="100%" border="true" height="30">Sheep Certified!</g-kabob>
+
+
+
+
+      </div>
+    </gValidateTransformString>
+
     <gTWSwatches  :height="200">Tailwind</gTWSwatches>
     <g-class-finder>
       <h2 v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]'>Test element ello!!!!!</h2>
       <styled-element-grid v-tw='[{"variant":false,"type":"root","selector":"*","classes":[".bg-accent-primary-dk text-2xl text-accent-secondary-dk"],"limit":false,"operation":"add"},{"variant":"hover","type":"root","selector":"*","classes":[".bg-accent-secondary-lt"],"limit":false,"operation":"add"}]' column_count="8">
         <styled-background-line >giklllllll</styled-background-line>
       </styled-element-grid>
-      <g-kabob color="yellow" align="center" classes="p-8 bg-accent-secondary" width="300" border="true" height="90">i am a kabob</g-kabob>
+      <g-kabob  color="yellow" align="center" classes="p-8 bg-accent-secondary" width="300" border="true" height="90">i am a kabob</g-kabob>
       <g-svg
           path="leaves-a.svg" width="80"
           color="rebeccapurple"
@@ -25,6 +53,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import gValidateTransformString from './components/renderless/gValidateTransformString.vue'
+
 import gSvg from './components/ui/sfc/gSvg.vue'
 import {StyledBackgroundLine} from './components/ui/styled'
 import {gKabob} from './components/ui'
@@ -51,6 +81,7 @@ const f = chroma.scale(['yellow', 'red', 'green']).classes(8)
 export default Vue.extend({
   name: 'App',
   components: {
+    gValidateTransformString,
     gSvg,
     StyledBackgroundLine,
     gKabob,

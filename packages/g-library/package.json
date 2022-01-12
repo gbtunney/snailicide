@@ -15,7 +15,8 @@
     "lint": "vue-cli-service lint",
     "docs": "jsdoc --configure jsdoc.json",
     "docs:test": "jsdoc -X ./public/index.html > jsdoc-ast.json",
-    "docs:build": "jsdoc --configure jsdoc.json"
+    "docs:build": "jsdoc --configure jsdoc.json",
+    "typedoc": "typedoc"
   },
   "dependencies": {
     "better-docs": "^2.3.2",
@@ -43,6 +44,7 @@
     "jsdoc": "^3.6.7",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "typedoc": "^0.22.10",
     "typescript": "~4.1.5",
     "vue-template-compiler": "^2.6.11"
   },

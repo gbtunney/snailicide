@@ -41,6 +41,10 @@ module.exports = {
           name: "Styled Components",
           components: `${gPatternLabPackagePath}/components/ui/styled/docs/*.vue`,
         },
+        {
+          name:"Utility Components",
+          components: `${gPatternLabPackagePath}/components/renderless/*.vue`,
+        },
       ],
     },
     {

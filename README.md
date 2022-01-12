@@ -8,12 +8,19 @@ open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir
 ###add package 
     yarn --cwd packages/g-shopify-orm add  @snailicide/g-library @snailicide/g-patternlab
     yarn --cwd apps/styleguide add   @tailwindcss/typography@0.5.0-alpha.2  @tailwindcss/forms tailwind-css-variables
-    yarn --cwd packages/g-patternlab add 
-^15.9.8
-yarn --cwd apps/o-wool-2022 add vue-select v-tooltip @snailicide/g-library @snailicide/g-patternlab  @snailicide/g-shopify-orm
-yarn --cwd packages/g-shopify-orm
-yarn --cwd packages/g-shopify-orm  apps/tw-viewer add  @snailicide/g-tailwind    add tailwind-config-viewer -D
-tailwind-config-viewer
+    yarn --cwd packages/g-patternlab add
+
+###Shopify Cli Errors
+This command ran with ID: 89449
+Please include this information in any issues/report along with relevant logs
+Traceback (most recent call last):
+
+-PLEASE!!!! logout then in
+
+###Shopify 
+Snailicide 2022
+c20015f58d86ebe8863bbf7c7e2993d9
+
 ###Helpful Links
 - [JSdoc Cheatsheet](https://devhints.io/jsdoc)
 

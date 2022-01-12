@@ -1,17 +1,21 @@
 import store from "./src/store";
-import ProductChild from "./src/components/bk/ProductChild.vue";
-import GroupInstance from "./src/components/bk/GroupInstance.vue";
+//import ProductChild from "./src/components/bk/ProductChild.vue";
+//import GroupInstance from "./src/components/bk/GroupInstance.vue";
 
 import ProductProvider from "./src/components/dataProvider/ProductProvider.vue";
-import ProductInstanceProvider from "./src/components/dataProvider/ProductInstanceProvider.vue";
+//import ProductInstanceProvider from "./src/components/dataProvider/ProductInstanceProvider.vue";
+
+import CartProvider from "./src/components/dataProvider/CartProvider.vue";
+import ProductGroupProvider from "./src/components/dataProvider/ProductGroupProvider.vue";
+import ProductInstanceProvider from "./src/components/dataProvider/ProductInstanceProviderUniversal.vue";
 
 import ShopifyAssetURLMixin from "./src/mixins/ShopifyAssetURLMixin";
 
 export {
-  GroupInstance,
   ProductProvider,
   ProductInstanceProvider,
+  CartProvider,
+  ProductGroupProvider,
   ShopifyAssetURLMixin,
-  ProductChild,
   store,
 };

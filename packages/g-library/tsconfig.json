@@ -30,11 +30,14 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "public"
+  }
 }
