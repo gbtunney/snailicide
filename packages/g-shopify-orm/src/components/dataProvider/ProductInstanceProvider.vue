@@ -1,7 +1,7 @@
 <script>
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
-import {ProductMixins} from './../../mixins/ProductMixins'
+import ProductMixins from './../../mixins/ProductMixins'
 import {getRandomNumber} from "@snailicide/g-library";
 
 //MIXINS.
@@ -46,16 +46,12 @@ export default {
     id: {
       immediate: true,
       handler(value) {
-        if (value !== false/* && (value != this.RefID)*/) {
-          console.log(" id changed from ", value, this.$props)
-          this.insertOrUpdateInstance(this.$props);
-        }
+        if (value !== false) this.setUpdateInstance()
       }
     },
     quantity: {
-      handler(value) {
-        console.log(" quantity changed from ", value, this.$props)
-        this.insertOrUpdateInstance(this.$props);
+      handler() {
+        this.insertOrUpdateInstance(this.$props)
       }
     },
   },
@@ -137,11 +133,14 @@ export default {
     },
   },
   methods: {
+    setUpdateInstance(props = this.$props) {
+      this.insertOrUpdateInstance(props);
+    },
     getMergedOptionArray(value) {
       const value_map = R.indexBy(R.prop('parent_handle'), RA.ensureArray(value));
       return [...Object.values({...this.SelectedVariant.getOptionValueIndexedBy(), ...value_map})]
     },
-    getVariantsByOptionValues(option_value_array, boolRequireAll = true) {
+    getVariantsByOptionValues(option_value_array) {
       if (!option_value_array || option_value_array.length === 0) return false;
       if (option_value_array && option_value_array.length === 1) return option_value_array[0].Variants
 
@@ -149,9 +148,9 @@ export default {
         return value.Variants;
       }).filter(function (_variants) {
         //todo:ref.$props.ignoreInventory
-        return (_variants && _variants.length > 0) ? true : false;
+        return (_variants && _variants.length > 0)
       })
-      if (option_value_array.length != mappedArray.length) return []
+      if (option_value_array.length !== mappedArray.length) return []
       return mappedArray.reduce((acc, item) => {
         return R.innerJoin(
             (record0, record1) => record0.id === record1.id,
@@ -163,7 +162,7 @@ export default {
     isOptionValueSelected(_value) {
       if (!_value || !_value.parent_handle) return false
       const selected_value_for_parent = this.SelectedVariant.getOptionValue(_value.parent_handle)
-      if (selected_value_for_parent) return (_value["$id"] == selected_value_for_parent["$id"]);
+      if (selected_value_for_parent) return (_value["$id"] === selected_value_for_parent["$id"]);
       return false;
     },
     /**
@@ -174,7 +173,7 @@ export default {
      * @public
      */
     addToCart(instance) {
-      const updatedCart = this.$store.dispatch('shopifycart/addToCart', instance)
+      this.$store.dispatch('shopifycart/addToCart', instance)
     },
     /**
      * Update Variant function
@@ -185,8 +184,8 @@ export default {
      * @public
      */
     updateVariant(variant = {}, variant_editable = (this.Instance) ? this.Instance.variant_editable : this.$props.variant_editable) {  //TODO: change this name - i hate it.
-      if (!variant_editable) return false;
-      console.log("variant update  ::: Called", variant)
+      if (!variant_editable) return;
+      console.log("variant update  ::: Called!!", this.$router)
       if (this.$props.ignoreInventory) this.SelectedVariant = variant; //doesnt do anythinggggg. override availability
       else if (variant.IsAvailable) this.SelectedVariant = variant;
     },
@@ -198,7 +197,7 @@ export default {
      * @public
      */
     updateOption(option) {
-      if (/*!this.$props.enableoptions || */!this.Product || !this.Product.id) return false
+      if (/*!this.$props.enableoptions || */!this.Product || !this.Product.id) return
       let newVarArray = this.getVariantsByOptionValues(this.getMergedOptionArray(option));
       console.log("updateOption ::: Called", this.getMergedOptionArray(option), newVarArray)
       if (newVarArray && newVarArray.length === 1) this.updateVariant(newVarArray[0])
@@ -209,7 +208,7 @@ export default {
       })
     },
     ///todo: replace
-    updateInstance(_data, instance) {
+    updateInstance(_data) {
       const response = ProductInstanceBase.update({
         where: this.RefID,
         data: _data

@@ -1,4 +1,5 @@
 import {defaultMutations} from "vuex-easy-access";
+import Vue from "vue";
 
 /* * GLOBAL SETTINGS MODULE! * */
 
@@ -7,6 +8,8 @@ import {defaultMutations} from "vuex-easy-access";
  */
 const state = {
     asset_url: '',
+    drawer_right: false,
+    drawer_left: false,
 }
 /**
  * getters
@@ -28,7 +31,8 @@ const mutations = {
 /**
  * actions
  */
-const actions = {}
+const actions = {
+}
 
 /**
  * export

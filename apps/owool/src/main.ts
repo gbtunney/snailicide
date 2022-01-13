@@ -51,6 +51,9 @@ Vue.use(VTooltip);
 import vSelect from "vue-select";
 Vue.component("v-select", vSelect);
 
+import PortalVue from 'portal-vue'
+Vue.use(PortalVue)
+
 import VueShopifyBuy from 'vue-shopify-buy'
 
 Vue.use(VueShopifyBuy, {

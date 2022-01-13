@@ -43,7 +43,7 @@ const actions = {
         const keys = Object.keys(R.indexBy(R.prop('handle'), items));
         return Promise.all(keys.map(function (item) {
                 const handle = item
-            console.log("TRYING TO LOADDDDDDDDD" ,getters.get_loader(handle)  )
+          //  console.log("TRYING TO LOADDDDDDDDD" ,getters.get_loader(handle)  )
                 if (getters.get_loader(handle)) {
                     return getters.get_loader(item)
                 } else {
@@ -58,14 +58,12 @@ const actions = {
                         promise = Product.api().fetchByHandle(handle)
                     } else if (load_mode == 'LOAD_HANDLE_NOT_IN_DATABASE') {
                         if (!handle) return;
-                        console.error("doLoader:  LOAD_HANDLE_NOT_IN_DATABASE:product", items)
                         if (!Product.getProductByHandle(handle)) promise = Product.api().fetchByHandle(handle)
                     } else if (load_mode == 'LOAD_NEVER') {
                         //do nothing? instance???
                     }
                     if (promise) {
                         promise.then(function (value) {
-                            console.log("REMOMOOMOMMOMOMOMOMOMOM", value)
                             commit('remove_loader', handle)
                         })
                         commit("add_loader", {

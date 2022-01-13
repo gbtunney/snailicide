@@ -1,9 +1,7 @@
 import Vue, { VNode } from "vue";
 import { LineItem } from "shopify-buy";
-import {parseGidWithParams} from '@shopify/admin-graphql-api-utilities';
-import {
- toInteger
-} from "@snailicide/g-library";
+import { parseGidWithParams } from "@shopify/admin-graphql-api-utilities";
+import { toInteger } from "@snailicide/g-library";
 
 export default Vue.extend({
   name: "BuyCartProvider",
@@ -18,8 +16,22 @@ export default Vue.extend({
       cartIsUpdating: this.$store.get("shopifycart/loading"),
     });
   },
-  async mounted() {
-    const cart = await this.$store.dispatch("shopifycart/getCart");
+  props: {
+    updateCart: {
+      default: false,
+      type: Boolean,
+    },
+  },
+  watch: {
+    updateCart: {
+      immediate: true,
+      handler(newValue, oldValue) {
+        console.log(" updateCart changed from " + oldValue + " to " + newValue);
+        if (newValue) this.$store.dispatch("shopifycart/getCart");
+      },
+    },
+  },
+  mounted() {
     //this.$emit("ready", cart);
   },
   computed: {
@@ -52,7 +64,10 @@ export default Vue.extend({
             .lineItems.reduce(
               (accumulator, currentValue, currentIndex, array) => {
                 return currentValue.quantity + accumulator;
-              }, 0) : 0;
+              },
+              0
+            )
+        : 0;
     },
     cartProps() {
       return {
@@ -66,10 +81,10 @@ export default Vue.extend({
     removeItem(item: LineItem) {
       //  Shopify.removeItem(item)
     },
-    async updateItemQuantity(obj, item) {
+    updateItemQuantity(obj, item) {
       const { quantity, pid: id, variantId } = obj;
       console.log("!!!!updateItemQuantityAfter", { id, quantity });
-      await this.$store.dispatch("shopifycart/updateItemQuantity", [
+      this.$store.dispatch("shopifycart/updateItemQuantity", [
         { id, quantity },
       ]);
     },

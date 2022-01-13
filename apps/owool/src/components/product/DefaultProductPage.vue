@@ -1,29 +1,11 @@
 <template>
   <div>
-    <buy-cart-provider>
-      <div slot-scope="{ Items,ItemCount,cartIsUpdating,updateItemQuantity}">
-        <h1 v-if="cartIsUpdating">loading!!!</h1>
-        <div v-if="!cartIsUpdating">
-          <h2>CART COUNT{{ItemCount}}</h2>
-          <div v-for="(child, index) in Items" :key="index">
-            <product-instance v-bind="child">
-              <div slot-scope="{Product,SelectedVariant,Variants,SelectedVariantImage,Quantity,UpdateInstance,Instance}">
-                <!--        <div slot-scope="{Ready, Product,SelectedVariant,UpdateInstance,RequestedQuantity,Instance,SelectedVariantImage}">-->
-                <img v-if='SelectedVariantImage' :src="SelectedVariantImage.getSrc(100)"/>
-                <div class="flex" v-if="Product && SelectedVariant">
-                  {{ Product.title }} -- {{ SelectedVariant.title }}
-                  <SfQuantitySelector :qty="Quantity" :min="0"
-                      :max="SelectedVariant.inventory_quantity"
-                      @input="updateItemQuantity({  pid: child.pid,quantity: $event}) "/>
-                  <button class="bg-accent-secondary" @click="Instance.$delete( );updateItemQuantity({  pid: child.pid,quantity: 0}) ">X</button>
-                </div>
-              </div>
-            </product-instance>
-          </div>
-        </div>
-      </div>
-    </buy-cart-provider>
-    <product-instance :handle="$props.handle" :variant_id="Variant">
+
+
+    <portal to="announcement">
+      <slot></slot>
+    </portal>
+    <product-instance @changed="variantChanged" :variant_history=true :handle="$props.handle" :variant_id="Variant">
       <div slot-scope="{Ready,Instance,Quantity,QuantityAvailable,AddToCart,UpdateVariant,UpdateInstance,UpdateOption}">
         <product-provider v-if="Instance" v-bind="Instance.$toJson()">
           <brooklyn-product-template id="shopify-section-product-template"
@@ -153,6 +135,13 @@ export default {
       type: [Boolean, String],  /* ID OR SID */
       default: false,
     },
+    /**
+     * update the history mode url params.
+     */
+    variant_history: {
+      type: Boolean,
+      default: true
+    },
   },
   watch: {
     handle: {
@@ -164,10 +153,16 @@ export default {
   },
   computed: {
     Variant: function () {
-      return (this.$route.query && this.$route.query.variant) ? parseInt(this.$route.query.variant) : 1;
+      return (    this.$props.variant_history && this.$route.query && this.$route.query.variant)? parseInt(this.$route.query.variant) : 1;
     }
   },
   methods: {
+    setVariantURLHistory(variant_id = false, variant_history = this.$props.variant_history) {
+      if (!variant_id || !variant_history) return
+      const url = new URL(window.location)
+      url.searchParams.set('variant', variant_id)
+      window.history.pushState({}, '', url);
+    },
     getSrcSet(_images = []) {
       if (!_images) return
       return _images.map(function (image) {
@@ -190,6 +185,7 @@ export default {
       this.$data.glide = _func
     },
     variantChanged(_variant) {
+      this.setVariantURLHistory(_variant.id)
       console.log("--------------------variant changed", _variant);
     }
   }

@@ -1,5 +1,6 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+process.env.VUE_TEST_APP_VERSION = "i am a gillian!!!!"//require('./package.json').version
 
 module.exports = {
   // options...
