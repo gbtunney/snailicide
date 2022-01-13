@@ -1,6 +1,7 @@
 <template>
   <div class="CartTest">
-    <cart-provider :id="43993" v-bind="$data.group">
+    <h1>I AM A CART!!</h1>
+    <cart-provider >
 
       <div slot-scope="{Mounted, ID, note,Items,Status,Token}">
         <h1 v-if="Mounted"> token {{Token}} id {{ID}}</h1>

@@ -15,7 +15,7 @@ import globalSettings from "../modules/globalSettings";
 import ormmodule from "../modules/ormmodule";
 import moduleProductLoader from "../modules/ProductLoaderModule";
 import cartModule from "../modules/CartModule.ts";
-
+import {ShopifyBuyModule} from "../modules/ShopifyBuy";
 /* * Settings * */
 import settings from "./../../settings.json";
 
@@ -32,7 +32,8 @@ export const store = new Vuex.Store({
     global: globalSettings,
     orm: ormmodule,
     productloader:moduleProductLoader,
-    shopifycart:cartModule
+    shopifycart:cartModule,
+    ShopifyBuy: ShopifyBuyModule
   },
   plugins: [
     createEasyAccess(),
