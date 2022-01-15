@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "run-p -sr shopify:serve build-watch",
-    "deploy": "run-s build webpack:copy webpack:scripts && cd shopify && shopify theme push --themeid %%",
+    "deploy": "run-s build webpack:copy webpack:scripts && cd shopify && shopify theme push",
+    "test:build": "run-s build webpack:copy webpack:scripts",
     "webpack:scripts": "webpack --config=webpack.script.tags.js",
     "webpack:copy": "webpack --config=webpack.copy.js",
     "deploy:new": "run-s webpack:build && cd shopify && shopify theme push --unpublished",

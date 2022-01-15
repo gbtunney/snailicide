@@ -3,7 +3,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 process.env.VUE_TEST_APP_VERSION = "i am a gillian!!!!"//require('./package.json').version
 
 module.exports = {
-  filenameHashing: true,
+  filenameHashing: false,
   runtimeCompiler: true,
   css: {
     extract: true,
@@ -17,7 +17,7 @@ module.exports = {
     }
 },
 };
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production'  ) {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.configureWebpack.plugins = (
     module.exports.configureWebpack.plugins || []

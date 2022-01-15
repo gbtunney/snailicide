@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "owool": "yarn --cwd apps/owool start",
     "owool:deploy": "yarn --cwd apps/owool deploy",
+    "owool:test": "yarn --cwd apps/owool test:build",
     "styleguide": "yarn --cwd apps/styleguide styleguide",
     "testapp": "yarn --cwd apps/testapp serve",
     "lib:test": "yarn --cwd packages/g-library test:watch",
@@ -27,7 +28,7 @@
     "gvue": "yarn --cwd packages/g-vue serve",
     "dep:list": "find . -name 'node_modules' -type d -prune",
     "dep:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
-    "clean": "run-s dep:list && dep:rm && rm yarn.lock",
+    "clean": "run-s dep:list dep:rm yarn cache clean",
     "backstop:test": "yarn --cwd apps/backstop test",
     "chrome": "open -na Google\\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security"
   },

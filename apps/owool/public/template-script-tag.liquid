@@ -4,9 +4,6 @@ EX: {% include 'script-tag' with 'preload' %}
 values: preload , css, js
 {% endcomment %}
 {% assign script-tag-section = script-tag %}
-<gillianme>
-	tne value is::: {{ script-tag-section }}
-</gillianme>
 {% case script-tag-section %}
 
 {% when 'preload' %}
