@@ -9,13 +9,8 @@
   {% if settings.favicon %}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
   {% endif %}
-
-
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-  <link rel="preload" href="{{ 'app.css' | asset_url }}" as="style">
-  <link rel="preload" href="{{ 'app.js' | asset_url }}" as="script">
-  <link rel="preload" href="{{ 'chunk-vendors.js' | asset_url }}" as="script">
-
+  {% include 'script-tag' with 'preload' %}
   <!-- Title and description ================================================== -->
   <title>
     {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
@@ -25,11 +20,7 @@
     <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
 
-  {% comment %}
-     css bundle is not loaded during the development task, instead it displays a 404 error in the web console
-   {% endcomment %}
-  {{ 'app.css' | asset_url | stylesheet_tag }}
-  {{ 'chunk-vendors.css' | asset_url | stylesheet_tag }}
+  {% include 'script-tag' with 'css' %}
 
   <!-- Helpers ================================================== -->
   {% include 'social-meta-tags' %}
@@ -172,7 +163,6 @@ Documentation:
     }
   </script>
 {% endif %}
-
 <div id="SearchModal" class="mfp-hide">
   {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--modal' %}
 </div>
@@ -181,8 +171,7 @@ Documentation:
   <li id="a11y-selection-message">{{ 'general.accessibility.selection_help' | t }}</li>
   <li id="a11y-slideshow-info">{{ 'home_page.slideshow.navigation_instructions' | t }}</li>
 </ul>
-<!-- webpack bundle -->
-<script src="{{ 'chunk-vendors.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'app.js' | asset_url }}" defer="defer"></script>
+
+{% include 'script-tag' with 'js' %}
 </body>
 </html>

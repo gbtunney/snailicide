@@ -4,7 +4,7 @@ const {tw_config: config_object} = JSON.parse(JSON.stringify(config_new, null, 6
 const {getPluginConfig, gSVG,gTWExport} = require("@snailicide/g-tailwind")
 const {variants, theme} = config_object
 
-const boolPURGE = false
+//console.log("GILLISNNN ", process.env.NODE_ENV,  process.env.VUE_APP_TITLE,boolPURGE)
 
 const PLUGIN_CONFIG = {
   'typography': {
@@ -34,7 +34,7 @@ const PLUGIN_CONFIG = {
 }
 module.exports = {
   purge: {
-    enabled: boolPURGE,
+    enabled:  (  process.env.NODE_ENV ==="production")? true:false,
     content: ['./public/!**!/!*.html', './src/!**!/!*.{vue,js,ts,jsx,tsx}']
   },
   darkMode: false, // or 'media' or 'class'
