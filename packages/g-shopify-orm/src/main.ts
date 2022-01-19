@@ -7,6 +7,7 @@ import {replaceCharacters} from "@snailicide/g-library"
 import {ShopifyBuyPlugin} from './modules/ShopifyBuy'
 
 
+
 Vue.config.productionTip = false
 
 Vue.use(ShopifyBuyPlugin,{

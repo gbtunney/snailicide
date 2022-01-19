@@ -1,7 +1,12 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div id="home">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+      <router-link to="/group">group</router-link>
+      <router-link to="/cart">cart</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
@@ -12,7 +17,7 @@ import HelloWorld from './components/HelloWorld.vue';
 export default Vue.extend({
   name: 'App',
   components: {
-    HelloWorld
+
   }
 });
 </script>
