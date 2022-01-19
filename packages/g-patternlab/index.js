@@ -9,6 +9,7 @@ import {
   StyledSvgWrapper,
   StyledBackgroundLine,
 } from "./src/components/ui";
+import { vTW, vFaker } from "./src/directives";
 
 export const PluginPatternlab = {
   install(Vue, options = {}) {
@@ -19,7 +20,18 @@ export const PluginPatternlab = {
     Vue.component("StyledSvgWrapper", StyledSvgWrapper);
     Vue.component("StyledBackgroundLine", StyledBackgroundLine);
     Vue.component("StyledElement", StyledElement);
-
   },
 };
-export default PluginPatternlab
+
+export {
+  gKabob,
+  gSvg,
+  StyledElement,
+  StyledContainerFlex,
+  StyledContainerGrid,
+  StyledSvgWrapper,
+  StyledBackgroundLine,
+  vTW,
+  vFaker,
+};
+export default PluginPatternlab;
