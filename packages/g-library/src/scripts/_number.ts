@@ -16,11 +16,11 @@ export function getDigitCount(value) {
 
 export const formatCurrency = function (
     value: number | string | boolean,
-    minimumFractionDigits: number = 0,
+    minimumFractionDigits: number = 2,
     currency: string = "USD"
 ) {
     if (RA.isString(value)) {
-        value = RA.isValidNumber(Number(value)) ? value : false;
+        value = RA.isValidNumber(Number(value)) ? Number(value) : false;
     }
     if (RA.isBoolean(value) || typeof value !== "number") {
         return value;

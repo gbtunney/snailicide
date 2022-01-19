@@ -1,4 +1,5 @@
 import {cleanBooleanType, cleanIntegerType, isInteger} from "@/scripts/_type"
+import {formatCurrency} from "@/scripts/_number";
 import {batchtest} from "../helpers";
 import {getPaths} from '@/scripts/_paths'
 const generic_test_values = [
@@ -33,6 +34,14 @@ describe("Function libTest", () => {
         expect(isInteger(true)).toEqual(false)
         expect(isInteger(["22", 4])).toEqual(false)
     });
+    test("formatCurrency", () => {
+      expect(formatCurrency("22", 0)).toEqual("$22");
+      expect(formatCurrency("22")).toEqual("$22.00");
+      expect(formatCurrency("22.2")).toEqual("$22.20");
+      expect(formatCurrency(30)).toEqual("$30.00");
+      expect(formatCurrency(30.5)).toEqual("$30.50");
+    });
+
 });
 
 describe("Get Paths ", () => {
