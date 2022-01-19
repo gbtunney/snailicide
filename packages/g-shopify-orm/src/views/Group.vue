@@ -49,9 +49,9 @@ Vue.component('v-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 
 import cartData from "owool/src/assets/data/cart.json";
-import ProductInstanceProvider from "../components/dataProvider/ProductInstanceProvider";
-import ProductProvider from "../components/dataProvider/ProductProvider";
-import ProductGroupProvider from "../components/dataProvider/ProductGroupProvider";
+import ProductInstanceProvider from "../orm/components/ProductInstanceProvider";
+import ProductProvider from "../orm/components/ProductProvider";
+import ProductGroupProvider from "../orm/components/ProductGroupProvider";
 
 export default {
   name: "Group",

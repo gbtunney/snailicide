@@ -1,17 +1,17 @@
 <script>
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
-import {LoaderMixin} from './../../mixins/LoaderMixin'
-import {ProductMixins} from './../../mixins/ProductMixins'
-import options from "./../../../options.json"
+import {LoaderMixin} from '../../mixins/LoaderMixin'
+import {ProductMixins} from '../../mixins/ProductMixins'
+import options from "../../../options.json"
 const {EDITABLE_DEFAULTS, LOAD_MODE, SELECTION_MODE_OPTIONS} = options
 
 import {
   Product,
   Variant,
   ProductImage,
-} from '../../orm/models'
-import {isShopifyID} from "./../../scripts/shopify";
+} from '../models'
+import {isShopifyID} from "../../scripts/shopify";
 
 export default {
   name: "ProductProvider",

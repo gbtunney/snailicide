@@ -11,6 +11,7 @@
   "dependencies": {
     "@snailicide/g-library": "^1.0.0",
     "@snailicide/g-patternlab": "^0.1.0",
+    "@snailicide/g-vue": "^0.1.0",
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "@vue/cli-plugin-babel": "~5.0.0-rc.1",
     "@vue/cli-plugin-eslint": "~5.0.0-rc.1",

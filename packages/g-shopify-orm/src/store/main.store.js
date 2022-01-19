@@ -5,7 +5,7 @@ import Vue from "vue";
 import PluginOrm from "./../orm";
 
 /* * Vuex Plugins * */
-import { registerModels } from "../orm/database";
+import { registerModels } from "../orm/functions.js";
 import createEasyAccess from "vuex-easy-access";
 import createPersistedState from "vuex-persistedstate";
 
@@ -16,12 +16,15 @@ import ormmodule from "../modules/ormmodule";
 import moduleProductLoader from "../modules/ProductLoaderModule";
 import cartModule from "../modules/CartModule.ts";
 import {ShopifyBuyModule} from "../modules/ShopifyBuy";
+
 /* * Settings * */
 import settings from "./../../settings.json";
 
 const { LOCAL_STORAGE_KEY } = settings;
 
 Vue.use(Vuex);
+
+
 Vue.use(PluginOrm);
 
 export const store = new Vuex.Store({

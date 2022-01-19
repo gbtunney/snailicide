@@ -51,7 +51,7 @@ Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOp
 <script>import Vue from "vue";
 ///import DefaultProductPage from "../components/DefaultProductPage.vue";
 import {Product} from "../orm/models"
-import ProductProvider from './../components/dataProvider/ProductProvider.vue';
+import ProductProvider from '../orm/components/ProductProvider.vue';
 import vSelect from 'vue-select'
 
 Vue.component('v-select', vSelect)

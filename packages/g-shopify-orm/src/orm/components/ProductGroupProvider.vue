@@ -1,5 +1,5 @@
 <script>
-import {ProductMixins} from './../../mixins/ProductMixins'
+import {ProductMixins} from '../../mixins/ProductMixins'
 import {getRandomNumber} from "@snailicide/g-library";
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
@@ -9,7 +9,7 @@ import {
   ProductInstanceBase,
   ProductInstanceGroup,
   ProductInstanceSingle,
-} from './../../orm/models'
+} from '../models'
 
 const defaultInstance = ProductInstanceSingle.fields();
 

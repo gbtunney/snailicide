@@ -128,8 +128,8 @@ import vSelect from 'vue-select'
 
 Vue.component('v-select', vSelect)
 import 'vue-select/dist/vue-select.css';
-import ProductProvider from './../components/dataProvider/ProductProvider.vue';
-import ProductInstanceProvider from './../components/dataProvider/ProductInstanceProvider.vue';
+import ProductProvider from '../orm/components/ProductProvider.vue';
+import ProductInstanceProvider from '../orm/components/ProductInstanceProvider.vue';
 
 export default Vue.extend({
   name: 'Home',

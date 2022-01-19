@@ -1,5 +1,9 @@
 # g-shopify-orm
 
+This project is divided into 2 main parts: 
+-Orm 
+-Shopify Buy ( anything having to do with cart only )
+
 ## Project setup
 ```
 yarn install

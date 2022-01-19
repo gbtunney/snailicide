@@ -1,7 +1,7 @@
 <script>
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
-import ProductMixins from './../../mixins/ProductMixins'
+import ProductMixins from '../../mixins/ProductMixins'
 import {getRandomNumber} from "@snailicide/g-library";
 
 //MIXINS.
@@ -13,7 +13,7 @@ import ProductProvider from "./ProductProvider.vue"
 import {
   ProductInstanceBase,
   ProductInstanceSingle, Variant,
-} from './../../orm/models'
+} from '../models'
 
 const defaultInstance = ProductInstanceSingle.fields();
 
