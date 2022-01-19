@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "run-p -sr shopify:serve build-watch",
+    "start": "run-p -sr  build-watch shopify:serve && --live-reload hot-reload",
     "deploy": "run-s build webpack:copy webpack:scripts && cd shopify && shopify theme push",
     "test:build": "run-s build webpack:copy webpack:scripts",
     "webpack:scripts": "webpack --config=webpack.script.tags.js",
     "webpack:copy": "webpack --config=webpack.copy.js",
-    "deploy:new": "run-s webpack:build && cd shopify && shopify theme push --unpublished",
+    "deploy:new": "run-s build webpack:copy webpack:scripts && cd shopify && shopify theme push --unpublished",
     "webpack:watch": "cross-env NODE_ENV=development BROWSERSLIST_ENV=development BROWSERSLIST_CONFIG=.config/.browserslistrc webpack --config .config/webpack/webpack.dev.js --watch --progress",
     "webpack:build": "cross-env NODE_ENV=production BROWSERSLIST_ENV=production BROWSERSLIST_CONFIG=.config/.browserslistrc webpack --config .config/webpack/webpack.prod.js --progress",
     "shopify:serve": "cd shopify && shopify theme serve",
@@ -22,6 +22,7 @@
     "fix:css": "stylelint src/**/*.{vue,css,sass,scss} --config .config/.stylelintrc.js --fix",
     "fix:shopify": "cd shopify && shopify theme check -a",
     "shopify:login": "shopify login --store=o-wool-stage",
+    "shopify:loginprod": "shopify login --store=o-wool",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
@@ -52,6 +53,7 @@
     "vue-shopify-buy": "^0.0.2",
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.2",
+    "webfontloader": "^1.6.28",
     "webpack": "4.46"
   },
   "devDependencies": {

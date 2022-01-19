@@ -83,42 +83,44 @@
 Add the page template as a class for easy page or template specific styling.
 {% endcomment %}
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }}">
+<div id="body-wrapper">
+  {% section 'header' %}
 
-{% section 'header' %}
-
-<div id="CartDrawer" class="drawer drawer--right drawer--has-fixed-footer">
-  <div class="drawer__fixed-header">
-    <div class="drawer__header">
-      <div class="drawer__title">{{ 'cart.general.title' | t }}</div>
-      <div class="drawer__close">
-        <button type="button" class="icon-fallback-text drawer__close-button js-drawer-close">
-          <span class="icon icon-x" aria-hidden="true"></span>
-          <span class="fallback-text">{{ 'cart.general.close_cart' | t }}</span>
-        </button>
+  <div id="CartDrawer" class="drawer drawer--right drawer--has-fixed-footer">
+    <div class="drawer__fixed-header">
+      <div class="drawer__header">
+        <div class="drawer__title">{{ 'cart.general.title' | t }}</div>
+        <div class="drawer__close">
+          <button type="button" class="icon-fallback-text drawer__close-button js-drawer-close">
+            <span class="icon icon-x" aria-hidden="true"></span>
+            <span class="fallback-text">{{ 'cart.general.close_cart' | t }}</span>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="drawer__inner">
-    <div id="CartContainer" class="drawer__cart"></div>
-  </div>
-</div>
-
-<div id="PageContainer" class="page-container">
-  <main class="main-content" role="main">
-  {% unless request.page_type == "index" %}
-    <div class="wrapper">
-      {% endunless %}
-      {{ content_for_layout }}
-      {% unless request.page_type == "index" %}
+    <div class="drawer__inner">
+      <div id="CartContainer" class="drawer__cart"></div>
     </div>
-    {% endunless %}
-  </main>
+  </div>
 
-  <hr class="hr--large">
+  <div id="PageContainer" class="page-container">
+    <main class="main-content" role="main">
+    {% unless request.page_type == "index" %}
+      <div class="wrapper">
+        {% endunless %}
+        {{ content_for_layout }}
+        {% unless request.page_type == "index" %}
+      </div>
+      {% endunless %}
+    </main>
 
-  {% section 'footer' %}
+    <hr class="hr--large">
 
+    {% section 'footer' %}
+
+  </div>
 </div>
+
 
 {% comment %}
 Template-specific js

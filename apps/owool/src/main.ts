@@ -1,20 +1,24 @@
 import Vue from "vue";
 import VueRouter from 'vue-router'
+
+import  WebFont from 'webfontloader';
+WebFont.load({
+  fontactive: function(familyName, fvd) {
+    console.log("loading   ",familyName)
+  },
+  typekit: {
+    id: 'kxg6qeb'
+  }
+});
 Vue.use(VueRouter)
-
-
 /* * STYLES * */
 import "./styles/scss/main.scss";
 import "vue-select/dist/vue-select.css";
 
 const router = new VueRouter({
   mode: "history",
-
-  routes: [
-  ],
-
+  routes: [],
 });
-
 import plugin from "@snailicide/g-patternlab";
 import { store } from "@snailicide/g-shopify-orm";
 
@@ -61,7 +65,7 @@ Vue.use(VueShopifyBuy, {
   storefrontAccessToken: 'c20015f58d86ebe8863bbf7c7e2993d9' // Insert your Shopify Storefront Access Token
 })
 
-const root_el = "PageContainer"; /// using inner because the other liquid one errors
+const root_el = "body-wrapper"; /// using inner because the other liquid one errors
 
 /*
 new Vue({
