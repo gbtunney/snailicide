@@ -29,7 +29,7 @@ export {
 } from './src/scripts/_type'
 export {registerGlobalVariable} from './src/scripts/_vue-helpers'
 export {getPaths} from './src/scripts/_paths'
-export {randomInt,getRandomNumber,getDigitCount} from './src/scripts/_number'
+export {randomInt,getRandomNumber,getDigitCount,formatCurrency} from './src/scripts/_number'
 export {
     transformExplodeArray,
     replaceCharacters,

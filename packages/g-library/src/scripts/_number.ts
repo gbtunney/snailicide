@@ -1,4 +1,5 @@
 import {toInteger} from "./_type";
+import * as RA from "ramda-adjunct";
 
 export function randomInt(min = 0, max = 100):number {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -12,3 +13,21 @@ export function getRandomNumber(_multiplier = 100) :number{
 export function getDigitCount(value) {
     return Math.log(toInteger(value)) * Math.LOG10E + 1 | 0;
 }
+
+export const formatCurrency = function (
+    value: number | string | boolean,
+    minimumFractionDigits: number = 0,
+    currency: string = "USD"
+) {
+    if (RA.isString(value)) {
+        value = RA.isValidNumber(Number(value)) ? value : false;
+    }
+    if (RA.isBoolean(value) || typeof value !== "number") {
+        return value;
+    }
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency,
+        minimumFractionDigits,
+    }).format(value);
+};
