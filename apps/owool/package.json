@@ -34,6 +34,7 @@
     "@snailicide/g-patternlab": "^0.1.0",
     "@snailicide/g-shopify-orm": "^0.1.0",
     "@snailicide/g-tailwind": "^0.1.0",
+    "@snailicide/g-vue": "^0.1.0",
     "@storefront-ui/vue": "^0.11.5",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/postcss7-compat": "^2.2.17",

@@ -12,6 +12,7 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
+    '@typescript-eslint/no-inferrable-types':'off',
     'vue/no-reserved-keys':'off',
     'vue/no-unused-vars': 'off',
     'no-useless-escape': 'off',

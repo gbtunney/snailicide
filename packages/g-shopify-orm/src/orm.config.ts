@@ -3,7 +3,15 @@ import VuexORMAxios from "@vuex-orm/plugin-axios";
 import VuexORMisDirtyPlugin from "@vuex-orm/plugin-change-flags";
 import VuexORMSearch from "@vuex-orm/plugin-search";
 
-//import globalSettingsModule from "./modules/globalSettings.js";
+import globalSettingsModule from "./../src/modules/globalSettings.js";
+import ormmodule from "./../src/modules/ormmodule.js";
+import moduleProductLoader from "./../src/modules/ProductLoaderModule.js";
+
+const modules={
+  global: globalSettingsModule,
+     // orm: ormmodule,
+      productloader: moduleProductLoader,
+}
 
 const plugins = [
   [VuexORMAxios,
@@ -26,10 +34,8 @@ const plugins = [
   ],
 ];
 
-const modules = {
-  /* global: globalSettingsModule,*/
-};
 //************** ORM Models  *****************//
 import Models from "./orm";
 
-export default [Models, plugins, modules];
+const options =  [Models, plugins, modules];
+export default options

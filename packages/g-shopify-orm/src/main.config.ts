@@ -4,7 +4,7 @@ import root_store from "./store";
 
 /* * Modules * */
 import globalSettingsModule from "./modules/globalSettings.js";
-import ormmodule from "./modules/ormmodule.js";
+//import ormmodule from "./modules/ormmodule.js";
 import moduleProductLoader from "./modules/ProductLoaderModule.js";
 
 export const config = function (logging = false) {

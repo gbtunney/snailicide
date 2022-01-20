@@ -35,7 +35,6 @@ const initStore = function (
   boolPersistedState = true
 ) {
   const { local_storage_key = "---default_vuex",  logging=false } = options;
-  console.log("logginggggg",logging,local_storage_key)
   const orm_options = {
     models: orm_models,
     plugins: orm_plugins,
@@ -55,7 +54,7 @@ const initStore = function (
   ];
   Vue.use(Vuex);
   return new Vuex.Store({
-    modules: modules,
+    modules: {...modules},
     plugins: vuex_plugins,
   });
 };
