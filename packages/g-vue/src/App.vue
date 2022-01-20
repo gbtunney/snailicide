@@ -12,12 +12,18 @@ import HelloWorld from './components/HelloWorld.vue';
 import store from "@/store";
 import {gVueConfigPlugin} from "@/plugin";
 
+import Post from '@/models/Posts'
+import User from '@/models/Users'
+
 export default Vue.extend({
   name: 'App',
   components: {
     HelloWorld
-  },mounted(){
-    console.log("TESTING ALIAS",this.$testing)
+  },async mounted(){
+    const resp = await  User.create({
+      data: { id: 1, name: 'John' }
+    })
+    console.log("response DATABASE@!!!!!!!!!!!!!", resp);
   }
 });
 </script>

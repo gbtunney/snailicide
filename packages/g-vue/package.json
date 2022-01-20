@@ -12,6 +12,11 @@
   "dependencies": {
     "@snailicide/g-library": "^1.0.0",
     "@snailicide/g-patternlab": "^0.1.0",
+    "@vuex-orm/core": "^0.36.4",
+    "@vuex-orm/plugin-axios": "^0.9.4",
+    "@vuex-orm/plugin-change-flags": "^1.2.3",
+    "@vuex-orm/plugin-search": "^0.24.1",
+    "axios": "^0.25.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vuex": "^3.4.0"
