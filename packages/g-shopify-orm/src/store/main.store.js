@@ -1,52 +1,59 @@
 import Vuex from "vuex";
 import Vue from "vue";
-
 /* * Custom Orm Register Plugin * */
-import PluginOrm from "./../orm";
+import { getVuexOrmDatabase } from "@snailicide/g-vue";
 
 /* * Vuex Plugins * */
-import { registerModels } from "../orm/functions.js";
 import createEasyAccess from "vuex-easy-access";
 import createPersistedState from "vuex-persistedstate";
 
 /* * Modules * */
-import { Models } from "./../../src/orm/models";
-import globalSettings from "../modules/globalSettings";
-import ormmodule from "../modules/ormmodule";
-import moduleProductLoader from "../modules/ProductLoaderModule";
-import cartModule from "../modules/CartModule.ts";
-import {ShopifyBuyModule} from "../modules/ShopifyBuy";
+import globalSettings from "../modules/globalSettings.js";
+import ormmodule from "../modules/ormmodule.js";
+import moduleProductLoader from "../modules/ProductLoaderModule.js";
+//import cartModule from "../modules/CartModule";
+import { ShopifyBuyModule } from "../modules/ShopifyBuy";
 
 /* * Settings * */
 import settings from "./../../settings.json";
 
 const { LOCAL_STORAGE_KEY } = settings;
 
-Vue.use(Vuex);
-
-
-Vue.use(PluginOrm);
-
-export const store = new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {
-    global: globalSettings,
-    orm: ormmodule,
-    productloader:moduleProductLoader,
-    shopifycart:cartModule,
-    ShopifyBuy: ShopifyBuyModule
-  },
-  plugins: [
+export const initStore = function (
+  orm_models = [],
+  orm_plugins = [],
+  modules = {},
+  options = { local_storage_key: "default_vuex" },
+  boolPersistedState = true
+) {
+  const { local_storage_key = "default_vuex" } = options;
+  const orm_options = {
+    models: orm_models,
+    plugins: orm_plugins,
+  };
+  const vuex_plugins = [
     createEasyAccess(),
-    registerModels({
-      models: Models,
-    }),
-    createPersistedState({
-      key: LOCAL_STORAGE_KEY,
-      storage: window.sessionStorage,
-    }),
-  ],
-});
-export default store;
+    getVuexOrmDatabase(orm_options),
+    ...(boolPersistedState
+      ? [
+          createPersistedState({
+            key: local_storage_key,
+            storage: window.sessionStorage,
+          }),
+        ]
+      : []),
+  ];
+  Vue.use(Vuex);
+  return new Vuex.Store({
+    modules: {
+      global: globalSettings,
+      orm: ormmodule,
+      productloader: moduleProductLoader,
+      /*      shopifycart: cartModule,*/
+      ShopifyBuy: ShopifyBuyModule,
+    },
+    plugins: vuex_plugins,
+  });
+};
+
+export default initStore;

@@ -2,7 +2,7 @@
   "name": "@snailicide/g-vue",
   "version": "0.1.0",
   "private": true,
-  "typings": "src/plugin.ts",
+  "main": "index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

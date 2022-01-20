@@ -8,7 +8,7 @@ import PluginPatternlab,{vFaker,StyledSvgWrapper} from "@snailicide/g-patternlab
 import {defaultMutations} from "vuex-easy-access";
 import User from '@/models/Users'
 import Post from '@/models/Posts'
-import {getVuexOrmDatabase,OrmPluginOptions} from "./orm"
+import {getVuexOrmDatabase} from "./orm"
 import VuexORM,{Model,Database,install} from "@vuex-orm/core";
 import axios from "axios";
 

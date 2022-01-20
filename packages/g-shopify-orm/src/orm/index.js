@@ -1,3 +1,2 @@
-import {PluginOrm} from './plugin.orm'
-export {PluginOrm}
-export default PluginOrm
+import Models from "./models"
+export default Models

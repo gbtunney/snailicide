@@ -2,22 +2,6 @@ import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import VuexORM, {Database} from '@vuex-orm/core'
 
-/* * Vuex ORM - Register Models Function * */
-export function registerModels(config) {
-    // Create a new instance of Database.
-    const _database = new VuexORM.Database()
-    const {models = []} = config;
-    initDatabase(_database, models)
-    return VuexORM.install(_database)
-}
-/* * Vuex ORM - Init Database Function * */
-function initDatabase(_database, models = []) {
-    const database = _database
-    models.forEach(function (model) {
-        database.register(...RA.ensureArray(model) )
-    })
-}
-
 ///this file is a mess. pls fix
 /*export function getClone(mode = false, idList = []) {
     return cloneObject(this.$toJson(), mode, idList)

@@ -5,6 +5,7 @@
       <router-link to="/about">About</router-link>
       <router-link to="/group">group</router-link>
       <router-link to="/cart">cart</router-link>
+      <router-link to="/empty">EMPTY!!!!</router-link>
     </div>
     <router-view/>
   </div>
