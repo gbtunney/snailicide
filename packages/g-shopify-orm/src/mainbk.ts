@@ -12,7 +12,6 @@ alert()
 //import { getVuexOrmDatabase } from "@snailicide/g-vue";
 //gVueConfigPlugin
 //shopify buy plugin (mine)
-import {ShopifyBuyPlugin} from './modules/ShopifyBuy'
 
 //************** Register ORM Plugins  *****************//
 import VuexORMAxios from "@vuex-orm/plugin-axios";

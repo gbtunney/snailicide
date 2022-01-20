@@ -39,7 +39,9 @@ const registerPlugins = function (
     if (plugin === false) return;
     const _plugin = plugin as PluginObject<any>;
     const { name = false } = _plugin;
-    const log = `Plugin Registered: name:${name} options: ${JSON.stringify(options)}`;
+    const log = `Plugin Registered: name:${name} options: ${JSON.stringify(
+      options
+    )}`;
     Vue.use(_plugin, options);
     if (logging) console.log(log);
   });
@@ -74,18 +76,16 @@ const registerModules = function (
 ) {
   if (store === false) return;
   const _store = store as Store<any>;
+
   Object.entries(modules).forEach(function ([key, value = {}]) {
     const _module = value as ModuleConfig;
-    if (_store.hasModule(key)) {
+    if (!_store.hasModule(key)) {
       _store.registerModule(key, _module);
       const log = `Module Registered: namespace:${key}\n`;
       if (logging) console.log(log);
-    } else {
-      console.error(`ERROR:: Module namespace:${key} is already found!!\n`);
-    }
+    } else console.error(`ERROR:: Module namespace:${key} is already found!!\n`);
   });
 };
-
 const registerAliases = function (aliases: AliasConfig = {}, logging = false) {
   Object.entries(aliases).forEach(function ([key, value = {}]) {
     const _key = transformString(key, [" ", "$"], ["trim", "slugify"]);

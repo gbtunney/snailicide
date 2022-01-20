@@ -1,11 +1,11 @@
 import _Vue, { PluginObject } from "vue";
-import store from "./../store";
+import root_store from "./../store";
 import { defaultMutations } from "vuex-easy-access";
 
 import ShopifyBuy, { ProductVariant, LineItem } from "shopify-buy";
 
 const moduleName = "ShopifyBuy";
-
+let store = root_store.store
 /**
  * state
  */
@@ -73,6 +73,7 @@ const actions = {
       (checkoutId === false && client !== false)
     ) {
       const cart = await client.checkout.create();
+
       store.set(`${moduleName}/checkoutId`, cart.id as string);
       window.localStorage.setItem(checkoutStorageKey, cart.id as string);
       store.set(`${moduleName}/cart`, cart as ShopifyBuy.Cart);
@@ -101,15 +102,17 @@ export const ShopifyBuyModule = {
   actions,
 };
 export default ShopifyBuyModule;
+
+/* * Shopify Buy Plugin - registers its own module. * */
 export const ShopifyBuyPlugin: PluginObject<ShopifyBuy.Config> = {
   install(Vue: typeof _Vue, options?: ShopifyBuy.Config) {
-    if (typeof options === "undefined") {
-      throw Error(
-        "Shopify Buy Plugin: Please provide the domain and storefront access token"
-      );
-    }
-    // store.registerModule('ShopifyBuy', ShopifyBuyModule)
-    console.log("THE OPTIONS AREEEEEE!!!!", store.hasModule("ShopifyBuy"));
+    if (typeof options === "undefined") throw Error("Shopify Buy Plugin: Please provide the domain and storefront access token");
+    if (  root_store.store === false ) return
+
+    store = root_store.store
+
+
+    store.registerModule('ShopifyBuy', ShopifyBuyModule)
     //store.dispatch('ShopifyBuy/invalidateCart')
     if (store.hasModule(moduleName)) {
       store.dispatch("ShopifyBuy/initClient", options);
@@ -122,21 +125,6 @@ export const ShopifyBuyPlugin: PluginObject<ShopifyBuy.Config> = {
       }
       store.dispatch("ShopifyBuy/getCart");
     }
-
-    /*
-
-
-    */
-
-    //CHECKOUT_STORAGE_KEY
-    /*
-        const shopify = Shopify.init({
-            domain: options.domain,
-            storefrontAccessToken: options.storefrontAccessToken
-        });
-*/
-    // (Vue as any).shopify = shopify.getClient()
-    //  Vue.prototype.$shopify = shopify.getClient()
   },
 };
 
