@@ -115,3 +115,9 @@ export function getVuexModules(_vuexconfig) {
         if (module && enabled) return {...accumulator, ...module}
     }, {});
 }
+
+//types
+import Vuex, { StoreOptions,Store } from "vuex";
+export const getModuleList = function ( store = new Vuex.Store({})) {
+  return ( store._modules ) ? store._modules.root._children :"not set";
+}

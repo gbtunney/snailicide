@@ -1,13 +1,6 @@
-//import store from "./src/store";
-
-import root_store from "./src/store";
-
-/* * Vuex ORM config.
- * this is VuexOrm plugins only and modules to be added to root vuex store* */
-import vuexConfig from "./src/orm.config";
-
-/* * Initialize and get root store * */
-const store = root_store.initialize(...vuexConfig);
+import { initializeVuexOrmStore } from "@snailicide/g-vue";
+import { root_store } from "./src/store/store.config";
+const store = initializeVuexOrmStore(root_store, { logging: true });
 
 import ProductProvider from "./src/orm/components/ProductProvider.vue";
 //import ProductInstanceProvider from "./src/components/dataProvider/ProductInstanceProvider.vue";
