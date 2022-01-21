@@ -30,6 +30,7 @@ export {
 export {registerGlobalVariable} from './src/scripts/_vue-helpers'
 export {getPaths} from './src/scripts/_paths'
 export {randomInt,getRandomNumber,getDigitCount,formatCurrency} from './src/scripts/_number'
+export {mergeOptions} from './src/scripts/_object'
 export {
     transformExplodeArray,
     replaceCharacters,

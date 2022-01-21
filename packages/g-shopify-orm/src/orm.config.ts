@@ -31,7 +31,6 @@ const options:Option = {
 /**
  * Plugins
  */
-
 //const test : Array<Array<any>> | Array<any>=VuexORMSearch
 const plugins:Array<Array<any>> | Array<any> = [
   [VuexORMAxios,
