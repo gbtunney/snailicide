@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import initStore from './store/index.js'
 import './assets/tailwind.css'
-import {replaceCharacters} from "@snailicide/g-library"
+import {PlainObject} from "@snailicide/g-library"
 Vue.config.productionTip = false
 
 alert()

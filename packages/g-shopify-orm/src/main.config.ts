@@ -1,6 +1,6 @@
 import { ShopifyBuyPlugin } from "./modules/ShopifyBuy";
 import axios from "axios";
-import root_store from "./store";
+import store from "./store";
 
 /* * Modules * */
 import globalSettingsModule from "./modules/globalSettings.js";
@@ -8,7 +8,7 @@ import globalSettingsModule from "./modules/globalSettings.js";
 import moduleProductLoader from "./modules/ProductLoaderModule.js";
 
 export const config = function (logging = false) {
-  const store = root_store.store;
+  //const store = store;
   return {
     store,
     logging: logging,

@@ -1,11 +1,12 @@
 import _Vue, { PluginObject } from "vue";
-import root_store from "./../store";
 import { defaultMutations } from "vuex-easy-access";
 
 import ShopifyBuy, { ProductVariant, LineItem } from "shopify-buy";
-
+import  store from "./../store"
 const moduleName = "ShopifyBuy";
-let store = root_store.store
+
+const tempStore = store as any
+//const store = tempStore
 /**
  * state
  */
@@ -43,7 +44,7 @@ const actions = {
     { state, commit, dispatch, getters },
     payload: ShopifyBuy.Config
   ) {
-    await store.set(
+    await tempStore.set(
       `${moduleName}/client`,
       await ShopifyBuy.buildClient({
         domain: payload.domain,
@@ -55,8 +56,8 @@ const actions = {
     { state, commit, dispatch, getters },
     payload: ShopifyBuy.Config
   ) {
-    store.set(`${moduleName}/checkoutId`, false);
-    store.set(`${moduleName}/cart`, false);
+    tempStore.set(`${moduleName}/checkoutId`, false);
+    tempStore.set(`${moduleName}/cart`, false);
   },
   async getCart(
     { state, commit, dispatch, getters },
@@ -74,19 +75,19 @@ const actions = {
     ) {
       const cart = await client.checkout.create();
 
-      store.set(`${moduleName}/checkoutId`, cart.id as string);
+      tempStore.set(`${moduleName}/checkoutId`, cart.id as string);
       window.localStorage.setItem(checkoutStorageKey, cart.id as string);
-      store.set(`${moduleName}/cart`, cart as ShopifyBuy.Cart);
+      tempStore.set(`${moduleName}/cart`, cart as ShopifyBuy.Cart);
       console.log(
         "INITIALIZING CART!!!!",
         cart.id,
-        store.get(`${moduleName}/checkoutId`)
+          tempStore.get(`${moduleName}/checkoutId`)
       );
     }
     if (store.getters[`${moduleName}/get_checkoutIDValid`](checkoutId)) {
       const payload = await client.checkout.fetch(checkoutId);
       console.log("UPDATING CART!!!!", payload);
-      store.set(`${moduleName}/cart`, payload as ShopifyBuy.Cart);
+      tempStore.set(`${moduleName}/cart`, payload as ShopifyBuy.Cart);
     }
   },
 };
@@ -107,23 +108,23 @@ export default ShopifyBuyModule;
 export const ShopifyBuyPlugin: PluginObject<ShopifyBuy.Config> = {
   install(Vue: typeof _Vue, options?: ShopifyBuy.Config) {
     if (typeof options === "undefined") throw Error("Shopify Buy Plugin: Please provide the domain and storefront access token");
-    if (  root_store.store === false ) return
+   // if (  root_store.store === false ) return
 
-    store = root_store.store
+   // store = store
 
 
-    store.registerModule('ShopifyBuy', ShopifyBuyModule)
+    tempStore.registerModule('ShopifyBuy', ShopifyBuyModule)
     //store.dispatch('ShopifyBuy/invalidateCart')
-    if (store.hasModule(moduleName)) {
-      store.dispatch("ShopifyBuy/initClient", options);
+    if (tempStore.hasModule(moduleName)) {
+      tempStore.dispatch("ShopifyBuy/initClient", options);
       // const {checkoutKey:false}=options
       if (options["checkoutStorageKey"]) {
-        store.set(
+        tempStore.set(
           `${moduleName}/checkoutStorageKey`,
           options["checkoutStorageKey"]
         );
       }
-      store.dispatch("ShopifyBuy/getCart");
+      tempStore.dispatch("ShopifyBuy/getCart");
     }
   },
 };

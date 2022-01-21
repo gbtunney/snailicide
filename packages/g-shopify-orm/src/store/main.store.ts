@@ -1,5 +1,8 @@
 import Vuex from "vuex";
 import Vue from "vue";
+import {
+  Store
+} from "vuex";
 /* * Custom Orm Register Plugin * */
 import { getVuexOrmDatabase } from "@snailicide/g-vue";
 
@@ -8,13 +11,29 @@ import createEasyAccess from "vuex-easy-access";
 import createPersistedState from "vuex-persistedstate";
 
 /* * Settings * */
-import settings from "./../../settings.json";
+//import settings from "./../../settings.json";
+import {Option, StoreInit} from "./store.config";
+import _Vue from "vuex/types/vue";
 
-const { LOCAL_STORAGE_KEY } = settings;
+//export declare function install(Vue: typeof _Vue): void;
+
+const  LOCAL_STORAGE_KEY  = "no";
 
 //internal store instance
-export let _store = false;
 
+
+const  _store :Store<any>= new Vuex.Store({})
+
+
+/*
+ interface VuexOptions  {
+  logging:boolean
+  persist
+}
+*/
+
+
+/*
 let root = {
   initialize: function (...args) {
     this.store = initStore(...args);
@@ -26,8 +45,8 @@ let root = {
   set store(value) {
     _store = value;
   },
-};
-const initStore = function (
+};*/
+const initStore2 = function (
   orm_models = [],
   orm_plugins = [],
   modules = {},
@@ -59,4 +78,4 @@ const initStore = function (
   });
 };
 
-export default root;
+export default _store;
