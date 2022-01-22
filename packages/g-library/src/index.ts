@@ -1,4 +1,4 @@
-import  {PlainObject} from "./types"
+export type  { PlainObject } from "./types";
 
 export {
     lowerCase,
@@ -41,5 +41,4 @@ export {
     transformStringAll,
     validateString,
 } from './scripts/transformString'
-
 export {importantConsoleLog} from "./scripts/_console"

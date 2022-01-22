@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "test",
+    "declarationMap": true,
     "target": "esnext",
     "module": "esnext",
     "strict": false,
