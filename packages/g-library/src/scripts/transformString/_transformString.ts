@@ -16,7 +16,7 @@ import {
     underscore,
     removeNonWord
 } from './../string'
-import {cleanBooleanType, cleanIntegerType} from "./../_type";
+import {cleanBooleanType, cleanIntegerType} from "./../_valueTypes";
 
 const trimCharsBlacklistDefault = ['.', "'", '"', ' ', '-', "[", "]", "(", ")"]
 

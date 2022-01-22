@@ -1,9 +1,6 @@
-import * as R from "ramda";
-import * as RA from "ramda-adjunct";
+export const stringContainsNumber = (value:string) => /\d/.test(value)
 
-export const stringContainsNumber = (value) => /\d/.test((value).toString())
-
-export const stringContainsLetter = (value) => (value).tovalue().length === 1 && (value).toString().match(/[a-z]/i)
+export const stringContainsLetter = (value:string) => (value).length === 1 && value.match(/[a-z]/i)
 
 /*export const transformStringAll = function (value:Boolean | String | Number|Array<string> |Object<any>  = false,
                                             ...args) {

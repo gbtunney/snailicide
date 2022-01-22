@@ -96,15 +96,3 @@ export default {
   }
 }
 </script>
-
-<docs lang="md">
-This button is amazing, use it responsibly.
-## Examples
-
-Tailwind Color Swatches
-
-```jsx
-<gTWSwatches column_count="6" :height="200">Tailwind</gTWSwatches>
-```
-
-</docs>

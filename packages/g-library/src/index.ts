@@ -1,4 +1,4 @@
-export type  { PlainObject } from "./types";
+export type  { PlainObject } from "./types/types";
 
 export {
     lowerCase,
@@ -28,7 +28,7 @@ export {
     cleanBooleanType,
     toInteger,
     isInteger,
-} from './scripts/_type'
+} from './scripts/_valueTypes'
 export {registerGlobalVariable} from './scripts/_vue-helpers'
 export {getPaths} from './scripts/_paths'
 export {randomInt,getRandomNumber,getDigitCount,formatCurrency} from './scripts/_number'

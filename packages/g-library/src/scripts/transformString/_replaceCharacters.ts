@@ -1,6 +1,5 @@
 import * as RA from "ramda-adjunct";
 import * as R from "ramda";
-import {isInteger, toInteger} from "./../../scripts/_type";
 
 /* * Function replaceCharacters * * * *
 * @param { boolean | string | number } - single value

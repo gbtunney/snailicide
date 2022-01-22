@@ -1,8 +1,5 @@
-import * as R from "ramda"
 import * as RA from "ramda-adjunct"
-
-import {transformString, validateString,transformExplodeArray } from "@snailicide/g-library";
-import {cleanBooleanType} from "@snailicide/g-library/src/scripts/_type";
+import {transformExplodeArray } from "@snailicide/g-library";
 
 //prop to computedd
 const getClasses = function(value =[]){

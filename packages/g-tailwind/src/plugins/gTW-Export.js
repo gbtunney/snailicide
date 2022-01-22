@@ -36,7 +36,11 @@ module.exports = ({addUtilities, addComponents, theme, config, variants}) => {
                 yield * getPaths (o[k], [...p, k])
     }
   //  console.log("flattened",[...getPaths(theme('colors'))])
-    let modifiedConfig = { config: config('theme')}
+ const flatten_colors_keys  = _.flatten(Array.from( Object.entries( flatten_colors) ).map(function([key,value]){
+ // console.log( [ `bg-${key}`, `text-${key}`, `border-${key}` ])
+        return [ `bg-${key}`, `text-${key}`, `border-${key}`]
+  }))
+    let modifiedConfig = { dump:flatten_colors_keys  , config: config('theme')}
    // modifiedConfig = {...modifiedConfig, fontSize: flattenFontSize(config('theme.fontSize'))}
    // modifiedConfig = {...modifiedConfig, fontFamily: flattenFontFamily(config('theme.fontFamily'))}
     const newKeys = {

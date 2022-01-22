@@ -1,5 +1,5 @@
 import * as R from "ramda"
-import {PlainObject} from "../types";
+import {PlainObject} from "../types/types";
 
 export const mergeOptions = function (
     base_options: PlainObject = {},

@@ -96,6 +96,7 @@ export default {
 }
 </style>
 
+<!--
 <docs lang="md">
 ## Examples
 Kabob Divider (using css properties):
@@ -103,7 +104,7 @@ Kabob Divider (using css properties):
 <g-kabob path="divider.svg"
     width="100%"
     height="20"
-    color="--color-primary"
+    color="&#45;&#45;color-primary"
     :hr="true"/>
 ```
 Icon with Tailwind color
@@ -113,7 +114,7 @@ Icon with Tailwind color
     classes="p-2 "
     height="20"
     color="orange"
-    bg_color="--color-gumleaf-800"
+    bg_color="&#45;&#45;color-gumleaf-800"
     border="true"
     border_size="2"
     :hr="true"
@@ -132,3 +133,4 @@ Icon with Hex color & Percent Width
 </g-kabob>
 ```
 </docs>
+-->
