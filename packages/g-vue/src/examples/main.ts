@@ -1,15 +1,15 @@
 import Vue from "vue";
 //import App from './App.vue'
-import { gVueRegisterAll } from "./plugin";
-import { getVuexOrmDatabase, initializeVuexOrmStore } from "./scripts";
+import { gVueRegisterAll } from "../plugin/plugin";
+import { getVuexOrmDatabase, initializeVuexOrmStore } from "../scripts";
 
 Vue.config.productionTip = false;
 import PluginPatternlab, {
   vFaker,
   StyledSvgWrapper,
 } from "@snailicide/g-patternlab";
-import User from "@/models/Users";
-import Post from "@/models/Posts";
+import User from "@/examples/models/Users";
+import Post from "@/examples/models/Posts";
 import axios from "axios";
 
 /**

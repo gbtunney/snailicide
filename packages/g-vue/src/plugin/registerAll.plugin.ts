@@ -1,6 +1,6 @@
-import { registerAllVueConfigs } from "./scripts";
+import { registerAllVueConfigs } from "../scripts";
 import _Vue, { PluginObject } from "vue";
-import { VueRegistrationObject } from "./types/_types";
+import { VueRegistrationObject } from "../types/_types";
 
 export const gVueRegisterAll: PluginObject<VueRegistrationObject> = {
   name: "gVueRegisterAll",

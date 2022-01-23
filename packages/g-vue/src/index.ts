@@ -3,7 +3,6 @@ export {
   VuexOrmStoreOptions,
   VuexInitializeOptions,
 } from "./types/_types";
-export { gVueRegisterAll } from "./plugin";
 export { getVuexOrmDatabase, registerOrmModels } from "./scripts";
 export { initializeVuexOrmStore } from "./scripts";
 export { installVuePlugins } from "./scripts";
@@ -14,7 +13,6 @@ export {
   registerComponents,
   registerDirectives,
 } from "./scripts";
-
-import { gVueRegisterAll as VueRegisterAll } from "./plugin";
-
+export { gVueRegisterAll } from "./plugin/registerAll.plugin";
+import { gVueRegisterAll as VueRegisterAll } from "./plugin/registerAll.plugin";
 export default VueRegisterAll;
