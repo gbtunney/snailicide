@@ -26,7 +26,7 @@ export {
     cleanBooleanType,
     toInteger,
     isInteger,
-} from './src/scripts/_type'
+} from './src/scripts/_valueTypes'
 export {registerGlobalVariable} from './src/scripts/_vue-helpers'
 export {getPaths} from './src/scripts/_paths'
 export {randomInt,getRandomNumber,getDigitCount,formatCurrency} from './src/scripts/_number'

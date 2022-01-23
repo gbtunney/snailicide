@@ -1,4 +1,4 @@
-import {cleanBooleanType, cleanIntegerType, isInteger} from "@/scripts/_type"
+import {cleanBooleanType, cleanIntegerType, isInteger} from "./../../src/scripts/_valueTypes"
 import {formatCurrency} from "@/scripts/_number";
 import {batchtest} from "../helpers";
 import {getPaths} from '@/scripts/_paths'

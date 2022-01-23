@@ -1,2 +1,1 @@
-import Vue from 'vue'
-import {PlainObject} from "./types"
+import {PlainObject} from "./types/types"
