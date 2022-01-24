@@ -7,14 +7,16 @@ import {getRandomNumber} from "@snailicide/g-library";
 //MIXINS.
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
-
+//import {Shopify} from 'vue-shopify-buy'
 //PRODUCT TO EXTEND.
 import ProductProvider from "./ProductProvider.vue"
 import {
   ProductInstanceBase,
   ProductInstanceSingle, Variant,
 } from '../models'
-
+import {
+  composeGid,
+} from "@shopify/admin-graphql-api-utilities";
 const defaultInstance = ProductInstanceSingle.fields();
 
 export default {
@@ -172,8 +174,20 @@ export default {
      * @return {void}
      * @public
      */
-    addToCart(instance) {
-      this.$store.dispatch('shopifycart/addToCart', instance)
+    async addToCart(instance) {
+      console.log("addToCart",this.$shopify)
+
+      const instanceArr = RA.ensureArray(instance).map(function (instanceItem) {
+        const { quantity = 1, variant_id = false } = instanceItem;
+        const data = {
+          customAttributes: [{ key: "message", value: "ff" }],
+          variantId: composeGid("ProductVariant", variant_id),
+          quantity,
+        };
+        return data;
+      });
+
+    // const cart = await this.$shopify.getCart()//addItem
     },
     /**
      * Update Variant function

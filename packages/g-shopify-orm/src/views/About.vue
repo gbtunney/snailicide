@@ -52,9 +52,7 @@ Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOp
 ///import DefaultProductPage from "../components/DefaultProductPage.vue";
 import {Product} from "../orm/models"
 import ProductProvider from '../orm/components/ProductProvider.vue';
-import vSelect from 'vue-select'
 
-Vue.component('v-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 
 export default {

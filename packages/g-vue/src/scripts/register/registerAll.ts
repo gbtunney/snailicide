@@ -38,5 +38,5 @@ export const registerAllVueConfigs = function (
   registerModules(modules, store, logging);
 
   //************** Plugins  *****************//
-  if (skipPlugins) installVuePlugins(plugins, { ...options, store }, Vue);
+  if (!skipPlugins) installVuePlugins(plugins, { ...options, store }, Vue);
 }

@@ -16,13 +16,13 @@ export declare interface PluginRecord {
 }
 
 export declare interface VueRegistrationObject {
-  components: Components;
-  directives: Directives;
-  alias: Aliases;
-  plugins: Plugins; //Array<PluginObject<any>> | PluginObject<any>;
-  modules: Modules; //module object w key/value pairs.
-  store: Store<any> | boolean;
-  options: PlainObject;
+  components?: Components;
+  directives?: Directives;
+  alias?: Aliases;
+  plugins?: Plugins; //Array<PluginObject<any>> | PluginObject<any>;
+  modules?: Modules; //module object w key/value pairs.
+  store?: Store<any> | boolean;
+  options?: PlainObject;
 }
 
 /* * OptionsType: InstallPluginOptions - additional options for install plugins function

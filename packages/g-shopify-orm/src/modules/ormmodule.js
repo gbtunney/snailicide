@@ -29,7 +29,7 @@ const mutations = {
     logOrmEvent(state, [event = "no event to log", model, additional = [], css =  '']) {
         const type = getEntity(model);
         const message = `EVENT:: ${event} \n  TYPE:: ${(type && type.entity) ? upperCase(type.entity) : ""} \n`;
-        console.important(message,additional,css)
+        console.log(message,additional,css)
     }
 }
 /**

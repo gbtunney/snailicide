@@ -1,19 +1,19 @@
-import { ShopifyBuyPlugin } from "./modules/ShopifyBuy";
+//mport { ShopifyBuyPlugin } from "./shopifyBuy/shopifyBuy.plugin";
+//import { ShopifyBuyModule } from "./shopifyBuy/ShopifyBuyModule";
+
 import axios from "axios";
 //import store from "./store";
 
 /* * Modules * */
 import globalSettingsModule from "./modules/globalSettings.js";
-import ormmodule from "./modules/ormmodule.js";
-import moduleProductLoader from "./modules/ProductLoaderModule.js";
 import {PluginPatternlab}from "@snailicide/g-patternlab"
 import {ModuleTree} from "vuex";
-//plugins: [[PluginPatternlab, { pluginoptions: "fffgg" }]],
-//import {VueRegistrationObject} from "@snailicide/g-vue/src";
+
+import vSelect from 'vue-select'
+//import Shopify from "./stolenScript";
 
 const modules:ModuleTree<any> =  {
     global: globalSettingsModule,
-    productloader: moduleProductLoader,
 }
 
 //const store = store;
@@ -21,7 +21,7 @@ export const config =  {
     options:{
       checkoutStorageKey:"overriding!!"
     },
-    components: {},
+    components: {'v-select': vSelect},
     alias: {
       axios: axios,
       " gbtShopify": "gbtShopify",
@@ -30,14 +30,10 @@ export const config =  {
     modules,
    plugins: [
        [PluginPatternlab, { pluginoptions: "fffgg" }],
-      [
-        ShopifyBuyPlugin,
-        {
-          domain: "o-wool-stage.myshopify.com", // Insert your Shopify Domain
-          storefrontAccessToken: "c20015f58d86ebe8863bbf7c7e2993d9", // Insert your Shopify Storefront Access Token,
-          checkoutStorageKey: "rrrrrr",
-        },
-      ],
+       /*[VueShopifyBuy, {
+           domain:false,// Insert your Shopify Domain
+           storefrontAccessToken: false, // Insert your Shopify Storefront Access Token
+       }]*/
     ],
 };
 export default config;

@@ -18,7 +18,6 @@ import {Module, ModuleOptions, ModuleTree} from "vuex";
  *  VuexOrm.use(MyOrmPlugin, {})
  */
 //todo : change this back to 'plugin item'
-
 export const installVuePlugins = function (
   plugins: Array<any> = [],
   options: VuexInitializeOptions = {},
@@ -32,10 +31,9 @@ export const installVuePlugins = function (
       options as PlainObject
     );
     if (_pluginItem === false) return false;
-    const log = `Plugin installed: target: ${typeof target}options before: ${JSON.stringify(
-      _plugin_options
-    )} before: ${merged_options}`;
-    target.use(_pluginItem, _plugin_options);
-    if (logging) console.log(log);
+    const log = `Plugin installed: target: ${typeof target}options before: ${JSON.stringify(_plugin_options)} before: ${merged_options}`;
+    target.use(_pluginItem, merged_options);
+    //if (logging) console.log(log,merged_options,_plugin_options,_pluginItem);
+    if (logging) console.log("installVuePlugins","_plugin_options", _plugin_options,"merged_options",merged_options);
   });
 };

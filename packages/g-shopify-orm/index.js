@@ -9,7 +9,7 @@ import ProductInstanceProvider from "./src/orm/components/ProductInstanceProvide
 
 import BuyCartProvider from "./src/components/dataProvider/BuyCartProvider.ts";
 import ShopifyAssetURLMixin from "./src/mixins/ShopifyAssetURLMixin";
-import { ShopifyBuyPlugin } from "./src/modules/ShopifyBuy";
+//import { ShopifyBuyPlugin } from "./src/modules/ShopifyBuy";
 
 export {
   ProductProvider,
@@ -17,6 +17,6 @@ export {
   ProductGroupProvider,
   BuyCartProvider,
   ShopifyAssetURLMixin,
-  ShopifyBuyPlugin,
+  //ShopifyBuyPlugin,
   store,
 };

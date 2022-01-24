@@ -37,11 +37,12 @@ export const initializeVuexOrmStore = function (
     orm_plugins = [],
   } = store_options;
   const options = { ...base_options, ...addl_options }; //!!!!!!!!!!! merge options
-  const { logging, persist, persist_storage_key }: VuexInitializeOptions =
+  const { logging=true, persist, persist_storage_key }: VuexInitializeOptions =
     options;
   if (logging) console.log("the options registered are options",options)
 
   installVuePlugins(orm_plugins, options, VuexORM);
+
   const orm_database = getVuexOrmDatabase(models); //this is a vuex plugin withh a database instance
   if (logging) console.log("VuexOrmDatabase created:", orm_database);
   const vuex_plugins = [

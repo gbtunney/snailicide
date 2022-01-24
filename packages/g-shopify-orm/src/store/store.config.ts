@@ -7,16 +7,11 @@ import {Model} from "@vuex-orm/core";
 import VuexORMAxios from "@vuex-orm/plugin-axios";
 import VuexORMisDirtyPlugin from "@vuex-orm/plugin-change-flags";
 import VuexORMSearch from "@vuex-orm/plugin-search";
-import VuexORM from "@vuex-orm/core";
 
 /* * Custom Orm Register Plugin * */
 import Models from  "./../orm";
-import globalSettingsModule from "./../modules/globalSettings";
 import moduleProductLoader from "./../modules/ProductLoaderModule";
 import ormmodule from "./../modules/ormmodule.js";
-
-import {initializeVuexOrmStore as gVueInitOrmFunction} from "@snailicide/g-vue"
-import {PlainObject}from "@snailicide/g-library"
 import {ModuleTree} from "vuex";
 
 /**
@@ -89,14 +84,13 @@ const actions = {}
 const modules:ModuleTree<any> =  {
     orm: ormmodule,
     productloader: moduleProductLoader,
+   // shopifycart:CartModule
 }
 
 /**
  * Plugins ( VUEX PLUGINS )
  */
 const plugins = []
-
-//import {PlainObject} from "@snailicide/g-library"
 
 /**Root Store Module
  * export
