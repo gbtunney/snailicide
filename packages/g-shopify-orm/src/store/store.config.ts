@@ -11,8 +11,9 @@ import VuexORM from "@vuex-orm/core";
 
 /* * Custom Orm Register Plugin * */
 import Models from  "./../orm";
-import globalSettingsModule from "@/modules/globalSettings";
-import moduleProductLoader from "@/modules/ProductLoaderModule";
+import globalSettingsModule from "./../modules/globalSettings";
+import moduleProductLoader from "./../modules/ProductLoaderModule";
+import ormmodule from "./../modules/ormmodule.js";
 
 import {initializeVuexOrmStore as gVueInitOrmFunction} from "@snailicide/g-vue"
 import {PlainObject}from "@snailicide/g-library"
@@ -83,17 +84,17 @@ const mutations={}
 const actions = {}
 
 /**
+ * Modules   --these are only relevant to orm stuff
+ */
+const modules:ModuleTree<any> =  {
+    orm: ormmodule,
+    productloader: moduleProductLoader,
+}
+
+/**
  * Plugins ( VUEX PLUGINS )
  */
 const plugins = []
-
-/**
- * Modules
- */
-const modules:ModuleTree<any> =  {
-    global: globalSettingsModule,
-    productloader: moduleProductLoader,
-}
 
 //import {PlainObject} from "@snailicide/g-library"
 

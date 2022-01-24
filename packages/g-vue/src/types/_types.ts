@@ -16,12 +16,11 @@ export declare interface PluginRecord {
 }
 
 export declare interface VueRegistrationObject {
-  logging?: boolean;
   components: Components;
-  modules: Modules; //module object w key/value pairs.
   directives: Directives;
   alias: Aliases;
   plugins: Plugins; //Array<PluginObject<any>> | PluginObject<any>;
+  modules: Modules; //module object w key/value pairs.
   store: Store<any> | boolean;
   options: PlainObject;
 }
