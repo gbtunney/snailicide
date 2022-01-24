@@ -25,10 +25,12 @@ import mainConfig from "./main.config";
 
 const app_config ={... mainConfig,...{
   store,
-    checkoutStorageKey:"overridetest",
-      logging:true
+    options:{
+      checkoutStorageKey:"overridetest",
+      logging:true,
+      store
+    }
 }}
-
  registerAllVueConfigs(app_config)
 /* * Custom App Register Plugin * */
 //import gVueRegisterAll from "@snailicide/g-vue";

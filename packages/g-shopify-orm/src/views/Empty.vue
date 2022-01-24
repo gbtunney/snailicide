@@ -13,8 +13,8 @@ export default {
     return {}
   },
  async  mounted(){
-    const result = await this.$store.set("global/asset_url","i am gilllilililililil")
-    console.log("---------------thhe store is!!!", result,this.$store.get("global/asset_url"))
+   // const result = await this.$store.set("global/asset_url","i am gilllilililililil")
+    console.log("---------------thhe store is!!!", this.$store)
 
   },
   props: {}

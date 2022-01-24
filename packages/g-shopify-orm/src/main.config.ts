@@ -28,8 +28,8 @@ export const config =  {
     },
     directives: {},
     modules,
-    plugins: [[PluginPatternlab, { pluginoptions: "fffgg" }]],
-   /* plugins: [
+   plugins: [
+       [PluginPatternlab, { pluginoptions: "fffgg" }],
       [
         ShopifyBuyPlugin,
         {
@@ -38,6 +38,6 @@ export const config =  {
           checkoutStorageKey: "rrrrrr",
         },
       ],
-    ],*/
+    ],
 };
 export default config;

@@ -13,18 +13,17 @@ export const registerAllVueConfigs = function (
   addl_options: PlainObject = {}
 ) {
   const {
-    logging = false,
     plugins = [],
     components = {},
-    store = false,
     modules = {},
     directives = {},
     alias = {},
+    store = false,
     options: base_options = {},
   } = config;
 
   const options = { ...base_options, ...addl_options }; //!!!!!!!!!!! merge options
-  // const { logging, persist, persist_storage_key }: VuexInitializeOptions = options;
+  const { logging = false, skipPlugins = false } = options;
 
   //************** Components *****************//
   registerComponents(components, logging);
@@ -39,5 +38,5 @@ export const registerAllVueConfigs = function (
   registerModules(modules, store, logging);
 
   //************** Plugins  *****************//
-  installVuePlugins(plugins, options, Vue);
-};
+  if (skipPlugins) installVuePlugins(plugins, { ...options, store }, Vue);
+}

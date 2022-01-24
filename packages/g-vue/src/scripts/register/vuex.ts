@@ -12,13 +12,14 @@ export const registerModules = function (
   store: Store<any> | boolean = false,
   logging = false
 ) {
-  if (store === false)
+  if (store === false){
     console.error(
-      `ERROR::store is not set! :: Vuex Module Registration failed! modules:${JSON.stringify(
-        modules
-      )}\n`
+        `ERROR::store is not set! :: Vuex Module Registration failed! modules:${JSON.stringify(
+            modules
+        )}\n`
     );
-  return;
+    return;
+  }
   const _store = store as Store<any>;
   Object.entries(modules).forEach(function ([key, value]) {
     if (!_store.hasModule(key)) {
