@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import VuexORM from "@vuex-orm/core";
 
 /* * import types * */
-import { VuexOrmStoreOptions,VuexInitializeOptions } from "@/types/_types";
+import { VuexOrmStoreOptions,VuexInitializeOptions } from "./../../types/_types";
 import { PlainObject } from "@snailicide/g-library";
 
 /* * Vuex Plugins used for ORM projects * */
@@ -39,6 +39,7 @@ export const initializeVuexOrmStore = function (
   const options = { ...base_options, ...addl_options }; //!!!!!!!!!!! merge options
   const { logging, persist, persist_storage_key }: VuexInitializeOptions =
     options;
+  if (logging) console.log("the options registered are options",options)
 
   installVuePlugins(orm_plugins, options, VuexORM);
   const orm_database = getVuexOrmDatabase(models); //this is a vuex plugin withh a database instance

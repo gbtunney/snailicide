@@ -1,28 +1,35 @@
 import { ShopifyBuyPlugin } from "./modules/ShopifyBuy";
 import axios from "axios";
-import store from "./store";
+//import store from "./store";
 
 /* * Modules * */
 import globalSettingsModule from "./modules/globalSettings.js";
-//import ormmodule from "./modules/ormmodule.js";
+import ormmodule from "./modules/ormmodule.js";
 import moduleProductLoader from "./modules/ProductLoaderModule.js";
+import {PluginPatternlab}from "@snailicide/g-patternlab"
+import {ModuleTree} from "vuex";
+//plugins: [[PluginPatternlab, { pluginoptions: "fffgg" }]],
+//import {VueRegistrationObject} from "@snailicide/g-vue/src";
 
-export const config = function (logging = false) {
-  //const store = store;
-  return {
-    store,
-    logging: logging,
+const modules:ModuleTree<any> =  {
+    global: globalSettingsModule,
+    productloader: moduleProductLoader,
+}
+
+//const store = store;
+export const config =  {
+    options:{
+      checkoutStorageKey:"overriding!!"
+    },
     components: {},
     alias: {
       axios: axios,
       " gbtShopify": "gbtShopify",
     },
     directives: {},
-    modules: {
-      productloader: moduleProductLoader,
-      global: globalSettingsModule,
-    },
-    plugins: [
+    modules,
+    plugins: [[PluginPatternlab, { pluginoptions: "fffgg" }]],
+   /* plugins: [
       [
         ShopifyBuyPlugin,
         {
@@ -31,7 +38,6 @@ export const config = function (logging = false) {
           checkoutStorageKey: "rrrrrr",
         },
       ],
-    ],
-  };
+    ],*/
 };
 export default config;

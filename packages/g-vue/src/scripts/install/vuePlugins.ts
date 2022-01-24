@@ -2,7 +2,7 @@ import Vue, {PluginObject, VueConstructor} from "vue";
 import * as RA from "ramda-adjunct";
 import { mergeOptions, PlainObject } from "@snailicide/g-library";
 import { VuexORM as VuexORMType } from "@vuex-orm/core";
-import {VuexInitializeOptions} from "@/types/_types";
+import {VuexInitializeOptions} from "./../../types/_types";
 import {Module, ModuleOptions, ModuleTree} from "vuex";
 
 /**

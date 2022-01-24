@@ -105,12 +105,11 @@ export const ShopifyBuyModule = {
 export default ShopifyBuyModule;
 
 /* * Shopify Buy Plugin - registers its own module. * */
-export const ShopifyBuyPlugin: PluginObject<ShopifyBuy.Config> = {
+export const ShopifyBuyPlugin: PluginObject<any> = {
   install(Vue: typeof _Vue, options?: ShopifyBuy.Config) {
     if (typeof options === "undefined") throw Error("Shopify Buy Plugin: Please provide the domain and storefront access token");
-   // if (  root_store.store === false ) return
 
-   // store = store
+    console.log("plugin options!!!!" ,options)
 
 
     tempStore.registerModule('ShopifyBuy', ShopifyBuyModule)

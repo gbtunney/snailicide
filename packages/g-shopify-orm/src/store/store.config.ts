@@ -14,10 +14,9 @@ import Models from  "./../orm";
 import globalSettingsModule from "@/modules/globalSettings";
 import moduleProductLoader from "@/modules/ProductLoaderModule";
 
-export type PlainObject = {
-    [x: string]: any
-    [y: number]: never
-}
+import {initializeVuexOrmStore as gVueInitOrmFunction} from "@snailicide/g-vue"
+import {PlainObject}from "@snailicide/g-library"
+import {ModuleTree} from "vuex";
 
 /**
  * VUEX ROOT STORE CONFIG
@@ -32,7 +31,7 @@ const options = {
 }
 
 /**
- * Plugins
+ * ORM Plugins
  */
 const orm_plugins= [
     [VuexORMAxios,
@@ -91,9 +90,8 @@ const plugins = []
 /**
  * Modules
  */
-const modules =  {
+const modules:ModuleTree<any> =  {
     global: globalSettingsModule,
-    // orm: ormmodule,
     productloader: moduleProductLoader,
 }
 
@@ -102,8 +100,7 @@ const modules =  {
 /**Root Store Module
  * export
  */
-
-export const root_store= {
+ export const root_store= {
     state,
     getters,
     mutations,

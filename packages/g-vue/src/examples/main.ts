@@ -1,6 +1,6 @@
 import Vue from "vue";
 //import App from './App.vue'
-import { gVueRegisterAll } from "../plugin/plugin";
+import { gVueRegisterAll } from "../plugin/registerAll.plugin";
 import { getVuexOrmDatabase, initializeVuexOrmStore } from "../scripts";
 
 Vue.config.productionTip = false;

@@ -1,5 +1,5 @@
 import { Module, ModuleOptions, ModuleTree, Store } from "vuex";
-import { Modules } from "@/types/_types";
+import { Modules } from "./../../types/_types";
 
 /**
  * registerModules

@@ -1,4 +1,4 @@
-import { Aliases, Components, Directives } from "@/types/_types";
+import { Aliases, Components, Directives } from "./../../types/_types";
 import Vue from "vue";
 import { registerGlobalVariable, transformString } from "@snailicide/g-library";
 

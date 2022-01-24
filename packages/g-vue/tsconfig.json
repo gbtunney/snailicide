@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "test",
+    "declarationDir": "src/index.ts",
     "declarationMap": true,
     "target": "esnext",
     "module": "esnext",
