@@ -1,5 +1,5 @@
 import Vue, { ComponentOptions, DirectiveFunction, PluginObject } from "vue";
-import { Module, ModuleOptions, ModuleTree, Store, StoreOptions } from "vuex";
+import {Commit, Module, ModuleOptions, ModuleTree, Store, StoreOptions} from "vuex";
 import Record, { Model } from "@vuex-orm/core";
 import { PlainObject } from "@snailicide/g-library";
 
@@ -12,9 +12,12 @@ export type Aliases = Record<string, any>;
 
 export declare interface PluginRecord {
   [0]: PluginObject<any>;
-  [1]: PlainObject;
+  [1]?: PlainObject;
 }
-
+export declare interface EasyAccessStore extends Store<any>{
+  get : Commit
+  set : Commit
+}
 export declare interface VueRegistrationObject {
   components?: Components;
   directives?: Directives;

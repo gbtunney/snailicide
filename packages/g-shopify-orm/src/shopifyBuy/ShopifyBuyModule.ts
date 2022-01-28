@@ -1,11 +1,12 @@
-import Vue from "vue";
 import ShopifyBuy, { ProductVariant } from "shopify-buy";
 import { defaultMutations } from "vuex-easy-access";
 import { PlainObject, toInteger } from "@snailicide/g-library";
 import * as RA from "ramda-adjunct";
 import { composeGid } from "@shopify/admin-graphql-api-utilities";
+import { ModuleTree, ActionTree } from "vuex";
+import { EasyAccessStore } from "@snailicide/g-vue";
 
-interface StateConfigNew {
+interface StateConfig {
   checkoutId: string;
   client?: ShopifyBuy.Client | boolean;
   cart?: ShopifyBuy.Cart;
@@ -16,16 +17,20 @@ const CHECKOUT_ID_STORAGE_KEY = "vue-shopify-checkout-id";
 const moduleName = "shopifybuy";
 
 //variant: ProductVariant, qty = 1
+interface LineItemAttribute{
+  key:string|number|boolean
+  value: string|number|boolean
+}
 interface AddtoCartPayload {
-  variant_id: number | string;
+  variantId: number | string;
   quantity: number;
-  attributes: PlainObject;
+  customAttributes: Array<LineItemAttribute>;
 }
 
 /**
  * state
  */
-const state: StateConfigNew = {
+const state: StateConfig = {
   checkoutId: window.localStorage.getItem(CHECKOUT_ID_STORAGE_KEY) || "",
   cart: null,
   cartLoading: false,
@@ -45,12 +50,8 @@ const getters = {
  * mutations
  */
 const mutations = {
-  /*increment(state, payload) {
-        // mutate state
-        state.count = payload;
-        console.log("calling mutation incremen", state.count)
-    },*/
   updateCart(state, payload: ShopifyBuy.Cart) {
+    const store: EasyAccessStore = this as EasyAccessStore;
     this.set(`${moduleName}/cart`, payload);
   },
   ...defaultMutations(state),
@@ -59,10 +60,11 @@ const mutations = {
 /**
  * actions
  */
-const actions = {
-  init({ commit }, config: ShopifyBuy.Config) {
-    this.set(
-      `${moduleName}/client`,
+const actions: ActionTree<any, any> = {
+  async init({ commit, dispatch }, config: ShopifyBuy.Config) {
+    const store: EasyAccessStore = this as EasyAccessStore;
+    dispatch(
+      `set/client`,
       ShopifyBuy.buildClient({
         domain: config.domain,
         storefrontAccessToken: config.storefrontAccessToken,
@@ -83,7 +85,7 @@ const actions = {
       commit("updateCart", cart);
       return cart;
     }
-    return this.get(`${moduleName}/cart`);
+    return state.cart;
   },
   async createCart({ state, getters }) {
     console.log("ACTION: createCart ", " state :", state, getters);
@@ -100,13 +102,14 @@ const actions = {
     return cart;
   },
   async addToCart(
-    { state, store, commit, dispatch, getters },
+    { state, commit, dispatch, getters },
     payload: any | Array<any>
   ) {
+    state.cartLoading=true
     const instanceArr = RA.ensureArray(payload).map(function (instanceItem) {
       const { quantity = 1, variant_id = false } = instanceItem;
-      const data = {
-        customAttributes: [{ key: "message", value: "ff" }],
+      const data :AddtoCartPayload= {
+       customAttributes: [{ key: "message", value: "ff" },{ key: "message2", value: "222" }],
         variantId: btoa(composeGid("ProductVariant", variant_id)),
         quantity,
       };
@@ -116,12 +119,11 @@ const actions = {
       state.checkoutId,
       instanceArr
     );
+    console.log("instance arr ",instanceArr ,payload)
+    state.cartLoading=false
     return dispatch("getCart");
   },
-  async updateItemQuantity(
-    { state, store, commit, dispatch, getters },
-    payload
-  ) {
+  async updateItemQuantity({ state, commit, dispatch, getters }, payload) {
     const instanceArr = RA.ensureArray(payload).map(function (instanceItem) {
       const { quantity = 1, variantId = false, id } = instanceItem;
       return {

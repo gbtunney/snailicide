@@ -2,7 +2,7 @@ import Vue, {PluginObject, VueConstructor} from "vue";
 import * as RA from "ramda-adjunct";
 import { mergeOptions, PlainObject } from "@snailicide/g-library";
 import { VuexORM as VuexORMType } from "@vuex-orm/core";
-import {VuexInitializeOptions} from "./../../types/_types";
+import {VuexInitializeOptions,Plugins} from "./../../types/_types";
 import {Module, ModuleOptions, ModuleTree} from "vuex";
 
 /**
@@ -19,7 +19,7 @@ import {Module, ModuleOptions, ModuleTree} from "vuex";
  */
 //todo : change this back to 'plugin item'
 export const installVuePlugins = function (
-  plugins: Array<any> = [],
+  plugins: Plugins = [],
   options: VuexInitializeOptions = {},
   target: VueConstructor | VuexORMType = Vue
 ) {

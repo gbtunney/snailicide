@@ -3,8 +3,8 @@
     <img alt="Vue logo" src="../assets/logo.png">
 
     <!--    <DocProductProvider></DocProductProvider>-->
-    <ProductInstanceProvider   :id="999999" :handle="'local'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="6">
-      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart}">
+    <ProductInstanceProvider   :id="999999" :handle="'chunky-merino'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="6">
+      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart,CartLoading}">
         <ProductProvider v-bind="Instance.$toJson()">
           <div slot-scope="{Product,SelectedVariant,Variants}">
            {{ID}} {{Product.title }} -- {{SelectedVariant.title}}
@@ -33,6 +33,7 @@
               </template>
             </v-select>
             <button @click="AddToCart">Add to Cart</button>
+            <h1>Loading @@@@!!!: {{ CartLoading }}</h1>
           </div>
         </ProductProvider>
       </div>

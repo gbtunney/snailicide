@@ -18,7 +18,7 @@ import {
   composeGid,
 } from "@shopify/admin-graphql-api-utilities";
 const defaultInstance = ProductInstanceSingle.fields();
-
+import { mapState,mapGetters,mapMutations,mapActions } from 'vuex'
 export default {
   name: "ProductInstanceProviderExtended",
   mixins: [ProductMixins, EditableOptionsMixins, LoadModeMixin],
@@ -69,6 +69,7 @@ export default {
    * @binding {function} UpdateInstance
    * @binding {function} UpdateVariant
    * @binding {function} UpdateOption
+   * @binding {boolean} CartLoading - indicates cart loading status
    */
   render() {
     return this.$scopedSlots.default({
@@ -82,13 +83,16 @@ export default {
             UpdateInstance: this.updateInstance, //these are all functions
             UpdateOption: this.updateOption,
             UpdateVariant: this.updateVariant,
-
+            CartLoading: this.cartLoading,
             ID: this.RefID
           }, ...this.SlotProps
         }
     )
   },
   computed: {
+    ...mapState('shopifybuy', {
+      cartLoading: state => state.cartLoading,
+    }),
     RefID: function () {
       return this.$props.id
     },
@@ -175,7 +179,7 @@ export default {
      * @public
      */
     async addToCart(instance) {
-      return await this.$store.dispatch("shopifybuy/addToCart",instance)
+      return await this.$store.dispatch("shopifybuy/addToCart",this.Instance)
       // const cart = await this.$shopify.getCart()//addItem
     },
     /**

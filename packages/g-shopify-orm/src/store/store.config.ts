@@ -1,7 +1,7 @@
 import axios from "axios";
-
 /* * Import Types * */
 import {Model} from "@vuex-orm/core";
+import {VueRegistrationObject, VuexOrmStoreOptions} from "@snailicide/g-vue"
 
 //************** Import ORM Plugins  *****************//
 import VuexORMAxios from "@vuex-orm/plugin-axios";
@@ -12,8 +12,9 @@ import VuexORMSearch from "@vuex-orm/plugin-search";
 import Models from  "./../orm";
 import moduleProductLoader from "./../modules/ProductLoaderModule";
 import ormmodule from "./../modules/ormmodule.js";
-import {ModuleTree} from "vuex";
+import {ModuleTree,ActionTree} from "vuex";
 import newcart from "./../shopifyBuy/ShopifyBuyModule";
+import {ShopifyBuyPlugin} from "./../shopifyBuy/shopifyBuy.plugin";
 
 /**
  * VUEX ROOT STORE CONFIG
@@ -85,9 +86,7 @@ const actions = {}
 const modules:ModuleTree<any> =  {
     orm: ormmodule,
     productloader: moduleProductLoader,
-    // @ts-expect-error dont know wht
     shopifybuy:newcart
-   // shopifycart:CartModule
 }
 
 /**
@@ -98,7 +97,7 @@ const plugins = []
 /**Root Store Module
  * export
  */
- export const root_store= {
+ export const root_store:VuexOrmStoreOptions= {
     state,
     getters,
     mutations,
@@ -108,5 +107,18 @@ const plugins = []
     orm_plugins,
     models,
     options
+}
+export const project_vue_config:VueRegistrationObject= {
+    alias: {
+        axios: axios,
+        " gbtShopify": "gbtShopify",
+    },
+    plugins: [
+        [ShopifyBuyPlugin, {
+            domain:false,// Insert your Shopify Domain
+            storefrontAccessToken: false,
+            store:false// Insert your Shopify Storefront Access Token
+        }]
+    ],
 }
 export default root_store
