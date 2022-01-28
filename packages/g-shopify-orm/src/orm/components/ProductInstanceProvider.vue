@@ -175,19 +175,8 @@ export default {
      * @public
      */
     async addToCart(instance) {
-      console.log("addToCart",this.$shopify)
-
-      const instanceArr = RA.ensureArray(instance).map(function (instanceItem) {
-        const { quantity = 1, variant_id = false } = instanceItem;
-        const data = {
-          customAttributes: [{ key: "message", value: "ff" }],
-          variantId: composeGid("ProductVariant", variant_id),
-          quantity,
-        };
-        return data;
-      });
-
-    // const cart = await this.$shopify.getCart()//addItem
+      return await this.$store.dispatch("shopifybuy/addToCart",instance)
+      // const cart = await this.$shopify.getCart()//addItem
     },
     /**
      * Update Variant function

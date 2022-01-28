@@ -31,7 +31,7 @@ const app_config ={... mainConfig,...{
     }
 }}
 
- registerAllVueConfigs(app_config,additionalOptions)
+ registerAllVueConfigs(app_config, { store,...additionalOptions });
 
 new Vue({
   store,

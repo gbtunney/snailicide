@@ -1,15 +1,21 @@
 /* * Shopify Buy Plugin - registers its own module. * */
 import _Vue, {PluginObject} from "vue";
 import ShopifyBuy from "shopify-buy";
-import ShopifyBuyModule from "./ShopifyBuyModule";
+import {Store} from "vuex";
+
+interface ShopifyBuyPlugin extends ShopifyBuy.Config{
+    store: Store<any>
+}
 
 export const ShopifyBuyPlugin: PluginObject<any> = {
-    install(Vue: typeof _Vue, options?: ShopifyBuy.Config) {
+    async install(Vue: typeof _Vue, options?: ShopifyBuyPlugin) {
         if (typeof options === "undefined") throw Error("Shopify Buy Plugin: Please provide the domain and storefront access token");
-        debugger;
-        console.log("plugin options!!!!" ,options, this)
-        debugger;
 
+        const {store, domain,storefrontAccessToken} = options
+        store.dispatch( 'shopifybuy/init',options )
+
+        const test = await store.dispatch('shopifybuy/getCart')
+        console.log("pget cart" ,test, this)
        /* tempStore.registerModule('ShopifyBuy', ShopifyBuyModule)
         //store.dispatch('ShopifyBuy/invalidateCart')
         if (tempStore.hasModule(moduleName)) {

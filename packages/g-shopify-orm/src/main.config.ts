@@ -10,7 +10,7 @@ import {PluginPatternlab}from "@snailicide/g-patternlab"
 import {ModuleTree} from "vuex";
 
 import vSelect from 'vue-select'
-//import Shopify from "./stolenScript";
+import {ShopifyBuyPlugin} from "./shopifyBuy/shopifyBuy.plugin";
 
 const modules:ModuleTree<any> =  {
     global: globalSettingsModule,
@@ -30,10 +30,11 @@ export const config =  {
     modules,
    plugins: [
        [PluginPatternlab, { pluginoptions: "fffgg" }],
-       /*[VueShopifyBuy, {
+       [ShopifyBuyPlugin, {
            domain:false,// Insert your Shopify Domain
-           storefrontAccessToken: false, // Insert your Shopify Storefront Access Token
-       }]*/
+           storefrontAccessToken: false,
+           store:false// Insert your Shopify Storefront Access Token
+       }]
     ],
 };
 export default config;

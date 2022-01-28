@@ -13,6 +13,7 @@ import Models from  "./../orm";
 import moduleProductLoader from "./../modules/ProductLoaderModule";
 import ormmodule from "./../modules/ormmodule.js";
 import {ModuleTree} from "vuex";
+import newcart from "./../shopifyBuy/ShopifyBuyModule";
 
 /**
  * VUEX ROOT STORE CONFIG
@@ -84,6 +85,8 @@ const actions = {}
 const modules:ModuleTree<any> =  {
     orm: ormmodule,
     productloader: moduleProductLoader,
+    // @ts-expect-error dont know wht
+    shopifybuy:newcart
    // shopifycart:CartModule
 }
 
