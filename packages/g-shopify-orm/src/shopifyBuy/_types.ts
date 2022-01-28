@@ -4,10 +4,11 @@ import _Vue from "vuex/types/vue";
 
 export interface ShopifyPluginOptions extends ShopifyBuy.Config {
   store: Store<any> | boolean;
-  checkoutStorageKey?: string
+  checkoutStorageKey?: string;
 }
-
-export interface EasyAccessStore extends Store<any> {
-  get?: any
- set?: any
+export declare interface StateConfig {
+  checkoutId: string;
+  client?: ShopifyBuy.Client | boolean;
+  cart?: ShopifyBuy.Cart;
+  cartLoading: boolean;
 }

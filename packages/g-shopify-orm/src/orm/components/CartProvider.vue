@@ -1,5 +1,4 @@
 <script lang="ts">
-import {ProductMixins} from '../../mixins/ProductMixins'
 import {getRandomNumber} from "@snailicide/g-library";
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
@@ -10,13 +9,13 @@ import {
   ProductInstanceGroup,
   ProductInstanceSingle,
 } from '../models'
-import {mapActions} from "vuex";
+import { mapState,mapGetters,mapMutations,mapActions } from 'vuex'
 const defaultInstance = ProductInstanceSingle.fields();
 export default{
-  name: 'ProductGroupProvider',
+  name: 'CartProvider',
   mixins: [EditableOptionsMixins, LoadModeMixin],
   mounted() {
-    this.initializeLoadInstance(this.Handle, this.LoadMode)
+    //this.initializeLoadInstance(this.Handle, this.LoadMode)
   },
   /*
      //instance variables
@@ -47,40 +46,38 @@ export default{
     }
   },
   watch: {
-    items: {
-      immediate: true,
-      handler(newValue, oldValue) {
-        console.log(" items changed from " + oldValue + " to " + newValue, defaultInstance.selection_mode.value,)
-      }
-    },
+
     id: {
       immediate: true,
       async handler(value, oldValue) {
         //this.$store.dispatch('productloader/deleteAll') todo: MAKE DELETE PROP
         if (value !== false/* && (value != this.RefID)*/) {
           console.log("GROUP : ID IS BEING CHANGED!!!!!!!!! new:", value, "REF :")
-
-          this.initializeGroup()
-          const response = await this.insertOrUpdateGroupInstance(this.$props);
-          console.log("response", response, "REF :", this.Instance, this.Items)
+        //  this.initializeGroup()
+         // const response = await this.insertOrUpdateGroupInstance(this.$props);
+          //console.log("response", response, "REF :", this.Instance, this.Items)
         }
       }
     },
   },
   computed: {
+    //getCartID
+    ...mapGetters('shopifybuy', [
+      'getCartID',
+      'getLineItems'
+    ]),
     SlotProps() {
       return {
         Instance: this.Instance,
-
         Children: this.Items,
-        Items: this.Items,
+        Items: this.getLineItems,
         /*    note: this.$props.note,*/
 
         /*functions*/
         AddGroupToCart: this._addToCart,
         UpdateInstance: this.updateInstance, //these are all functions
 
-        ID: this.RefID
+        ID: this.getCartID
       }
     },
     RefID: function () {

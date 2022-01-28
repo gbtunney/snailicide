@@ -21,7 +21,7 @@ import {Module, ModuleOptions, ModuleTree} from "vuex";
 export const installVuePlugins = function (
   plugins: Plugins = [],
   options: VuexInitializeOptions = {},
-  target: VueConstructor | VuexORMType = Vue
+  target: VueConstructor | any = Vue
 ) {
   const { logging = false }: VuexInitializeOptions = options;
   return plugins.forEach(function (_plugin) {
@@ -31,9 +31,9 @@ export const installVuePlugins = function (
       options as PlainObject
     );
     if (_pluginItem === false) return false;
-    const log = `Plugin installed: target: ${typeof target}options before: ${JSON.stringify(_plugin_options)} before: ${merged_options}`;
+    const log = `!!!!!!!!!!Plugin installed: target: ${typeof target}options before: ${JSON.stringify(_plugin_options)} before: ${merged_options}`;
     target.use(_pluginItem, merged_options);
-    //if (logging) console.log(log,merged_options,_plugin_options,_pluginItem);
-    if (logging) console.log("installVuePlugins","_plugin_options", _plugin_options,"merged_options",merged_options);
+    if (logging) console.log(log,merged_options,_plugin_options,_pluginItem);
+    //if (logging) console.log("installVuePlugins","_plugin_options", _plugin_options,"merged_options",merged_options);
   });
 };

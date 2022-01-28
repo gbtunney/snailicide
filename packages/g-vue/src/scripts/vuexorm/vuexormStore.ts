@@ -37,6 +37,7 @@ export const initializeVuexOrmStore = function (
     orm_plugins = [],
   } = store_options;
   const options = { ...base_options, ...addl_options }; //!!!!!!!!!!! merge options
+
   const { logging=true, persist, persist_storage_key }: VuexInitializeOptions =
     options;
   if (logging) console.log("the options registered are options",options)

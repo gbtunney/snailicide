@@ -6,7 +6,7 @@
 open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security
 gVueConfigPlugin
 ###add package 
-    yarn --cwd packages/g-shopify-orm remove @snailicide/g-vue    add  @snailicide/g-vue @snailicide/g-library @snailicide/g-patternlab
+    yarn --cwd packages/g-shopify-orm ramda ramda-adjunct  remove @snailicide/g-vue    add  @snailicide/g-vue @snailicide/g-library @snailicide/g-patternlab
     yarn --cwd apps/owool add @snailicide/g-vue   @tailwindcss/typography@0.5.0-alpha.2  @tailwindcss/forms tailwind-css-variables
     yarn --cwd packages/g-patternlab add
 shopify login --store

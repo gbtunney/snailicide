@@ -1,6 +1,5 @@
 /* * Modules * */
 import globalSettingsModule from "./modules/globalSettings.js";
-
 import { PluginPatternlab } from "@snailicide/g-patternlab";
 import { ModuleTree } from "vuex";
 import { VueRegistrationObject } from "@snailicide/g-vue";

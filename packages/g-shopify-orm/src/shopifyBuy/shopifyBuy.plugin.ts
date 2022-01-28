@@ -14,7 +14,6 @@ export const ShopifyBuyPlugin: PluginObject<any> = {
         store.dispatch( 'shopifybuy/init',options )
         const test = await store.dispatch('shopifybuy/getCart')
         const eastore = store as EasyAccessStore
-        console.log("ShopifyBuyPlugin client", eastore.get('shopifybuy/getClient'))
     },
 };
 export default ShopifyBuyPlugin

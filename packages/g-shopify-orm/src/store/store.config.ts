@@ -24,8 +24,9 @@ import {ShopifyBuyPlugin} from "./../shopifyBuy/shopifyBuy.plugin";
  */
 const options = {
     logging: true,
+    persist:true,
     persist_storage_key: "persistvuex",
-    baseURL: "http://google.com",
+    baseURL: "http://o-wool-stage.myshopify.com",
 }
 
 /**

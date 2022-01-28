@@ -1,9 +1,11 @@
-<script>
-import * as R from "ramda"
+<script lang="ts">
 import * as RA from "ramda-adjunct"
+import * as R from 'ramda';
+ // import {indexBy} from "ramda"
 import ProductMixins from '../../mixins/ProductMixins'
-import {getRandomNumber} from "@snailicide/g-library";
+import {getRandomNumber, PlainObject} from "@snailicide/g-library";
 
+import {StateConfig}from "./../../shopifyBuy/_types"
 //MIXINS.
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
@@ -19,6 +21,10 @@ import {
 } from "@shopify/admin-graphql-api-utilities";
 const defaultInstance = ProductInstanceSingle.fields();
 import { mapState,mapGetters,mapMutations,mapActions } from 'vuex'
+import {ProductInstanceProviderProps} from "./../_types";
+
+//ProductInstanceProviderProps
+
 export default {
   name: "ProductInstanceProviderExtended",
   mixins: [ProductMixins, EditableOptionsMixins, LoadModeMixin],
@@ -79,7 +85,7 @@ export default {
             Quantity: this.Quantity,
 
             /*functions*/
-            AddToCart: this.addToCart,
+            AddToCart: this._addToCart,
             UpdateInstance: this.updateInstance, //these are all functions
             UpdateOption: this.updateOption,
             UpdateVariant: this.updateVariant,
@@ -91,7 +97,8 @@ export default {
   },
   computed: {
     ...mapState('shopifybuy', {
-      cartLoading: state => state.cartLoading,
+      // @ts-expect-error errors??/
+      cartLoading: state  => state.cartLoading ,
     }),
     RefID: function () {
       return this.$props.id
@@ -139,6 +146,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions('shopifybuy', [
+      'addToCart'
+    ]),
     setUpdateInstance(props = this.$props) {
       this.insertOrUpdateInstance(props);
     },
@@ -178,8 +188,9 @@ export default {
      * @return {void}
      * @public
      */
-    async addToCart(instance) {
-      return await this.$store.dispatch("shopifybuy/addToCart",this.Instance)
+    _addToCart(instance) {
+      //return this.$store.dispatch("shopifybuy/addToCart",this.Instance)
+      this.addToCart(this.Instance)
       // const cart = await this.$shopify.getCart()//addItem
     },
     /**
@@ -190,11 +201,11 @@ export default {
      * @return {void}
      * @public
      */
-    updateVariant(variant = {}, variant_editable = (this.Instance) ? this.Instance.variant_editable : this.$props.variant_editable) {  //TODO: change this name - i hate it.
+    updateVariant(variant : PlainObject = {}, variant_editable = (this.Instance) ? this.Instance.variant_editable : this.$props.variant_editable) {  //TODO: change this name - i hate it.
       if (!variant_editable) return;
       console.log("variant update  ::: Called!!", this.$router)
       if (this.$props.ignoreInventory) this.SelectedVariant = variant; //doesnt do anythinggggg. override availability
-      else if (variant.IsAvailable) this.SelectedVariant = variant;
+      else if (variant && variant.IsAvailable) this.SelectedVariant = variant;
     },
     /**
      * Update Option function
@@ -215,11 +226,17 @@ export default {
       })
     },
     ///todo: replace
-    updateInstance(_data) {
+    updateInstance(_data, updateCart = false ) {
+      const {quantity = false } = _data
       const response = ProductInstanceBase.update({
         where: this.RefID,
         data: _data
       })
+
+      if ( updateCart && quantity !== false ){
+        return this.$store.dispatch("shopifybuy/updateCart",this.Instance)
+      }
+
       //this.$emit('changed', this.Instance, response)
       return response
     },

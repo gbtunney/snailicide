@@ -1,17 +1,14 @@
-import ShopifyBuy, { ProductVariant } from "shopify-buy";
+import ShopifyBuy, {LineItem, ProductVariant} from "shopify-buy";
 import { defaultMutations } from "vuex-easy-access";
 import { PlainObject, toInteger } from "@snailicide/g-library";
 import * as RA from "ramda-adjunct";
-import { composeGid } from "@shopify/admin-graphql-api-utilities";
+import { composeGid,parseGidType,parseGid } from "@shopify/admin-graphql-api-utilities";
 import { ModuleTree, ActionTree } from "vuex";
 import { EasyAccessStore } from "@snailicide/g-vue";
+import {ProductInstanceProviderProps} from "./../orm/_types";
 
-interface StateConfig {
-  checkoutId: string;
-  client?: ShopifyBuy.Client | boolean;
-  cart?: ShopifyBuy.Cart;
-  cartLoading: boolean;
-}
+//local
+import {StateConfig} from "./_types";
 
 const CHECKOUT_ID_STORAGE_KEY = "vue-shopify-checkout-id";
 const moduleName = "shopifybuy";
@@ -43,6 +40,39 @@ const state: StateConfig = {
 const getters = {
   getClient: (state) => {
     return state.client;
+  },
+  getCartID: (state): boolean|string  => {
+    if ( state.cart && state.cart.id){
+     // console.log("!!!!!!!!!the cart is ", parseGid(atob(state.cart.id)) )
+        return toInteger(parseGid(atob(state.cart.id)))
+    }
+  },
+  getType: (state) => {
+    if ( state.cart && state.cart.id){
+      return  parseGidType( atob(state.cart.id))
+    }
+    return
+  },
+  getLineItems: (state): Array<LineItem>  => {
+    if ( state.cart && state.cart.lineItems){
+     return state.cart.lineItems.map(function(item):ProductInstanceProviderProps{
+       const {
+         id,
+         quantity,
+         variant: {
+           id: variant_id,
+           product: { handle },
+         },
+       } = item;
+        return {
+          id: toInteger(parseGid(atob(id))),
+          type: parseGidType(atob(id)),
+          variant_id: toInteger(parseGid(atob(variant_id))),
+          handle,
+          quantity
+        }
+      })
+    }
   },
 };
 
@@ -85,7 +115,11 @@ const actions: ActionTree<any, any> = {
       commit("updateCart", cart);
       return cart;
     }
-    return state.cart;
+    //temporary, idk?
+    cart = await dispatch(`fetchCart`, state.checkoutId);
+    // this.set(`${moduleName}/cart`,cart)
+    commit("updateCart", cart);
+    return cart;
   },
   async createCart({ state, getters }) {
     console.log("ACTION: createCart ", " state :", state, getters);
@@ -123,7 +157,7 @@ const actions: ActionTree<any, any> = {
     state.cartLoading=false
     return dispatch("getCart");
   },
-  async updateItemQuantity({ state, commit, dispatch, getters }, payload) {
+  async updateItemQuantity({ state, commit, dispatch, getters }, payload: any | Array<any>) {
     const instanceArr = RA.ensureArray(payload).map(function (instanceItem) {
       const { quantity = 1, variantId = false, id } = instanceItem;
       return {

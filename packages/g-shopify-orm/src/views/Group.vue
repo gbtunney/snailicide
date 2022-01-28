@@ -2,7 +2,9 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <product-group-provider :id="43993" v-bind="$data.group">
-      <div slot-scope="{ ID, note,Items,Status}">
+
+      <div slot-scope="{ ID, note,Items,Status,AddGroupToCart}">
+        <button @click="AddGroupToCart"> Add Group to cart </button>
         <div v-for="child, index in Items" :key="index">
           <ProductInstanceProvider v-bind="child.$toJson()">
             <div slot-scope="{Instance,ID,UpdateVariant,Quantity,QuantityAvailable,AddToCart}">
@@ -40,14 +42,7 @@
 </template>
 <script>
 import Vue from 'vue';
-import PluginPatternlab from "@snailicide/g-patternlab"
-
-Vue.use(PluginPatternlab)
-import vSelect from 'vue-select'
-
-Vue.component('v-select', vSelect)
 import 'vue-select/dist/vue-select.css';
-
 import cartData from "owool/src/assets/data/cart.json";
 import ProductInstanceProvider from "../orm/components/ProductInstanceProvider";
 import ProductProvider from "../orm/components/ProductProvider";
