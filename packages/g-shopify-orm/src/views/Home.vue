@@ -4,7 +4,7 @@
 
     <!--    <DocProductProvider></DocProductProvider>-->
     <ProductInstanceProvider   :id="999999" :handle="'chunky-merino'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="6">
-      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart,CartLoading}">
+      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart,CartLoading,IsLoading,Quantity,UpdateItemQuantity}">
         <ProductProvider v-bind="Instance.$toJson()">
           <div slot-scope="{Product,SelectedVariant,Variants}">
            {{ID}} {{Product.title }} -- {{SelectedVariant.title}}
@@ -32,15 +32,17 @@
                 </div>
               </template>
             </v-select>
-            <button @click="AddToCart">Add to Cart</button>
-            <h1>Loading @@@@!!!: {{ CartLoading }}</h1>
+            <input type="number" :value="Quantity" :min="0"
+                :max="SelectedVariant.inventory_quantity"
+                @input="UpdateItemQuantity( $event.target.value) "/>
+            <button :disabled="IsLoading" @click="AddToCart">Add to Cart</button>
           </div>
         </ProductProvider>
       </div>
     </ProductInstanceProvider>
 
     <ProductInstanceProvider   :id="999998989899" :handle="'balance'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="10">
-      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart}">
+      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart,IsLoading}">
         <ProductProvider v-bind="Instance.$toJson()">
           <div slot-scope="{Product,SelectedVariant,Variants}">
             {{ID}} {{Product.title }} -- {{SelectedVariant.title}}
@@ -68,14 +70,14 @@
                 </div>
               </template>
             </v-select>
-            <button @click="AddToCart">Add to Cart</button>
+            <button :disabled="IsLoading" @click="AddToCart">Add to Cart</button>
           </div>
         </ProductProvider>
       </div>
     </ProductInstanceProvider>
 
     <ProductInstanceProvider   :id="99998989299" :handle="'local'" load_mode="LOAD_HANDLE_NOT_IN_DATABASE" variant_id="10">
-      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart}">
+      <div slot-scope="{Instance,ID,UpdateVariant,Variants,AddToCart,IsLoading}">
         <ProductProvider v-bind="Instance.$toJson()">
           <div slot-scope="{Product,SelectedVariant,Variants}">
             {{ID}} {{Product.title }} -- {{SelectedVariant.title}}
@@ -103,7 +105,7 @@
                 </div>
               </template>
             </v-select>
-            <button @click="AddToCart">Add to Cart</button>
+            <button :disabled="IsLoading" @click="AddToCart">Add to Cart</button>
           </div>
         </ProductProvider>
       </div>

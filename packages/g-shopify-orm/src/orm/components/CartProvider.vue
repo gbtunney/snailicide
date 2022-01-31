@@ -3,7 +3,6 @@ import {getRandomNumber} from "@snailicide/g-library";
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
 import {
-  Cart,
   ProductGroupBase,
   ProductInstanceBase,
   ProductInstanceGroup,
@@ -17,18 +16,7 @@ export default{
   mounted() {
     //this.initializeLoadInstance(this.Handle, this.LoadMode)
   },
-  /*
-     //instance variables
-          Instance: this.Instance,
-          QuantityAvailable: this.QuantityAvailable,
-          Quantity: this.Quantity,
-          UpdateInstance: this.updateInstance, //these are all functions
-          UpdateOption: this.updateOption,
-          UpdateVariant: this.updateVariant,
-          addToCartEnabled: this.$props.add_to_cart_enabled,
-          addToCart: this.addToCart,
-          loadTest: this.Status,
-   */
+
   /**
    * @slot
    * @binding {Object<ProductGroupBase>} Instance - The ProductGroupBase entit
@@ -41,7 +29,6 @@ export default{
   },
   data: function () {
     return {
-      _refID: getRandomNumber(1000000),
       _cartID: false
     }
   },
@@ -83,12 +70,6 @@ export default{
     RefID: function () {
       return this.$props.id
     },
-    Instance: function () {
-      if (this.RefID) {
-        return ProductGroupBase.query().whereId(this.RefID).with("Variant|Group").first();
-      }
-      return false;
-    },
     Ready: function () {
       return (this.Product && this.Instance && this.SelectedVariant)
     },
@@ -118,71 +99,14 @@ export default{
       default: getRandomNumber(1000000),
     },
     /**
-     * type of instance
-     * @values GROUP,CART
-     */
-    type: {
-      type: String,
-      default: defaultInstance.type.value,
-    },
-    /**
-     * array of children items .
-     * @values  INSTANCE, LINE_ITEM
-     */
-    items: {
-      type: [Array],
-      default: () => ["empty"],
-    },
-    /**
      * the total amount of items in the group
      */
-    item_count: {
-      type: [Number],
-      default: 0,
+    max_item_count: {
+      type: [Number, Boolean],
+      default: false,
     },
   },
   methods: {
-    ...mapActions('shopifybuy', [
-      'addToCart'
-    ]),
-    /**
-     * Add to Cart function
-     *
-     * @param {Object<productbase>} Instance
-     * @return {void}
-     * @public
-     */
-    async _addToCart() {
-      //  const addtoCartResponse = await Cart.api().addItems([this.Instance])
-      console.log("GROUP TRYING TO ADD TO CART ", this.Instance, this.Items)
-      this.addToCart(this.Items)
-    },
-    initializeGroup(data = this.$props) {
-      const {items} = this.$props
-      this.$store.dispatch("productloader/load_items", [items, 'LOAD_HANDLE_NOT_IN_DATABASE']/*this.$props.load_mode*/)
-    },
-    async insertOrUpdateGroupInstance(_data = {}) {
-      return ProductInstanceGroup.insertOrUpdate({
-        data: _data
-      })
-    },
-    insertOrUpdateInstance(_data = {}) {
-      return ProductInstanceBase.insertOrUpdate({
-        data: _data
-      })
-    },
-    ///todo: replace
-    updateInstance(_data, instance) {
-      const response = ProductInstanceBase.update({
-        where: this.RefID,
-        data: _data
-      })
-      //this.$emit('changed', this.Instance, response)
-      return response
-    },
-    async removeInstance(instance) {
-      //todo: finish
-    },
   },
 }
 </script>

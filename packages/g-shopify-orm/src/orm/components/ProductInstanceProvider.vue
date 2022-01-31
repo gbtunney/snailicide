@@ -1,29 +1,20 @@
 <script lang="ts">
 import * as RA from "ramda-adjunct"
 import * as R from 'ramda';
- // import {indexBy} from "ramda"
 import ProductMixins from '../../mixins/ProductMixins'
 import {getRandomNumber, PlainObject} from "@snailicide/g-library";
-
-import {StateConfig}from "./../../shopifyBuy/_types"
 //MIXINS.
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
-//import {Shopify} from 'vue-shopify-buy'
 //PRODUCT TO EXTEND.
 import ProductProvider from "./ProductProvider.vue"
 import {
   ProductInstanceBase,
   ProductInstanceSingle, Variant,
 } from '../models'
-import {
-  composeGid,
-} from "@shopify/admin-graphql-api-utilities";
 const defaultInstance = ProductInstanceSingle.fields();
-import { mapState,mapGetters,mapMutations,mapActions } from 'vuex'
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 import {ProductInstanceProviderProps} from "./../_types";
-
-//ProductInstanceProviderProps
 
 export default {
   name: "ProductInstanceProviderExtended",
@@ -87,8 +78,10 @@ export default {
             /*functions*/
             AddToCart: this._addToCart,
             UpdateInstance: this.updateInstance, //these are all functions
+            UpdateItemQuantity : this.updateItemQuantity,
             UpdateOption: this.updateOption,
             UpdateVariant: this.updateVariant,
+            IsLoading: this.InstanceLoading,
             CartLoading: this.cartLoading,
             ID: this.RefID
           }, ...this.SlotProps
@@ -98,8 +91,12 @@ export default {
   computed: {
     ...mapState('shopifybuy', {
       // @ts-expect-error errors??/
-      cartLoading: state  => state.cartLoading ,
+      cartLoading: state => state.cartLoading,
     }),
+    InstanceLoading: function () {
+      if (this.isLoading === true && this.cartLoading === true) return true
+      return false
+    },
     RefID: function () {
       return this.$props.id
     },
@@ -188,10 +185,10 @@ export default {
      * @return {void}
      * @public
      */
-    _addToCart(instance) {
-      //return this.$store.dispatch("shopifybuy/addToCart",this.Instance)
-      this.addToCart(this.Instance)
-      // const cart = await this.$shopify.getCart()//addItem
+    async _addToCart(instance) {
+      this.isLoading = true
+      await this.addToCart(this.Instance)
+      this.isLoading = false
     },
     /**
      * Update Variant function
@@ -201,7 +198,7 @@ export default {
      * @return {void}
      * @public
      */
-    updateVariant(variant : PlainObject = {}, variant_editable = (this.Instance) ? this.Instance.variant_editable : this.$props.variant_editable) {  //TODO: change this name - i hate it.
+    updateVariant(variant: PlainObject = {}, variant_editable = (this.Instance) ? this.Instance.variant_editable : this.$props.variant_editable) {  //TODO: change this name - i hate it.
       if (!variant_editable) return;
       console.log("variant update  ::: Called!!", this.$router)
       if (this.$props.ignoreInventory) this.SelectedVariant = variant; //doesnt do anythinggggg. override availability
@@ -225,20 +222,20 @@ export default {
         data: _data
       })
     },
-    ///todo: replace
-    updateInstance(_data, updateCart = false ) {
-      const {quantity = false } = _data
+    updateItemQuantity(quantity = false) {
+      if (quantity !== false && quantity !== this.Quantity) {
+        if (this.Instance.type === "CheckoutLineItem") {
+          this.$store.dispatch("shopifybuy/updateItemQuantity", {id: this.RefID, quantity})
+        } else {
+          this.updateInstance({quantity})
+        }
+      }
+    },
+    updateInstance(_data, updateCart = false) {
       const response = ProductInstanceBase.update({
         where: this.RefID,
         data: _data
       })
-
-      if ( updateCart && quantity !== false ){
-        return this.$store.dispatch("shopifybuy/updateCart",this.Instance)
-      }
-
-      //this.$emit('changed', this.Instance, response)
-      return response
     },
     async removeInstance(instance) {
       //todo: finish

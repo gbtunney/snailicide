@@ -1,23 +1,28 @@
-import ShopifyBuy, {LineItem, ProductVariant} from "shopify-buy";
+import ShopifyBuy, { LineItem, ProductVariant } from "shopify-buy";
 import { defaultMutations } from "vuex-easy-access";
-import { PlainObject, toInteger } from "@snailicide/g-library";
+import { toInteger } from "@snailicide/g-library";
 import * as RA from "ramda-adjunct";
-import { composeGid,parseGidType,parseGid } from "@shopify/admin-graphql-api-utilities";
-import { ModuleTree, ActionTree } from "vuex";
+import {
+  composeGid,
+  parseGidType,
+  parseGid,
+} from "@shopify/admin-graphql-api-utilities";
+import { ActionTree } from "vuex";
 import { EasyAccessStore } from "@snailicide/g-vue";
-import {ProductInstanceProviderProps} from "./../orm/_types";
+import { ProductInstanceProviderProps } from "./../orm/_types";
 
 //local
-import {StateConfig} from "./_types";
+import { StateConfig } from "./_types";
 
 const CHECKOUT_ID_STORAGE_KEY = "vue-shopify-checkout-id";
 const moduleName = "shopifybuy";
 
 //variant: ProductVariant, qty = 1
-interface LineItemAttribute{
-  key:string|number|boolean
-  value: string|number|boolean
+interface LineItemAttribute {
+  key: string | number | boolean;
+  value: string | number | boolean;
 }
+
 interface AddtoCartPayload {
   variantId: number | string;
   quantity: number;
@@ -41,37 +46,41 @@ const getters = {
   getClient: (state) => {
     return state.client;
   },
-  getCartID: (state): boolean|string  => {
-    if ( state.cart && state.cart.id){
-     // console.log("!!!!!!!!!the cart is ", parseGid(atob(state.cart.id)) )
-        return toInteger(parseGid(atob(state.cart.id)))
+  getCartID: (state): boolean | string => {
+    if (state.cart && state.cart.id) {
+      // console.log("!!!!!!!!!the cart is ", parseGid(atob(state.cart.id)) )
+      return toInteger(parseGid(atob(state.cart.id)));
     }
   },
   getType: (state) => {
-    if ( state.cart && state.cart.id){
-      return  parseGidType( atob(state.cart.id))
+    if (state.cart && state.cart.id) {
+      return parseGidType(atob(state.cart.id));
     }
-    return
+    return;
   },
-  getLineItems: (state): Array<LineItem>  => {
-    if ( state.cart && state.cart.lineItems){
-     return state.cart.lineItems.map(function(item):ProductInstanceProviderProps{
-       const {
-         id,
-         quantity,
-         variant: {
-           id: variant_id,
-           product: { handle },
-         },
-       } = item;
+  getLineItems: (state): Array<LineItem> => {
+    if (state.cart && state.cart.lineItems) {
+      return state.cart.lineItems.map(function (
+        item
+      ): ProductInstanceProviderProps {
+        const {
+          id,
+          quantity,
+          variant: {
+            id: variant_id,
+            product: { handle },
+          },
+        } = item;
+        console.log("hi this is here!!!", atob(id));
+        //gid://shopify/CheckoutLineItem/225892643964060?checkout=757f673990d65b702bcfdc60f21a44f8
         return {
           id: toInteger(parseGid(atob(id))),
           type: parseGidType(atob(id)),
           variant_id: toInteger(parseGid(atob(variant_id))),
           handle,
-          quantity
-        }
-      })
+          quantity,
+        };
+      });
     }
   },
 };
@@ -82,7 +91,7 @@ const getters = {
 const mutations = {
   updateCart(state, payload: ShopifyBuy.Cart) {
     const store: EasyAccessStore = this as EasyAccessStore;
-    this.set(`${moduleName}/cart`, payload);
+    state.cart = payload;
   },
   ...defaultMutations(state),
 };
@@ -111,13 +120,11 @@ const actions: ActionTree<any, any> = {
       //if it has a checkout id but no cart.
     } else if (!state.cart) {
       cart = await dispatch(`fetchCart`, state.checkoutId);
-      // this.set(`${moduleName}/cart`,cart)
       commit("updateCart", cart);
       return cart;
     }
     //temporary, idk?
     cart = await dispatch(`fetchCart`, state.checkoutId);
-    // this.set(`${moduleName}/cart`,cart)
     commit("updateCart", cart);
     return cart;
   },
@@ -139,11 +146,14 @@ const actions: ActionTree<any, any> = {
     { state, commit, dispatch, getters },
     payload: any | Array<any>
   ) {
-    state.cartLoading=true
+    state.cartLoading = true;
     const instanceArr = RA.ensureArray(payload).map(function (instanceItem) {
       const { quantity = 1, variant_id = false } = instanceItem;
-      const data :AddtoCartPayload= {
-       customAttributes: [{ key: "message", value: "ff" },{ key: "message2", value: "222" }],
+      const data: AddtoCartPayload = {
+        customAttributes: [
+          { key: "message", value: "ff" },
+          { key: "message2", value: "222" },
+        ],
         variantId: btoa(composeGid("ProductVariant", variant_id)),
         quantity,
       };
@@ -153,23 +163,31 @@ const actions: ActionTree<any, any> = {
       state.checkoutId,
       instanceArr
     );
-    console.log("instance arr ",instanceArr ,payload)
-    state.cartLoading=false
-    return dispatch("getCart");
+    state.cartLoading = false;
+    return commit("updateCart", updatedCart);
   },
-  async updateItemQuantity({ state, commit, dispatch, getters }, payload: any | Array<any>) {
+  async updateItemQuantity(
+    { state, commit, dispatch, getters },
+    payload: any | Array<any>
+  ) {
+    state.cartLoading = true;
     const instanceArr = RA.ensureArray(payload).map(function (instanceItem) {
-      const { quantity = 1, variantId = false, id } = instanceItem;
-      return {
-        quantity: toInteger(quantity),
-        id,
-      };
+      const { id, quantity = false } = instanceItem;
+      if (quantity !== false) {
+        return {
+          quantity: toInteger(quantity),
+          id: btoa(
+            composeGid("CheckoutLineItem", id, { checkout: state.checkoutId })
+          ),
+        };
+      }
     });
-    const updatedCart = await getters["get_client"].checkout.updateLineItems(
-      getters["get_checkoutID"],
-      [...instanceArr]
+    const updatedCart = await state.client.checkout.updateLineItems(
+      state.checkoutId,
+      instanceArr
     );
-    return dispatch("getCart");
+    state.cartLoading = false;
+    return commit("updateCart", updatedCart);
   },
 };
 
@@ -184,131 +202,3 @@ const newcart = {
   actions,
 };
 export default newcart;
-
-/*getCart() {
-    return new Promise<ShopifyBuy.Cart>(async (resolve) => {
-        let cart = null
-
-        if (State.checkoutId.length === 0) {
-            cart = await this.getClient().checkout.create()
-            State.checkoutId = cart.id as string
-            window.localStorage.setItem(CHECKOUT_ID_STORAGE_KEY, cart.id as string)
-
-            this.updateCart(cart)
-            resolve(cart)
-        } else if (!State.cart) {
-            cart = await this.getClient().checkout.fetch(State.checkoutId)
-
-            if (!cart) {
-                cart = await this.getClient().checkout.create()
-            }
-
-            this.updateCart(cart)
-            resolve(cart)
-        } else {
-            resolve(State.cart)
-        }
-    })
-},
-
-
-
-
-interface StateConfig {
-    checkoutId: string
-    client?: ShopifyBuy.Client
-    cart?: ShopifyBuy.Cart
-    cartLoading: boolean
-}
-
-export const State = Vue.observable<StateConfig>({
-    checkoutId: window.localStorage.getItem(CHECKOUT_ID_STORAGE_KEY) || '',
-    cart: null,
-    cartLoading: false
-})
-
-const Shopify = {
-    init(config: ShopifyBuy.Config) {
-        Vue.set(State, 'client', ShopifyBuy.buildClient({
-            domain: config.domain,
-            storefrontAccessToken: config.storefrontAccessToken
-        }))
-
-        return this
-    },
-
-    getClient() {
-        return State.client!
-    },
-
-    getCart() {
-        return new Promise<ShopifyBuy.Cart>(async (resolve) => {
-            let cart = null
-
-            if (State.checkoutId.length === 0) {
-                cart = await this.getClient().checkout.create()
-                State.checkoutId = cart.id as string
-                window.localStorage.setItem(CHECKOUT_ID_STORAGE_KEY, cart.id as string)
-
-                this.updateCart(cart)
-                resolve(cart)
-            } else if (!State.cart) {
-                cart = await this.getClient().checkout.fetch(State.checkoutId)
-
-                if (!cart) {
-                    cart = await this.getClient().checkout.create()
-                }
-
-                this.updateCart(cart)
-                resolve(cart)
-            } else {
-                resolve(State.cart)
-            }
-        })
-    },
-
-    getState() {
-        return State
-    },
-
-    async addItem(variant: ProductVariant, qty = 1) {
-        State.cartLoading = true
-        await this.getCart()
-        const updatedCart = await this.getClient().checkout.addLineItems(State.checkoutId, [{
-            // @ts-ignore
-            variantId: variant.id,
-            quantity: qty
-        }])
-
-        State.cartLoading = false
-        this.updateCart(updatedCart)
-    },
-
-    async removeItem(item: LineItem) {
-        State.cartLoading = true
-        await this.getCart()
-        const updatedCart = await this.getClient().checkout.removeLineItems(State.checkoutId, [item.id as string])
-
-        State.cartLoading = false
-        this.updateCart(updatedCart)
-    },
-
-    async updateItemQuantity(item: LineItem, qty: number) {
-        State.cartLoading = true
-        await this.getCart()
-        // @ts-ignore  nnk
-        const updatedCart = await this.getClient().checkout.updateLineItems(State.checkoutId, [{
-            id: item.id,
-            quantity: qty
-        }])
-
-        State.cartLoading = false
-        this.updateCart(updatedCart)
-    },
-
-    updateCart(updatedCart: ShopifyBuy.Cart) {
-        Vue.set(State, 'cart', updatedCart)
-    }
-}
-
-export default Shopify*/

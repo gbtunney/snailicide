@@ -33,7 +33,7 @@ export class ProductInstanceBase extends Model {
     static types() {
         return {
             INSTANCE: ProductInstanceSingle,
-            LINE_ITEM: LineItem
+            CheckoutLineItem: LineItem
         }
     }
 

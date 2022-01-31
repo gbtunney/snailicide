@@ -3,8 +3,10 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <product-group-provider :id="43993" v-bind="$data.group">
 
-      <div slot-scope="{ ID, note,Items,Status,AddGroupToCart}">
+      <div slot-scope="{ ID, note,Items,Status,AddGroupToCart,UpdateGroupQuantity}">
         <button @click="AddGroupToCart"> Add Group to cart </button>
+        <button @click="UpdateGroupQuantity(2)">Quantity </button>
+
         <div v-for="child, index in Items" :key="index">
           <ProductInstanceProvider v-bind="child.$toJson()">
             <div slot-scope="{Instance,ID,UpdateVariant,Quantity,QuantityAvailable,AddToCart}">
@@ -17,7 +19,7 @@
                     {{ Product.title }} -- {{ SelectedVariant.title }}
                     <input type="number" :value="Quantity" :min="0"
                         :max="SelectedVariant.quantity"
-                        @input="UpdateInstance({ quantity: $event},Instance)"/>
+                        @input="UpdateItemQuantity( $event.target.value)"/>
                     <button class="bg-accent-secondary" @click="Instance.$delete()">REMOVE ME</button>
                   </div>
                 </div>

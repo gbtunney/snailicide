@@ -1,5 +1,4 @@
 <script lang="ts">
-import {ProductMixins} from '../../mixins/ProductMixins'
 import {getRandomNumber} from "@snailicide/g-library";
 import EditableOptionsMixins from "../../mixins/EditableOptionsMixins";
 import LoadModeMixin from "../../mixins/LoadModeMixin";
@@ -79,7 +78,7 @@ export default{
         /*functions*/
         AddGroupToCart: this._addToCart,
         UpdateInstance: this.updateInstance, //these are all functions
-
+        UpdateGroupQuantity:this.updateGroupQuantity,
         ID: this.RefID
       }
     },
@@ -159,6 +158,16 @@ export default{
       //  const addtoCartResponse = await Cart.api().addItems([this.Instance])
       console.log("GROUP TRYING TO ADD TO CART ", this.Instance, this.Items)
       this.addToCart(this.Items)
+    },
+    updateGroupQuantity(quantity = 1 ){
+        const newmap  = this.Items.map(function(item_instance){
+          const {id, quantity: item_quantity }= item_instance;
+          return {
+            id,
+            quantity: ( item_quantity > 0 ) ?  (item_quantity * quantity) : 0
+          }
+        })
+    const resp  = this.insertOrUpdateInstance(newmap)
     },
     initializeGroup(data = this.$props) {
       const {items} = this.$props

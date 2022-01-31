@@ -12,8 +12,6 @@ Product,Variants,SelectedVariant,UpdateOption,Options,OptionValueList,SelectedOp
                 label="title"
                 :clearable=false
                 @option:selecting="updateVariant"
-
-
             >
               <template #option="{ isSelected,title,$isDisabled ,image }">
 
