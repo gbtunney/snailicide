@@ -124,12 +124,6 @@
 </template>
 <script>
 import Vue from 'vue';
-//import PluginPatternlab from "@snailicide/g-patternlab"
-//Vue.use(PluginPatternlab)
-
-//import vSelect from 'vue-select'
-
-//Vue.component('v-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 import ProductProvider from '../orm/components/ProductProvider.vue';
 import ProductInstanceProvider from '../orm/components/ProductInstanceProvider.vue';
