@@ -32,8 +32,14 @@ export const registerDirectives = function (
   logging = false
 ) {
   Object.entries(directives).forEach(function ([key, value]) {
-    const log = `Directive Registered: key:${key}`;
-    Vue.directive(key, value);
+    //strip illegal characters ( including v- prefix if added accidentally
+    const _key = transformString(
+      key,
+      ["v", "-", " ", "$"],
+      ["trim", "slugify"]
+    );
+    const log = `Directive Registered: key:${_key}`;
+    Vue.directive(_key, value);
     if (logging) console.log(log);
   });
 };

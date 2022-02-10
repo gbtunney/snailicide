@@ -5,10 +5,10 @@
     @snailicide/styleguide  yarn --cwd packages/g-vue add  @vuex-orm/core
 open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security
 gVueConfigPlugin
-###add package 
+###add package     
     yarn --cwd packages/g-shopify-orm ramda ramda-adjunct  remove @snailicide/g-vue    add  @snailicide/g-vue @snailicide/g-library @snailicide/g-patternlab
     yarn --cwd apps/owool add @snailicide/g-vue   @tailwindcss/typography@0.5.0-alpha.2  @tailwindcss/forms tailwind-css-variables
-    yarn --cwd packages/g-patternlab add
+    yarn --cwd packages/g-windi add  modularscale-js chroma-js
 shopify login --store
 console.log("Module list::::", store._modules.root._children);
 

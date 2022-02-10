@@ -9,6 +9,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@snailicide/g-library": "^1.0.0",
+    "@snailicide/g-patternlab": "^0.1.0",
+    "@snailicide/g-vue": "^0.1.0",
     "chroma-js": "^2.4.2",
     "core-js": "^3.6.5",
     "modularscale-js": "^3.0.1",

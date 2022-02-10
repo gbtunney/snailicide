@@ -23,8 +23,7 @@ export const registerAllVueConfigs = function (
   } = config;
 
   const options = { ...base_options, ...addl_options }; //!!!!!!!!!!! merge options
-  const { logging = false, skipPlugins = false } = options;
-
+  const { logging = true, skipPlugins = false } = options;
   //************** Components *****************//
   registerComponents(components, logging);
 

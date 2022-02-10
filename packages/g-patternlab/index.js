@@ -9,7 +9,7 @@ import {
   StyledSvgWrapper,
   StyledBackgroundLine,
 } from "./src/components/ui";
-import { vTW, vFaker } from "./src/directives";
+export { vTW ,vFaker} from "./src/directives";
 
 export const PluginPatternlab = {
   install(Vue, options = {}) {
@@ -31,7 +31,5 @@ export {
   StyledContainerGrid,
   StyledSvgWrapper,
   StyledBackgroundLine,
-  vTW,
-  vFaker,
 };
 export default PluginPatternlab;

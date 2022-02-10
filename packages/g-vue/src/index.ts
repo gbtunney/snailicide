@@ -8,6 +8,7 @@ export { initializeVuexOrmStore } from "./scripts";
 export { installVuePlugins } from "./scripts";
 export { registerAllVueConfigs } from "./scripts";
 export { registerModules } from "./scripts";
+export {debugDirective} from "./directives/debugDirective"
 export {
   registerAliases,
   registerComponents,

@@ -23,6 +23,8 @@
     "ui:sbbuild": "yarn --cwd packages/g-patternlab storybook:build",
     "tw:serve": "yarn --cwd packages/g-tailwind serve",
     "tw:build": "yarn --cwd packages/g-tailwind build",
+    "windi:serve": "yarn --cwd packages/g-windi serve",
+    "windi:build": "yarn --cwd packages/g-windi build",
     "twv": "yarn --cwd apps/tailwind-config-viewer serve",
     "orm": "yarn --cwd packages/g-shopify-orm serve",
     "gvue": "yarn --cwd packages/g-vue serve",

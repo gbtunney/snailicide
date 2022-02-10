@@ -1,10 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <button v-faker:sentences="'[2 , gggggg ]'">test 2</button>
+    <hr>
+    <button v-faker:lorem.words="4">test 3</button>
+    <hr>
+    <button v-faker:lorem>test 4</button>
+    <hr>
+    <button v-faker:internet.email="'uppercase'">NO DIRECTIVE</button>
+    <article class="prose" v-faker:paragraphs>kjjkjkj</article>
     <HelloWorld class="bg-gumleaf-600" msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
-
 <script lang="ts">
 import Vue from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
