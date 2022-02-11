@@ -5,7 +5,7 @@
     <hr>
     <button v-faker:lorem.words="4">test 3</button>
     <hr>
-    <button v-faker:lorem>test 4</button>
+    <button v-faker:animal.cat>test 4</button>
     <hr>
     <button v-faker:internet.email="'uppercase'">NO DIRECTIVE</button>
     <article class="prose" v-faker:paragraphs>kjjkjkj</article>
