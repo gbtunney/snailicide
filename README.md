@@ -1,7 +1,8 @@
 #Snailicide Monorepo 
 
 ##Packages
-    @snailicide/g-library 
+    @snailicide/g-library yarn --cwd packages/g-vue --cwd packages/g-patternlab add ts-expect
+
     @snailicide/styleguide  yarn --cwd packages/g-vue add  @vuex-orm/core
 open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security
 gVueConfigPlugin
