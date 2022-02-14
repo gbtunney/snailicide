@@ -1,12 +1,6 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 import 'windi.css'
-import appConfig from "./app.config";
-import {registerAllVueConfigs}from "@snailicide/g-vue"
-registerAllVueConfigs(appConfig)
 
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+createApp(App).use(router).mount('#app')
