@@ -1,9 +1,39 @@
-import { defineConfig } from 'windicss/helpers'
 import colors from 'windicss/colors'
 import plugin from 'windicss/plugin'
+import filters from 'windicss/plugin/filters'
+import aspect_ratio from 'windicss/plugin/aspect-ratio'
+import forms from 'windicss/plugin/forms'
+import line_clamp from 'windicss/plugin/line-clamp'
+import typography from 'windicss/plugin/typography'
 
-export default defineConfig({
-    darkMode: 'class', // or 'media'
+import {IWindiConfig} from "./composable/useWindiCSS"
+import getColorScaleMap from "./scripts/colorScale";
+
+const active_plugins = [
+    filters,
+    aspect_ratio,
+    forms,
+    line_clamp,
+    typography({
+        modifiers: ['DEFAULT', 'sm', 'lg', 'red'],
+    })
+]
+
+const colorScaleObj = {
+    "newgumleaf": {
+        default_color: "afd3c2"
+    },
+    "gradient": {
+        scale: ['yellow', 'red', 'black'],
+        default_color: 'red',
+        color_count: 9
+    },
+    "potter-winkle": {
+        default_color: 'CCCCFF'
+    }
+}
+
+export const windiConfig: IWindiConfig = {
     attributify: true,
     safelist: 'p-1 p-2 p-3 p-4 bg-pink bg-red bg-corn-300',
     theme: {
@@ -16,6 +46,7 @@ export default defineConfig({
                 '2xl': '1536px',
             },
             colors: {
+                ...getColorScaleMap(colorScaleObj),
                 gray: colors.coolGray,
                 blue: colors.sky,
                 red: colors.rose,
@@ -91,7 +122,7 @@ export default defineConfig({
         'btn-green': 'text-white bg-green-500 hover:bg-green-700',
     },
     plugins: [
-        plugin(({ addUtilities }) => {
+        plugin(({addUtilities}) => {
             const newUtilities = {
                 '.skew-10deg': {
                     transform: 'skewY(-10deg)',
@@ -102,7 +133,7 @@ export default defineConfig({
             }
             addUtilities(newUtilities)
         }),
-        plugin(({ addComponents }) => {
+        plugin(({addComponents}) => {
             const buttons = {
                 '.btn': {
                     padding: '.5rem 1rem',
@@ -126,20 +157,15 @@ export default defineConfig({
             }
             addComponents(buttons)
         }),
-        plugin(({ addDynamic, variants }) => {
-            addDynamic('skew', ({ Utility, Style }) => {
+        plugin(({addDynamic, variants}) => {
+            addDynamic('skew', ({Utility, Style}) => {
                 return Utility.handler
                     .handleStatic(Style('skew'))
                     .handleNumber(0, 360, 'int', number => `skewY(-${number}deg)`)
                     .createProperty('transform')
             }, variants('skew'))
         }),
-        require('windicss/plugin/filters'),
-        require('windicss/plugin/forms'),
-        require('windicss/plugin/aspect-ratio'),
-        require('windicss/plugin/line-clamp'),
-        require('windicss/plugin/typography')({
-            modifiers: ['DEFAULT', 'sm', 'lg', 'red'],
-        }),
+        ...active_plugins,
     ],
-})
+}
+export default windiConfig
