@@ -111,6 +111,14 @@ export const windiConfig: IWindiConfig = {
         },
     },
     shortcuts: {
+        'gillian': {
+        'color': 'white',
+        '@apply': 'py-2 px-4 font-semibold rounded-lg',
+        '&:hover': {
+            '@apply': 'bg-green-700',
+            'color': 'black',
+        },
+    },
         'btn': {
             'color': 'white',
             '@apply': 'py-2 px-4 font-semibold rounded-lg',

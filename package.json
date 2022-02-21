@@ -31,7 +31,7 @@
     "dep:list": "find . -name 'node_modules' -type d -prune",
     "dep:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "clean:cache": "yarn cache clean",
-    "clean": "run-s dep:list dep:rm clean:cache rm yarn.lock -f",
+    "clean": "run-s dep:list dep:rm clean:cache ",
     "backstop:test": "yarn --cwd apps/backstop test",
     "chrome": "open -na Google\\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security"
   },

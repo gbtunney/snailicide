@@ -1,17 +1,34 @@
 <template>
   <div class="hello ">
-  <div class="group selection:text-fuchsia-900">    <h1 class="bg-red-600  btn  ">{{ msg }}</h1>
+  <div class="group selection:text-fuchsia-900">    <h1 class="gillian bg-red-600  btn  ">{{ msg }}</h1>
    <div :ref="testme" style="" >
-     <p :class="target_value"> This is the target element !!</p>
-     <input
-         v-for="i in 6"
-         :key="i"
-         type="text"
-         :data-id="i"
-         class="!my-0 !min-w-0"
-         :placeholder="`${i}`"
-     >
-     <button class="text-primary bg-wacky-600">G GRADIENT </button>
+     <p :class="selected_classes"> This is the target element !!</p>
+     selected: <p v-text="selected_variant"></p>
+     <hr>
+     <Multiselect autocomplete="on"
+         :searchable="true"
+         v-model="selected_variant"
+         :options="variants"
+     />
+
+       <span>COLORS:  <Multiselect autocomplete="on"
+           :searchable="true"
+           @change="InjectWindiStyles"
+           v-model="selected_colors"
+           mode="multiple"
+           :options="Colors"
+       /></span>
+     <div>
+       Windi Classes
+       <Multiselect autocomplete="on"
+           v-model="selected_classes"
+           @change="InjectWindiStyles"
+           :searchable="true"   mode="multiple"
+           :options="staticclasses"
+       />
+     </div>colors
+
+     <button class="text-primary bg-wacky-600">G GRADIENT {{selected_classes}} !!</button>
 
      <span> <input placeholder="Enter classes. " class="w-full border-black border-solid border" v-model="value"/> <button @click="getWindiStyles(value)">update target</button></span>
    </div>
@@ -52,16 +69,34 @@ import {useElementStyle} from "@vueuse/motion"
 import {getColorScaleMap} from './../scripts/colorScale';
 import windiConfig from "./../windi.config.obj";
 import {MaybeRef} from "@vueuse/core";
-
+import Multiselect from '@vueform/multiselect'
 export default defineComponent({
   name: 'HelloWorld',
   props: {
     msg: String,
   },
-  components:{},
+  components:{Multiselect},
   setup(){
     const value = ref('bg-yellow-600')
+
+
     const target_value  = ref([''])
+
+const selected_classes = ref([])
+
+    const variants  = ref([
+      'Batman',
+      'Robin',
+      'Joker',
+    ])
+    const selected_variant  = ref([])
+
+    const Colors  = ref([
+      'Batman',
+      'Robin',
+      'Joker',
+    ])
+    const selected_colors = ref([])
 
 
     ///**** PROJECT CUSTOM (BASE) COLORS **** uses numbers for shades. ***///
@@ -98,10 +133,24 @@ const testvar    ={theme: {
     }}
   }}
     const styleProcessor =useWindiCSS( {config:windiConfig} )
-    const {getWindiStyles,injectWindiStyles }= styleProcessor
-    console.log("THE THING ISSS", getWindiStyles(value.value).compiled)
 
-    return {target_value,styleProcessor,injectWindiStyles, getWindiStyles}
+    const {getWindiStyles,injectWindiStyles }= styleProcessor
+    const{completions: {static:staticclasses, color:colors },processor:{allVariant }}=  styleProcessor
+  const InjectWindiStyles= ( value : Array<string> )=>{
+    ////get the class targett
+
+    const {success,styleSheet} = getWindiStyles((value).toString())
+
+
+    console.log("THE InjectWindiStyles ISSS","target " , (value).toString() , getWindiStyles('text-pink-900 bg-red-600'), value,success ,styleSheet )
+    target_value.value =  [...success,... target_value.value ]
+    injectWindiStyles( value,undefined,{} )
+  }
+    console.log("THE IcolorsnjectWindiStyles ISSS",colors)
+
+    Colors.value =colors
+    variants.value =allVariant
+    return {target_value,styleProcessor,Colors,InjectWindiStyles, getWindiStyles,colors,variants,selected_variant,selected_classes,staticclasses}
   }
 });
 </script>
@@ -123,3 +172,4 @@ a {
   color: #42b983;
 }
 </style>
+<style src="@vueform/multiselect/themes/default.css"></style>
