@@ -120,10 +120,10 @@ export const windiConfig: IWindiConfig = {
         },
     },
         'btn': {
-            'color': 'white',
+            'color': 'bg-green-700',
             '@apply': 'py-2 px-4 font-semibold rounded-lg',
             '&:hover': {
-                '@apply': 'bg-green-700',
+                '@apply': 'bg-green-300',
                 'color': 'black',
             },
         },

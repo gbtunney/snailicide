@@ -56,7 +56,6 @@ debouncedWatch(
     (value) => {
       const {success, ignored, compiled, classes} = getWindiStyles((value).toString(), {colors})
       console.warn('classes_string ---- changed!: ', success, compiled, ignored)
-      classes.value = success
       styleSheet.value = compiled
       failure.value = ignored
     },
