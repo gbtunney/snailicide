@@ -3,8 +3,9 @@ import Processor from "windicss";
 import {Config,Theme,BaseTheme,Shortcut} from "windicss/types/interfaces";
 import {generateCompletions} from 'windicss/utils'
 import {defineConfig} from "windicss/helpers";
-import {transformString,replaceCharacters} from "@snailicide/g-library"
+import {transformString,replaceCharacters,PlainObject} from "@snailicide/g-library"
 import { template,templateSettings} from 'lodash'
+import * as R from "ramda";
 
 export type IWindiConfig = ReturnType<typeof defineConfig>
 type ITheme = Theme|Partial<BaseTheme> //  Extract<Extract<IWindiConfig,"theme">,"extend">
@@ -12,8 +13,27 @@ type ITheme = Theme|Partial<BaseTheme> //  Extract<Extract<IWindiConfig,"theme">
 export const useWindiCSS = (config: IWindiConfig = {}) => {
     const processor = new Processor(config)
     const completions = Object.freeze(generateCompletions(processor))
-    const {interpret, validate, extract, allTheme: theme, allVariant : variants} = processor
+    const {interpret, validate, extract, allTheme: theme, allVariant: variants} = processor
+    //   console.log("attrify!:",processor.attributify({bg:"red-600"}))
 
+    const getAttrs = (value = {}, theme: Partial<BaseTheme> | undefined = undefined, extend = true) => {
+        const _processor: Processor
+            = (theme !== undefined)
+            ? new Processor((extend === true)
+                ? {theme: {extend: theme}}
+                : {theme})
+            : processor
+        const myprocessor = _processor.attributify(value)
+        const {styleSheet, success} = myprocessor
+        const compiled = styleSheet.build(false)
+        const tag = useStyleTag(compiled, {id: "vueuse_attrs"})
+
+        return {
+            ...myprocessor, compiled
+
+        }
+
+    }
     const getWindiStyles = (value: string[] | string, theme: Partial<BaseTheme> | undefined = undefined, extend = true) => {
         const _processor: Processor
             = (theme !== undefined)
@@ -21,7 +41,7 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
                 ? {theme: {extend: theme}}
                 : {theme})
             : processor
-        value = <string>transformString(replaceCharacters((value).toString(), ["  ", ","], " "), [".", "'", '"'], "clean")
+        value = <string>transformString(replaceCharacters((value).toString(), ["  ", ","], " "), [ "'", '"'], "clean")
         //console.log("cleaned before:", value, " after:", cleanString)
         const interpretedString: ReturnType<Processor["interpret"]> = _processor.interpret(value)
         const {styleSheet, success} = interpretedString
@@ -44,18 +64,19 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
         const compiled: string | undefined = _processor.validate(name) ? styleSheet.build(false) : undefined
         return {
             processor: _processor,
-            ...interpretedString, compiled, classes: ( success.length > 0 ) ? getClassString(success) : false
+            ...interpretedString, compiled, classes: (success.length > 0) ? getClassString(success) : false
         }
     }
-    const getClassString = (value: Array<string>): string =>
-        transformString(
-            replaceCharacters((value).toString(), [","], " "),
-        ["[", "]"], "clean")
+    const getClassString = (value: Array<string>): string => R.join(" ", value)
 
     /* * Inject the build style string into the <head> * */
     const injectWindiStyles = (value: string[] | string, windi_config: Partial<BaseTheme> | undefined = undefined, style_tag_options: UseStyleTagOptions) => {
         if (!getWindiStyles(value, windi_config).compiled) return
         return useStyleTag(getWindiStyles(value).compiled as string, style_tag_options)
+    }
+    const injectCSS = (value: string|false,  style_tag_options: UseStyleTagOptions) => {
+        if (!value) return
+        return useStyleTag(value as string, style_tag_options)
     }
     const masterReg = /\${([\s\S]+?)}/g
     const lTemplate = template
@@ -75,13 +96,14 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
         const _obj = { [key]:value }
         templateSettings.interpolate = exp
         const _value  = lTemplate(template)(_obj)
+       // console.warn("ERROR getDynamicValue", _obj,template,_value)
         return _value
     }
 
     return {
         config,
         interpret, validate, extract, theme, variants,completions, processor,
-        getWindiStyles, injectWindiStyles, getShortCut, getDynamicValue,getDynamicKey
+        getWindiStyles, injectWindiStyles, getShortCut, getDynamicValue,getDynamicKey,getAttrs,injectCSS
     }
 }
 export default useWindiCSS

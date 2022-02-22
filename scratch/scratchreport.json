@@ -1,0 +1,582 @@
+{
+  "root": "/Users/gilliantunney/snailicide/packages/g-windi",
+  "include": [
+    "/Users/gilliantunney/snailicide/packages/g-windi/src/**/*.{html,vue,md,mdx,pug,jsx,tsx,svelte,ts,js,css,postcss,pcss}",
+    "/Users/gilliantunney/snailicide/packages/g-windi/index.html"
+  ],
+  "exclude": [
+    "/Users/gilliantunney/snailicide/packages/g-windi/node_modules",
+    "/Users/gilliantunney/snailicide/packages/g-windi/.git",
+    "/Users/gilliantunney/snailicide/packages/g-windi/windi.config.{ts,js}",
+    "/Users/gilliantunney/snailicide/packages/g-windi/tailwind.config.{ts,js}"
+  ],
+  "colors": {
+    "orange-500": {
+      "name": "orange-500",
+      "hex": "#f97316",
+      "utilities": [
+        "lg:bg-orange-500"
+      ],
+      "prefixes": [
+        "lg"
+      ]
+    },
+    "fuchsia-900": {
+      "name": "fuchsia-900",
+      "hex": "#701a75",
+      "utilities": [
+        "selection:text-fuchsia-900"
+      ],
+      "prefixes": [
+        "selection"
+      ]
+    },
+    "red-600": {
+      "name": "red-600",
+      "hex": "#e11d48",
+      "utilities": [
+        "bg-red-600"
+      ],
+      "prefixes": []
+    },
+    "black": {
+      "name": "black",
+      "hex": "#000000",
+      "utilities": [
+        "border-black"
+      ],
+      "prefixes": []
+    },
+    "yellow-600": {
+      "name": "yellow-600",
+      "hex": "#d97706",
+      "utilities": [
+        "bg-yellow-600"
+      ],
+      "prefixes": []
+    },
+    "pink-900": {
+      "name": "pink-900",
+      "hex": "#701a75",
+      "utilities": [
+        "text-pink-900"
+      ],
+      "prefixes": []
+    },
+    "corn-300": {
+      "name": "corn-300",
+      "hex": "#f9e8a3",
+      "utilities": [
+        "bg-corn-300"
+      ],
+      "prefixes": []
+    },
+    "green-700": {
+      "name": "green-700",
+      "hex": "#047857",
+      "utilities": [
+        "bg-green-700",
+        "hover:bg-green-700"
+      ],
+      "prefixes": [
+        "hover"
+      ]
+    },
+    "white": {
+      "name": "white",
+      "hex": "#FFFFFF",
+      "utilities": [
+        "text-white"
+      ],
+      "prefixes": []
+    },
+    "green-500": {
+      "name": "green-500",
+      "hex": "#10b981",
+      "utilities": [
+        "bg-green-500"
+      ],
+      "prefixes": []
+    }
+  },
+  "files": [
+    {
+      "utilities": [
+        "lg:bg-orange-500",
+        "btn"
+      ],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/App.vue"
+    },
+    {
+      "utilities": [
+        "selection:text-fuchsia-900",
+        "bg-red-600",
+        "btn",
+        "w-full",
+        "border-black",
+        "border-solid",
+        "border",
+        "bg-yellow-600",
+        "text-pink-900"
+      ],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/components/HelloWorld.vue"
+    },
+    {
+      "utilities": [],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/composable/useWindiCSS.ts"
+    },
+    {
+      "utilities": [],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/main.ts"
+    },
+    {
+      "utilities": [],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/router/index.ts"
+    },
+    {
+      "utilities": [],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/scripts/colorScale.ts"
+    },
+    {
+      "utilities": [],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/shims-vue.d.ts"
+    },
+    {
+      "utilities": [],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/views/About.vue"
+    },
+    {
+      "utilities": [],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/views/Home.vue"
+    },
+    {
+      "utilities": [
+        "p-1",
+        "p-2",
+        "p-3",
+        "p-4",
+        "bg-corn-300",
+        "btn",
+        "py-2",
+        "px-4",
+        "font-semibold",
+        "rounded-lg",
+        "bg-green-700",
+        "btn-green",
+        "text-white",
+        "bg-green-500",
+        "hover:bg-green-700",
+        "transform"
+      ],
+      "filepath": "/Users/gilliantunney/snailicide/packages/g-windi/src/windi.config.obj.ts"
+    }
+  ],
+  "groups": {
+    "files": {},
+    "groups": []
+  },
+  "utilities": {
+    "lg:bg-orange-500": {
+      "count": 1,
+      "base": "bg-orange-500",
+      "full": "lg:bg-orange-500",
+      "prefixes": [
+        "lg"
+      ],
+      "category": "background",
+      "type": "bg",
+      "colorHex": "#f97316",
+      "colorName": "orange-500"
+    },
+    "btn": {
+      "count": 3,
+      "base": "btn",
+      "full": "btn",
+      "shortcut": {
+        "color": "white",
+        "@apply": "py-2 px-4 font-semibold rounded-lg",
+        "&:hover": {
+          "@apply": "bg-green-700",
+          "color": "black"
+        }
+      },
+      "category": "shortcut",
+      "type": "btn"
+    },
+    "selection:text-fuchsia-900": {
+      "count": 1,
+      "base": "text-fuchsia-900",
+      "full": "selection:text-fuchsia-900",
+      "prefixes": [
+        "selection"
+      ],
+      "category": "text",
+      "type": "text",
+      "colorHex": "#701a75",
+      "colorName": "fuchsia-900"
+    },
+    "bg-red-600": {
+      "count": 1,
+      "base": "bg-red-600",
+      "full": "bg-red-600",
+      "category": "background",
+      "type": "bg",
+      "colorHex": "#e11d48",
+      "colorName": "red-600"
+    },
+    "w-full": {
+      "count": 1,
+      "base": "w-full",
+      "full": "w-full",
+      "category": "size",
+      "type": "w"
+    },
+    "border-black": {
+      "count": 1,
+      "base": "border-black",
+      "full": "border-black",
+      "category": "border",
+      "type": "border",
+      "colorHex": "#000000",
+      "colorName": "black"
+    },
+    "border-solid": {
+      "count": 1,
+      "base": "border-solid",
+      "full": "border-solid",
+      "category": "border",
+      "type": "border"
+    },
+    "border": {
+      "count": 1,
+      "base": "border",
+      "full": "border",
+      "category": "border",
+      "type": "border"
+    },
+    "bg-yellow-600": {
+      "count": 1,
+      "base": "bg-yellow-600",
+      "full": "bg-yellow-600",
+      "category": "background",
+      "type": "bg",
+      "colorHex": "#d97706",
+      "colorName": "yellow-600"
+    },
+    "text-pink-900": {
+      "count": 1,
+      "base": "text-pink-900",
+      "full": "text-pink-900",
+      "category": "text",
+      "type": "text",
+      "colorHex": "#701a75",
+      "colorName": "pink-900"
+    },
+    "p-1": {
+      "count": 1,
+      "base": "p-1",
+      "full": "p-1",
+      "category": "padding",
+      "type": "p"
+    },
+    "p-2": {
+      "count": 1,
+      "base": "p-2",
+      "full": "p-2",
+      "category": "padding",
+      "type": "p"
+    },
+    "p-3": {
+      "count": 1,
+      "base": "p-3",
+      "full": "p-3",
+      "category": "padding",
+      "type": "p"
+    },
+    "p-4": {
+      "count": 1,
+      "base": "p-4",
+      "full": "p-4",
+      "category": "padding",
+      "type": "p"
+    },
+    "bg-corn-300": {
+      "count": 1,
+      "base": "bg-corn-300",
+      "full": "bg-corn-300",
+      "category": "background",
+      "type": "bg",
+      "colorHex": "#f9e8a3",
+      "colorName": "corn-300"
+    },
+    "py-2": {
+      "count": 1,
+      "base": "py-2",
+      "full": "py-2",
+      "category": "padding",
+      "type": "py"
+    },
+    "px-4": {
+      "count": 1,
+      "base": "px-4",
+      "full": "px-4",
+      "category": "padding",
+      "type": "px"
+    },
+    "font-semibold": {
+      "count": 1,
+      "base": "font-semibold",
+      "full": "font-semibold",
+      "category": "font",
+      "type": "font"
+    },
+    "rounded-lg": {
+      "count": 1,
+      "base": "rounded-lg",
+      "full": "rounded-lg",
+      "category": "borderRadius",
+      "type": "rounded"
+    },
+    "bg-green-700": {
+      "count": 1,
+      "base": "bg-green-700",
+      "full": "bg-green-700",
+      "category": "background",
+      "type": "bg",
+      "colorHex": "#047857",
+      "colorName": "green-700"
+    },
+    "btn-green": {
+      "count": 1,
+      "base": "btn-green",
+      "full": "btn-green",
+      "shortcut": "text-white bg-green-500 hover:bg-green-700",
+      "category": "shortcut",
+      "type": "btn"
+    },
+    "text-white": {
+      "count": 1,
+      "base": "text-white",
+      "full": "text-white",
+      "category": "text",
+      "type": "text",
+      "colorHex": "#FFFFFF",
+      "colorName": "white"
+    },
+    "bg-green-500": {
+      "count": 1,
+      "base": "bg-green-500",
+      "full": "bg-green-500",
+      "category": "background",
+      "type": "bg",
+      "colorHex": "#10b981",
+      "colorName": "green-500"
+    },
+    "hover:bg-green-700": {
+      "count": 1,
+      "base": "bg-green-700",
+      "full": "hover:bg-green-700",
+      "prefixes": [
+        "hover"
+      ],
+      "category": "background",
+      "type": "bg",
+      "colorHex": "#047857",
+      "colorName": "green-700"
+    },
+    "transform": {
+      "count": 1,
+      "base": "transform",
+      "full": "transform",
+      "category": "transform",
+      "type": "transform"
+    }
+  },
+  "shortcuts": {
+    "btn": {
+      "color": "white",
+      "@apply": "py-2 px-4 font-semibold rounded-lg",
+      "&:hover": {
+        "@apply": "bg-green-700",
+        "color": "black"
+      }
+    },
+    "btn-green": "text-white bg-green-500 hover:bg-green-700"
+  },
+  "bases": {
+    "bg-orange-500": {
+      "count": 1,
+      "base": "bg-orange-500",
+      "variants": [
+        "lg:bg-orange-500"
+      ]
+    },
+    "btn": {
+      "count": 3,
+      "base": "btn",
+      "variants": [
+        "btn"
+      ]
+    },
+    "text-fuchsia-900": {
+      "count": 1,
+      "base": "text-fuchsia-900",
+      "variants": [
+        "selection:text-fuchsia-900"
+      ]
+    },
+    "bg-red-600": {
+      "count": 1,
+      "base": "bg-red-600",
+      "variants": [
+        "bg-red-600"
+      ]
+    },
+    "w-full": {
+      "count": 1,
+      "base": "w-full",
+      "variants": [
+        "w-full"
+      ]
+    },
+    "border-black": {
+      "count": 1,
+      "base": "border-black",
+      "variants": [
+        "border-black"
+      ]
+    },
+    "border-solid": {
+      "count": 1,
+      "base": "border-solid",
+      "variants": [
+        "border-solid"
+      ]
+    },
+    "border": {
+      "count": 1,
+      "base": "border",
+      "variants": [
+        "border"
+      ]
+    },
+    "bg-yellow-600": {
+      "count": 1,
+      "base": "bg-yellow-600",
+      "variants": [
+        "bg-yellow-600"
+      ]
+    },
+    "text-pink-900": {
+      "count": 1,
+      "base": "text-pink-900",
+      "variants": [
+        "text-pink-900"
+      ]
+    },
+    "p-1": {
+      "count": 1,
+      "base": "p-1",
+      "variants": [
+        "p-1"
+      ]
+    },
+    "p-2": {
+      "count": 1,
+      "base": "p-2",
+      "variants": [
+        "p-2"
+      ]
+    },
+    "p-3": {
+      "count": 1,
+      "base": "p-3",
+      "variants": [
+        "p-3"
+      ]
+    },
+    "p-4": {
+      "count": 1,
+      "base": "p-4",
+      "variants": [
+        "p-4"
+      ]
+    },
+    "bg-corn-300": {
+      "count": 1,
+      "base": "bg-corn-300",
+      "variants": [
+        "bg-corn-300"
+      ]
+    },
+    "py-2": {
+      "count": 1,
+      "base": "py-2",
+      "variants": [
+        "py-2"
+      ]
+    },
+    "px-4": {
+      "count": 1,
+      "base": "px-4",
+      "variants": [
+        "px-4"
+      ]
+    },
+    "font-semibold": {
+      "count": 1,
+      "base": "font-semibold",
+      "variants": [
+        "font-semibold"
+      ]
+    },
+    "rounded-lg": {
+      "count": 1,
+      "base": "rounded-lg",
+      "variants": [
+        "rounded-lg"
+      ]
+    },
+    "bg-green-700": {
+      "count": null,
+      "base": "bg-green-700",
+      "variants": [
+        "bg-green-700",
+        "hover:bg-green-700"
+      ]
+    },
+    "btn-green": {
+      "count": 1,
+      "base": "btn-green",
+      "variants": [
+        "btn-green"
+      ]
+    },
+    "text-white": {
+      "count": 1,
+      "base": "text-white",
+      "variants": [
+        "text-white"
+      ]
+    },
+    "bg-green-500": {
+      "count": 1,
+      "base": "bg-green-500",
+      "variants": [
+        "bg-green-500"
+      ]
+    },
+    "transform": {
+      "count": 1,
+      "base": "transform",
+      "variants": [
+        "transform"
+      ]
+    }
+  },
+  "dist": {
+    "gzip": "653 B"
+  },
+  "name": "@snailicide/g-windi",
+  "version": "0.1.0"
+}

@@ -1,3 +1,13 @@
+<script lang="ts">
+import {attr} from './../directives/DirectiveAttr';
+export default {
+  name:"WindiAttrGenerator",
+  directives: {
+    // enables v-focus in template
+    attr
+  }
+}
+</script>
 <script lang="ts" setup>
 import {toRefs, ref, Ref, defineProps, defineEmits, withDefaults,} from 'vue';
 import useWindiCSS from "./../composable/useWindiCSS";
@@ -9,7 +19,7 @@ enum errs {
 }
 
 const emit = defineEmits<{
-  (e: 'change', classes: string|string[]): void
+  (e: 'change', classes: string): void
   (e: errs.Ignored, value: string | string[]): void
 }>()
 
@@ -18,13 +28,6 @@ const props = withDefaults(defineProps<{ value?: string, labels?: string[] }>(),
   labels: () => ['one', 'two']
 })
 const {value: classes_string, labels} = toRefs(props)
-
-/*
-const classes_string = computed(() => {
-  console.log("THHE PROP HAS UPDATED!!", props.value)
-  return props.value});
-*/
-//emit( errs.Ignored, errs.NotFound )
 import windiConfig from "@/windi.config.obj";
 
 const styleProcessor = useWindiCSS({config: windiConfig})
@@ -33,41 +36,18 @@ const styleSheet: Ref = ref("")
 const classes: Ref = ref("")
 const failure: Ref = ref("")
 
-const colors = {
-  "wacky": {
-    "DEFAULT": "#efc618",
-    "50": "#fefcf3",
-    "100": "#fdf9e8",
-    "200": "#fbf1c5",
-    "300": "#f9e8a3",
-    "400": "#f4d75d",
-    "500": "#efc618",
-    "600": "#d7b216",
-    "700": "#b39512",
-    "800": "#8f770e",
-    "900": "#75610c"
-  }
-}
+const attrObj = ref('{}')
+const testing:Ref<any> = ref("")
+console.log("REFSS" , testing)
 const {getWindiStyles, injectWindiStyles, getShortCut} = styleProcessor
 import {debouncedWatch} from '@vueuse/core'
 
-debouncedWatch(
-    classes_string,
-    (value) => {
-      const {success, ignored, compiled, classes} = getWindiStyles((value).toString(), {colors})
-      injectWindiStyles( (value).toString(),{colors},{id:"kgiiii"})
-      console.warn('classes_string ---- changed!: ', success, compiled, ignored)
-      styleSheet.value = compiled
-      failure.value = ignored
-      emit("change",success)
-    },
-    {debounce: 1000}
-)
-//console.log(">>>>",getShortCut("gillian",".bg-red-200, hover:bg-green-200 border-8 border"))
 </script>
 
 <template>
   <div class="WindiCSSGenerator w-1/2">
+    <textarea v-model="attrObj" placeholder="add multiple lines"></textarea>
+    <button  v-attr classes="text-white hover:(border-orange-800 border-8)" hover="text-red-500" bg="red-500">ATTR</button>
     <div v-if="classes.length>0">Success: <span>{{ classes }}</span></div>
     <div v-if="failure.length>0" class="bg-red-400">Failure: <span>{{ failure }}</span></div>
     <code class="bg-gray-300 border-gray-800">

@@ -54,11 +54,11 @@ const class_string: Ref<string> = ref("")
 const updateStyles = () => {
   const dynamicVal = (getDynamicValue(value_string.value, selected_dynamic.value)) ? getDynamicValue(value_string.value, selected_dynamic.value) as string : ""
   if (dynamicVal.length > 0) {
-    const {classes} = getWindiStyles(dynamicVal)
+    const {classes,compiled,success} = getWindiStyles(dynamicVal)
     if (inject) injectWindiStyles(classes, undefined, {id: `vueuse_styletag_${index.value}`})
-
+    console.log("STYLE UPDATEDD ",  dynamicVal,success)
+    emit("change", classes, index.value)
     class_string.value = classes
-    console.log("STYLE UPDATEDD ", classes, dynamicVal)
   } else class_string.value = ""
 }
 const updateSelection = () => {

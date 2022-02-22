@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import {Component, defineComponent, defineEmits, defineProps, Ref, ref, toRefs, withDefaults} from "vue";
 import VueMultiselect from 'vue-multiselect'
-
 defineComponent(VueMultiselect)
 
 enum errs {

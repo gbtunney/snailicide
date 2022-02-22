@@ -10,6 +10,8 @@ const emit = defineEmits<{
 }>()
 const selectors = ref([""])
 const classes = ref("")
+
+const _static = ref("")
 const selectorChanged = (_classes, _index) => {
   //const {component= gWindiSelector , value=""} = selectors.value[_index]
   //const _obj = {component,value:_classes }
@@ -33,6 +35,6 @@ const classes_string: ComputedRef<string> = computed(() => {
     <button class="btn btn-green" @click="addSelector"> Add selector</button>
     <gWindiSelector v-for='(selector,index) in selectors'
         :key='index' :index='index' inject @change="selectorChanged"/>
-    <component :index="5" :is="gWindiDynamicSelector"></component>
+    <component :index="22" :is="gWindiDynamicSelector"  @change="selectorChanged"></component>
   </div>
 </template>
