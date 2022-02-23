@@ -1,5 +1,5 @@
 <template>
-  <div id="nav lg:bg-orange-500 gillian">
+  <div id="nav bg-pink text-pink-500 ">
     <router-link class="btn"  to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </div>

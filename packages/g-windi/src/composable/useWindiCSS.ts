@@ -6,6 +6,8 @@ import {defineConfig} from "windicss/helpers";
 import {transformString,replaceCharacters,PlainObject} from "@snailicide/g-library"
 import { template,templateSettings} from 'lodash'
 import * as R from "ramda";
+import windiConfig from "@/windi.config.obj";
+
 
 export type IWindiConfig = ReturnType<typeof defineConfig>
 type ITheme = Theme|Partial<BaseTheme> //  Extract<Extract<IWindiConfig,"theme">,"extend">
@@ -14,8 +16,19 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
     const processor = new Processor(config)
     const completions = Object.freeze(generateCompletions(processor))
     const {interpret, validate, extract, allTheme: theme, allVariant: variants} = processor
-    //   console.log("attrify!:",processor.attributify({bg:"red-600"}))
-
+    //processor.addVariant()
+    /*processor.addVariant('gillian', ({modifySelectors}) => {
+        return modifySelectors(({className}) => {
+            return `.gilliann ${className}`
+        })
+    })
+    processor.addDynamic('gillian', ({Utility, Style}) => {
+        return Utility.handler
+            .handleStatic("red")
+            .createProperty('bg')
+    })*/
+    //processor.addVariant('gillian')
+    console.log("useWindiCSS config" ,config ,processor.allConfig,completions)
     const getAttrs = (value = {}, theme: Partial<BaseTheme> | undefined = undefined, extend = true) => {
         const _processor: Processor
             = (theme !== undefined)

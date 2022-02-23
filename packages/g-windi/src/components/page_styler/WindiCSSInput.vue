@@ -1,11 +1,13 @@
 <script lang="ts">
 export default {
-  name:"WindiCSSInput",
+  name: "WindiCSSInput",
 }
 </script>
 <script lang="ts" setup>
-import {toRefs, ref, Ref, defineProps, defineEmits, withDefaults,} from 'vue';
-import windiConfig from "@/windi.config.obj";
+import * as R from "ramda"
+import * as RA from "ramda-adjunct"
+import {toRefs, ref, Ref, defineProps, defineEmits, withDefaults, onMounted} from 'vue';
+import {randomInt, PlainObject} from "@snailicide/g-library";
 import useWindiCSS from "./../../composable/useWindiCSS";
 
 enum events {
@@ -14,42 +16,42 @@ enum events {
   NotFound = "NOT_FOUND",
   Change = "change"
 }
+
 const emits = defineEmits<{
-  (e: events.Change, value: string[],index:number): void
-  (e: events.Ignored, value: string[],index:number): void
-  (e: events.Success, value: string[],index:number): void
+  (e: events.Change, value: string[], index?: number, id?: string): void
+  (e: events.Ignored, value: string[], index?: number): void
+  (e: events.Success, value: string[], index?: number, id?: string): void
 }>()
 
-const props = withDefaults(defineProps<{ value?: string,  name?: string, index?: undefined|number, inject?: boolean }>(), {
+const props = withDefaults(defineProps<{ value?: string | string[], name?: string, config?: PlainObject, index?: undefined | number, inject?: boolean }>(), {
   value: 'bg-red-600',
-  index: 22,
-  name:"WindiCSSInput"
+  name: "vue-use",
 })
-const {value: classes_string,index,name} = toRefs(props)
-const inputvalue = ref( classes_string.value)
+const {index, name, value: default_value, config} = toRefs(props)
+const inputvalue: Ref<string> = ref((RA.isArray(default_value.value)) ? R.join(" ", default_value.value) : default_value.value)
+const success_arr: Ref<string[]> = ref([])
+const ignored_arr: Ref<string[]> = ref([])
+const undefinedId = randomInt(0, 20000);
+const styleProcessor = useWindiCSS(config.value)
+const {getWindiStyles, injectWindiStyles, injectCSS} = styleProcessor
 
-const styleProcessor = useWindiCSS({config: windiConfig})
-const {getWindiStyles, injectWindiStyles,injectCSS} = styleProcessor
-
-const updateStyles =()=>{
-  const {success,ignored,compiled} = getWindiStyles( inputvalue.value )
-const id =  `${name.value}-${index.value}`
-  injectCSS(compiled, {id })
-  emits( events.Success ,success,index.value )
-  emits( events.Ignored ,ignored ,index.value )
-  console.log("updated styles", id)
+const updateStyles = () => {
+  const {success, ignored, compiled, processor} = getWindiStyles(inputvalue.value)
+  const id = RA.isNotUndefined(index.value) ? `${name.value}-${index.value}` : `${name.value}-${undefinedId}`
+  injectCSS(compiled, {id})
+  emits(events.Success, success, index.value, id)
+  emits(events.Ignored, ignored, index.value)
+  success_arr.value = success
+  ignored_arr.value = ignored
+  console.log("updated styles", id, success, index.value)
 }
-/*
-const classes_string = computed(() => {
-  console.log("THHE PROP HAS UPDATED!!", props.value)
-  return props.value});
-*/
-//emit( errs.Ignored, errs.NotFound )
+onMounted(updateStyles)
 </script>
-
 <template>
   <div class="WindiCSSGenerator w-1/2">
-    props: {{$props.value}}
-    <input v-model="inputvalue" type="text"/><button @click="updateStyles">Compile</button>
+    <div class="text-sm bg-red-500 text-white" v-if="ignored_arr.length">Ignored: {{ ignored_arr }}</div>
+    <div class="text-sm bg-green-500 text-white" v-if="success_arr.length">Success: {{ success_arr }}</div>
+    <input v-model="inputvalue" type="text"/>
+    <button @click="updateStyles">Compile</button>
   </div>
 </template>
