@@ -1,4 +1,4 @@
-import getColorScaleMap from "@/scripts/colorScale";
+import getColorScaleMap from "./../scripts/colorScale";
 
 const colorScaleObj = {
     "newgumleaf": {

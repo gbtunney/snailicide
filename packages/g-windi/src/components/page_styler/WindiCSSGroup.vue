@@ -19,6 +19,7 @@ import {
 
 import windiConfig from "@/windi.config.obj";
 import WindiCSSInput from './WindiCSSInput.vue';
+import MarkdownViewer from './../markdown/MarkdownViewer.vue';
 import {PlainObject} from '@snailicide/g-library';
 import {FullConfig} from "windicss/types/interfaces";
 
@@ -28,7 +29,9 @@ enum events {
   NotFound = "NOT_FOUND",
   Change = "change"
 }
-
+import WindiVariantList from './WindiVariantList.vue';
+const variantList = defineComponent(WindiVariantList)
+const markdownComponent = defineComponent(MarkdownViewer)
 const windicomponent = defineComponent(WindiCSSInput)
 const emits = defineEmits<{
   (e: events.Change, value: string[]): void
@@ -37,13 +40,12 @@ const emits = defineEmits<{
 }>()
 
 const props = withDefaults(defineProps<{ myvalue?: Array<string[] | string>, name?: string, index?: undefined | number, inject?: boolean }>(), {
-  myvalue: () => [['bg-red-600', 'text-white'], 'hover:(bg-red-200 text-black)', ['hover:(bg-red-200 sm:text-black)']],
+  myvalue: () => [['chroma:bg-[#ff0000]'], 'hover:(bg-red-200 text-black)', ['hover:(bg-red-200 sm:text-black)']],
   index: 22,
   name: "WindiCSSInput",
 })
 
 const {index, name, myvalue} = toRefs(props)
-
 const config: ComputedRef<FullConfig> = computed(() => {
   return windiConfig
 });
@@ -52,9 +54,8 @@ const selectorsCompiled: Ref<string[][]> = ref(selectors.value.map(() => []))
 
 const updateStyles = (classes, index) => {
   selectorsCompiled.value[index] = classes
-  const newselectorsCompiled = selectorsCompiled.value.reduce((accumulator, currentValue, currentIndex, array) => R.concat(accumulator, currentValue), []);
+  const newselectorsCompiled = selectorsCompiled.value.reduce((accumulator, currentValue) => R.concat(accumulator, currentValue), []);
   emits(events.Change, newselectorsCompiled)
-  console.log("WindiCSSGroup.vue updateStyles", classes, index, newselectorsCompiled)
 }
 const addSelector = () => {
   selectors.value = [...selectors.value, ""]
@@ -73,6 +74,8 @@ const addSelector = () => {
           class="bg-gray-400 mb-2"
           @change="updateStyles"
           @success="updateStyles"/>
+      <WindiVariantList config="config"/>
+      <MarkdownViewer></MarkdownViewer>
     </div>
     <hr>
   </div>

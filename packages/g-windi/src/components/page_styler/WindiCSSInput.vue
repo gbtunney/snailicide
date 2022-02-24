@@ -43,7 +43,6 @@ const updateStyles = () => {
   emits(events.Ignored, ignored, index.value)
   success_arr.value = success
   ignored_arr.value = ignored
-  console.log("updated styles", id, success, index.value)
 }
 onMounted(updateStyles)
 </script>
@@ -53,5 +52,9 @@ onMounted(updateStyles)
     <div class="text-sm bg-green-500 text-white" v-if="success_arr.length">Success: {{ success_arr }}</div>
     <input v-model="inputvalue" type="text"/>
     <button @click="updateStyles">Compile</button>
+    <div>
+      <h3>Test wraooer</h3>
+      <div :class="success_arr"> Testin junk text ihhihih <div> nested content !!!! <h2>and h2, </h2></div> </div>
+    </div>
   </div>
 </template>
