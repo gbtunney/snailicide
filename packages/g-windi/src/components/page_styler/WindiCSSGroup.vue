@@ -16,7 +16,7 @@ import {
   withDefaults,
   ComputedRef
 } from 'vue';
-
+//window.document.addEventListener('click'), this.onClickApp)
 import windiConfig from "@/windi.config.obj";
 import WindiCSSInput from './WindiCSSInput.vue';
 import MarkdownViewer from './../markdown/MarkdownViewer.vue';
@@ -74,7 +74,7 @@ const addSelector = () => {
           class="bg-gray-400 mb-2"
           @change="updateStyles"
           @success="updateStyles"/>
-      <WindiVariantList config="config"/>
+      <WindiVariantList :config="config"/>
       <MarkdownViewer></MarkdownViewer>
     </div>
     <hr>

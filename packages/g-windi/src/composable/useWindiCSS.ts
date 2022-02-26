@@ -5,11 +5,37 @@ import {generateCompletions} from 'windicss/utils'
 import {defineConfig} from "windicss/helpers";
 import {transformString, replaceCharacters, PlainObject} from "@snailicide/g-library"
 import {template, templateSettings} from 'lodash'
+import {ref, readonly} from 'vue'
+import {Map, List,fromJS} from 'immutable';
+
 import * as R from "ramda";
+import useChroma, {Chromable,IChromaColorData} from "./useChroma";
 
 export type IWindiConfig = ReturnType<typeof defineConfig>
 type ITheme = Theme | Partial<BaseTheme> //  Extract<Extract<IWindiConfig,"theme">,"extend">
 
+const {getChromaColor,validate} = useChroma()
+const flattenColorPalette = (colors: { [key: string]: string | { [key: string]: string } }) => {
+    const _palatte = Object.freeze({
+        ...Object.assign({}, ...Object.entries(colors || {}).flatMap(([color, values]) => typeof values == 'object' ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
+            [color + (number === 'DEFAULT' ? '' : `-${number}`)]: hex
+        })) : [{
+            [`${color}`]: values
+        }]))
+    })
+    return _palatte
+}
+const colorPalatteMap = (colors: { [key: string]: string | { [key: string]: string } }) : Map<string,IChromaColorData > => {
+    return Map(Object.entries(flattenColorPalette(colors)).reduce((accumulator, [key, value], currentIndex, array) => {
+        const _color = value as Chromable
+        if (!validate(_color)) console.warn("Color:", key, " Value: ", value, " is not a valid chromajs color")
+        return {...accumulator, ...{[key]: validate(_color) ? getChromaColor(_color) : {}}}
+    }, {} as ArrayLike<any>))
+}
+export const utilities = {
+    colorPalatteMap,
+    flattenColorPalette
+}
 export const useWindiCSS = (config: IWindiConfig = {}) => {
     const processor = new Processor(config)
     const completions = Object.freeze(generateCompletions(processor))
@@ -95,11 +121,10 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
         // console.warn("ERROR getDynamicValue", _obj,template,_value)
         return _value
     }
-
     return {
         config,
         interpret, validate, extract, theme, variants, completions, processor,
-        getWindiStyles, injectWindiStyles, getShortCut, getDynamicValue, getDynamicKey, getAttrs, injectCSS
+        getWindiStyles, injectWindiStyles, getShortCut, getDynamicValue, getDynamicKey, getAttrs, injectCSS,flattenColorPalette,utilities
     }
 }
 export default useWindiCSS

@@ -1,7 +1,28 @@
 import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import * as chroma from "chroma.ts";
+import chromajs from "chroma-js"
 import {Chromable, Color} from "chroma.ts";
+import {Config} from "windicss/types/interfaces";
+import Processor from "windicss";
+import {Map} from "immutable";
+
+export interface IChromaColorData {
+    chroma: Color,
+    textColor: Color
+    hue: number,
+    saturation: number,
+    lightness: number,
+    luminance: number,
+    temperature: number,
+    //palattes.
+    complement: Color,
+    split_complement: Color[],
+    triad: Color[],
+    tetrad: Color[],
+    analogous: Color[],
+}
+
 
 export const useChroma = () => {
     const rotateHueFunction = (hue: number, incrementValue: number): number => {
@@ -33,13 +54,36 @@ export const useChroma = () => {
             rotateHueFunction(hue, 216)
         ].map((hue_step) => chroma.color([hue_step, ...rest], format))
     }
-    const analogous = (color: Chromable, results = 6, slices = 30, format?: chroma.ColorFormat) => {
+    const analogous = (color: Chromable,  format?: chroma.ColorFormat,results = 6, slices = 30) => {
         const [hue, ...rest] = chroma.color(color).hsl()
         return [hue,
             rotateHueFunction(hue, 72),
             rotateHueFunction(hue, 216)
         ].map((hue_step) => chroma.color([hue_step, ...rest], format))
     }
+    const validate = (color: Chromable) :boolean=>{
+       return chromajs.valid(color)
+    }
+    const getChromaColor=(color: Chromable, format?: chroma.ColorFormat)=>{
+        if (  !validate(color) ) return
+        const chroma_color = chroma.color(color)
+        const [hue,saturation,lightness]=chroma_color.hsl()
+       return {
+            chroma: chroma_color,
+            hue,
+            saturation,
+            lightness,
+            textColor: chroma_color.textColor(),
+            luminance: chroma_color.luminance(),
+            temperature: chroma_color.temperature(),
+            complement: complement(chroma_color),
+           split_complement: split_complement(chroma_color),
+           triad: triad(chroma_color),
+            tetrad: tetrad(chroma_color),
+            analogous: analogous(chroma_color),
+        }
+    }
+
 
     function _analogous(color, results, slices) {
         /*results = results || 6;
@@ -56,7 +100,7 @@ export const useChroma = () => {
         return ret;*/
     }
 
-    function monochromatic(color: Chromable, results = 6, format?: chroma.ColorFormat) {
+    function monochromatic(color: Chromable, format?: chroma.ColorFormat, results = 6) {
         // const [h,s,v] = chroma.color(color).hsv()
         const modification = 1 / results;
         const explodeColorByResultsArr = R.repeat(chroma.color(color).hsv(), results)
@@ -80,6 +124,9 @@ export const useChroma = () => {
     }
     return {
         chroma,
+        ...chroma,
+        getChromaColor,
+        validate,
         rotateHueFunction,
         complement,
         triad,
@@ -90,3 +137,4 @@ export const useChroma = () => {
     }
 }
 export default useChroma
+export type {Chromable, Color}

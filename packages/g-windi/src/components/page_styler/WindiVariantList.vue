@@ -4,8 +4,8 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-import * as R from "ramda"
-import * as RA from "ramda-adjunct"
+import windiConfig from "@/windi.config.obj";
+
 import {toRefs, ref, Ref, defineProps, defineEmits, withDefaults, onMounted} from 'vue';
 import {randomInt, PlainObject} from "@snailicide/g-library";
 import useWindiCSS from "./../../composable/useWindiCSS";
@@ -23,19 +23,29 @@ const emits = defineEmits<{
   (e: events.Success, value: string[], index?: number, id?: string): void
 }>()
 
-const props = withDefaults(defineProps<{  config?: PlainObject }>(), {
-})
+const props = withDefaults(defineProps<{ config?: PlainObject }>(), {})
 const {config} = toRefs(props)
 
 const undefinedId = randomInt(0, 20000);
-const styleProcessor = useWindiCSS(config.value)
-const {getWindiStyles, injectWindiStyles, injectCSS ,processor,variants,getDynamicKey} = styleProcessor
+const styleProcessor = useWindiCSS(windiConfig)
+const {
+  getWindiStyles,
+  injectWindiStyles,
+  injectCSS,
+  processor,
+  variants,
+  getDynamicKey,
+  flattenColorPalette
+} = styleProcessor
+
+//Object.entries(flat_palatte)
+
 const variant_list = ref(variants)
 
 </script>
 <template>
   <div class="WindiCSSGenerator w-1/2">
-   <h1>Variants</h1>
+    <h1>Variants</h1>
     {{variants}}
   </div>
 </template>

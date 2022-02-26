@@ -1,8 +1,8 @@
 import colors from 'windicss/colors'
 import plugin from 'windicss/plugin'
 import {Config, Theme, BaseTheme, Shortcut, DeepNestObject} from "windicss/types/interfaces";
-import useWindiCSS from "@/composable/useWindiCSS";
-import {chromaColorBrighten} from "@/scripts/colorScale";
+import useWindiCSS from "./../composable/useWindiCSS";
+import {chromaColorBrighten} from "./../scripts/colorScale";
 
 export default {
     theme: {
@@ -89,7 +89,7 @@ export default {
             }, variants('skew'))
         }),
         plugin(({addDynamic, variants, theme}) => {
-            console.log("THIS IS GILLIAN TEST !!!", theme('colors.red.500'))
+            //console.log("THIS IS GILLIAN TEST !!!", theme('colors.red.500'))
             addDynamic('gtest', ({Utility, Style}) => {
                 return Utility.handler
                     .handleColor(theme('textColor'))
@@ -133,7 +133,7 @@ export default {
                     /*if ( className.startsWith("bg-");)
                      str.startsWith("He");
                      theme('colors.red.500')*/
-                    console.log("chroma classname!", className,getDynamicKey(newclassname,masterReg),`bg-[${chromaColorBrighten(newvalue,.6).hex()}]`)
+                    //console.log("chroma classname!", className,getDynamicKey(newclassname,masterReg),`bg-[${chromaColorBrighten(newvalue,.6).hex()}]`)
                     return `.bg-[${chromaColorBrighten(newvalue,5).hex()}]`
                 })
                // return style
