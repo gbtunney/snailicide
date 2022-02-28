@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "@faker-js/faker": "^6.0.0-alpha.5",
+    "@highlightjs/vue-plugin": "^2.1.0",
     "@kangc/v-md-editor": "^2.3.13",
     "@snailicide/g-library": "^1.0.0",
+    "@types/highlight.js": "^10.1.0",
     "@types/prismjs": "^1.26.0",
     "@types/ramda": "^0.27.64",
     "@vueform/multiselect": "^2.3.2",
@@ -25,14 +27,17 @@
     "chroma-js": "^2.4.2",
     "chroma.ts": "^1.0.10",
     "core-js": "^3.6.5",
+    "highlight.js": "^11.4.0",
     "immutable": "^4.0.0",
     "lodash": "^4.17.21",
     "modular-scale": "^5.1.2",
     "pinia": "^2.0.11",
+    "prettier": "^2.5.1",
     "primevue": "^2.9.0",
     "prismjs": "^1.27.0",
     "ramda": "^0.28.0",
     "ramda-adjunct": "^3.0.0",
+    "reprism": "^0.0.11",
     "unocss": "^0.24.4",
     "vue": "^3.0.0",
     "vue-multiselect": "^3.0.0-alpha.2",
@@ -75,6 +80,7 @@
       "ecmaVersion": 2020
     },
     "rules": {
+      "vue/no-unused-components": "off",
       "no-debugger": "off"
     },
     "overrides": [

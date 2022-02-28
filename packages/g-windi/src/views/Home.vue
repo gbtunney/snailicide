@@ -1,15 +1,9 @@
 <template>
   <div class="home">
-    <WindiCSSPage></WindiCSSPage>
+    <WindiCSSPage/>
     <hr>
-    <CodeBlock>
-      <div class="SimpleSelect">
-        <span>slot from homeeeee</span>
-        <span>code!!</span>
-      </div>
-    </CodeBlock>
-    <WindiCSSGroup @change="(classes_arr) => $data.text_group =classes_arr"></WindiCSSGroup>
-    text_group: {{ $data.text_group }}
+<!--    <WindiCSSGroup @change="(classes_arr) => $data.text_group =classes_arr"></WindiCSSGroup>
+    text_group: {{ $data.text_group }}-->
   </div>
 </template>
 <script lang="ts">
@@ -38,10 +32,12 @@ export default defineComponent({
       lang: "html",
     }
   },
-  setup() {
+  mounted(){
+    console.log("mounting!!!!")
     const windiStore = useWindiCSSStore()
     windiStore.initialize(windiConfig)
-    return {}
+    console.log("mounting!!!!",windiStore)
+
   },
   components: {
     WindiCSSGroup, WindiCSSPage, CodeBlock
