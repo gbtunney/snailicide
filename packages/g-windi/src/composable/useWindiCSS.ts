@@ -5,11 +5,13 @@ import {generateCompletions} from 'windicss/utils'
 import {defineConfig} from "windicss/helpers";
 import {transformString, replaceCharacters, PlainObject} from "@snailicide/g-library"
 import {template, templateSettings} from 'lodash'
-import {ref, readonly} from 'vue'
+import {ref, Ref,readonly, toRefs, computed, ComputedRef,onMounted,ToRefs} from 'vue'
 import {Map, List,fromJS} from 'immutable';
+import {IWindiCSSState, useWindiCSSStore} from './stores/useWindiCSSStore'
 
 import * as R from "ramda";
 import useChroma, {Chromable,IChromaColorData} from "./useChroma";
+import { defineStore,storeToRefs, Store,StoreProperties } from 'pinia'
 
 export type IWindiConfig = ReturnType<typeof defineConfig>
 type ITheme = Theme | Partial<BaseTheme> //  Extract<Extract<IWindiConfig,"theme">,"extend">
@@ -37,16 +39,40 @@ export const utilities = {
     flattenColorPalette
 }
 export const useWindiCSS = (config: IWindiConfig = {}) => {
-    const processor = new Processor(config)
-    const completions = Object.freeze(generateCompletions(processor))
-    const {interpret, validate, extract, allTheme: theme, allVariant: variants} = processor
+    //todo: figure out hohw to overwrite this.
+    const windiStore=  useWindiCSSStore()
+    const {processor:_processor}=storeToRefs(windiStore)
+
+    const processor: ComputedRef<Processor> = computed(() => (windiStore.isInitialized) ? _processor.value as Processor : new Processor())
+    const completions = Object.freeze(generateCompletions(processor.value ))
+   // const {interpret, validate, extract, allTheme: theme, allVariant: variants} = processor
+
+    const extractStylesFromHTML = (el: HTMLElement, includeNestedHTML = true, _processor = processor.value) => {
+        const classString = R.join(" ", Array.from(el.classList))
+        let {success, ignored} = _processor.interpret(classString)
+        const { styleSheet} = _processor.interpret(classString)
+
+        if (includeNestedHTML) {
+            const {
+                success: html_success,
+                ignored: html_ignored,
+                styleSheet: html_styleSheet
+            } = _processor.interpret(el.innerHTML)
+            if (styleSheet.children.length > 0) styleSheet.add(styleSheet.children)
+            success = [...success, ...html_success]
+            ignored = [...ignored, ...html_ignored]
+        }
+        const compiled = styleSheet.build()
+        return {success, ignored, styleSheet, compiled}
+    }
+
     const getAttrs = (value = {}, theme: Partial<BaseTheme> | undefined = undefined, extend = true) => {
         const _processor: Processor
             = (theme !== undefined)
             ? new Processor((extend === true)
                 ? {theme: {extend: theme}}
                 : {theme})
-            : processor
+            : processor.value
         const myprocessor = _processor.attributify(value)
         const {styleSheet, success} = myprocessor
         const compiled = styleSheet.build(false)
@@ -62,9 +88,8 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
             ? new Processor((extend === true)
                 ? {theme: {extend: theme}}
                 : {theme})
-            : processor
+            : processor.value
         value = <string>transformString(replaceCharacters((value).toString(), ["  ", ","], " "), ["'", '"'], "clean")
-        //console.log("cleaned before:", value, " after:", cleanString)
         const interpretedString: ReturnType<Processor["interpret"]> = _processor.interpret(value)
         const {styleSheet, success} = interpretedString
         const compiled: string | undefined = _processor.validate(value) ? styleSheet.build(false) : undefined
@@ -118,12 +143,12 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
         const _obj = {[key]: value}
         templateSettings.interpolate = exp
         const _value = lTemplate(template)(_obj)
-        // console.warn("ERROR getDynamicValue", _obj,template,_value)
         return _value
     }
-    return {
+    return {...processor,
         config,
-        interpret, validate, extract, theme, variants, completions, processor,
+        extractStylesFromHTML,
+     validate,completions,
         getWindiStyles, injectWindiStyles, getShortCut, getDynamicValue, getDynamicKey, getAttrs, injectCSS,flattenColorPalette,utilities
     }
 }

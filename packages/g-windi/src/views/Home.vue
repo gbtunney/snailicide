@@ -33,11 +33,9 @@ export default defineComponent({
     }
   },
   mounted(){
-    console.log("mounting!!!!")
     const windiStore = useWindiCSSStore()
     windiStore.initialize(windiConfig)
-    console.log("mounting!!!!",windiStore)
-
+  //  console.log("----mounting!!!!",windiStore.isInitialized)
   },
   components: {
     WindiCSSGroup, WindiCSSPage, CodeBlock

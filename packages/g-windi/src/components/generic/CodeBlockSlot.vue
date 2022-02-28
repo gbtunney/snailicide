@@ -10,7 +10,7 @@ import {
   defineComponent,
   ComputedRef,
 } from 'vue'
-import {templateRef} from '@vueuse/core'
+import {templateRef, useClipboard} from '@vueuse/core'
 
 /* * Import Highlighht.js and prettier * */
 import 'highlight.js/lib/common';
@@ -24,6 +24,8 @@ const highlightjs = defineComponent(hljsVuePlugin.component)
 import prettier from "prettier";
 import parserBabel from 'prettier/parser-babel';
 import parserHtml from "prettier/parser-html"
+
+const {text, isSupported, copy} = useClipboard()
 
 const props = withDefaults(defineProps<{ code?: string, language?: CodeLanguage, formatting?: boolean, autodetect?: undefined | boolean }>(), {
   code: "",
@@ -40,7 +42,7 @@ const codeBlockSlot = templateRef('codeBlockContent')
 const Mode: ComputedRef<ModeType> = computed(() => (RA.isEmptyString(props.code)) ? "SLOT_MODE" : "PROP_MODE")
 
 watch(() => props.code, (currentValue) => {
-  console.log("watch : changed (props.code)", currentValue);
+//  console.log("watch : changed (props.code)", currentValue);
   code.value = getFormattedCode(currentValue)
 });
 
@@ -51,9 +53,10 @@ const getFormattedCode = (_code: string, _language = language.value, _formatting
         plugins: [parserHtml, parserBabel],
       }) : _code
 }
+const isSlotHidden: ComputedRef<boolean> = computed(() => (Mode.value === "PROP_MODE" || (Mode.value === "SLOT_MODE" && RA.isEmptyString(props.code))))
+
 const setCodeBlockContentFromSlot = (_value: HTMLElement | SVGElement): void => {
-  if (Mode.value === "SLOT_MODE"
-      && RA.isEmptyString(code.value)
+  if (isSlotHidden.value
       && _value
       && _value.innerHTML) {
     code.value = getFormattedCode(_value.innerHTML, "html")
@@ -65,14 +68,29 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div>
+  <div class="relative">
     <highlightjs
         :language="language"
         :code="code"/>
-    <div ref="codeBlockContent">
+    <div ref="codeBlockContent" v-show="!isSlotHidden">
       <slot>
         <h2>Code Block Slot</h2>
       </slot>
     </div>
+    <!-- * Copy to clipbboard button * -->
+    <div v-if="isSupported">
+      <p v-show="false">
+        Current copied: <code>{{ text || 'none' }}</code>
+      </p>
+      <button @click="copy(code)"
+          class="absolute top-0 right-0 bg-opacity-80
+      bg-gray-400 hover:(bg-gray-300) py-1 px-2 text-white rounded">
+        Copy
+      </button>
+    </div>
+    <span v-else>
+      <p v-show="false"> Your browser does not support Clipboard API</p>
+    </span>
+    <hr>
   </div>
 </template>
