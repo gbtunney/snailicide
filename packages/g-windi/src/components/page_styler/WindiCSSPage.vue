@@ -1,31 +1,111 @@
 <script lang="ts">
+
+import VueTagsInput from "@sipec/vue3-tags-input";
 export default {
-  name: "WindiCSSGroup",
-}
+  components: {
+    VueTagsInput,
+  },
+  data() {
+    return {
+
+     // tags: [],
+    };
+  },
+};
+
 </script>
 <script lang="ts" setup>
+import {randomInt} from '@snailicide/g-library';
+
 import {
   ref,
-  Ref,
+  Ref,unref,
   defineComponent,
-  onMounted, computed
+  onMounted, computed,
+    reactive,getCurrentInstance, onUpdated, onUnmounted
+
 } from 'vue';
 import 'highlight.js/lib/common';
+/*
+const data =reactive( {
+  tag: '',
+      tags:['hhello','tag2'],
+})
+const datatags= ref([{text:'hhello'},{text:'tag2'}])
+const datatag:Ref<string> = ref('')
+const handlers= ref([])*/
+//defineComponent(VueTagsInput)
 
 import CodeBlockSlot from './../generic/CodeBlockSlot.vue';
 defineComponent(CodeBlockSlot)
 
+onMounted(() => {
+  let instance = getCurrentInstance();
+  console.log(instance);
+  console.log("mounted!");
+});
+onUpdated(() => {
+  let instance = getCurrentInstance();
+  console.log(instance);
+
+  console.log("updated!", tag.value);
+});
+onUnmounted(() => {
+  let instance = getCurrentInstance();
+  console.log(instance);
+  console.log("unmounted!");
+});
+
+const tags = ref([])
+const tag = ref('')
+
+const autocomplete =ref ([{
+      text: 'Spain',
+    }, {
+      text: 'France',
+    }, {
+      text: 'USA',
+    }, {
+      text: 'Germany',
+    }, {
+      text: 'China',
+    }])
 import {useWindiCSS} from './../../composable/useWindiCSS'
 const {extractStylesFromHTML} = useWindiCSS()
 onMounted(() => {
   // console.log("sta----te being set up!!!!!!",windistore.isInitialized)
 })
-const clickme = (e) => {
-  console.warn("processor.interpret html ", e)
-}
+import * as R from "ramda"
+import * as RA from "ramda-adjunct"
+const currentID = ref( '')
+
 const onClickApp = (e: PointerEvent) => {
   const el = e.target as HTMLElement
-  styleString.value = extractStylesFromHTML(el).compiled
+  currentID.value =  (randomInt(0,50000)).toString()
+  console.log("vnode is !!!", currentID.value,tag.value)
+
+el.setAttribute("guid",  currentID.value )
+ const {compiled,success,styleSheet}= extractStylesFromHTML(el,true )
+   console.log("styleSheet sta----te being set up!!!!!!",el,styleSheet)
+ // RA.replaceAll('ac', 'ef', 'ac ab ac ab')
+  const newarr = styleSheet.children.map((windi_class,index)=>{
+    const {meta:{group},selector}=styleSheet.children[index]
+   const _selector = RA.replaceAll('.', '', selector)
+    const obj ={
+      text: _selector,
+      ...
+          (group === "backgroundColor"
+          ||group === "borderColor"
+         || group==="textColor" ) ? {classes:`${ _selector}` }:{classes: 'bg-yellow-300'}
+    }
+    console.log("styleSheet sta----te being set up!!!!!!",group,index,obj )
+
+    return obj
+  })
+
+  tags.value = newarr
+  styleString.value = compiled
+
 }
 
 const styleString: Ref<string> = ref('')
@@ -38,12 +118,12 @@ onMounted(() => {
 <template>
   <div class="WindiCSSPage">
     <div class="children:w-1/2">
-      <CodeBlockSlot @input="clickme" code="const onClickApp = (e: PointerEvent) => {const el = e.target as HTMLElement
+      <CodeBlockSlot v-if="false" code="const onClickApp = (e: PointerEvent) => {const el = e.target as HTMLElement
   function gillian(){
     return 'jkjkjkjkj'
   }
 }"/>
-      <CodeBlockSlot>
+      <CodeBlockSlot v-if="false">
         <div>
           <ul>
             <li>ITEM 1</li>
@@ -56,8 +136,21 @@ onMounted(() => {
     <hr>
     <CodeBlockSlot v-if="true" :code="styleString"/>
 
+    <vue-tags-input
+        v-model="tag"
+        :tags="tags"
+        :autocomplete-items="autocomplete"
+        @tags-changed="newTags => tags = newTags"
+    />
+
+    <ul>
+      <li>tag: {{tag}}</li>
+      <li>tags: {{tags}}</li>
+
+    </ul>
+
     <!--    <CodeBlock :lang="'css'" :code="styleString"/>-->
-    <div id="clickwrapper" class="h-screen flex items-center justify-center">
+    <div ref="clickwrapper" id="clickwrapper" class="h-screen flex items-center justify-center">
       <div class="bg-orange-900 text-center rounded-b-lg">
         <button class="btn">click me !!</button>
         <p class="text-white text-xl font-bold pt-6">
@@ -93,3 +186,13 @@ onMounted(() => {
   </div>
 </template>
 <style type="text/css" src="highlight.js/styles/stackoverflow-light.css"/>
+<style>
+/* default styles for all the tags */
+.vue-tags-input .ti-tag {
+  position: relative;
+  background-color: inherit;
+//  @apply bg-red-500;
+  //background: yellow;
+  color: #283944;
+}
+</style>

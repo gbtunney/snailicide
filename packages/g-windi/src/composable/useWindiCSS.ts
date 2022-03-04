@@ -15,29 +15,6 @@ import { defineStore,storeToRefs, Store,StoreProperties } from 'pinia'
 
 export type IWindiConfig = ReturnType<typeof defineConfig>
 type ITheme = Theme | Partial<BaseTheme> //  Extract<Extract<IWindiConfig,"theme">,"extend">
-
-const {getChromaColor,validate} = useChroma()
-const flattenColorPalette = (colors: { [key: string]: string | { [key: string]: string } }) => {
-    const _palatte = Object.freeze({
-        ...Object.assign({}, ...Object.entries(colors || {}).flatMap(([color, values]) => typeof values == 'object' ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
-            [color + (number === 'DEFAULT' ? '' : `-${number}`)]: hex
-        })) : [{
-            [`${color}`]: values
-        }]))
-    })
-    return _palatte
-}
-const colorPalatteMap = (colors: { [key: string]: string | { [key: string]: string } }) : Map<string,IChromaColorData > => {
-    return Map(Object.entries(flattenColorPalette(colors)).reduce((accumulator, [key, value], currentIndex, array) => {
-        const _color = value as Chromable
-        if (!validate(_color)) console.warn("Color:", key, " Value: ", value, " is not a valid chromajs color")
-        return {...accumulator, ...{[key]: validate(_color) ? getChromaColor(_color) : {}}}
-    }, {} as ArrayLike<any>))
-}
-export const utilities = {
-    colorPalatteMap,
-    flattenColorPalette
-}
 export const useWindiCSS = (config: IWindiConfig = {}) => {
     //todo: figure out hohw to overwrite this.
     const windiStore=  useWindiCSSStore()
@@ -47,6 +24,30 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
     const completions = Object.freeze(generateCompletions(processor.value ))
    // const {interpret, validate, extract, allTheme: theme, allVariant: variants} = processor
 
+    const flattenColorPalette = (colors: { [key: string]: string | { [key: string]: string } }) => {
+        const _palatte = Object.freeze({
+            ...Object.assign({}, ...Object.entries(colors || {}).flatMap(([color, values]) => typeof values == 'object' ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
+                [color + (number === 'DEFAULT' ? '' : `-${number}`)]: hex
+            })) : [{
+                [`${color}`]: values
+            }]))
+        })
+        return _palatte
+    }
+    const colorPalatteMap = (colors: { [key: string]: string | { [key: string]: string } }) : Map<string,IChromaColorData > => {
+        const {getChromaColor,validate} = useChroma()
+
+        return Map(Object.entries(flattenColorPalette(colors)).reduce((accumulator, [key, value], currentIndex, array) => {
+            const _color = value as Chromable
+            if (!validate(_color)) console.warn("Color:", key, " Value: ", value, " is not a valid chromajs color")
+            return {...accumulator, ...{[key]: validate(_color) ? getChromaColor(_color) : {}}}
+        }, {} as ArrayLike<any>))
+    }
+
+    const utilities = {
+        colorPalatteMap,
+        flattenColorPalette
+    }
     const extractStylesFromHTML = (el: HTMLElement, includeNestedHTML = true, _processor = processor.value) => {
         const classString = R.join(" ", Array.from(el.classList))
         let {success, ignored} = _processor.interpret(classString)
@@ -148,7 +149,7 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
     return {...processor,
         config,
         extractStylesFromHTML,
-     validate,completions,
+     completions,
         getWindiStyles, injectWindiStyles, getShortCut, getDynamicValue, getDynamicKey, getAttrs, injectCSS,flattenColorPalette,utilities
     }
 }
