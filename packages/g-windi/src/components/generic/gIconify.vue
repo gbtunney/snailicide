@@ -1,9 +1,10 @@
 <script lang="ts">
 import { Icon } from '@iconify/vue';
+import InlineSvg from 'vue-inline-svg';
 
 export default {
   name: "gIconify",
-  components:{iconifyIcon : Icon}
+  components:{iconifyIcon : Icon,'inline-svg':InlineSvg}
 }
 </script>
 <script lang="ts" setup>
@@ -19,13 +20,14 @@ interface IProps{
 }
 const props = withDefaults(defineProps<IProps>(), {
   iconify:true,
+  color:'text-cyan-600',
   el:'span',
   inline:false,
   path: 'baseline-content-copy',
   icon_set:'ic'
 })
 const {el,path,color} = toRefs(props)
-
+//    <Icon :icon="icon"  class="iconify"/>
 const display = computed(()=>{
   if ( props.inline ) return 'inline-flex'
   return 'flex'
@@ -42,7 +44,8 @@ const icon = computed(()=>{
         :style="{display}"
         :class="(color)? color : ''">
       <slot>
-        <Icon :icon="icon"  class="iconify"/>
+        <Icon :icon="icon"  class="iconify"><inline-svg class="fiilil" src="leaves-a.svg"></inline-svg></Icon>
+
       </slot>
     </component>
 </template>

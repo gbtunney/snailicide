@@ -44,6 +44,8 @@
     "reprism": "^0.0.11",
     "unocss": "^0.24.4",
     "vue": "^3.0.0",
+    "vue-color": "^2.8.1",
+    "vue-inline-svg": "^3.1.0",
     "vue-multiselect": "^3.0.0-alpha.2",
     "vue-router": "^4.0.0-0",
     "vue3-styled-components": "^1.2.1",

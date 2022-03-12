@@ -25619,6 +25619,11 @@ vue-inline-svg@^2.1.0:
   resolved "https://registry.yarnpkg.com/vue-inline-svg/-/vue-inline-svg-2.1.0.tgz#45f20a34d458636c5caea5da28eef6cad9a87fcb"
   integrity sha512-80u/BGtjOzXp31yFahXsfvkBrHKHEHKyrkZ42MGoAbD6jHzWpMJLijsyRj66pps7IyKxZcnYkO3ijsJhr4zXsg==
 
+vue-inline-svg@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/vue-inline-svg/-/vue-inline-svg-3.1.0.tgz#3cedcd4c2ae15a16a1cf3815a1b4170705a87519"
+  integrity sha512-4FUu6q7l6jSL0sc8bs0lzV7MgWMsuSSQAJiQdKsxhGP9sNJfepCWiPfWxU1IPY1mf4LZjTtX93DAiEegWt6cTg==
+
 vue-jest@^3.0.5:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/vue-jest/-/vue-jest-3.0.7.tgz#a6d29758a5cb4d750f5d1242212be39be4296a33"

@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <gIconify class="bg-purple" color=" text-orange"></gIconify>
+  <div class="home text-yellow-500" >
+    <gIconify class="text-opacity-50 " color="text-gumleaf-500"></gIconify>
     <WindiCSSPage/>
     <hr>
 <!--    <WindiCSSGroup @change="(classes_arr) => $data.text_group =classes_arr"></WindiCSSGroup>
@@ -25,19 +25,20 @@ import windiConfig from "@/windi.config.obj";
 import CodeBlock from '../components/generic/CodeBlockProp.vue';
 import WindiCSSPage from "./../components/page_styler/WindiCSSPage.vue";
 import  gIconify from './../components/generic/gIconify.vue';
+import InlineSvg from 'vue-inline-svg';
 
 export default defineComponent({
   name: 'Home',
   data: function () {
     return {
       text_group: [],
-      lang: "html",
+      lang: "html",InlineSvg,
     }
   },
   mounted(){
     const windiStore = useWindiCSSStore()
     windiStore.initialize(windiConfig)
-  //  console.log("----mounting!!!!",windiStore.isInitialized)
+    console.log("----mounting!!!!",windiConfig,windiStore.processor.allTheme)//windiStore.processor.interpret('bg-cyan').styleSheet.build())
   },
   components: {
     WindiCSSGroup, WindiCSSPage, CodeBlock,gIconify
