@@ -21,8 +21,7 @@ import HelloWorld from '@/components/HelloWorld.vue';
 import {parseData, useShopifyBuy} from "./../stores/ShopifyBuy"; // @ is an alias to /src
 import {useStore} from 'vuex'
 import {ref, onMounted, computed, PropType, Ref, SetupContext, Prop, defineProps, defineEmits, withDefaults} from 'vue';
-import {Product} from "./../models/Product";
-import {ProductVariant} from "./../models/ProductVariant";
+import {Product,ProductVariant,ProductImage} from "./../models";
 import {useShopifyCheckout} from "./../stores/ShopifyCheckout";
 import { Icon } from '@iconify/vue';
 // @ts-expect-error dxds
@@ -33,13 +32,14 @@ export default defineComponent({
   components: {
     HelloWorld,Icon,gIconify
   },
-  setup() {
+ async setup() {
     const store = useStore()
     const shopify = useShopifyBuy()
     const {client} = shopify
     const checkout = useShopifyCheckout()
     const ProductRepo = computed(() => store.$repo(Product))
     const VARIANTRepo = computed(() => store.$repo(ProductVariant))
+    const ImageRepo = computed(() => store.$repo(ProductImage))
 
     const test_query = shopify.getProductByHandle("local")
 
@@ -48,9 +48,10 @@ export default defineComponent({
     console.log("the test_query :::::", test_query,parsed)
 
 
-    ProductRepo.value.save(parsed)
+   const resp = await ProductRepo.value.make(parsed)
 
-    console.log("imaggges" ,VARIANTRepo.value.query().withAll().all())
+
+    console.log("!!!!imaggges" , ProductRepo.value.database.schemas,VARIANTRepo.value.query().withAll().get())
     //this isnt really used anymore since appollo client but probably will have to be for checkout.
     shopify.buildClient({
       domain: process.env.VUE_APP_SHOPIFY_DOMAIN,

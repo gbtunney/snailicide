@@ -1,43 +1,41 @@
-import {Model} from '@vuex-orm/core'
-import {Product, ProductVariant, GUID, IProductImage} from "./";
+import {Product, ProductVariant, GUID,IImage} from "./";
+import { Model,Attr,Str,Num,BelongsTo,HasMany } from '@vuex-orm/core'
 
-export class ProductImage extends Model implements IProductImage {
+export class ProductImage extends Model implements IImage {
     static entity = 'productimages'
 
-    static fields() {
-        return {
-            id: this.attr(''),
-            type: this.string(''),
-
-            position: this.number(1),
-            alt: this.string(null).nullable(),
-            width: this.number(500),
-            height: this.number(500),
-            src: this.string(null),
-
-            product_id: this.attr(null),
-            variant_ids: this.attr(null), //array of numbers
-
-            Product: this.belongsTo(Product, "product_id"),
-            Variants: this.hasManyBy(ProductVariant, "variant_ids", "$id")
-            /// this.hasManyBy(ProductVariant,"product_id")
-        }
-    }
-
-    //ShopifyGraphQLItem
+    @Attr(undefined)
     id!: GUID
-    type!: string
 
-    position!: number
+    @Str('')
+    type!:string
+
+    @Str('')
     alt?: string
+
+    @Str('')
+    src!: string
+
+    @Num(1)
+    position!: number
+
+    @Num(500)
     width!: number
+
+    @Num(500)
     height!: number
-    src!: number
 
+    @Attr(undefined)
     product_id!: GUID
-    variant_ids!: GUID[]
 
-    Product!: Product
+    @BelongsTo(() => Product, 'product_id')
+    product!: Product
+
+    @HasMany(() => ProductVariant, 'image_id')
+    variants!: ProductVariant[]
+
+    // variant_ids!: GUID[]
+    //  Variants: this.hasManyBy(ProductVariant, "variant_ids", "$id")
 }
 
 export default ProductImage

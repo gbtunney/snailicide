@@ -1,60 +1,52 @@
-import {Model} from '@vuex-orm/core'
-import {Product, ProductImage, GUID, IProductVariant, IPrice} from './'
+import {Product, ProductImage, GUID, IPrice, IShopifyGraphQLProduct} from './'
+import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo} from '@vuex-orm/core'
 
-export class ProductVariant extends Model implements IProductVariant {
+export class ProductVariant extends Model implements IShopifyGraphQLProduct {
     static entity = 'variants'
 
-    static fields() {
-        return {
-            id: this.attr(''),
-            type: this.string(''),
-            handle: this.string(''), ///already a slug
-            title: this.string(''),
-            available: this.boolean(false),
-
-            position: this.number(1),
-            sku: this.string(''),
-            inventoryQuantity: this.number(0),
-            weight: this.number(null).nullable(),
-
-            price: this.number(null),
-            priceV2: this.attr(null).nullable(),
-            compareAtPrice: this.number(null),
-            compareAtPriceV2: this.attr(null).nullable(),
-            unitPrice: this.attr(null).nullable(),
-
-
-            product_id: this.attr(null),
-            // image_id:this.attr(null),
-
-            Product: this.belongsTo(Product, "product_id"),
-            testfield: this.string("tessst"),
-            image: this.hasOne(ProductImage, "variant_ids"),
-        }
-    }
-
-    //ShopifyGraphQLItem
+    @Attr(undefined)
     id!: GUID
+    @Str('')
     type!: string
-    handle!: string
+    @Str('')
     title!: string
+    @Bool(false)
     available!: boolean
 
+    @Num(0)
     position!: number
+
+    @Str('')
     sku!: string
+
+    @Num(0)
     inventoryQuantity!: number
+
+    @Num(0)
     weight!: number
 
+    /* * Price fields * */
+    @Num(0)
     price!: number
+    @Attr(undefined)
     priceV2!: IPrice
+    @Num(0)
     compareAtPrice!: number
+    @Attr(undefined)
     compareAtPriceV2!: IPrice
+    @Attr(undefined)
     unitPrice!: IPrice
 
+    @Attr(undefined)
     product_id!: GUID
-    // image_id!:GUID
+    @BelongsTo(() => Product, 'product_id')
+    product!: Product
 
-    Product!: Product
+    @Attr(undefined)
+    image_id!: GUID
+
+    @BelongsTo(() => ProductImage, 'image_id')
     image!: ProductImage
-}
+    }
+
 export default ProductVariant
