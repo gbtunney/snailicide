@@ -1,0 +1,1924 @@
+{
+  "__typename": "Product",
+  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzI2NTE5ODE5Mzg4MDY=",
+  "handle": "local",
+  "title": "Local (worsted)",
+  "tags": [
+    "1-100",
+    "o-wool",
+    "over-0",
+    "over-1",
+    "yarn-weight-worsted",
+    "yarns"
+  ],
+  "available": true,
+  "createdAt": "2019-04-30T00:23:32Z",
+  "updatedAt": "2022-03-09T06:11:24Z",
+  "description": "Worsted WeightFiber Content:50% alpaca from local farms in NJ & PA50% certified organic merinoPut-up: 3.5 oz / 100gYardage: 240 yds / 219mGauge: 18 - 20 sts = 4” / 10cm Needle: 7 - 9 US / 4.5 - 5.5mm How about Local dyed with Natural Dyes!? Click here for patterns in Local Want to see all of the colors in person before ordering? Order a Shade Card. Want your yarn wound into balls? Look here. After one adventurous drive in a minivan brimming with alpaca fiber, O-Wool Local was born. Since then, I've visited farms all around the Philadelphia area collecting fiber. Local is processed in the Northeastern USA. It is squishy and soft, and still has that alpaca smell and some lanolin left in the fiber. It is a truly rustic, minimally processed yarn - if that's your thing, you're going to love this yarn. Hand wash in cold water with gentle detergent. Lay flat to dry.",
+  "descriptionHtml": "<p><strong>Worsted Weight</strong><br><br><strong>Fiber Content:</strong><br>50% alpaca from local farms in NJ &amp; PA<br>50% certified organic merino<br><strong>Put-up:</strong> 3.5 oz / 100g<br><strong>Yardage:</strong> 240 yds / 219m<br><strong>Gauge: </strong>18 - 20 sts = 4” / 10cm<br> <strong>Needle:</strong> 7 - 9 US / 4.5 - 5.5mm <br><br>How about <a href=\"/collections/yarns/products/local-natural-dyes\">Local dyed with Natural Dyes</a>!?</p>\n<p>Click <a href=\"/collections/byyarn-local\">here</a> for patterns in Local</p>\n<p>Want to see all of the colors in person before ordering? <a href=\"https://o-wool.myshopify.com/collections/yarns/products/color-cards\">Order a Shade Card.</a></p>\n<meta charset=\"utf-8\">\n<p><span>Want your yarn wound into balls? </span><span></span><a href=\"/collections/yarns/products/wind-yarn-into-balls\">Look here.</a></p>\n<p>After one adventurous drive in a minivan brimming with alpaca fiber, O-Wool Local was born. Since then, I've visited farms all around the Philadelphia area collecting fiber. Local is processed in the Northeastern USA. It is squishy and soft, and still has that alpaca smell and some lanolin left in the fiber. It is a truly rustic, minimally processed yarn - if that's your thing, you're going to love this yarn.</p>\n<p>Hand wash in cold water with gentle detergent. Lay flat to dry.</p>\n<p> </p>",
+  "productType": "Yarns",
+  "vendor": "O-Wool",
+  "publishedAt": "2022-01-12T00:11:53Z",
+  "onlineStoreUrl": "https://o-wool-stage.myshopify.com/products/local",
+  "options": [
+    {
+      "__typename": "ProductOption",
+      "name": "Color",
+      "values": [
+        "Red Squirrel",
+        "Wissahickon",
+        "Alumroot",
+        "Ash",
+        "Basswood",
+        "Bee-Balm",
+        "Bluebell",
+        "Cresheim Creek",
+        "Cedar Berry",
+        "Fringetree",
+        "Ganoga Falls",
+        "Gingko Nut",
+        "Gray Birch",
+        "Juneberry",
+        "Pachysandra",
+        "Porcupine",
+        "Purple Loosestrife",
+        "River Oat",
+        "Scarlet Oak",
+        "Steelhead",
+        "Wild Geranium",
+        "Wood Dove",
+        "Wood Fern"
+      ]
+    },
+    {
+      "__typename": "ProductOption",
+      "name": "Size",
+      "values": [
+        "Skein",
+        "Mini-skein"
+      ]
+    }
+  ],
+  "images": {
+    "__typename": "ImageConnection",
+    "pageInfo": {
+      "__typename": "PageInfo",
+      "hasNextPage": false,
+      "hasPreviousPage": false
+    },
+    "edges": [
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ3ODM4ODM4LCJsYXN0X3ZhbHVlIjoxfQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0NzgzODgzOA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LSteelhead2.jpg?v=1556583813",
+          "alt": "Steelhead",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ3ODcxNjA2LCJsYXN0X3ZhbHVlIjoyfQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0Nzg3MTYwNg==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LGanogaFalls.jpg?v=1556583813",
+          "alt": "Ganoga Falls",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ3OTA0Mzc0LCJsYXN0X3ZhbHVlIjozfQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0NzkwNDM3NA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LCedarBerry3.jpg?v=1556583813",
+          "alt": "Cedar Berry",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ3OTM3MTQyLCJsYXN0X3ZhbHVlIjo0fQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0NzkzNzE0Mg==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LCresheimCreek.jpg?v=1556583813",
+          "alt": "Cresheim Creek",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ3OTY5OTEwLCJsYXN0X3ZhbHVlIjo1fQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0Nzk2OTkxMA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBluebell3_03a9970d-e75f-4dc3-9c61-3057f6c3f20e.jpg?v=1556583813",
+          "alt": "Bluebell",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MDAyNjc4LCJsYXN0X3ZhbHVlIjo2fQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODAwMjY3OA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWissahickon.jpg?v=1556583813",
+          "alt": "Wissahickon",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MDM1NDQ2LCJsYXN0X3ZhbHVlIjo3fQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODAzNTQ0Ng==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LPachysandra_f233f57a-3b60-40f9-88f0-298e8b0e4648.jpg?v=1556583813",
+          "alt": "Pachysandra",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MTAwOTgyLCJsYXN0X3ZhbHVlIjo4fQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODEwMDk4Mg==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWoodFern3.jpg?v=1556583813",
+          "alt": "Wood Fern",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MTMzNzUwLCJsYXN0X3ZhbHVlIjo5fQ==",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODEzMzc1MA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LGingkoNut2.jpg?v=1556583813",
+          "alt": "Gingko Nut",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MTY2NTE4LCJsYXN0X3ZhbHVlIjoxMH0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODE2NjUxOA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LRiverOat3.jpg?v=1556583813",
+          "alt": "River Oat",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MTk5Mjg2LCJsYXN0X3ZhbHVlIjoxMX0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODE5OTI4Ng==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LRedSquirrel_9bf93c6f-91f6-4618-ba14-e10a09a936ae.jpg?v=1556583813",
+          "alt": "Red Squirrel",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MjMyMDU0LCJsYXN0X3ZhbHVlIjoxMn0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODIzMjA1NA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LFringetree3.jpg?v=1556583813",
+          "alt": "Fringetree",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MjY0ODIyLCJsYXN0X3ZhbHVlIjoxM30=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODI2NDgyMg==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWoodDove.jpg?v=1556583813",
+          "alt": "Wood Dove",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4Mjk3NTkwLCJsYXN0X3ZhbHVlIjoxNH0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODI5NzU5MA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWildGeranium3.jpg?v=1556583813",
+          "alt": "Wild Geranium",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MzMwMzU4LCJsYXN0X3ZhbHVlIjoxNX0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODMzMDM1OA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBee-Balm.jpg?v=1556583813",
+          "alt": "Bee-Balm",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4MzYzMTI2LCJsYXN0X3ZhbHVlIjoxNn0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODM2MzEyNg==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LScarletOak3.jpg?v=1556583813",
+          "alt": "Scarlet Oak",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4Mzk1ODk0LCJsYXN0X3ZhbHVlIjoxN30=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODM5NTg5NA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LJuneberry.jpg?v=1556583813",
+          "alt": "Juneberry",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4NDI4NjYyLCJsYXN0X3ZhbHVlIjoxOH0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQyODY2Mg==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LAlumroot2.jpg?v=1556583813",
+          "alt": "Alumroot",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4NDYxNDMwLCJsYXN0X3ZhbHVlIjoxOX0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQ2MTQzMA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LPurpleLoosestrife.jpg?v=1556583813",
+          "alt": "Purple Loosestrife",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4NDk0MTk4LCJsYXN0X3ZhbHVlIjoyMH0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQ5NDE5OA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBasswood3.jpg?v=1556583813",
+          "alt": "Basswood",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4NTI2OTY2LCJsYXN0X3ZhbHVlIjoyMX0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODUyNjk2Ng==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LPorcupine2.jpg?v=1556583813",
+          "alt": "Porcupine",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4NTU5NzM0LCJsYXN0X3ZhbHVlIjoyMn0=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODU1OTczNA==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LGrayBirch3_7a8070a0-b182-4ee1-ace1-30bc0ab48196.jpg?v=1556583813",
+          "alt": "Gray Birch",
+          "width": 1365,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjo4MTczODQ4NTkyNTAyLCJsYXN0X3ZhbHVlIjoyM30=",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODU5MjUwMg==",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LAsh.jpg?v=1556583813",
+          "alt": "Ash",
+          "width": 1366,
+          "height": 2048
+        }
+      },
+      {
+        "__typename": "ImageEdge",
+        "cursor": "eyJsYXN0X2lkIjoyODUzNTIyOTUxMzg0NiwibGFzdF92YWx1ZSI6MjR9",
+        "node": {
+          "__typename": "Image",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjg1MzUyMjk1MTM4NDY=",
+          "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/swatchcard.jpg?v=1630648206",
+          "alt": null,
+          "width": 1365,
+          "height": 2048
+        }
+      }
+    ]
+  },
+  "variants": {
+    "__typename": "ProductVariantConnection",
+    "pageInfo": {
+      "__typename": "PageInfo",
+      "hasNextPage": false,
+      "hasPreviousPage": false
+    },
+    "edges": [
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzA0MTM5OCwibGFzdF92YWx1ZSI6MX0=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzA0MTM5OA==",
+          "title": "Red Squirrel / Skein",
+          "inventoryQuantity": 37,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LRedSquirrel",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODE5OTI4Ng==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LRedSquirrel_9bf93c6f-91f6-4618-ba14-e10a09a936ae.jpg?v=1556583813",
+            "alt": "Red Squirrel",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Red Squirrel"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzIwNTIzOCwibGFzdF92YWx1ZSI6Mn0=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzIwNTIzOA==",
+          "title": "Wissahickon / Skein",
+          "inventoryQuantity": 16,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LWissahickon",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODAwMjY3OA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWissahickon.jpg?v=1556583813",
+            "alt": "Wissahickon",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Wissahickon"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzYzMjM3NCwibGFzdF92YWx1ZSI6M30=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzYzMjM3NA==",
+          "title": "Wissahickon / Mini-skein",
+          "inventoryQuantity": 16,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LWissahickon",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODAwMjY3OA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWissahickon.jpg?v=1556583813",
+            "alt": "Wissahickon",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Wissahickon"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjQxODgwNiwibGFzdF92YWx1ZSI6NH0=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjQxODgwNg==",
+          "title": "Alumroot / Skein",
+          "inventoryQuantity": 2,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LAlumroot",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQyODY2Mg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LAlumroot2.jpg?v=1556583813",
+            "alt": "Alumroot",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Alumroot"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzQzNTc2NiwibGFzdF92YWx1ZSI6NX0=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzQzNTc2Ng==",
+          "title": "Alumroot / Mini-skein",
+          "inventoryQuantity": 2,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LAlumroot",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQyODY2Mg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LAlumroot2.jpg?v=1556583813",
+            "alt": "Alumroot",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Alumroot"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjQ1MTU3NCwibGFzdF92YWx1ZSI6Nn0=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjQ1MTU3NA==",
+          "title": "Ash / Skein",
+          "inventoryQuantity": 15,
+          "price": "15.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "15.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LAsh",
+          "compareAtPrice": "20.25",
+          "compareAtPriceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODU5MjUwMg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LAsh.jpg?v=1556583813",
+            "alt": "Ash",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Ash"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzQ2ODUzNCwibGFzdF92YWx1ZSI6N30=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzQ2ODUzNA==",
+          "title": "Ash / Mini-skein",
+          "inventoryQuantity": 15,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LAsh",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODU5MjUwMg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LAsh.jpg?v=1556583813",
+            "alt": "Ash",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Ash"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjQ4NDM0MiwibGFzdF92YWx1ZSI6OH0=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjQ4NDM0Mg==",
+          "title": "Basswood / Skein",
+          "inventoryQuantity": 58,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LBasswood",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQ5NDE5OA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBasswood3.jpg?v=1556583813",
+            "alt": "Basswood",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Basswood"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzUzNDA3MCwibGFzdF92YWx1ZSI6OX0=",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzUzNDA3MA==",
+          "title": "Basswood / Mini-skein",
+          "inventoryQuantity": 58,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LBasswood",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQ5NDE5OA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBasswood3.jpg?v=1556583813",
+            "alt": "Basswood",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Basswood"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjUxNzExMCwibGFzdF92YWx1ZSI6MTB9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjUxNzExMA==",
+          "title": "Bee-Balm / Skein",
+          "inventoryQuantity": 14,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LBee-Balm",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODMzMDM1OA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBee-Balm.jpg?v=1556583813",
+            "alt": "Bee-Balm",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Bee-Balm"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzU2NjgzOCwibGFzdF92YWx1ZSI6MTF9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzU2NjgzOA==",
+          "title": "Bee-Balm / Mini-skein",
+          "inventoryQuantity": 14,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LBee-Balm",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODMzMDM1OA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBee-Balm.jpg?v=1556583813",
+            "alt": "Bee-Balm",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Bee-Balm"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjU0OTg3OCwibGFzdF92YWx1ZSI6MTJ9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjU0OTg3OA==",
+          "title": "Bluebell / Skein",
+          "inventoryQuantity": 18,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LBluebell",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0Nzk2OTkxMA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LBluebell3_03a9970d-e75f-4dc3-9c61-3057f6c3f20e.jpg?v=1556583813",
+            "alt": "Bluebell",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Bluebell"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjYxNTQxNCwibGFzdF92YWx1ZSI6MTN9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjYxNTQxNA==",
+          "title": "Cresheim Creek / Skein",
+          "inventoryQuantity": 25,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LCresheimCreek",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0NzkzNzE0Mg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LCresheimCreek.jpg?v=1556583813",
+            "alt": "Cresheim Creek",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Cresheim Creek"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjY4MDk1MCwibGFzdF92YWx1ZSI6MTR9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjY4MDk1MA==",
+          "title": "Cedar Berry / Skein",
+          "inventoryQuantity": 0,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": false,
+          "sku": "Local:LCedarBerry",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0NzkwNDM3NA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LCedarBerry3.jpg?v=1556583813",
+            "alt": "Cedar Berry",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Cedar Berry"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4Mjc0NjQ4NiwibGFzdF92YWx1ZSI6MTV9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4Mjc0NjQ4Ng==",
+          "title": "Fringetree / Skein",
+          "inventoryQuantity": 51,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LFringetree",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODIzMjA1NA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LFringetree3.jpg?v=1556583813",
+            "alt": "Fringetree",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Fringetree"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjgxMjAyMiwibGFzdF92YWx1ZSI6MTZ9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjgxMjAyMg==",
+          "title": "Ganoga Falls / Skein",
+          "inventoryQuantity": 45,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LGanogaFalls",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0Nzg3MTYwNg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LGanogaFalls.jpg?v=1556583813",
+            "alt": "Ganoga Falls",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Ganoga Falls"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4Mjg0NDc5MCwibGFzdF92YWx1ZSI6MTd9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4Mjg0NDc5MA==",
+          "title": "Gingko Nut / Skein",
+          "inventoryQuantity": 69,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LGingkoNut",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODEzMzc1MA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LGingkoNut2.jpg?v=1556583813",
+            "alt": "Gingko Nut",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Gingko Nut"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4Mjg3NzU1OCwibGFzdF92YWx1ZSI6MTh9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4Mjg3NzU1OA==",
+          "title": "Gray Birch / Skein",
+          "inventoryQuantity": 26,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LGrayBirch",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODU1OTczNA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LGrayBirch3_7a8070a0-b182-4ee1-ace1-30bc0ab48196.jpg?v=1556583813",
+            "alt": "Gray Birch",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Gray Birch"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MjkxMDMyNiwibGFzdF92YWx1ZSI6MTl9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MjkxMDMyNg==",
+          "title": "Juneberry / Skein",
+          "inventoryQuantity": 21,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LJuneberry",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODM5NTg5NA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LJuneberry.jpg?v=1556583813",
+            "alt": "Juneberry",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Juneberry"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4Mjk0MzA5NCwibGFzdF92YWx1ZSI6MjB9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4Mjk0MzA5NA==",
+          "title": "Pachysandra / Skein",
+          "inventoryQuantity": 6,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LPachysandra",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODAzNTQ0Ng==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LPachysandra_f233f57a-3b60-40f9-88f0-298e8b0e4648.jpg?v=1556583813",
+            "alt": "Pachysandra",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Pachysandra"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4Mjk3NTg2MiwibGFzdF92YWx1ZSI6MjF9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4Mjk3NTg2Mg==",
+          "title": "Porcupine / Skein",
+          "inventoryQuantity": 67,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LPorcupine",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODUyNjk2Ng==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LPorcupine2.jpg?v=1556583813",
+            "alt": "Porcupine",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Porcupine"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzAwODYzMCwibGFzdF92YWx1ZSI6MjJ9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzAwODYzMA==",
+          "title": "Purple Loosestrife / Skein",
+          "inventoryQuantity": 26,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LPurpleLoosestrife",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODQ2MTQzMA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LPurpleLoosestrife.jpg?v=1556583813",
+            "alt": "Purple Loosestrife",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Purple Loosestrife"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzA3NDE2NiwibGFzdF92YWx1ZSI6MjN9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzA3NDE2Ng==",
+          "title": "River Oat / Skein",
+          "inventoryQuantity": 41,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LRiverOat",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODE2NjUxOA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LRiverOat3.jpg?v=1556583813",
+            "alt": "River Oat",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "River Oat"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzU5OTYwNiwibGFzdF92YWx1ZSI6MjR9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzU5OTYwNg==",
+          "title": "River Oat / Mini-skein",
+          "inventoryQuantity": 41,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LRiverOat",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODE2NjUxOA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LRiverOat3.jpg?v=1556583813",
+            "alt": "River Oat",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "River Oat"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzEwNjkzNCwibGFzdF92YWx1ZSI6MjV9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzEwNjkzNA==",
+          "title": "Scarlet Oak / Skein",
+          "inventoryQuantity": 19,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LScarletOak",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODM2MzEyNg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LScarletOak3.jpg?v=1556583813",
+            "alt": "Scarlet Oak",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Scarlet Oak"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzEzOTcwMiwibGFzdF92YWx1ZSI6MjZ9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzEzOTcwMg==",
+          "title": "Steelhead / Skein",
+          "inventoryQuantity": 57,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LSteelhead",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0NzgzODgzOA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LSteelhead2.jpg?v=1556583813",
+            "alt": "Steelhead",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Steelhead"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzE3MjQ3MCwibGFzdF92YWx1ZSI6Mjd9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzE3MjQ3MA==",
+          "title": "Wild Geranium / Skein",
+          "inventoryQuantity": 23,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LWildGeranium",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODI5NzU5MA==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWildGeranium3.jpg?v=1556583813",
+            "alt": "Wild Geranium",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Wild Geranium"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzIzODAwNiwibGFzdF92YWx1ZSI6Mjh9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzIzODAwNg==",
+          "title": "Wood Dove / Skein",
+          "inventoryQuantity": 0,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": false,
+          "sku": "Local:LWoodDove",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODI2NDgyMg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWoodDove.jpg?v=1556583813",
+            "alt": "Wood Dove",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Wood Dove"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzY2NTE0MiwibGFzdF92YWx1ZSI6Mjl9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzY2NTE0Mg==",
+          "title": "Wood Dove / Mini-skein",
+          "inventoryQuantity": 0,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": false,
+          "sku": "Local:LWoodDove",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODI2NDgyMg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWoodDove.jpg?v=1556583813",
+            "alt": "Wood Dove",
+            "width": 1365,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Wood Dove"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjU4OTI4MzI3MDc3NCwibGFzdF92YWx1ZSI6MzB9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzI3MDc3NA==",
+          "title": "Wood Fern / Skein",
+          "inventoryQuantity": 50,
+          "price": "20.25",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "20.25",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LWoodFern",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODEwMDk4Mg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWoodFern3.jpg?v=1556583813",
+            "alt": "Wood Fern",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Wood Fern"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      },
+      {
+        "__typename": "ProductVariantEdge",
+        "cursor": "eyJsYXN0X2lkIjoyMjYyMDUxMzczMDY3OCwibGFzdF92YWx1ZSI6MzF9",
+        "node": {
+          "__typename": "ProductVariant",
+          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzczMDY3OA==",
+          "title": "Wood Fern / Mini-skein",
+          "inventoryQuantity": 50,
+          "price": "9.00",
+          "priceV2": {
+            "__typename": "MoneyV2",
+            "amount": "9.0",
+            "currencyCode": "USD"
+          },
+          "weight": 0.28,
+          "available": true,
+          "sku": "Local:LWoodFern",
+          "compareAtPrice": null,
+          "compareAtPriceV2": null,
+          "image": {
+            "__typename": "Image",
+            "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvODE3Mzg0ODEwMDk4Mg==",
+            "src": "https://cdn.shopify.com/s/files/1/0084/4044/7094/products/LWoodFern3.jpg?v=1556583813",
+            "alt": "Wood Fern",
+            "width": 1366,
+            "height": 2048
+          },
+          "selectedOptions": [
+            {
+              "__typename": "SelectedOption",
+              "name": "Color",
+              "value": "Wood Fern"
+            },
+            {
+              "__typename": "SelectedOption",
+              "name": "Size",
+              "value": "Mini-skein"
+            }
+          ],
+          "unitPrice": null,
+          "unitPriceMeasurement": {
+            "__typename": "UnitPriceMeasurement",
+            "measuredType": null,
+            "quantityUnit": null,
+            "quantityValue": 0,
+            "referenceUnit": null,
+            "referenceValue": 0
+          }
+        }
+      }
+    ]
+  }
+}

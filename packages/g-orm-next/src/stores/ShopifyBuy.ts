@@ -5,6 +5,7 @@ import {DefaultApolloClient, useQuery} from '@vue/apollo-composable'
 import productByHandle from '../graphql/productByHandle'
 import {Checkout, Product, ProductVariant} from "shopify-storefront-api-typings";
 import {Plugin} from 'vue';
+import {IProduct, IProductImage, IProductVariant} from "./../models";
 
 export interface IShopifyBuyState {
     client: ApolloClient<any> | undefined,
@@ -17,6 +18,33 @@ export const gOrmNextPlugin: Plugin = {
     }
 }
 
+
+interface graphQLModelEdge {
+    __typename:string
+    cursor:string
+    node: {__typename:string
+    }
+}
+interface graphQLModel {
+    edges: graphQLModelEdge[]
+}
+function edge(value:graphQLModelEdge) {
+    const {node: dataObj }  = value
+    const {__typename : type }=dataObj
+    return {...dataObj,type} ;
+}
+export const parseData=(_product : any) =>{
+
+const { images:{edges:_images}=[],variants:{edges:_variants}=[] } = _product
+    const {__typename : type }=_product
+    const images :IProductImage[]= _images.map( function( image:graphQLModelEdge){
+        return edge(image)
+    })
+    const variants :IProductVariant[]= _variants.map( function( variant:graphQLModelEdge){
+        return edge(variant)
+    })
+    return {..._product, type, images,variants}
+}
 export const createApolloClient = (payload: ShopifyBuy.Config) => {
     return new ApolloClient({
         uri: `https://${payload.domain}/api/graphql`,

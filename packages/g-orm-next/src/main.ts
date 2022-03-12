@@ -5,6 +5,7 @@ import VuexORM from '@vuex-orm/core'
 import {createPinia} from 'pinia'
 import {createStore} from 'vuex'
 import {gOrmNextPlugin} from './stores/ShopifyBuy'
+import 'windi.css'
 
 createApp({
     render: () => h(App),

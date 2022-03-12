@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <gIconify class="bg-purple" color=" text-orange"></gIconify>
     <WindiCSSPage/>
     <hr>
 <!--    <WindiCSSGroup @change="(classes_arr) => $data.text_group =classes_arr"></WindiCSSGroup>
@@ -23,6 +24,7 @@ import windiConfig from "@/windi.config.obj";
 
 import CodeBlock from '../components/generic/CodeBlockProp.vue';
 import WindiCSSPage from "./../components/page_styler/WindiCSSPage.vue";
+import  gIconify from './../components/generic/gIconify.vue';
 
 export default defineComponent({
   name: 'Home',
@@ -38,7 +40,7 @@ export default defineComponent({
   //  console.log("----mounting!!!!",windiStore.isInitialized)
   },
   components: {
-    WindiCSSGroup, WindiCSSPage, CodeBlock
+    WindiCSSGroup, WindiCSSPage, CodeBlock,gIconify
   },
 });
 </script>

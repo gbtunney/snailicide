@@ -12,7 +12,7 @@ fragment ImageFragment on Image{
 fragment VariantFragment on ProductVariant {
   id
   title
-  quantityAvailable
+  inventoryQuantity:quantityAvailable
   price
   priceV2 {
     amount

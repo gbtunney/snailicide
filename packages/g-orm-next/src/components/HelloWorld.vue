@@ -41,8 +41,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {mapRepos, Model, ModelOrRepository} from '@vuex-orm/core'
-import {Post,PostType} from './../models/Post'
-import {User} from './../models/User'
+import {Post,PostType} from './../models/example/Post'
+import {User} from './../models/example/User'
 import { ref,onMounted,computed,PropType,Ref ,SetupContext,Prop,defineProps ,defineEmits,withDefaults} from 'vue';
 import {mapObjIndexed} from "ramda";
 import { useStore } from 'vuex'

@@ -1,72 +1,53 @@
-import {Attr, Model} from '@vuex-orm/core'
-import Image from './Image'
-import { Str, HasMany,BelongsTo } from '@vuex-orm/core'
-import ShopifyBuy,{Product as IProduct,Option,ProductVariant} from 'shopify-buy'
+import { Model} from '@vuex-orm/core'
+import {ProductImage,ProductVariant,GUID, IProduct} from "./";
 
-export class Product extends Model {
+export class Product extends Model implements IProduct{
     static entity = 'products'
 
-   /* static fields () {
+    static fields (){
         return {
             id: this.attr(''),
-            description: this.attr('')
+            type: this.string(''),
+            handle: this.string(''), ///already a slug
+            title: this.string(''),
+            available:this.boolean(false),
+
+            productType: this.string(''),
+            vendor: this.string(''),
+            tags: this.attr([] ), //need to split.
+
+            createdAt: this.string(''),
+            updatedAt:this.string(''),
+            publishedAt:this.string(''),
+
+            description: this.string(''),
+            descriptionHtml: this.string(''),
+
+           images: this.hasMany(ProductImage, "product_id"),
+        variants: this.hasMany(ProductVariant, "product_id"),
+
         }
     }
-*/
-    /**
-     * Product unique ID
-     */
-    @Attr(null)
-    id!: number | string
+    //ShopifyGraphQLItem
+    id!: GUID
+    type!:string
 
-    @Str(null)
-    title!: string;
+    handle!:string
+    title!:string
+    available!:boolean
 
-    @Str(null)
-    description!: string;
+    productType!:string
+    vendor!: string
+    tags!: string[]
+    onlineStoreUrl!: string //url
 
-    @Str(null)
-    vendor!: string;
+    createdAt!:Date
+    updatedAt!:Date
+    publishedAt!:Date
 
-    /**
-     * An Array of Objects that contain meta data about an image including src of the images.
-     */
-    @HasMany(() => Image, 'product_id')
-    images!: Array<Image>
+    description!:string
 
-
-    /**
-     * An Array of Objects that contain meta data about an image including src of the images.
-     */
-  //  images!: Array<Image>;
-
-    //title!: string;
-
-    /**
-     * The product’s vendor name
-     */
-
-
-   // HasMany
-
-   /* @Attr(null)
-    userId!: number | null
-
-    @Str('')
-    title!: string
-
-    @Str('')
-    body!: string
-
-    @Attr(null)
-    published!: number | null
-
-    @BelongsTo(() => User, 'userId')
-    author!: User*/
-
-    // `this.belongsTo(...)` declares this post belongs to a user. The first
-    // argument is the `User` model class. The second is the field name for
-    // the foreign key `userId`.
-
+    images!: ProductImage[]
+    variants!: ProductVariant[]
 }
 export default Product
