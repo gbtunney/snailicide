@@ -33,9 +33,6 @@ export class ProductImage extends Model implements IImage {
 
     @HasMany(() => ProductVariant, 'image_id')
     variants!: ProductVariant[]
-
-    // variant_ids!: GUID[]
-    //  Variants: this.hasManyBy(ProductVariant, "variant_ids", "$id")
 }
 
 export default ProductImage

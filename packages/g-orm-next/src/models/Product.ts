@@ -1,6 +1,6 @@
 import {Model, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
-import {ProductImage, ProductVariant, GUID, IShopifyGraphQLProduct} from "./";
-import {slugify} from '@snailicide/g-library'
+import {ProductImage, ProductVariant, ProductOption, ProductOptionValue, GUID, IShopifyGraphQLProduct} from "./";
+
 export class Product extends Model implements IShopifyGraphQLProduct {
     static entity = 'products'
 
@@ -13,7 +13,7 @@ export class Product extends Model implements IShopifyGraphQLProduct {
     @Str('')
     handle!: string
 
-    @Str( '')
+    @Str('')
     title!: string
 
     @Bool(false)
@@ -45,16 +45,13 @@ export class Product extends Model implements IShopifyGraphQLProduct {
     images!: ProductImage[]
 
     @HasMany(() => ProductVariant, 'product_id')
-    variants!: Array<ProductVariant>
+    variants!: ProductVariant[]
 
-    static mutators () {
-        return {
-            title (value:string) {
-                console.warn("MUTATORS CALLED!!",value)
-                return slugify(value)
-            }
-        }
-    }
+    @HasMany(() => ProductOption, 'product_id')
+    options!: ProductOption[]
+
+    @HasMany(() => ProductOptionValue, 'product_id')
+    optionvalues!: ProductOptionValue[]
 }
 
 export default Product

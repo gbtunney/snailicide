@@ -4,7 +4,10 @@ import {ApolloClient, InMemoryCache} from "@apollo/client";
 import {DefaultApolloClient, useQuery} from '@vue/apollo-composable'
 import productByHandle from '../graphql/productByHandle'
 import {Plugin} from 'vue';
-import { Product, ProductVariant,ProductImage} from "./../models";
+import { Product, ProductVariant,ProductImage,ProductOption,ProductOptionValue} from "./../models";
+
+// @ts-expect-error xfdf
+import {slugify} from './../../../g-library/src/scripts/string/_stringUtils.js'
 
 export interface IShopifyBuyState {
     client: ApolloClient<any> | undefined,
@@ -22,47 +25,47 @@ interface graphQLModelEdge {
     node: {__typename:string
     }
 }
-interface testgraphQLModelEdge<T>  {
-   // node: T
-    __typename:string
-    cursor:string
-    node:T
-}
 
-    /*interface testgraphQLModelEdge<T> extends T{
-        __typename:string
-        cursor:string
-        node: {__typename:string
-        }
-    }*/
-
-type testGeneric<T> = T extends graphQLModelEdge ? ProductVariant : never
-
-interface graphQLModel {
-    edges: graphQLModelEdge[]
-}
 function edge<T>(value:graphQLModelEdge) {
     const {node: dataObj }= value
     const {__typename : type }=dataObj
-   // return dataObj
     return {...dataObj,type};
 }
-export const parseData=(_product : any) =>{
 
-const { images:{edges:_images}=[],variants:{edges:_variants}=[] } = _product
-    const {__typename : type }=_product
-    const images :ProductImage[]= _images.map( function( image:graphQLModelEdge){
-        return edge(image)
+export const parseData = (_product: any) => {
+    const {
+        images: {edges: _images} = [],
+        variants: {edges: _variants} = [],
+        options: _options = [],
+        id: productID
+    } = _product
+    const {__typename: type} = _product
+    const images: ProductImage[] = _images.map( (image: graphQLModelEdge, index: number)=> {
+        return {...edge(image), position: index + 1}
     })
-    const variants :ProductVariant[]= _variants.map( function( variant:  graphQLModelEdge){
-        const _variant =  edge(variant) // as ProductVariant
+    const variants: ProductVariant[] = _variants.map(function (variant: graphQLModelEdge, index: number) {
+        const _variant = edge(variant) // as ProductVariant
         // @ts-expect-error ddd
         const image_id = _variant['image']['id']
-        console.log("variantttt",image_id)
-        // const testme = _variant as testGeneric<ProductVariant>
-        return {..._variant, image_id}
+        return {..._variant, image_id, position: index + 1}
     })
-    return {..._product, type, images,variants}
+    const options: ProductOption[] = _options.map(function (option: graphQLModelEdge, index: number) {
+        // @ts-expect-error ddd
+        const {__typename: type, values: _values = [], name: title} = option
+        const handle = slugify(title)
+        const values = _values.map((_value: string, index: number) => {
+            return {
+                type: 'ProductOptionValue',
+                product_id: productID,
+                title: _value,
+                parent_handle: handle,
+                handle: slugify(_value),
+                position: index + 1
+            }
+        })
+        return {...option, title, handle, type, values, position: index + 1}
+    })
+    return {..._product, type, options, images, variants}
 }
 export const createApolloClient = (payload: ShopifyBuy.Config) => {
     return new ApolloClient({

@@ -47,6 +47,6 @@ export class ProductVariant extends Model implements IShopifyGraphQLProduct {
 
     @BelongsTo(() => ProductImage, 'image_id')
     image!: ProductImage
-    }
+}
 
 export default ProductVariant
