@@ -1,4 +1,4 @@
-export type  { PlainObject } from "./types/types";
+export type  {PlainObject} from "./types/types";
 
 export {
     lowerCase,
@@ -11,11 +11,12 @@ export {
     slugify,
     hyphenate,
     unhyphenate,
+    truncate,
+    stripHtmlTags,
     underscore,
     removeNonWord,
     normalizeLineBreaks,
     replaceAccents,
-    escapeRegExp,
     escapeHtml,
     unescapeHtml,
     escapeUnicode,
@@ -29,9 +30,21 @@ export {
     toInteger,
     isInteger,
 } from './scripts/_valueTypes'
+
+export {randomInt, getRandomNumber, getDigitCount, formatCurrency} from './scripts/_number'
+
+export {
+    replaceCharacters,
+    trimCharacters,
+    transformString,
+    transformStringAll,
+    validateString,
+    validateStringBatch
+} from './scripts/transformString'
+
+/*
 export {registerGlobalVariable} from './scripts/_vue-helpers'
 export {getPaths} from './scripts/_paths'
-export {randomInt,getRandomNumber,getDigitCount,formatCurrency} from './scripts/_number'
 export {mergeOptions} from './scripts/_object'
 export {
     transformExplodeArray,
@@ -42,3 +55,4 @@ export {
     validateString,
 } from './scripts/transformString'
 export {importantConsoleLog} from "./scripts/_console"
+*/

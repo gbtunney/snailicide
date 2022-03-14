@@ -9,14 +9,15 @@ export {
     slugify,
     hyphenate,
     unhyphenate,
+    truncate,
+    stripHtmlTags,
     underscore,
     removeNonWord,
     normalizeLineBreaks,
     replaceAccents,
-    escapeRegExp,
     escapeHtml,
     unescapeHtml,
     escapeUnicode
-} from './_stringUtils.js'
+} from './_stringUtils'
 
-export {stringContainsNumber,stringContainsLetter} from "./_string"
+export {stringContainsNumber, stringContainsLetter} from "./_string"

@@ -1,11 +1,7 @@
 import * as RA from "ramda-adjunct";
-import {transformStringAll} from "./_transformString";
-import {camelCase} from './../string'
-
-export const STRING_VALIDATE_OPTIONS = ['startsWith', 'includes', 'endsWith','contains','eq']
 
 /**
- * Validate String
+ * Validate String TODO:update tihs.
  * @param {*} value - string to test
  * @param {array} [d=[]]] test_values - test string array
  * @param { startsWith | includes | endsWith | eq | contains} - operation
@@ -13,34 +9,40 @@ export const STRING_VALIDATE_OPTIONS = ['startsWith', 'includes', 'endsWith','co
  *      validateString("kitten", ["kit", "hi"], "startsWith"))
  *      => true
  */
-///TODO:  validate an array of strings ? all? or pass in flag array???
-export function validateString(value: boolean | string = false,
-                               test_values: string | Array<string> = [],
-                               operation = "eq",
-                               case_sensitive = true, /// you can also use straigt transform object or array here
-):boolean {
-    const op =( operation).toString() //svsalidate enum????
-    if (op !== "eq" && op !== "startsWith" && op !== "endsWith" && op !== "includes" && op !== "contains") {
-        console.warn(`validateString operation: "${op}" is not permitted\nAllowed: eq, includes, startsWith, endsWith, contains",`)
-    }
+type validateOperation = 'startsWith' | 'endsWith' | 'includes' | 'contains' | 'eq' | validateFunc
+type validateFunc = (value: string, pattern: string) => boolean
 
-    const CLEAN_FLAGS = [...(case_sensitive === true) ? [] : ["case_sensitive"]]
-    /*
-        ( case_sensitive === false)
-            ?
-            :  ( RA.isPlainObj(case_sensitive))
-                ? value
-                : RA.ensureArray(case_sensitive)
-*/
-    const testString = transformStringAll(RA.ensureArray(value), [], CLEAN_FLAGS)
-    const testStringArray = transformStringAll(RA.ensureArray(test_values), [], CLEAN_FLAGS)
+interface IValidateObj {
+    value: string,
+    pattern: string | RegExp,
+    validate_op?: validateOperation
+}
 
-    return RA.ensureArray(testStringArray).some(function (str) {
-        if (op == "eq" && testString === str) return true
-        const _op = (op ==="contains") ?  "includes" : op;
-        if ((_op == "startsWith"
-                || _op == "endsWith"
-                || _op == "includes")
-            && testString[_op](str)) return true
-    })
+/* * Validate functions.  * */
+export const startsWith: validateFunc = (value, pattern) => value.startsWith(pattern)
+export const endsWith: validateFunc = (value, pattern) => value.endsWith(pattern)
+export const includes: validateFunc = (value, pattern) => value.includes(pattern)
+export const eq: validateFunc = (value, pattern) => (value === pattern)
+export const contains: validateFunc = includes
+export const match = (value: string, pattern: RegExp): boolean => pattern.test(value)
+
+export const validateString = (value: string,
+                               pattern: string | RegExp,
+                               validate_op: validateOperation = "eq"): boolean => {
+
+    if (RA.isRegExp(pattern)) return match(value, pattern as RegExp)
+    return (validate_op as validateFunc)(value, pattern as string)
+}
+
+export const validateStringBatch = (value: string | IValidateObj[],
+                                    validateObjects?: Omit<IValidateObj, 'value'>[],
+                                    operation: "some" | "every" = "some"): boolean => {
+    let validateArr: IValidateObj[] = []
+    if (RA.isString(value) && RA.isNotUndefined(validateObjects)) {
+        validateArr = (validateObjects as Omit<IValidateObj, 'value'>[]).map((obj) => {
+            return {...obj, value}
+        })
+    } else validateArr = value as IValidateObj[]
+    const _operation = (operation === "some") ? validateArr.some : validateArr.every
+    return _operation((obj) => validateString(obj.value, obj.pattern, obj.validate_op))
 }

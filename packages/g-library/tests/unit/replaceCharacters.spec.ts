@@ -1,12 +1,38 @@
-import {replaceCharacters} from "../../src/scripts/transformString/_replaceCharacters";
+import {
+    replaceAllCharacters,
+    trimCharacters
+} from "@/scripts/transformString/_characters";
+import * as R from "ramda"
 
 describe('replace characters', function () {
+
+    test("trimCharacters", () => {
+        expect(trimCharacters("--", "giilliannn---", false, true))
+            .toEqual("giilliannn-")
+        expect(trimCharacters("--", "giilliannn---", true, false))
+            .toEqual("giilliannn---")
+        expect(trimCharacters(" ", "  bg-test "))
+            .toEqual("bg-test")
+        expect(trimCharacters(undefined, "  bg-test "))
+            .toEqual("bg-test")
+    })
+
     test("replaceCharacters", () => {
-        expect(replaceCharacters("._.str!n_g_", ["!"])).toEqual("._.strn_g_");
-        expect(replaceCharacters("._.str!n_g_", "!")).toEqual("._.strn_g_");
-        expect(replaceCharacters("._.str!n_g_", "!", "^")).toEqual("._.str^n_g_");
-        expect(replaceCharacters("gillian_bray_tunney", ["bray", "e"], "^")).toEqual("gillian_^_tunn^y");
-        expect(replaceCharacters("gillian_bray_tunney", "bray", false)).toEqual("gillian_bray_tunney");
-        expect(replaceCharacters("22 px ", [" ", "px", false], true)).toEqual("22");
-    });
+
+        /* * Replace with function Example ( ramda ) * */
+        expect(R.replace("gill", R.toUpper, "gillian-tu-nney"))
+            .toEqual("GILLian-tu-nney")
+
+        expect(replaceAllCharacters("gill", '__', "gillian-tu-nney"))
+            .toEqual("__ian-tu-nney")
+        expect(replaceAllCharacters(["gill", "-"], '!', "gillian-tu-nney"))
+            .toEqual("!ian!tu!nney")
+
+        /* * example = replace all uppercase with ! * */
+        expect(replaceAllCharacters([/[1A-Z]/g, "gill", "-"], '!', "gillian Tunney"))
+            .toEqual("!ian !unney")
+        expect(replaceAllCharacters(/[1A-Z]/g, '!', "gIllian Tunney"))
+            .toEqual("g!llian !unney")
+    })
 });
+

@@ -5,9 +5,7 @@ import {DefaultApolloClient, useQuery} from '@vue/apollo-composable'
 import productByHandle from '../graphql/productByHandle'
 import {Plugin} from 'vue';
 import { Product, ProductVariant,ProductImage,ProductOption,ProductOptionValue} from "./../models";
-
-// @ts-expect-error xfdf
-import {slugify} from './../../../g-library/src/scripts/string/_stringUtils.js'
+import {slugify} from '@snailicide/g-library'
 
 export interface IShopifyBuyState {
     client: ApolloClient<any> | undefined,

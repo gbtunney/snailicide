@@ -1,9 +1,7 @@
 /* * TRANSFORM STRING LIBRARY *
 * @author Gillian Tunney */
-export {replaceCharacters} from './_replaceCharacters';
-export {trimCharacters} from "./_trimCharacters";
+export {replaceAllCharacters as replaceCharacters, trimCharacters} from './_characters';
 export {transformString, transformStringAll} from "./_transformString";
-export {validateString} from "./_validateString"
-export {transformExplodeArray} from "./_transformExplodeArray"
+export {validateString, validateStringBatch} from "./_validateString"
+//export {transformExplodeArray} from "./_transformExplodeArray"
 export default {}
-
