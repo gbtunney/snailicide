@@ -1,14 +1,14 @@
 {
-  "name": "Test Shopify GraphQL Schema",
-  "schemaPath": "./path/to/schema.graphql",
+  "name": "Shopify Storefront Schema",
+  "schemaPath": "src/graphql/schema/shopify-storefront.json",
   "extensions": {
     "endpoints": {
-      "Default GraphQL Endpoint": {
-        "url": "http://url/to/the/graphql/api",
+      "shopify Endpoint": {
+        "url": "https://${env:VUE_APP_SHOPIFY_DOMAIN}/api/graphql",
         "headers": {
-          "user-agent": "JS GraphQL"
+          "X-Shopify-Storefront-Access-Token": "${env:VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN}"
         },
-        "introspect": false
+        "introspect": true
       }
     }
   }

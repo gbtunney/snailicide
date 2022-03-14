@@ -1,0 +1,7 @@
+fragment ImageFragment on Image{
+    id
+    src:originalSrc
+    alt:altText
+    width
+    height
+}

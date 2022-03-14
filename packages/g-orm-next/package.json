@@ -1,10 +1,11 @@
 {
-  "name": "g-orm-next",
+  "name": "@snailicide/g-orm-next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "generate:types": "apollo codegen:generate --target=typescript --outputFlat=src/graphql/types",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,6 +14,7 @@
     "@iconify/types": "^1.0.12",
     "@iconify/vue": "^3.1.4",
     "@snailicide/g-library": "^1.0.0",
+    "@types/graphql": "^14.5.0",
     "@types/shopify-buy": "^2.10.10",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@vuex-orm/core": "^1.0.0-draft.16",

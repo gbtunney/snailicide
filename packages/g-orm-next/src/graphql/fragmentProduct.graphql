@@ -1,0 +1,43 @@
+fragment ProductFragment on Product {
+    id
+    handle
+    title
+    tags
+    available:availableForSale
+    createdAt
+    updatedAt
+    description
+    descriptionHtml
+    productType
+    vendor
+    publishedAt
+    onlineStoreUrl
+    options {
+        name
+        values
+    }
+    images(first: 250) {
+        pageInfo {
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            cursor
+            node {
+                ...ImageFragment
+            }
+        }
+    }
+    variants(first: 250) {
+        pageInfo {
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            cursor
+            node {
+                ...VariantFragment
+            }
+        }
+    }
+}

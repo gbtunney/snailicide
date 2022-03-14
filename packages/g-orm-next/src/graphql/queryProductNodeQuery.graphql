@@ -1,0 +1,5 @@
+query productNodeQuery($id: ID!) {
+  node(id: $id) {
+    ...ProductFragment
+  }
+}
