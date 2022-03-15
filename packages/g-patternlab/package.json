@@ -18,7 +18,6 @@
   "dependencies": {
     "@faker-js/faker": "^6.0.0-alpha.5",
     "@snailicide/g-library": "1.0.0",
-    "@snailicide/g-tailwind": "0.1.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "@tailwindcss/typography": "@0.5.0-alpha.2",

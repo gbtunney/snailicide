@@ -21,7 +21,6 @@
     "windi:serve": "yarn --cwd packages/g-windi serve",
     "windi:build": "yarn --cwd packages/g-windi build",
     "twv": "yarn --cwd apps/tailwind-config-viewer serve",
-    "gvue": "yarn --cwd packages/g-vue serve",
     "dep:list": "find . -name 'node_modules' -type d -prune",
     "dep:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "clean:cache": "yarn cache clean",
