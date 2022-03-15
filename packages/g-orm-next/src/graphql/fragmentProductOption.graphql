@@ -1,0 +1,15 @@
+fragment ProductOptionFragment on ProductOption{
+    type:__typename
+    id
+    gid:id
+    title:name
+    handle:name
+    values
+}
+fragment ProductOptionValueFragment on SelectedOption
+{
+    type:__typename
+    parentHandle:name
+    handle:value
+    title:value
+}

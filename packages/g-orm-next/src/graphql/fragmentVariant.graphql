@@ -1,30 +1,33 @@
 fragment VariantFragment on ProductVariant {
+    type:__typename
     id
+    gid:id
     title
-    inventoryQuantity:quantityAvailable
-    price
-    priceV2 {
-        amount
-        currencyCode
-    }
-    weight
     available: availableForSale
+    inventoryQuantity:quantityAvailable
+
+    weight
     sku
-    compareAtPrice
-    compareAtPriceV2 {
-        amount
-        currencyCode
-    }
+    currentlyNotInStock
+    requiresShipping
+
     image {
         ...ImageFragment
     }
     selectedOptions {
-        name
-        value
+        ...ProductOptionValueFragment
+    }
+
+    price
+    priceV2 {
+        ...PriceFragment
+    }
+    compareAtPrice
+    compareAtPriceV2 {
+        ...PriceFragment
     }
     unitPrice {
-        amount
-        currencyCode
+        ...PriceFragment
     }
     unitPriceMeasurement {
         measuredType

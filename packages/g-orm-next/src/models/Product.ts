@@ -1,54 +1,66 @@
 import {Model, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
-import {ProductImage, ProductVariant, ProductOption, ProductOptionValue, GUID, IShopifyGraphQLProduct} from "./";
+import {ProductImage, ProductVariant, ProductOption, ProductOptionValue, GUID} from "./";
+import {ProductFragment} from "./../graphql/types/ProductFragment";
 
-export class Product extends Model implements IShopifyGraphQLProduct {
+type ShopifyProduct = Omit<ProductFragment, 'images' | 'variants' | 'options' | 'descriptionHtml' | '__typename'>
+
+export interface IShopifyProduct extends ShopifyProduct {
+    images: ProductImage[]
+    variants: ProductVariant[]
+    options: ProductOption[]
+    descriptionHtml: string
+}
+
+export class Product extends Model implements IShopifyProduct {
     static entity = 'products'
 
     @Attr(undefined)
-    id!: GUID
+    id = ''
 
     @Str('')
-    type!: string
+    type = ''
 
     @Str('')
-    handle!: string
+    handle = ''
 
     @Str('')
-    title!: string
+    title = ''
 
     @Bool(false)
-    available!: boolean
+    available = false
 
     @Str('')
-    productType!: string
+    productType = ''
 
     @Str('')
-    vendor!: string
+    vendor = ''
 
     @Attr([])
-    tags!: string[]
+    tags = []
 
     @Str('')
-    onlineStoreUrl!: string
+    onlineStoreUrl = ''
 
     @Str('')
-    description!: string
+    description = ''
+    @Str('')
+    descriptionHtml = ''
 
+    @Str('')//TODO: date type? idk convert ?
+    createdAt = ''
     @Str('')
-    createdAt!: Date
+    updatedAt = ''
     @Str('')
-    updatedAt!: Date
-    @Str('')
-    publishedAt!: Date
+    publishedAt = ''
 
     @HasMany(() => ProductImage, 'product_id')
-    images!: ProductImage[]
+    images = []
 
     @HasMany(() => ProductVariant, 'product_id')
-    variants!: ProductVariant[]
+    variants = []
 
     @HasMany(() => ProductOption, 'product_id')
-    options!: ProductOption[]
+    options = []
 
     @HasMany(() => ProductOptionValue, 'product_id')
     optionvalues!: ProductOptionValue[]

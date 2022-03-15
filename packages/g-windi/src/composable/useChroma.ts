@@ -54,21 +54,21 @@ export const useChroma = () => {
             rotateHueFunction(hue, 216)
         ].map((hue_step) => chroma.color([hue_step, ...rest], format))
     }
-    const analogous = (color: Chromable,  format?: chroma.ColorFormat,results = 6, slices = 30) => {
+    const analogous = (color: Chromable, format?: chroma.ColorFormat, results = 6, slices = 30) => {
         const [hue, ...rest] = chroma.color(color).hsl()
         return [hue,
             rotateHueFunction(hue, 72),
             rotateHueFunction(hue, 216)
         ].map((hue_step) => chroma.color([hue_step, ...rest], format))
     }
-    const validate = (color: Chromable) :boolean=>{
-       return chromajs.valid(color)
+    const validate = (color: Chromable): boolean => {
+        return chromajs.valid(color)
     }
-    const getChromaColor=(color: Chromable, format?: chroma.ColorFormat)=>{
-        if (  !validate(color) ) return
+    const getChromaColor = (color: Chromable, format?: chroma.ColorFormat) => {
+        if (!validate(color)) return
         const chroma_color = chroma.color(color)
-        const [hue,saturation,lightness]=chroma_color.hsl()
-       return {
+        const [hue, saturation, lightness] = chroma_color.hsl()
+        return {
             chroma: chroma_color,
             hue,
             saturation,
@@ -77,8 +77,8 @@ export const useChroma = () => {
             luminance: chroma_color.luminance(),
             temperature: chroma_color.temperature(),
             complement: complement(chroma_color),
-           split_complement: split_complement(chroma_color),
-           triad: triad(chroma_color),
+            split_complement: split_complement(chroma_color),
+            triad: triad(chroma_color),
             tetrad: tetrad(chroma_color),
             analogous: analogous(chroma_color),
         }
@@ -111,6 +111,7 @@ export const useChroma = () => {
         } )*/
         //reduce function idk???
     }
+
     function _monochromatic(color, results) {
         /* results = results || 6;
          var hsv = tinycolor(color).toHsv();
@@ -122,6 +123,7 @@ export const useChroma = () => {
              v = (v + modification) % 1;
          }*/
     }
+
     return {
         chroma,
         ...chroma,

@@ -1,29 +1,37 @@
-import {Product, ProductImage, GUID, IPrice, IShopifyGraphQLProduct} from './'
+import {Product, ProductImage, GUID, IPrice, IShopifyGraphQLProduct, ProductOption} from './'
 import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo} from '@vuex-orm/core'
+import {VariantFragment} from "./../graphql/types/VariantFragment";
 
-export class ProductVariant extends Model implements IShopifyGraphQLProduct {
+type ShopifyProductVariant =
+    Omit<VariantFragment, 'image' | 'priceV2' |'compareAtPriceV2' | 'unitPrice' | 'selectedOptions' |'unitPriceMeasurement'| '__typename'>
+//todo:selectedOptions
+export interface IShopifyProductVariant extends ShopifyProductVariant {
+    image?: ProductImage
+}
+
+export class ProductVariant extends Model implements IShopifyProductVariant {
     static entity = 'variants'
 
     @Attr(undefined)
-    id!: GUID
+    id = ''
     @Str('')
     type!: string
     @Str('')
-    title!: string
+    title = ''
     @Bool(false)
-    available!: boolean
+    available = false
 
     @Num(0)
-    position!: number
+    position = 0
 
     @Str('')
-    sku!: string
+    sku = ''
 
     @Num(0)
-    inventoryQuantity!: number
+    inventoryQuantity = 0
 
     @Num(0)
-    weight!: number
+    weight = 0
 
     /* * Price fields * */
     @Num(0)
@@ -38,7 +46,7 @@ export class ProductVariant extends Model implements IShopifyGraphQLProduct {
     unitPrice!: IPrice
 
     @Attr(undefined)
-    product_id!: GUID
+    product_id = ''
     @BelongsTo(() => Product, 'product_id')
     product!: Product
 
@@ -46,7 +54,7 @@ export class ProductVariant extends Model implements IShopifyGraphQLProduct {
     image_id!: GUID
 
     @BelongsTo(() => ProductImage, 'image_id')
-    image!: ProductImage
+    image = undefined
 }
 
 export default ProductVariant

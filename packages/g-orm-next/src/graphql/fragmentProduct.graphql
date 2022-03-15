@@ -1,37 +1,37 @@
 fragment ProductFragment on Product {
+    type:__typename
     id
+    gid:id
     handle
     title
-    tags
     available:availableForSale
-    createdAt
-    updatedAt
-    description
-    descriptionHtml
+
     productType
     vendor
-    publishedAt
+    tags
     onlineStoreUrl
+
+    createdAt
+    updatedAt
+    publishedAt
+
+    compareAtPriceRange{
+        ...PriceRange
+    }
+    priceRange{
+        ...PriceRange
+    }
+
     options {
         name
         values
     }
-    images(first: 250) {
-        pageInfo {
-            hasNextPage
-            hasPreviousPage
-        }
-        edges {
-            cursor
-            node {
-                ...ImageFragment
-            }
-        }
+    image:featuredImage{
+        ...ImageFragment
     }
     variants(first: 250) {
         pageInfo {
-            hasNextPage
-            hasPreviousPage
+            ...PageInfoFragment
         }
         edges {
             cursor
@@ -40,4 +40,17 @@ fragment ProductFragment on Product {
             }
         }
     }
+    images(first: 250) {
+        pageInfo {
+            ...PageInfoFragment
+        }
+        edges {
+            cursor
+            node {
+                ...ImageFragment
+            }
+        }
+    }
+    description
+    descriptionHtml
 }

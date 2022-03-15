@@ -8,6 +8,7 @@ import {template, templateSettings} from 'lodash'
 import {ref, Ref,readonly, toRefs, computed, ComputedRef,onMounted,ToRefs} from 'vue'
 import {Map, List,fromJS} from 'immutable';
 import {IWindiCSSState, useWindiCSSStore} from './stores/useWindiCSSStore'
+import { Style, StyleSheet } from 'windicss/utils/style';
 
 import * as R from "ramda";
 import useChroma, {Chromable,IChromaColorData} from "./useChroma";
@@ -24,6 +25,13 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
     const completions = Object.freeze(generateCompletions(processor.value ))
    // const {interpret, validate, extract, allTheme: theme, allVariant: variants} = processor
 
+    const getStyleSheet = (children:Style)=>{
+       //const _style =  new Style()
+        children.selector = undefined
+        children.parent("fiiiiiii")
+       // _stylesheet.add(children)
+        return children
+    }
     const flattenColorPalette = (colors: { [key: string]: string | { [key: string]: string } }) => {
         const _palatte = Object.freeze({
             ...Object.assign({}, ...Object.entries(colors || {}).flatMap(([color, values]) => typeof values == 'object' ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
@@ -146,9 +154,9 @@ export const useWindiCSS = (config: IWindiConfig = {}) => {
         const _value = lTemplate(template)(_obj)
         return _value
     }
-    return {...processor,
+    return {processor,...processor,
         config,
-        extractStylesFromHTML,
+        extractStylesFromHTML,getStyleSheet,
      completions,
         getWindiStyles, injectWindiStyles, getShortCut, getDynamicValue, getDynamicKey, getAttrs, injectCSS,flattenColorPalette,utilities
     }
