@@ -1,0 +1,16 @@
+overwrite: true
+schema:
+  - "src/graphql/schema/shopify-storefront.json":
+      headers:
+      X-Shopify-Storefront-Access-Token: ${VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN}
+documents: "src/graphql/*.graphql"
+generates:
+  src/graphql/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-files-modules"
+      - "typescript-document-nodes"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

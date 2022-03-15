@@ -8,6 +8,5 @@ module.exports = {
         .loader('graphql-tag/loader')
         .end()
       // Add another loader
-
   }
 }
