@@ -1,33 +1,46 @@
-import {defineStore} from 'pinia'
-import ShopifyBuy, {Client, ProductResource} from 'shopify-buy'
-import {ApolloClient, InMemoryCache} from "@apollo/client";
-import {DefaultApolloClient, useQuery} from '@vue/apollo-composable'
-import productByHandle from '../graphql/productByHandle'
 import {Plugin} from 'vue';
-import { Product, ProductVariant,ProductImage,ProductOption,ProductOptionValue} from "./../models";
 import {slugify} from '@snailicide/g-library'
+import {defineStore} from 'pinia'
+import ShopifyBuy from 'shopify-buy'
+import {ApolloClient, InMemoryCache} from '@apollo/client/core'
+import {DefaultApolloClient} from '@vue/apollo-composable'
+import {Product, ProductVariant, ProductImage, ProductOption, ProductOptionValue} from "./../models";
 
 export interface IShopifyBuyState {
     client: ApolloClient<any> | undefined,
     config: ShopifyBuy.Config | undefined
 }
 
+export interface IStoreFrontApiConfig extends ShopifyBuy.Config {
+    version?: string
+}
+
 export const gOrmNextPlugin: Plugin = {
-    install(app, options: ShopifyBuy.Config) {
+    install(app, options: IStoreFrontApiConfig) {
         app.provide(DefaultApolloClient, createApolloClient(options))
     }
 }
+export const createApolloClient = (payload: IStoreFrontApiConfig) =>
+    new ApolloClient({
+        uri: `https://${payload.domain}/api${(payload.version) ? `/${payload.version}` : `/`}/graphql.json`,
+        headers: {
+            'X-Shopify-Storefront-Access-Token': payload.storefrontAccessToken
+        },
+        cache: new InMemoryCache()
+    });
+
 interface graphQLModelEdge {
-    __typename:string
-    cursor:string
-    node: {__typename:string
+    __typename: string
+    cursor: string
+    node: {
+        __typename: string
     }
 }
 
-function edge<T>(value:graphQLModelEdge) {
-    const {node: dataObj }= value
-    const {__typename : type }=dataObj
-    return {...dataObj,type};
+function edge<T>(value: graphQLModelEdge) {
+    const {node: dataObj} = value
+    const {__typename: type} = dataObj
+    return {...dataObj, type};
 }
 
 export const parseData = (_product: any) => {
@@ -38,7 +51,7 @@ export const parseData = (_product: any) => {
         id: productID
     } = _product
     const {__typename: type} = _product
-    const images: ProductImage[] = _images.map( (image: graphQLModelEdge, index: number)=> {
+    const images: ProductImage[] = _images.map((image: graphQLModelEdge, index: number) => {
         return {...edge(image), position: index + 1}
     })
     const variants: ProductVariant[] = _variants.map(function (variant: graphQLModelEdge, index: number) {
@@ -65,21 +78,12 @@ export const parseData = (_product: any) => {
     })
     return {..._product, type, options, images, variants}
 }
-export const createApolloClient = (payload: ShopifyBuy.Config) => {
-    return new ApolloClient({
-        uri: `https://${payload.domain}/api/graphql`,
-        headers: {
-            'X-Shopify-Storefront-Access-Token': payload.storefrontAccessToken
-        },
-        cache: new InMemoryCache()
-    });
-}
 
 export const useShopifyBuy = defineStore('shopify-buy', {
     actions: {
         getProductByHandle(handle: string) {
-            const {result} = useQuery(productByHandle, {handle})
-            return result
+            // const {result} = useQuery(productByHandle, {handle})
+            return {}
         },
         buildClient(payload: ShopifyBuy.Config) {
             this.config = payload

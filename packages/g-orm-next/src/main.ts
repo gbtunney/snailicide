@@ -12,7 +12,8 @@ createApp({
 })
     .use(gOrmNextPlugin, {
         domain: process.env.VUE_APP_SHOPIFY_DOMAIN,
-        storefrontAccessToken: process.env.VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+        storefrontAccessToken: process.env.VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+        version: process.env.VUE_APP_SHOPIFY_STOREFRONT_VERSION
     })
     .use(createPinia())
     .use(createStore({

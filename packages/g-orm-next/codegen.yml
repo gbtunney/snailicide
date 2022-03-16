@@ -3,12 +3,25 @@ schema: "src/graphql/schema/shopify-storefront.json"
 documents: "src/graphql/*.graphql"
 generates:
   src/graphql/types/generated-types.ts:
-      config:
-        withHooks: true
-      plugins:
-        - typescript
-        - typescript-operations
-        - typescript-vue-apollo
+    config:
+      withCompositionFunctions: true
+      vueCompositionApiImportFrom: vue
+      dedupeOperationSuffix: true
+      scalars:
+        DateTime: Date
+        NodeDescription: NodeDescription
+        Money: number
+        Decimal: number
+        URL: string
+        HTML: Element
+    plugins:
+      - add:
+          content: '/* * Graphql Generated Types and Operations * */'
+      - add:
+          content: '/* * FILE IS GENERATED: DO NOT EDIT * */'
+      - typescript
+      - typescript-operations
+      - typescript-vue-apollo
   src/graphql/types/graphql.d.ts:
     plugins:
       - "typescript"

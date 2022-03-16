@@ -1,14 +1,16 @@
 import {Model, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
 import {ProductImage, ProductVariant, ProductOption, ProductOptionValue, GUID} from "./";
-import {ProductFragment} from "./../graphql/types/ProductFragment";
+import {ProductFragment, ProductPriceRange, Maybe} from './../graphql/types/generated-types'
 
-type ShopifyProduct = Omit<ProductFragment, 'images' | 'variants' | 'options' | 'descriptionHtml' | '__typename'>
+type ShopifyProduct = Omit<ProductFragment,
+    'gid' | 'priceRange' | 'compareAtPriceRange' | 'images' | 'variants' | 'options' | 'descriptionHtml' | '__typename'>
 
 export interface IShopifyProduct extends ShopifyProduct {
     images: ProductImage[]
     variants: ProductVariant[]
     options: ProductOption[]
     descriptionHtml: string
+    priceRange?: ProductPriceRange
 }
 
 export class Product extends Model implements IShopifyProduct {
@@ -18,7 +20,7 @@ export class Product extends Model implements IShopifyProduct {
     id = ''
 
     @Str('')
-    type = ''
+    type: "Product" = "Product"
 
     @Str('')
     handle = ''
@@ -46,12 +48,15 @@ export class Product extends Model implements IShopifyProduct {
     @Str('')
     descriptionHtml = ''
 
-    @Str('')//TODO: date type? idk convert ?
-    createdAt = ''
     @Str('')
-    updatedAt = ''
+    createdAt = new Date()
     @Str('')
-    publishedAt = ''
+    updatedAt = new Date()
+    @Str('')
+    publishedAt = new Date()
+
+    @Attr(undefined)
+    priceRange = undefined
 
     @HasMany(() => ProductImage, 'product_id')
     images = []

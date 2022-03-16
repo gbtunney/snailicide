@@ -27,6 +27,7 @@ import {Icon} from '@iconify/vue';
 // @ts-expect-error dxds
 import mockdata from './../stores/mockdata.json'
 import gIconify from './../components/gIconify.vue';
+import {useProductByHandleQuery} from './../graphql/types/generated-types'
 
 export default defineComponent({
   name: 'Home',
@@ -42,9 +43,13 @@ export default defineComponent({
     const VARIANTRepo = computed(() => store.$repo(ProductVariant))
     const ImageRepo = computed(() => store.$repo(ProductImage))
     const ProductOptionRepo = computed(() => store.$repo(ProductOptionValue))
-    const test_query = shopify.getProductByHandle("local")
+
+    const {result, loading, error} = useProductByHandleQuery({
+      handle: "local"
+    });
     const parsed = parseData(mockdata)
-    console.log("the test_query :::::", test_query, parsed)
+
+    console.log("the test_query :::::", result, loading, error)
     const resp = await ProductRepo.value.save(parsed)
     console.log("!!!!imaggges", ProductOptionRepo.value.query().withAll().get(), VARIANTRepo.value.query().withAllRecursive(2).get())
     //this isnt really used anymore since appollo client but probably will have to be for checkout.
@@ -54,7 +59,7 @@ export default defineComponent({
     })
     return {
       client,
-      test_query,
+      test_query: result,
       ProductRepo,
       all: ProductRepo.value.all(),
       checkout,

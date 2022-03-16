@@ -1,4 +1,3 @@
-import {StateConfig} from "@snailicide/g-shopify-orm/src/shopifyBuy/_types";
 import {defineStore} from 'pinia'
 import ShopifyBuy, {CheckoutResource,Cart, Client, ProductResource} from 'shopify-buy'
 import {IShopifyBuyState} from "@/stores/ShopifyBuy";

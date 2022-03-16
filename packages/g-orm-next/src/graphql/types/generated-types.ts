@@ -1,6 +1,8 @@
+/* * Graphql Generated Types and Operations * */
+/* * FILE IS GENERATED: DO NOT EDIT * */
 import gql from 'graphql-tag';
 import * as VueApolloComposable from '@vue/apollo-composable';
-import * as VueCompositionApi from '@vue/composition-api';
+import * as VueCompositionApi from 'vue';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -20,14 +22,14 @@ export type Scalars = {
    * represented as `"2019-09-07T15:50:00Z`".
    *
    */
-  DateTime: any;
+  DateTime: Date;
   /**
    * A signed decimal number, which supports arbitrary precision and is serialized as a string.
    *
    * Example values: `"29.99"`, `"29.999"`.
    *
    */
-  Decimal: any;
+  Decimal: number;
   /**
    * A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a
    * complete list of HTML elements.
@@ -35,7 +37,7 @@ export type Scalars = {
    * Example value: `"<p>Grey cotton knit sweater.</p>"`.
    *
    */
-  HTML: any;
+  HTML: Element;
   /**
    * A [JSON](https://www.json.org/json-en.html) object.
    *
@@ -54,7 +56,7 @@ export type Scalars = {
    */
   JSON: any;
   /** A monetary value string without a currency symbol or code. Example value: `"100.57"`. */
-  Money: any;
+  Money: number;
   /**
    * Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
    * [RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
@@ -63,7 +65,7 @@ export type Scalars = {
    * (`johns-apparel.myshopify.com`).
    *
    */
-  URL: any;
+  URL: string;
 };
 
 /**
@@ -6313,42 +6315,42 @@ export enum WeightUnit {
   Pounds = 'POUNDS'
 }
 
-export type PageInfoFragmentFragment = { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean };
+export type PageInfoFragment = { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean };
 
-export type PriceFragmentFragment = { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode };
+export type PriceFragment = { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode };
 
-export type PriceRangeFragment = { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } };
+export type PriceRangeFragment = { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } };
 
-export type ImageFragmentFragment = { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null };
+export type ImageFragment = { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null };
 
-export type ProductFragmentFragment = { __typename?: 'Product', id: string, handle: string, title: string, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: any | null, createdAt: any, updatedAt: any, publishedAt: any, description: string, descriptionHtml: any, type: 'Product', gid: string, available: boolean, compareAtPriceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, variants: { __typename?: 'ProductVariantConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ProductVariantEdge', cursor: string, node: { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: any, compareAtPrice?: any | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null } }> }, images: { __typename?: 'ImageConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ImageEdge', cursor: string, node: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } }> } };
+export type ProductFragment = { __typename?: 'Product', id: string, handle: string, title: string, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | null, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, type: 'Product', gid: string, available: boolean, compareAtPriceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } | null, variants: { __typename?: 'ProductVariantConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ProductVariantEdge', cursor: string, node: { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null } }> }, images: { __typename?: 'ImageConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ImageEdge', cursor: string, node: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } }> } };
 
-export type ProductOptionFragmentFragment = { __typename?: 'ProductOption', id: string, values: Array<string>, type: 'ProductOption', gid: string, title: string, handle: string };
+export type ProductOptionFragment = { __typename?: 'ProductOption', id: string, values: Array<string>, type: 'ProductOption', gid: string, title: string, handle: string };
 
-export type ProductOptionValueFragmentFragment = { __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string };
+export type ProductOptionValueFragment = { __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string };
 
-export type VariantFragmentFragment = { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: any, compareAtPrice?: any | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null };
+export type VariantFragment = { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null };
 
 export type ProductByHandleQueryVariables = Exact<{
   handle: Scalars['String'];
 }>;
 
 
-export type ProductByHandleQuery = { __typename?: 'QueryRoot', productByHandle?: { __typename?: 'Product', id: string, handle: string, title: string, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: any | null, createdAt: any, updatedAt: any, publishedAt: any, description: string, descriptionHtml: any, type: 'Product', gid: string, available: boolean, compareAtPriceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, variants: { __typename?: 'ProductVariantConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ProductVariantEdge', cursor: string, node: { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: any, compareAtPrice?: any | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null } }> }, images: { __typename?: 'ImageConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ImageEdge', cursor: string, node: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } }> } } | null };
+export type ProductByHandleQuery = { __typename?: 'QueryRoot', productByHandle?: { __typename?: 'Product', id: string, handle: string, title: string, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | null, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, type: 'Product', gid: string, available: boolean, compareAtPriceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } | null, variants: { __typename?: 'ProductVariantConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ProductVariantEdge', cursor: string, node: { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null } }> }, images: { __typename?: 'ImageConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ImageEdge', cursor: string, node: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } }> } } | null };
 
-export type ProductNodeQueryQueryVariables = Exact<{
+export type ProductNodeQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type ProductNodeQueryQuery = { __typename?: 'QueryRoot', node?: { __typename?: 'AppliedGiftCard' } | { __typename?: 'Article' } | { __typename?: 'Blog' } | { __typename?: 'Cart' } | { __typename?: 'CartLine' } | { __typename?: 'Checkout' } | { __typename?: 'CheckoutLineItem' } | { __typename?: 'Collection' } | { __typename?: 'Comment' } | { __typename?: 'ExternalVideo' } | { __typename?: 'Location' } | { __typename?: 'MailingAddress' } | { __typename?: 'MediaImage' } | { __typename?: 'Metafield' } | { __typename?: 'Model3d' } | { __typename?: 'Order' } | { __typename?: 'Page' } | { __typename?: 'Payment' } | { __typename?: 'Product', id: string, handle: string, title: string, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: any | null, createdAt: any, updatedAt: any, publishedAt: any, description: string, descriptionHtml: any, type: 'Product', gid: string, available: boolean, compareAtPriceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, variants: { __typename?: 'ProductVariantConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ProductVariantEdge', cursor: string, node: { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: any, compareAtPrice?: any | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null } }> }, images: { __typename?: 'ImageConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ImageEdge', cursor: string, node: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } }> } } | { __typename?: 'ProductOption' } | { __typename?: 'ProductVariant' } | { __typename?: 'ShopPolicy' } | { __typename?: 'Video' } | null };
+export type ProductNodeQuery = { __typename?: 'QueryRoot', node?: { __typename?: 'AppliedGiftCard' } | { __typename?: 'Article' } | { __typename?: 'Blog' } | { __typename?: 'Cart' } | { __typename?: 'CartLine' } | { __typename?: 'Checkout' } | { __typename?: 'CheckoutLineItem' } | { __typename?: 'Collection' } | { __typename?: 'Comment' } | { __typename?: 'ExternalVideo' } | { __typename?: 'Location' } | { __typename?: 'MailingAddress' } | { __typename?: 'MediaImage' } | { __typename?: 'Metafield' } | { __typename?: 'Model3d' } | { __typename?: 'Order' } | { __typename?: 'Page' } | { __typename?: 'Payment' } | { __typename?: 'Product', id: string, handle: string, title: string, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | null, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, type: 'Product', gid: string, available: boolean, compareAtPriceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } | null, variants: { __typename?: 'ProductVariantConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ProductVariantEdge', cursor: string, node: { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parentHandle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: number, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null } }> }, images: { __typename?: 'ImageConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ImageEdge', cursor: string, node: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: string, alt?: string | null } }> } } | { __typename?: 'ProductOption' } | { __typename?: 'ProductVariant' } | { __typename?: 'ShopPolicy' } | { __typename?: 'Video' } | null };
 
 export type ShopQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ShopQuery = { __typename?: 'QueryRoot', shop: { __typename?: 'Shop', description?: string | null, moneyFormat: string, name: string, paymentSettings: { __typename?: 'PaymentSettings', enabledPresentmentCurrencies: Array<CurrencyCode> }, primaryDomain: { __typename?: 'Domain', host: string, sslEnabled: boolean, url: any } } };
+export type ShopQuery = { __typename?: 'QueryRoot', shop: { __typename?: 'Shop', description?: string | null, moneyFormat: string, name: string, paymentSettings: { __typename?: 'PaymentSettings', enabledPresentmentCurrencies: Array<CurrencyCode> }, primaryDomain: { __typename?: 'Domain', host: string, sslEnabled: boolean, url: string } } };
 
-export const PriceFragmentFragmentDoc = gql`
+export const PriceFragmentDoc = gql`
     fragment PriceFragment on MoneyV2 {
   amount
   currencyCode
@@ -6363,8 +6365,8 @@ export const PriceRangeFragmentDoc = gql`
     ...PriceFragment
   }
 }
-    ${PriceFragmentFragmentDoc}`;
-export const ImageFragmentFragmentDoc = gql`
+    ${PriceFragmentDoc}`;
+export const ImageFragmentDoc = gql`
     fragment ImageFragment on Image {
   type: __typename
   id
@@ -6375,13 +6377,13 @@ export const ImageFragmentFragmentDoc = gql`
   height
 }
     `;
-export const PageInfoFragmentFragmentDoc = gql`
+export const PageInfoFragmentDoc = gql`
     fragment PageInfoFragment on PageInfo {
   hasNextPage
   hasPreviousPage
 }
     `;
-export const ProductOptionValueFragmentFragmentDoc = gql`
+export const ProductOptionValueFragmentDoc = gql`
     fragment ProductOptionValueFragment on SelectedOption {
   type: __typename
   parentHandle: name
@@ -6389,7 +6391,7 @@ export const ProductOptionValueFragmentFragmentDoc = gql`
   title: value
 }
     `;
-export const VariantFragmentFragmentDoc = gql`
+export const VariantFragmentDoc = gql`
     fragment VariantFragment on ProductVariant {
   type: __typename
   id
@@ -6426,10 +6428,10 @@ export const VariantFragmentFragmentDoc = gql`
     referenceValue
   }
 }
-    ${ImageFragmentFragmentDoc}
-${ProductOptionValueFragmentFragmentDoc}
-${PriceFragmentFragmentDoc}`;
-export const ProductFragmentFragmentDoc = gql`
+    ${ImageFragmentDoc}
+${ProductOptionValueFragmentDoc}
+${PriceFragmentDoc}`;
+export const ProductFragmentDoc = gql`
     fragment ProductFragment on Product {
   type: __typename
   id
@@ -6483,10 +6485,10 @@ export const ProductFragmentFragmentDoc = gql`
   descriptionHtml
 }
     ${PriceRangeFragmentDoc}
-${ImageFragmentFragmentDoc}
-${PageInfoFragmentFragmentDoc}
-${VariantFragmentFragmentDoc}`;
-export const ProductOptionFragmentFragmentDoc = gql`
+${ImageFragmentDoc}
+${PageInfoFragmentDoc}
+${VariantFragmentDoc}`;
+export const ProductOptionFragmentDoc = gql`
     fragment ProductOptionFragment on ProductOption {
   type: __typename
   id
@@ -6502,7 +6504,7 @@ export const ProductByHandleDocument = gql`
     ...ProductFragment
   }
 }
-    ${ProductFragmentFragmentDoc}`;
+    ${ProductFragmentDoc}`;
 
 /**
  * __useProductByHandleQuery__
@@ -6532,30 +6534,30 @@ export const ProductNodeQueryDocument = gql`
     ...ProductFragment
   }
 }
-    ${ProductFragmentFragmentDoc}`;
+    ${ProductFragmentDoc}`;
 
 /**
- * __useProductNodeQueryQuery__
+ * __useProductNodeQuery__
  *
- * To run a query within a Vue component, call `useProductNodeQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useProductNodeQueryQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * To run a query within a Vue component, call `useProductNodeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductNodeQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
  * @param variables that will be passed into the query
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useProductNodeQueryQuery({
+ * const { result, loading, error } = useProductNodeQuery({
  *   id: // value for 'id'
  * });
  */
-export function useProductNodeQueryQuery(variables: ProductNodeQueryQueryVariables | VueCompositionApi.Ref<ProductNodeQueryQueryVariables> | ReactiveFunction<ProductNodeQueryQueryVariables>, options: VueApolloComposable.UseQueryOptions<ProductNodeQueryQuery, ProductNodeQueryQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ProductNodeQueryQuery, ProductNodeQueryQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ProductNodeQueryQuery, ProductNodeQueryQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<ProductNodeQueryQuery, ProductNodeQueryQueryVariables>(ProductNodeQueryDocument, variables, options);
+export function useProductNodeQuery(variables: ProductNodeQueryVariables | VueCompositionApi.Ref<ProductNodeQueryVariables> | ReactiveFunction<ProductNodeQueryVariables>, options: VueApolloComposable.UseQueryOptions<ProductNodeQuery, ProductNodeQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ProductNodeQuery, ProductNodeQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ProductNodeQuery, ProductNodeQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<ProductNodeQuery, ProductNodeQueryVariables>(ProductNodeQueryDocument, variables, options);
 }
-export function useProductNodeQueryLazyQuery(variables: ProductNodeQueryQueryVariables | VueCompositionApi.Ref<ProductNodeQueryQueryVariables> | ReactiveFunction<ProductNodeQueryQueryVariables>, options: VueApolloComposable.UseQueryOptions<ProductNodeQueryQuery, ProductNodeQueryQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ProductNodeQueryQuery, ProductNodeQueryQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ProductNodeQueryQuery, ProductNodeQueryQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<ProductNodeQueryQuery, ProductNodeQueryQueryVariables>(ProductNodeQueryDocument, variables, options);
+export function useProductNodeQueryLazyQuery(variables: ProductNodeQueryVariables | VueCompositionApi.Ref<ProductNodeQueryVariables> | ReactiveFunction<ProductNodeQueryVariables>, options: VueApolloComposable.UseQueryOptions<ProductNodeQuery, ProductNodeQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ProductNodeQuery, ProductNodeQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ProductNodeQuery, ProductNodeQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<ProductNodeQuery, ProductNodeQueryVariables>(ProductNodeQueryDocument, variables, options);
 }
-export type ProductNodeQueryQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<ProductNodeQueryQuery, ProductNodeQueryQueryVariables>;
+export type ProductNodeQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<ProductNodeQuery, ProductNodeQueryVariables>;
 export const ShopDocument = gql`
     query shop {
   shop {
