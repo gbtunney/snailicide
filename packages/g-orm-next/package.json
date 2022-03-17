@@ -27,6 +27,7 @@
     "ramda": "^0.28.0",
     "ramda-adjunct": "^3.0.0",
     "shopify-buy": "^2.14.0",
+    "shopify-gid": "^1.0.1",
     "shopify-storefront-api-typings": "^1.2.1",
     "vue": "^3.0.0",
     "vue-property-decorator": "^9.1.2",

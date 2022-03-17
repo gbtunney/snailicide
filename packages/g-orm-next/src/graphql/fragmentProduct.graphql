@@ -23,8 +23,7 @@ fragment ProductFragment on Product {
     }
 
     options {
-        name
-        values
+       ...ProductOptionFragment
     }
     image:featuredImage{
         ...ImageFragment
@@ -36,7 +35,7 @@ fragment ProductFragment on Product {
         edges {
             cursor
             node {
-                ...VariantFragment
+                ...ProductVariantFragment
             }
         }
     }

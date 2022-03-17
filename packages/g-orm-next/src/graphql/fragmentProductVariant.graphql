@@ -1,4 +1,4 @@
-fragment VariantFragment on ProductVariant {
+fragment ProductVariantFragment on ProductVariant {
     type:__typename
     id
     gid:id

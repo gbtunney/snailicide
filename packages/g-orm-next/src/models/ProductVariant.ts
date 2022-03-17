@@ -1,9 +1,10 @@
 import {Product, ProductImage, GUID, IPrice, IShopifyGraphQLProduct, ProductOption} from './'
 import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo} from '@vuex-orm/core'
-import {VariantFragment} from "./../graphql/types/VariantFragment";
+import {ProductVariantFragment} from "./../graphql/types/generated-types";
 
 type ShopifyProductVariant =
-    Omit<VariantFragment, 'image' | 'priceV2' |'compareAtPriceV2' | 'unitPrice' | 'selectedOptions' |'unitPriceMeasurement'| '__typename'>
+    Omit<ProductVariantFragment, 'gid' | 'image' | 'priceV2' | 'compareAtPriceV2' | 'unitPrice' | 'selectedOptions' | 'unitPriceMeasurement' | '__typename'>
+
 //todo:selectedOptions
 export interface IShopifyProductVariant extends ShopifyProductVariant {
     image?: ProductImage
@@ -15,7 +16,7 @@ export class ProductVariant extends Model implements IShopifyProductVariant {
     @Attr(undefined)
     id = ''
     @Str('')
-    type!: string
+    type: 'ProductVariant' = 'ProductVariant'
     @Str('')
     title = ''
     @Bool(false)
@@ -33,6 +34,11 @@ export class ProductVariant extends Model implements IShopifyProductVariant {
     @Num(0)
     weight = 0
 
+    @Bool(false)
+    currentlyNotInStock = false
+
+    @Bool(false)
+    requiresShipping = false
     /* * Price fields * */
     @Num(0)
     price!: number
