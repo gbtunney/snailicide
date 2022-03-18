@@ -4,17 +4,6 @@ import {useApolloLogging} from './../composable/useApolloLogging'
 import {ApolloClient, InMemoryCache, HttpLink, from} from '@apollo/client/core'
 import ShopifyBuy from 'shopify-buy'
 import {DefaultApolloClient} from '@vue/apollo-composable'
-import {Product, ProductVariant, ProductImage, ProductOption, ProductOptionValue} from "./../models";
-
-const OrmModels = {
-    Product,
-    ProductVariant,
-    ProductImage,
-    ProductOption,
-    ProductOptionValue
-}
-
-import {useProductParsing} from "./../composable/useProductParsing";
 
 export interface IShopifyBuyState {
     client: ApolloClient<any> | undefined,
@@ -41,15 +30,10 @@ export const createApolloClient = (payload: IStoreFrontApiConfig) => {
     return new ApolloClient({
         cache: new InMemoryCache(),
         link: from([
-            useProductParsing(),
+            // useProductParsing(),
             useApolloLogging(payload.logging, payload.logging),
             createApolloHttpLink(payload)
         ])
-        /* defaultOptions: {
-             watchQuery: {
-                 fetchPolicy: 'cache-and-network',
-             },
-         },*/
     });
 }
 

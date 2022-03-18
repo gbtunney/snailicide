@@ -2,7 +2,7 @@
 import {defineComponent, provide} from 'vue';
 
 import HelloWorld from '@/components/HelloWorld.vue';
-import {parseData, useShopifyBuy} from "./../stores/ShopifyBuy"; // @ is an alias to /src
+import {useShopifyBuy} from "./../stores/ShopifyBuy"; // @ is an alias to /src
 import {useStore} from 'vuex'
 import {
   ref,
@@ -47,9 +47,9 @@ export default defineComponent({
     /* const {result, loading, error} = useProductByHandleQuery({
        handle: "local"
      });*/
-    const parsed = parseData(mockdata)
+   // const parsed = parseData(mockdata)
     // console.log(" test_query :::::", result, loading, error)
-    const resp = ProductRepo.value.save(parsed)
+  //  const resp = ProductRepo.value.save(parsed)
     /*  console.log("!!!!imaggges", ProductOptionRepo.value.query().withAll().get(), VARIANTRepo.value.query().withAllRecursive(2).get())
       //this isnt really used anymore since appollo client but probably will have to be for checkout.
       shopify.buildClient({

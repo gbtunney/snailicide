@@ -1,77 +1,90 @@
 import {ApolloLink} from '@apollo/client/core';
 import {
+    ProductByHandleQuery,
     ProductFragment as TProductFragment,
     Product as TProduct,
     ProductVariantFragment as TProductVariantFragment,
-    ProductVariantConnection as TProductVariantConnection,
+    ProductVariantEdge as TProductVariantEdge,
+    ProductVariant as TProductVariant,
     ImageFragment as TImageFragment,
-    ImageConnection as TImageConnection,
+    ImageEdge as TImageEdge,
+    Image as TImage,
     ProductOptionFragment as TProductOptionFragment,
-    ProductOptionValueFragment as TProductOptionValueFragment, ProductByHandleQuery,
+    ProductOptionValueFragment as TProductOptionValueFragment,
 } from "./../graphql/types/generated-types";
-// @ts-expect-error NOT TYPESCRIPT ! maybe switch to the admin one?
-import {encode, decode} from 'shopify-gid'
-
-import {slugify} from "@snailicide/g-library";
-
-export const useProductParsing = () => {
-    return new ApolloLink((operation, forward) => {
-        return forward(operation).map((response) => {
-            const {data} = response
-            //  if ( operation.operationName ==='productByHandle' &&  (data as ProductByHandleQuery).productByHandle ){
-            const product = ((data as ProductByHandleQuery).productByHandle as TProductFragment)
-            let {gid} = product
-            gid = atob(gid)
-            // return {...product,gid}
-            const dataobj = {
-                productByHandle: {
-                    ...product,
-                    gid: "i am test",
-                    description: "i am gillian !!!!!"
-                }
-            }
-            console.log(`useProductParsing: parsing a product!!!:`, gid, dataobj);
-            response.data = dataobj//{productByHandle:{...product,gid:"i am gillian !!!!!"}}
-            return response
-            //   }
-            // return
-        });
-    });
-}
-
-export const parseDataProductFragment = (data: TProduct) => {
-    console.log("decoding!!!!!!!!!", gid)
-    const {
-        images = [],
-        variants = [],
-        options = [],
-    } = data
-    return {
-        ...data,
-        options: parseDataProductOptions(options),
-        images: parseDataProductImages(images),
-        variants: parseDataVariants(variants)
-    }
-}
+import * as RA from "ramda-adjunct"
+import {slugify, get} from "@snailicide/g-library";
 
 interface Fragment {
     position: number
 }
 
 type TFragment<T> = T & Fragment
-export const parseDataProductImages = (data): TFragment<TImageFragment>[] => {
-    return data.edges.map((image_edge, index: number): TFragment<TImageFragment> => {
-        const {node: _image}: { node: unknown } = image_edge
-        const image: TImageFragment = (_image as TImageFragment)
-        return {...image, position: index + 1}
+
+type EdgeType = "ProductVariantEdge" | "ImageEdge" | "ProductEdge"
+
+interface IEdge {
+    __typename: EdgeType
+}
+
+type TEdge<T> = T & IEdge
+
+type NodeType = "ProductVariant" | "Product" | "Image"
+
+interface INode {
+    __typename?: NodeType
+}
+
+type TNode<T> = T & INode
+
+type TProductFromQ = ProductByHandleQuery["productByHandle"]
+const isImageEdge = (data: TImageEdge): data is TImageEdge => (data as TImageEdge).__typename !== "ImageEdge";
+const isVariantEdge = (data: TProductVariantEdge): data is TProductVariantEdge => (data as TProductVariantEdge).__typename !== "ProductVariantEdge";
+
+//remove the nested object in the 'edges'
+interface IProductParsed extends Omit<TProductFragment, "images" | "variants" | "options"> {
+    images: TFragment<TImageFragment>[],
+    variants: TFragment<IProductVariant>[]
+    options: TFragment<IProductOption>[]
+}
+
+const isEdge = <T>(data: T, typename: EdgeType): data is TEdge<T> => {
+    if (RA.isUndefined(data) || RA.isUndefined((data as TEdge<T>).__typename)) return false
+    return (data as TEdge<T>).__typename === typename;
+}
+const isNode = <T, T2 = 'TProductFromQ'>(data: T | T2, typename: NodeType): data is TNode<T> => {
+    if (RA.isUndefined(data) || RA.isUndefined((data as TNode<T>).__typename)) return false
+    return (data as TNode<T>).__typename === typename;
+}
+
+export const parseDataProductImages = (data: Array<any>): TFragment<TImageFragment>[] => {
+    return data.map((image_edge, index: number): TFragment<TImageFragment> => {
+        if (isEdge<TImageEdge>(image_edge, "ImageEdge")
+            && isNode<TImage>(image_edge.node, "Image")) {
+            const image: TImageFragment = ((image_edge.node as unknown) as TImageFragment)
+            return {...image, position: index + 1}
+        }
+        return image_edge
     })
 }
 
-export const parseDataVariants = (data: TProductVariantConnection): TFragment<TProductVariantFragment>[] => {
-    return data.edges.map((variant_edge, index: number): TFragment<TProductVariantFragment> => {
-        const {node: _variant}: { node: unknown } = variant_edge
-        const variant: TProductVariantFragment = (_variant as TProductVariantFragment)
-        return {...variant, position: index + 1}
+interface IProductVariant extends Omit<TProductVariantFragment, "image"> {
+    image_id?: string
+}
+
+export const parseDataVariants = (data: Array<any>): TFragment<IProductVariant>[] => {
+    return data.map((variant_edge, index: number): TFragment<IProductVariant> => {
+        if (isEdge<TProductVariantEdge>(variant_edge, 'ProductVariantEdge')
+            && isNode<TProductVariant>(variant_edge.node, "ProductVariant")) {
+            let image_id = {}
+            if (RA.isNotUndefined(get(variant_edge, "node", "image"))) {
+                const image = get(variant_edge, "node", "image") as NonNullable<TImage>
+                if (isNode<TImage>(image, "Image")) image_id = {image_id: image.id}
+            }
+            const variant: IProductVariant = ((variant_edge.node as unknown) as IProductVariant)
+            return {...variant, ...image_id, position: index + 1}
+        }
+        return variant_edge
     })
 }
 
@@ -79,10 +92,10 @@ interface IProductOption extends Omit<TFragment<TProductOptionFragment>, "values
     values: TFragment<TProductOptionValueFragment>[]
 }
 
-export const parseDataProductOptions = (data: Array<TProductOptionFragment>) => {
+export const parseDataProductOptions = (data: Array<TProductOptionFragment> | undefined): TFragment<IProductOption>[] => {
+    if (RA.isUndefined(data)) data = []
     return data.map((option, index: number): IProductOption => {
         const handle = slugify(option.title)
-        const test = option.values
         const parent_option: TFragment<TProductOptionFragment> = {...option, handle, position: index + 1}
         return {...parent_option, values: parseDataProductOptionValues(option.values, parent_option)}
     })
@@ -99,3 +112,33 @@ export const parseDataProductOptionValues = (data: Array<string>, parent_option:
         }
     })
 }
+export const parseDataProductFragment = (data: TProductFromQ): IProductParsed | undefined => {
+    if (isNode<TProduct, TProductFromQ>(data, "Product")) {
+        const _data: IProductParsed = (data as unknown) as IProductParsed
+        return {
+            ..._data,
+            images: parseDataProductImages(data.images.edges),
+            variants: parseDataVariants(data.variants.edges),
+            options: parseDataProductOptions(get(data, 'options'))
+        }
+    }
+}
+
+export const useProductParsing = () => {
+    return {
+        parseDataProductFragment: parseDataProductFragment,
+        getApolloLink: new ApolloLink((operation, forward) => {
+            return forward(operation).map((response) => {
+                const {data} = response
+                if (operation.operationName === 'productByHandle' && (data as ProductByHandleQuery).productByHandle) {
+                    const product = (data as ProductByHandleQuery).productByHandle
+                    const dataobj = parseDataProductFragment(product)
+                    console.log(`useProductParsing: doneparsing a product!!!:`, dataobj);
+                    response.data = {productByHandle: dataobj}
+                }
+                return response
+            });
+        })
+    }
+}
+export default useProductParsing

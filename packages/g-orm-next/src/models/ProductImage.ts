@@ -1,6 +1,6 @@
 import {Product, ProductVariant, GUID,IImage} from "./";
 import { Model,Attr,Str,Num,BelongsTo,HasMany } from '@vuex-orm/core'
-
+//todo: switch these classes.
 export class ProductImage extends Model implements IImage {
     static entity = 'productimages'
 

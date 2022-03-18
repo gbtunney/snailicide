@@ -1,56 +1,42 @@
 <script lang="ts" setup>
-import {
-  ref,
-  watch,
-  computed,
-  provide,
-  defineComponent,
-  PropType,
-  Ref,
-  SetupContext,
-  Prop,
-  defineProps,
-  defineEmits,
-  withDefaults
-} from 'vue';
-import {
-  useProductByHandleQuery,
-  ProductByHandleQuery, useProductByHandleLazyQuery,
-  ProductByHandleDocument,
-  ProductByHandleQueryVariables
-} from './../graphql/types/generated-types'
+import {ref, watch, computed, Ref} from 'vue';
+import {useProductByHandleQuery, ProductByHandleQueryVariables} from './../graphql/types/generated-types'
 import {useResult} from '@vue/apollo-composable'
-// @ts-expect-error ffff
-import {encode, decode} from 'shopify-gid'
+import {useProductParsing} from './../composable/useProductParsing';
+import useOrmRepositories from "./../composable/useOrmRepositories";
 
 const product_variables: Ref<ProductByHandleQueryVariables> = ref({
   handle: 'balance',
 })
-const {result, loading, error, onResult} = useProductByHandleQuery(product_variables);
-const getData = (variables: ProductByHandleQueryVariables) => {
+const {ProductRepository} = useOrmRepositories()
+const {parseDataProductFragment} = useProductParsing()
+const {result, loading, error, onResult} = useProductByHandleQuery(product_variables)
+const productQueryResult = useResult(result, undefined)
+
+const getNewProduct = (variables: ProductByHandleQueryVariables) => {
   product_variables.value = variables
 }
-const testResult = useResult(result, undefined)
-const returnValue = ref()
-watch(testResult, (value) => {
-  console.log("testResult RESULT CHANGED!!@! raw!!", value)
-  if (value) {
-    returnValue.value = value
-    console.log("testResult RESULT CHANGED!!@!", decode(value.id))
+///need to run the parser hhere bc otherwise query needs to have edges? idk.
+const _returnValue = ref()
+const resultValue = computed({
+  get: () => _returnValue.value,
+  set: (value) => {
+    _returnValue.value = parseDataProductFragment(value)
   }
 })
-watch(result, (value) => {
-  console.log("RESULT CHANGED!!@! raw!!", value)
+//query watcher.
+watch(productQueryResult, (value) => {
+  if (value) {
+    resultValue.value = value
+    const resp = ProductRepository.value.save(resultValue.value)
+  }
 })
-const testCompResult = computed(() => {
-  return returnValue.value
-})
+
 </script>
 <template>
-  <div class="about" v-if="testCompResult">
-    <button @click="getData({handle:'local'})">local</button>
-    <button @click="getData({handle:'balance'})">balance</button>
-    {{ testCompResult }}
+  <div class="about" v-if="resultValue">
+    <button @click="getNewProduct({handle:'local'})">local</button>
+    <button @click="getNewProduct({handle:'balance'})">balance</button>
+    {{ resultValue }}
   </div>
 </template>
-

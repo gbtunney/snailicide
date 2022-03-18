@@ -1,4 +1,5 @@
-export type  {PlainObject} from "./types/types";
+export type {PlainObject} from "./types";
+export {get} from "./types";
 
 export {
     lowerCase,

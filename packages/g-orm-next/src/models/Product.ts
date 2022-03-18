@@ -1,6 +1,6 @@
 import {Model, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
 import {ProductImage, ProductVariant, ProductOption, ProductOptionValue, GUID} from "./";
-import {ProductFragment, ProductPriceRange, Maybe} from './../graphql/types/generated-types'
+import {ProductFragment, PriceRangeFragment} from './../graphql/types/generated-types'
 
 type ShopifyProduct = Omit<ProductFragment,
     'gid' | 'priceRange' | 'compareAtPriceRange' | 'images' | 'variants' | 'options' | 'descriptionHtml' | '__typename'>
@@ -9,54 +9,54 @@ export interface IShopifyProduct extends ShopifyProduct {
     images: ProductImage[]
     variants: ProductVariant[]
     options: ProductOption[]
-    descriptionHtml: string
-    priceRange?: ProductPriceRange
+//    descriptionHtml: string
+    priceRange?: PriceRangeFragment
 }
 
 export class Product extends Model implements IShopifyProduct {
     static entity = 'products'
 
-    @Attr(undefined)
-    id = ''
+    @Attr('')
+    id!: IShopifyProduct["id"]
 
     @Str('')
     type: "Product" = "Product"
 
     @Str('')
-    handle = ''
+    handle!: IShopifyProduct["handle"]
 
     @Str('')
-    title = ''
+    title!: IShopifyProduct["title"]
 
     @Bool(false)
-    available = false
+    available!: IShopifyProduct["available"]
 
     @Str('')
-    productType = ''
+    productType!: IShopifyProduct["productType"]
 
     @Str('')
-    vendor = ''
+    vendor!: IShopifyProduct["vendor"]
 
     @Attr([])
-    tags = []
+    tags!: IShopifyProduct['tags']
 
     @Str('')
-    onlineStoreUrl = ''
+    onlineStoreUrl!: IShopifyProduct['onlineStoreUrl']
 
     @Str('')
-    description = ''
-    @Str('')
-    descriptionHtml = ''
+    description!: IShopifyProduct['description']
+    // @Str('')
+    // descriptionHtml!: IShopifyProduct['descriptionHtml']
 
-    @Str('')
-    createdAt = new Date()
-    @Str('')
-    updatedAt = new Date()
-    @Str('')
-    publishedAt = new Date()
+    @Attr(new Date())
+    createdAt!: IShopifyProduct['createdAt']
+    @Attr(new Date())
+    updatedAt!: IShopifyProduct['updatedAt']
+    @Attr(new Date())
+    publishedAt!: IShopifyProduct["publishedAt"]
 
     @Attr(undefined)
-    priceRange = undefined
+    priceRange: IShopifyProduct['priceRange']
 
     @HasMany(() => ProductImage, 'product_id')
     images = []

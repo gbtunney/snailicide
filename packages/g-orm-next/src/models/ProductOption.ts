@@ -1,10 +1,9 @@
 import {Product, ProductVariant, GUID, IProductOption, IProductOptionValue, IVariantOption, ProductImage} from "./";
 import { Uid,Model,Attr,Str,Num,BelongsTo,HasMany } from '@vuex-orm/core'
-import {getRandomNumber}from '@snailicide/g-library'
-
+//todo: switch these classes.
 export class ProductOptionValue extends Model implements IProductOptionValue {
     static entity = 'productoptionvalue'
-
+    static primaryKey = ['option_id', 'position']
     @Uid()
     id!: GUID
 
@@ -30,7 +29,7 @@ export class ProductOptionValue extends Model implements IProductOptionValue {
     parent_handle!: string
 
     @Attr(undefined)
-    option_id!: GUID
+    option_id!: string
 
     @BelongsTo(() => ProductOption, 'option_id')
     option!: ProductOption
