@@ -1,0 +1,26 @@
+overwrite: true
+schema: "src/graphql/schema/petlogger-schema.json"
+documents: "src/graphql/*.graphql"
+generates:
+  src/graphql/types/generated-types.ts:
+    config:
+      withCompositionFunctions: true
+      vueCompositionApiImportFrom: vue
+      dedupeOperationSuffix: true
+    plugins:
+      - add:
+          content: '/* * Graphql Generated Types and Operations * */'
+      - add:
+          content: '/* * FILE IS GENERATED: DO NOT EDIT * */'
+      - typescript
+      - typescript-operations
+      - typescript-vue-apollo
+  src/graphql/types/graphql.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-files-modules"
+      - "typescript-document-nodes"
+  src/graphql/schema/graphql.local.schema.json:
+    plugins:
+      - "introspection"

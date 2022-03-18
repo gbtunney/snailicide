@@ -3,9 +3,9 @@
 ##Packages
     @snailicide/g-library yarn --cwd packages/g-vue --cwd packages/g-patternlab add ts-expect
 @vueuse/core
-    @snailicide/styleguide  yarn --cwd packages/g-vue add  @vuex-orm/core
-open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security
-gVueConfigPlugin
+apollo-client graphql pinia ramda ramda-adjunct vue-property-decorator
+@graphql-codegen/typescript-vue-apollo @graphql-codegen/typescript-document-nodes @graphql-codegen/typescript-operations @graphql-codegen/typescript @graphql-codegen/add @graphql-codegen/cli @graphql-codegen/introspection
+
 ###add package     
     yarn --cwd packages/g-shopify-orm ramda ramda-adjunct  remove @snailicide/g-vue    add  @snailicide/g-vue @snailicide/g-library @snailicide/g-patternlab
     yarn --cwd apps/owool add @snailicide/g-vue   @tailwindcss/typography@0.5.0-alpha.2  @tailwindcss/forms tailwind-css-variables
