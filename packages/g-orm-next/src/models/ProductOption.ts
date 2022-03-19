@@ -5,7 +5,7 @@ export class ProductOptionValue extends Model implements IProductOptionValue {
     static entity = 'productoptionvalue'
     static primaryKey = ['option_id', 'position']
     @Uid()
-    id!: GUID
+    id!: string
 
     @Str('')
     type!:string

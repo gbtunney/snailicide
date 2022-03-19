@@ -87,6 +87,7 @@ export const parseDataVariants = (data: Array<any>): TFragment<IProductVariant>[
         return variant_edge
     })
 }
+import {Merge} from 'type-fest';
 
 interface IProductOption extends Omit<TFragment<TProductOptionFragment>, "values"> {
     values: TFragment<TProductOptionValueFragment>[]
@@ -106,7 +107,7 @@ export const parseDataProductOptionValues = (data: Array<string>, parent_option:
         return {
             type: "SelectedOption",
             title: value_string,
-            parentHandle: parent_option.handle,
+            parent_handle: parent_option.handle,
             handle: slugify(value_string),
             position: index + 1
         }

@@ -117,3 +117,5 @@ scratch
 archived/backstop/backstop_data
 archived/owool/shopify/assets
 archived/styleguide/styleguide/build
+apps/petlogger/src/data/db
+archived/styleguide/**/*.svg

@@ -1,5 +1,6 @@
 import {Chromable, Color} from "chroma.ts";
 import {Product,ProductVariant,ProductOption,ProductOptionValue} from './'
+import {ProductOptionValueFragment,ProductOptionFragment} from "./../graphql/types/generated-types";
 export type GUID = string | number
 
 export interface IPrice {
@@ -8,7 +9,7 @@ export interface IPrice {
 }
 
 export interface IShopifyGraphQLItem {
-    id: GUID
+    id: string
     type: string
 }
 
@@ -22,18 +23,23 @@ export interface IProductOptionBase extends IShopifyGraphQLItem {
     title: string
     position:number
 
-    product_id: GUID
+    product_id: string
     product:Product
 }
 export interface IProductOption extends IProductOptionBase {
   values:ProductOptionValue[]
 }
 
+interface IProductOptionValueFragment extends ProductOptionValueFragment{
+    //parentHandle:number
+    option_id:string
+}
+
 export interface IProductOptionValue extends IProductOptionBase {
     handle: string
     title: string
     parent_handle: string
-    option_id:GUID
+    option_id:string
     option:ProductOption
     variants? : ProductVariant[]
 
@@ -41,8 +47,8 @@ export interface IProductOptionValue extends IProductOptionBase {
     hex_color?: Chromable
 }
 export interface IVariantOption {
-    variant_id:GUID
-    option_value_id:GUID
+    variant_id:string
+    option_value_id:string
 }
 
 export interface IImage {
