@@ -1,65 +1,57 @@
 import {Model, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
-import {ProductImage, ProductVariant, ProductOption, ProductOptionValue, GUID} from "./";
-import {ProductFragment, PriceRangeFragment} from './../graphql/types/generated-types'
+import {ProductImage, ProductVariant, ProductOption} from "./";
+import {TProductFragment} from '.'
 
-type ShopifyProduct = Omit<ProductFragment,
-    'gid' | 'priceRange' | 'compareAtPriceRange' | 'images' | 'variants' | 'options' | 'descriptionHtml' | '__typename'>
-
-export interface IShopifyProduct extends ShopifyProduct {
-    images: ProductImage[]
-    variants: ProductVariant[]
-    options: ProductOption[]
-//    descriptionHtml: string
-    priceRange?: PriceRangeFragment
-}
-
-export class Product extends Model implements IShopifyProduct {
+export class Product extends Model implements TProductFragment {
     static entity = 'products'
 
     @Attr('')
-    id!: IShopifyProduct["id"]
+    id!: TProductFragment["id"]
 
     @Str('')
     type: "Product" = "Product"
 
     @Str('')
-    handle!: IShopifyProduct["handle"]
+    handle!: TProductFragment["handle"]
 
     @Str('')
-    title!: IShopifyProduct["title"]
+    title!: TProductFragment["title"]
 
     @Bool(false)
-    available!: IShopifyProduct["available"]
+    available!: TProductFragment["available"]
 
     @Str('')
-    productType!: IShopifyProduct["productType"]
+    productType!: TProductFragment["productType"]
 
     @Str('')
-    vendor!: IShopifyProduct["vendor"]
+    vendor!: TProductFragment["vendor"]
 
     @Attr([])
-    tags!: IShopifyProduct['tags']
+    tags!: TProductFragment['tags']
 
     @Str('')
-    onlineStoreUrl!: IShopifyProduct['onlineStoreUrl']
+    onlineStoreUrl!: TProductFragment['onlineStoreUrl']
 
     @Str('')
-    description!: IShopifyProduct['description']
+    description!: TProductFragment['description']
     // @Str('')
     // descriptionHtml!: IShopifyProduct['descriptionHtml']
 
     @Attr(new Date())
-    createdAt!: IShopifyProduct['createdAt']
+    createdAt!: TProductFragment['createdAt']
     @Attr(new Date())
-    updatedAt!: IShopifyProduct['updatedAt']
+    updatedAt!: TProductFragment['updatedAt']
     @Attr(new Date())
-    publishedAt!: IShopifyProduct["publishedAt"]
+    publishedAt!: TProductFragment["publishedAt"]
 
     @Attr(undefined)
-    priceRange: IShopifyProduct['priceRange']
+    priceRange: TProductFragment['priceRange']
+
+    @Attr(undefined)
+    compareAtPriceRange: TProductFragment['compareAtPriceRange']
 
     @HasMany(() => ProductImage, 'product_id')
-    images = []
+    images: TProductFragment['images']
 
     @HasMany(() => ProductVariant, 'product_id')
     variants = []
@@ -67,8 +59,8 @@ export class Product extends Model implements IShopifyProduct {
     @HasMany(() => ProductOption, 'product_id')
     options = []
 
-    @HasMany(() => ProductOptionValue, 'product_id')
-    optionvalues!: ProductOptionValue[]
+    //@HasMany(() => ProductOptionValue, 'product_id')
+    //  optionvalues!: ProductOptionValue[]
 }
 
 export default Product

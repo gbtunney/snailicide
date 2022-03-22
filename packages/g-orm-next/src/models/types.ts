@@ -1,60 +1,87 @@
-import {Chromable, Color} from "chroma.ts";
-import {Product,ProductVariant,ProductOption,ProductOptionValue} from './'
-import {ProductOptionValueFragment,ProductOptionFragment} from "./../graphql/types/generated-types";
-export type GUID = string | number
+import {Merge, SetOptional} from 'type-fest';
 
-export interface IPrice {
-    amount: number
-    currencyCode: string
-}
+import {
+    ProductFragment,
+    PriceRangeFragment,
+    ProductOptionValueFragment,
+    ProductOptionFragment,
+    ProductVariantFragment,
+    PriceFragment,
+    ImageFragment
+} from './../graphql/types/generated-types'
+import {
+    Product,
+    ProductImage,
+    ProductVariant,
+    ProductOption,
+    ProductOptionValue
+} from './'
 
-export interface IShopifyGraphQLItem {
-    id: string
-    type: string
-}
-
-export interface IShopifyGraphQLProduct extends IShopifyGraphQLItem {
-    handle?: string
-    title: string
-    available: boolean
-}
-export interface IProductOptionBase extends IShopifyGraphQLItem {
-    handle: string
-    title: string
-    position:number
-
-    product_id: string
-    product:Product
-}
-export interface IProductOption extends IProductOptionBase {
-  values:ProductOptionValue[]
-}
-
-interface IProductOptionValueFragment extends ProductOptionValueFragment{
-    //parentHandle:number
-    option_id:string
-}
-
-export interface IProductOptionValue extends IProductOptionBase {
-    handle: string
-    title: string
-    parent_handle: string
-    option_id:string
-    option:ProductOption
-    variants? : ProductVariant[]
-
-    meta?:string
-    hex_color?: Chromable
-}
-export interface IVariantOption {
-    variant_id:string
-    option_value_id:string
-}
-
-export interface IImage {
+interface IPosition {
     position: number
-    alt?: string
-    width: number
-    height: number
-    src: string
+}
+
+interface IProductProps {
+    product_id?: string
+    product?: Product
+}
+
+interface IImageProps {
+    image_id?: string
+    image?: ProductImage
+}
+
+interface IProductFragment extends IImageProps {
+    priceRange?: PriceRangeFragment,
+    options?: TProductOptionFragment[],
+    variants?: IProductVariantFragment[],
+    images?: TProductImageFragment[]
+}
+
+type TProductFragment = Merge<SetOptional<ProductFragment,
+    'gid' | 'compareAtPriceRange' | 'descriptionHtml'>,
+    IProductFragment>
+
+interface IProductVariantFragment extends IPosition, IImageProps, IProductProps {
+    selectedOptions?: ProductOptionValue[]
+    priceV2?: PriceFragment
+    compareAtPriceV2?: PriceFragment
+    unitPrice?: PriceFragment
+}
+
+type TProductVariantFragment = Merge<SetOptional<ProductVariantFragment, 'gid'>, IProductVariantFragment>
+
+interface IProductOptionFragment extends IPosition, IProductProps {
+    values: TProductOptionValueFragment[]
+}
+
+type TProductOptionFragment = Merge<SetOptional<ProductOptionFragment, 'gid'>, IProductOptionFragment>
+
+interface IProductOptionValueFragment extends IPosition {
+    type: 'ProductOptionValue'
+    id?: string,
+    parent_handle: string
+    option_id: string
+    option?: TProductOptionFragment
+}
+
+type TProductOptionValueFragment = Merge<ProductOptionValueFragment, IProductOptionValueFragment>
+
+interface IProductImageFragment extends IPosition, IProductProps {
+    variants?: ProductVariant[]
+}
+
+type TProductImageFragment = Merge<ImageFragment, IProductImageFragment>
+
+type TVariantOption = {
+    variant_id: string
+    option_id: string
+}
+export {
+    TProductFragment,
+    TProductVariantFragment,
+    TProductOptionFragment,
+    TProductOptionValueFragment,
+    TProductImageFragment,
+    TVariantOption
 }

@@ -1,38 +1,39 @@
-import {Product, ProductVariant, GUID,IImage} from "./";
-import { Model,Attr,Str,Num,BelongsTo,HasMany } from '@vuex-orm/core'
+import {Product, ProductVariant,TProductImageFragment} from ".";
+import {Model, Attr, Str, Num, BelongsTo, HasMany} from '@vuex-orm/core'
+
 //todo: switch these classes.
-export class ProductImage extends Model implements IImage {
+export class ProductImage extends Model implements TProductImageFragment {
     static entity = 'productimages'
 
     @Attr(undefined)
-    id!: GUID
+    id!: TProductImageFragment["id"]
 
     @Str('')
-    type!:string
+    type: 'Image' = 'Image'
 
     @Str('')
-    alt?: string
+    alt: TProductImageFragment['alt']
 
     @Str('')
-    src!: string
+    src!: TProductImageFragment['src']
 
     @Num(1)
-    position!: number
+    position: TProductImageFragment['position']
 
     @Num(500)
-    width!: number
+    width: TProductImageFragment['width']
 
     @Num(500)
-    height!: number
+    height: TProductImageFragment['height']
 
-    @Attr(undefined)
-    product_id!: GUID
+    @Str('')
+    product_id: TProductImageFragment['product_id']
 
     @BelongsTo(() => Product, 'product_id')
-    product!: Product
+    product: TProductImageFragment['product']
 
     @HasMany(() => ProductVariant, 'image_id')
-    variants!: ProductVariant[]
+    variants: TProductImageFragment['variants']
 }
 
 export default ProductImage

@@ -1,7 +1,7 @@
 import {Product, ProductImage, ProductOption} from './'
 import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo} from '@vuex-orm/core'
-import {ProductVariantFragment, PriceFragment} from "./../graphql/types/generated-types";
-
+import {TProductVariantFragment} from '.'
+/*
 type ShopifyProductVariant =
     Omit<ProductVariantFragment, 'gid' | 'image' | 'priceV2' | 'compareAtPriceV2' | 'unitPrice' | 'selectedOptions' | 'unitPriceMeasurement' | '__typename'>
 
@@ -16,59 +16,59 @@ export interface IShopifyProductVariant extends ShopifyProductVariant {
     priceV2?: PriceFragment
     compareAtPriceV2?: PriceFragment
     unitPrice?: PriceFragment
-}
+}*/
 
-export class ProductVariant extends Model implements IShopifyProductVariant {
+export class ProductVariant extends Model implements TProductVariantFragment {
     static entity = 'variants'
 
     @Attr('')
-    id!: IShopifyProductVariant["id"]
+    id!: TProductVariantFragment["id"]
     @Str('')
     type: 'ProductVariant' = 'ProductVariant'
     @Str('')
-    title!: IShopifyProductVariant["title"]
+    title!: TProductVariantFragment["title"]
     @Bool(false)
-    available!: IShopifyProductVariant["available"]
+    available!: TProductVariantFragment["available"]
 
     @Num(0)
-    position!: IShopifyProductVariant["position"]
+    position!: TProductVariantFragment["position"]
 
     @Str('')
-    sku!: IShopifyProductVariant["sku"]
+    sku!: TProductVariantFragment["sku"]
 
     @Num(0)
-    inventoryQuantity!: IShopifyProductVariant["inventoryQuantity"]
+    inventoryQuantity!: TProductVariantFragment["inventoryQuantity"]
 
     @Num(0)
-    weight!: IShopifyProductVariant["weight"]
+    weight!: TProductVariantFragment["weight"]
 
     @Bool(false)
-    currentlyNotInStock!: IShopifyProductVariant["currentlyNotInStock"]
+    currentlyNotInStock!: TProductVariantFragment["currentlyNotInStock"]
 
     @Bool(false)
-    requiresShipping!: IShopifyProductVariant["requiresShipping"]
+    requiresShipping!: TProductVariantFragment["requiresShipping"]
     /* * Price fields * */
     @Num(0)
-    price!: IShopifyProductVariant["price"]
+    price!: TProductVariantFragment["price"]
     @Attr(undefined)
-    priceV2!: IShopifyProductVariant["priceV2"]
+    priceV2!: TProductVariantFragment["priceV2"]
     @Num(0)
-    compareAtPrice: IShopifyProductVariant["compareAtPrice"]
+    compareAtPrice: TProductVariantFragment["compareAtPrice"]
     @Attr(undefined)
-    compareAtPriceV2 !: IShopifyProductVariant["compareAtPriceV2"]
+    compareAtPriceV2 !: TProductVariantFragment["compareAtPriceV2"]
     @Attr(undefined)
-    unitPrice!: IShopifyProductVariant["unitPrice"]
+    unitPrice!: TProductVariantFragment["unitPrice"]
 
     @Str('')
-    product_id: IShopifyProductVariant["product_id"]
+    product_id: TProductVariantFragment["product_id"]
     @BelongsTo(() => Product, 'product_id')
-    product: IShopifyProductVariant["product"]
+    product: TProductVariantFragment["product"]
 
     @Str('')
-    image_id: IShopifyProductVariant["image_id"]
+    image_id: TProductVariantFragment["image_id"]
 
     @BelongsTo(() => ProductImage, 'image_id')
-    image: IShopifyProductVariant["image"]
+    image: TProductVariantFragment["image"]
 }
 
 export default ProductVariant

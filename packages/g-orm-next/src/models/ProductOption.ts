@@ -1,67 +1,72 @@
-import {Product, ProductVariant, GUID, IProductOption, IProductOptionValue, IVariantOption, ProductImage} from "./";
-import { Uid,Model,Attr,Str,Num,BelongsTo,HasMany } from '@vuex-orm/core'
+import {
+    Product, ProductVariant, ProductImage,
+    TProductOptionFragment,
+    TProductOptionValueFragment,
+} from "./";
+import {Uid, Model, Attr, Str, Num, BelongsTo, HasMany} from '@vuex-orm/core'
+
 //todo: switch these classes.
-export class ProductOptionValue extends Model implements IProductOptionValue {
+export class ProductOptionValue extends Model implements TProductOptionValueFragment {
     static entity = 'productoptionvalue'
     static primaryKey = ['option_id', 'position']
     @Uid()
-    id!: string
+    id!: TProductOptionValueFragment['id']
 
     @Str('')
-    type!:string
+    type: 'ProductOptionValue' = 'ProductOptionValue'
 
     @Str('')
-    handle!: string
+    handle!: TProductOptionValueFragment['handle']
 
-    @Str( '')
-    title!: string
+    @Str('')
+    title!: TProductOptionValueFragment["title"]
 
     @Num(1)
-    position!: number
+    position!: TProductOptionValueFragment['position']
 
-    @Attr(undefined)
-    product_id!: GUID
+    //  @Attr(undefined)
+    // product_id!: TProductOptionValueFragment['p']
 
-    @BelongsTo(() => Product, 'product_id')
-    product!: Product
+    // @BelongsTo(() => Product, 'product_id')
+    // product!: Product
 
-    @Str( '')
-    parent_handle!: string
+    @Str('')
+    parent_handle!: TProductOptionValueFragment["parent_handle"]
 
-    @Attr(undefined)
-    option_id!: string
+    @Str('')
+    option_id!: TProductOptionValueFragment['option_id']
 
     @BelongsTo(() => ProductOption, 'option_id')
-    option!: ProductOption
+    option!: TProductOptionValueFragment["option"]
 }
 
 
-export class ProductOption extends Model implements IProductOption {
+export class ProductOption extends Model implements TProductOptionFragment {
     static entity = 'productoption'
 
-    @Uid()
-    id!: GUID
+    @Str('')
+    id!: TProductOptionFragment["id"]
 
     @Str('')
-    type!:string
+    type: 'ProductOption' = 'ProductOption'
 
     @Str('')
-    handle!: string
+    handle!: TProductOptionFragment["handle"]
 
-    @Str( '')
-    title!: string
+    @Str('')
+    title!: TProductOptionFragment["title"]
 
     @Num(1)
-    position!: number
+    position!: TProductOptionFragment["position"]
 
-    @Attr(undefined)
-    product_id!: GUID
+    @Str('')
+    product_id!: TProductOptionFragment['product_id']
 
     @BelongsTo(() => Product, 'product_id')
-    product!: Product
+    product!: TProductOptionFragment["product"]
 
     @HasMany(() => ProductOptionValue, 'option_id')
-    values!: ProductOptionValue[]
+    values!: TProductOptionFragment["values"]
 
 }
 

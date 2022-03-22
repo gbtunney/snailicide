@@ -3,14 +3,11 @@ export {ProductVariant} from "./ProductVariant";
 export {ProductImage} from "./ProductImage";
 export {ProductOption,ProductOptionValue} from "./ProductOption";
 
-export type {
-    GUID,
-    IPrice,
-    IImage,
-    IShopifyGraphQLItem,
-    IShopifyGraphQLProduct,
-    IProductOptionBase,
-    IProductOption,
-    IProductOptionValue,
-    IVariantOption
-} from "./types"
+export type{
+    TProductFragment,
+    TProductVariantFragment,
+    TProductOptionFragment,
+    TProductImageFragment,
+    TVariantOption,
+    TProductOptionValueFragment
+}from './types'

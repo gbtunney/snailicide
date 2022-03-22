@@ -1,4 +1,7 @@
 import {ApolloLink} from '@apollo/client/core';
+import {Merge} from 'type-fest';
+import * as RA from "ramda-adjunct"
+import {slugify, get} from "@snailicide/g-library";
 import {
     ProductByHandleQuery,
     ProductFragment as TProductFragment,
@@ -9,12 +12,21 @@ import {
     ImageFragment as TImageFragment,
     ImageEdge as TImageEdge,
     Image as TImage,
-    ProductOptionFragment as TProductOptionFragment,
-    ProductOptionValueFragment as TProductOptionValueFragment,
 } from "./../graphql/types/generated-types";
-import * as RA from "ramda-adjunct"
-import {slugify, get} from "@snailicide/g-library";
 
+import {
+    TProductFragment as TProductFragmentNew2,
+    TProductImageFragment as TProductImageFragmentNew2,
+    TProductVariantFragment as TProductVariantFragmentNew,
+    TProductOptionFragment as TProductOptionFragmentNew,
+    TProductOptionValueFragment as TProductOptionValueFragmentNew
+} from './../models/'
+
+type TProductImageFragmentNew = Merge<TProductImageFragmentNew2, TImageFragment>
+//type TProductVariantFragmentNew = Merge<TProductVariantFragmentNew2, TProductVariantFragment>
+type TProductFragmentNew = Merge<TProductFragment, TProductFragmentNew2>
+
+//TODO: all of these variants are a MESS. PLS FIX THIS!!!! TProductVariantFragmentNew2 is a dumb name
 interface Fragment {
     position: number
 }
@@ -41,13 +53,6 @@ type TProductFromQ = ProductByHandleQuery["productByHandle"]
 const isImageEdge = (data: TImageEdge): data is TImageEdge => (data as TImageEdge).__typename !== "ImageEdge";
 const isVariantEdge = (data: TProductVariantEdge): data is TProductVariantEdge => (data as TProductVariantEdge).__typename !== "ProductVariantEdge";
 
-//remove the nested object in the 'edges'
-interface IProductParsed extends Omit<TProductFragment, "images" | "variants" | "options"> {
-    images: TFragment<TImageFragment>[],
-    variants: TFragment<IProductVariant>[]
-    options: TFragment<IProductOption>[]
-}
-
 const isEdge = <T>(data: T, typename: EdgeType): data is TEdge<T> => {
     if (RA.isUndefined(data) || RA.isUndefined((data as TEdge<T>).__typename)) return false
     return (data as TEdge<T>).__typename === typename;
@@ -57,23 +62,19 @@ const isNode = <T, T2 = 'TProductFromQ'>(data: T | T2, typename: NodeType): data
     return (data as TNode<T>).__typename === typename;
 }
 
-export const parseDataProductImages = (data: Array<any>): TFragment<TImageFragment>[] => {
-    return data.map((image_edge, index: number): TFragment<TImageFragment> => {
+export const parseDataProductImages = (data: Array<any>): TProductImageFragmentNew2[] => {
+    return data.map((image_edge, index: number): TProductImageFragmentNew2 => {
         if (isEdge<TImageEdge>(image_edge, "ImageEdge")
             && isNode<TImage>(image_edge.node, "Image")) {
-            const image: TImageFragment = ((image_edge.node as unknown) as TImageFragment)
-            return {...image, position: index + 1}
+            const image: TProductImageFragmentNew = ((image_edge.node as unknown) as TProductImageFragmentNew)
+            return {...image, type: "Image", position: index + 1}
         }
         return image_edge
     })
 }
 
-interface IProductVariant extends Omit<TProductVariantFragment, "image"> {
-    image_id?: string
-}
-
-export const parseDataVariants = (data: Array<any>): TFragment<IProductVariant>[] => {
-    return data.map((variant_edge, index: number): TFragment<IProductVariant> => {
+export const parseDataVariants = (data: Array<any>): TProductVariantFragmentNew[] => {
+    return data.map((variant_edge, index: number): TProductVariantFragmentNew => {
         if (isEdge<TProductVariantEdge>(variant_edge, 'ProductVariantEdge')
             && isNode<TProductVariant>(variant_edge.node, "ProductVariant")) {
             let image_id = {}
@@ -81,46 +82,45 @@ export const parseDataVariants = (data: Array<any>): TFragment<IProductVariant>[
                 const image = get(variant_edge, "node", "image") as NonNullable<TImage>
                 if (isNode<TImage>(image, "Image")) image_id = {image_id: image.id}
             }
-            const variant: IProductVariant = ((variant_edge.node as unknown) as IProductVariant)
+            const variant: TProductVariantFragmentNew = ((variant_edge.node as unknown) as TProductVariantFragmentNew)
             return {...variant, ...image_id, position: index + 1}
         }
         return variant_edge
     })
 }
-import {Merge} from 'type-fest';
 
-interface IProductOption extends Omit<TFragment<TProductOptionFragment>, "values"> {
-    values: TFragment<TProductOptionValueFragment>[]
-}
-
-export const parseDataProductOptions = (data: Array<TProductOptionFragment> | undefined): TFragment<IProductOption>[] => {
+export const parseDataProductOptions = (data: Array<TProductOptionFragmentNew> | undefined): TProductOptionFragmentNew[] => {
     if (RA.isUndefined(data)) data = []
-    return data.map((option, index: number): IProductOption => {
+    return data.map((option, index: number): TProductOptionFragmentNew => {
         const handle = slugify(option.title)
-        const parent_option: TFragment<TProductOptionFragment> = {...option, handle, position: index + 1}
+        const parent_option: TProductOptionFragmentNew = {...option, handle, position: index + 1}
         return {...parent_option, values: parseDataProductOptionValues(option.values, parent_option)}
     })
 }
 
-export const parseDataProductOptionValues = (data: Array<string>, parent_option: TProductOptionFragment) => {
-    return data.map((value_string, index: number): TFragment<TProductOptionValueFragment> => {
+export const parseDataProductOptionValues = (data: Array<unknown>, parent_option: TProductOptionFragmentNew) => {
+    return data.map((value_string, index: number): TProductOptionValueFragmentNew => {
+        const _value_string: string = (value_string as string).toString()
         return {
-            type: "SelectedOption",
-            title: value_string,
+            type: "ProductOptionValue",
+            title: _value_string,
             parent_handle: parent_option.handle,
-            handle: slugify(value_string),
-            position: index + 1
+            handle: slugify(_value_string),
+            position: index + 1,
+            option_id: parent_option.id
         }
     })
 }
-export const parseDataProductFragment = (data: TProductFromQ): IProductParsed | undefined => {
+
+export const parseDataProductFragment = (data: TProductFromQ): TProductFragmentNew | undefined => {
     if (isNode<TProduct, TProductFromQ>(data, "Product")) {
-        const _data: IProductParsed = (data as unknown) as IProductParsed
+        const _data: TProductFragmentNew = (data as unknown) as TProductFragmentNew
+        const teee: TProductOptionFragmentNew[] = (get(data, 'options') as unknown) as TProductOptionFragmentNew[]
         return {
             ..._data,
             images: parseDataProductImages(data.images.edges),
             variants: parseDataVariants(data.variants.edges),
-            options: parseDataProductOptions(get(data, 'options'))
+            options: parseDataProductOptions(teee)
         }
     }
 }
