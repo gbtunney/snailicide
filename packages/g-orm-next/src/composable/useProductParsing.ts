@@ -19,12 +19,29 @@ import {
     TProductImageFragment as TProductImageFragmentNew2,
     TProductVariantFragment as TProductVariantFragmentNew,
     TProductOptionFragment as TProductOptionFragmentNew,
-    TProductOptionValueFragment as TProductOptionValueFragmentNew
+    TProductOptionValueFragment as TProductOptionValueFragmentNew,
+    TVariantOption as TVariantOptionNew
 } from './../models/'
 
 type TProductImageFragmentNew = Merge<TProductImageFragmentNew2, TImageFragment>
-//type TProductVariantFragmentNew = Merge<TProductVariantFragmentNew2, TProductVariantFragment>
 type TProductFragmentNew = Merge<TProductFragment, TProductFragmentNew2>
+
+interface IVariantOption {
+    option_value_id: string
+}
+
+interface IVariantParsed {
+    selectedOptions: (IVariantOption | undefined)[]
+}
+
+type TVariantParsed = Merge<TProductVariantFragmentNew, IVariantParsed>
+
+interface IProductParsed extends Omit<TProductFragmentNew, "variants"> {
+    variants: TVariantParsed[]
+}
+
+type TProductReturnParsed = IProductParsed
+
 
 //TODO: all of these variants are a MESS. PLS FIX THIS!!!! TProductVariantFragmentNew2 is a dumb name
 interface Fragment {
@@ -58,8 +75,22 @@ const isEdge = <T>(data: T, typename: EdgeType): data is TEdge<T> => {
     return (data as TEdge<T>).__typename === typename;
 }
 const isNode = <T, T2 = 'TProductFromQ'>(data: T | T2, typename: NodeType): data is TNode<T> => {
+    if (RA.isNotUndefined(data) && RA.isArray(data) && data.length > 0) {
+        const firstItem = data[0]
+        return (data as TNode<T>).__typename === typename;
+    }
     if (RA.isUndefined(data) || RA.isUndefined((data as TNode<T>).__typename)) return false
     return (data as TNode<T>).__typename === typename;
+}
+const isTypedArray = <T>(data: T, typename: string): data is T => {
+    if (RA.isNotUndefined(data) && RA.isArray(data) && data.length > 0) {
+        const firstItem: typeof data[0] = data[0]
+        if (RA.isUndefined((firstItem).type)) {
+            return (typename in firstItem)
+            //  return (firstItem as typeof data[0]).type === typename;
+        }
+    }
+    return false
 }
 
 export const parseDataProductImages = (data: Array<any>): TProductImageFragmentNew2[] => {
@@ -72,9 +103,43 @@ export const parseDataProductImages = (data: Array<any>): TProductImageFragmentN
         return image_edge
     })
 }
+///todo: i dont know if tihs is actually reusabble but leaving it as is for now
+const flattenArray = <T, T2>(arr: T[], prop: keyof T, innerKey: string): T2[] => {
+    return arr.reduce((accumulator: T2[], item: T) => {
+        if (RA.isArray(item[prop])) {
+            const itemInnerArr: T2[] = (item[prop] as unknown) as T2[]
+            return [...accumulator, ...itemInnerArr]
+        } else return [...accumulator, ...[]]
+    }, []);
+}
 
-export const parseDataVariants = (data: Array<any>): TProductVariantFragmentNew[] => {
-    return data.map((variant_edge, index: number): TProductVariantFragmentNew => {
+const parseVariantSelectedOptions = (variant: TProductVariantFragmentNew, option_values: TProductOptionValueFragmentNew[]) => {
+    return variant.selectedOptions?.map((selected_value): IVariantOption | undefined => {
+        const slug_parent_handle = slugify(selected_value.parent_handle)
+        const slug_handle = slugify(selected_value.handle)
+        //find function
+        const found_value = option_values.find((item) => {
+            if (slug_parent_handle == item.parent_handle
+                && slug_handle == item.handle) {
+                return true
+            }
+        })
+        //return variant_option_pivot
+        if (found_value) {
+            return {
+                //  variant_id: variant.id,
+                option_value_id: `[${([found_value.option_id, found_value.position]).toString()}]`
+            }
+        } else {
+            console.error("PARSE ERROR ERROR, no found value variant: ", variant, "selected_value:", selected_value, "option_values", option_values)
+            return undefined
+        }
+    })
+}
+
+export const parseDataVariants = (data: Array<any>, options: TProductOptionFragmentNew[]): TVariantParsed[] => {
+    const optionvaluesflat = flattenArray<TProductOptionFragmentNew, TProductOptionValueFragmentNew>(options, "values", "type")
+    return data.map((variant_edge, index: number): TVariantParsed => {
         if (isEdge<TProductVariantEdge>(variant_edge, 'ProductVariantEdge')
             && isNode<TProductVariant>(variant_edge.node, "ProductVariant")) {
             let image_id = {}
@@ -83,7 +148,14 @@ export const parseDataVariants = (data: Array<any>): TProductVariantFragmentNew[
                 if (isNode<TImage>(image, "Image")) image_id = {image_id: image.id}
             }
             const variant: TProductVariantFragmentNew = ((variant_edge.node as unknown) as TProductVariantFragmentNew)
-            return {...variant, ...image_id, position: index + 1}
+            const variantParsed: TVariantParsed =
+                {
+                    ...((variant as unknown) as TVariantParsed),
+                    selectedOptions: parseVariantSelectedOptions(variant, optionvaluesflat),
+                    position: index + 1,
+                   ... image_id
+                }
+            return variantParsed //{...variantParsed, ...image_id, position: index + 1}
         }
         return variant_edge
     })
@@ -104,7 +176,8 @@ export const parseDataProductOptionValues = (data: Array<unknown>, parent_option
         return {
             type: "ProductOptionValue",
             title: _value_string,
-            parent_handle: parent_option.handle,
+            parent_handle: slugify(parent_option.handle),
+            option: parent_option,
             handle: slugify(_value_string),
             position: index + 1,
             option_id: parent_option.id
@@ -112,16 +185,16 @@ export const parseDataProductOptionValues = (data: Array<unknown>, parent_option
     })
 }
 
-export const parseDataProductFragment = (data: TProductFromQ): TProductFragmentNew | undefined => {
+export const parseDataProductFragment = (data: TProductFromQ): TProductReturnParsed | undefined => {
     if (isNode<TProduct, TProductFromQ>(data, "Product")) {
         const _data: TProductFragmentNew = (data as unknown) as TProductFragmentNew
-        const teee: TProductOptionFragmentNew[] = (get(data, 'options') as unknown) as TProductOptionFragmentNew[]
-        return {
-            ..._data,
-            images: parseDataProductImages(data.images.edges),
-            variants: parseDataVariants(data.variants.edges),
-            options: parseDataProductOptions(teee)
-        }
+        //TODO: this is all kind of awful code, need to be reworked eventually. ew.
+        const product_option_fragment: TProductOptionFragmentNew[] = (get(data, 'options') as unknown) as TProductOptionFragmentNew[]
+
+        const options = parseDataProductOptions(product_option_fragment)
+        const variants = parseDataVariants(data.variants.edges, options)
+        const images = parseDataProductImages(data.images.edges)
+        return {..._data, variants, options, images}
     }
 }
 

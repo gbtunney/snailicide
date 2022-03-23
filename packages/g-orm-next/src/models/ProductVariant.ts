@@ -1,24 +1,16 @@
 import {Product, ProductImage, ProductOption} from './'
-import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo} from '@vuex-orm/core'
-import {TProductVariantFragment} from '.'
-/*
+import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo, HasMany} from '@vuex-orm/core'
+import {TProductVariantFragment, VariantOption} from '.'
+import {Merge} from 'type-fest';
+
+interface OverrideIVariant {
+    selectedOptions : VariantOption[]
+}
+
 type ShopifyProductVariant =
-    Omit<ProductVariantFragment, 'gid' | 'image' | 'priceV2' | 'compareAtPriceV2' | 'unitPrice' | 'selectedOptions' | 'unitPriceMeasurement' | '__typename'>
+    Merge<TProductVariantFragment, OverrideIVariant>
 
-//todo:selectedOptions
-export interface IShopifyProductVariant extends ShopifyProductVariant {
-    position: number
-    image?: ProductImage
-    image_id?: string
-    product?: Product
-    product_id?: string
-
-    priceV2?: PriceFragment
-    compareAtPriceV2?: PriceFragment
-    unitPrice?: PriceFragment
-}*/
-
-export class ProductVariant extends Model implements TProductVariantFragment {
+export class ProductVariant extends Model implements ShopifyProductVariant {
     static entity = 'variants'
 
     @Attr('')
@@ -58,6 +50,9 @@ export class ProductVariant extends Model implements TProductVariantFragment {
     compareAtPriceV2 !: TProductVariantFragment["compareAtPriceV2"]
     @Attr(undefined)
     unitPrice!: TProductVariantFragment["unitPrice"]
+
+    @HasMany(() => VariantOption, 'variant_id')
+    selectedOptions!: VariantOption[]
 
     @Str('')
     product_id: TProductVariantFragment["product_id"]

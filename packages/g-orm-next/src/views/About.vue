@@ -6,13 +6,12 @@ import {useProductParsing} from './../composable/useProductParsing';
 import useOrmRepositories from "./../composable/useOrmRepositories";
 
 const product_variables: Ref<ProductByHandleQueryVariables> = ref({
-  handle: 'balance',
+  handle: 'local',
 })
 const {ProductRepository} = useOrmRepositories()
 const {parseDataProductFragment} = useProductParsing()
 const {result, loading, error, onResult} = useProductByHandleQuery(product_variables)
 const productQueryResult = useResult(result, undefined)
-
 const getNewProduct = (variables: ProductByHandleQueryVariables) => {
   product_variables.value = variables
 }
@@ -21,6 +20,8 @@ const _returnValue = ref()
 const resultValue = computed({
   get: () => _returnValue.value,
   set: (value) => {
+    console.log("resulttttt",  parseDataProductFragment(value))
+
     _returnValue.value = parseDataProductFragment(value)
   }
 })

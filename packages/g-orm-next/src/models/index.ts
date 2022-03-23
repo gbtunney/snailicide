@@ -1,7 +1,7 @@
 export {Product} from "./Product";
 export {ProductVariant} from "./ProductVariant";
 export {ProductImage} from "./ProductImage";
-export {ProductOption,ProductOptionValue} from "./ProductOption";
+export {ProductOption,ProductOptionValue,VariantOption} from "./ProductOption";
 
 export type{
     TProductFragment,
@@ -9,5 +9,5 @@ export type{
     TProductOptionFragment,
     TProductImageFragment,
     TVariantOption,
-    TProductOptionValueFragment
+    TProductOptionValueFragment,
 }from './types'

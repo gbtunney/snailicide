@@ -18,7 +18,7 @@ import {
 } from './'
 
 interface IPosition {
-    position: number
+    position?: number
 }
 
 interface IProductProps {
@@ -33,6 +33,7 @@ interface IImageProps {
 
 interface IProductFragment extends IImageProps {
     priceRange?: PriceRangeFragment,
+    compareAtPriceRange?:PriceRangeFragment,
     options?: TProductOptionFragment[],
     variants?: IProductVariantFragment[],
     images?: TProductImageFragment[]
@@ -43,7 +44,7 @@ type TProductFragment = Merge<SetOptional<ProductFragment,
     IProductFragment>
 
 interface IProductVariantFragment extends IPosition, IImageProps, IProductProps {
-    selectedOptions?: ProductOptionValue[]
+    selectedOptions: ProductOptionValue[]
     priceV2?: PriceFragment
     compareAtPriceV2?: PriceFragment
     unitPrice?: PriceFragment
@@ -75,7 +76,7 @@ type TProductImageFragment = Merge<ImageFragment, IProductImageFragment>
 
 type TVariantOption = {
     variant_id: string
-    option_id: string
+    option_value_id: string
 }
 export {
     TProductFragment,
@@ -83,5 +84,5 @@ export {
     TProductOptionFragment,
     TProductOptionValueFragment,
     TProductImageFragment,
-    TVariantOption
+    TVariantOption,
 }
