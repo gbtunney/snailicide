@@ -1,4 +1,3 @@
-import {ApolloLink} from '@apollo/client/core';
 import {Merge} from 'type-fest';
 import * as RA from "ramda-adjunct"
 import {slugify, get} from "@snailicide/g-library";
@@ -21,7 +20,7 @@ import {
     TProductOptionFragment as TProductOptionFragmentNew,
     TProductOptionValueFragment as TProductOptionValueFragmentNew,
     TVariantOption as TVariantOptionNew
-} from './../models/'
+} from './../models'
 
 type TProductImageFragmentNew = Merge<TProductImageFragmentNew2, TImageFragment>
 type TProductFragmentNew = Merge<TProductFragment, TProductFragmentNew2>
@@ -118,22 +117,12 @@ const parseVariantSelectedOptions = (variant: TProductVariantFragmentNew, option
         const slug_parent_handle = slugify(selected_value.parent_handle)
         const slug_handle = slugify(selected_value.handle)
         //find function
-        const found_value = option_values.find((item) => {
-            if (slug_parent_handle == item.parent_handle
-                && slug_handle == item.handle) {
-                return true
-            }
-        })
-        //return variant_option_pivot
-        if (found_value) {
-            return {
-                //  variant_id: variant.id,
-                option_value_id: `[${([found_value.option_id, found_value.position]).toString()}]`
-            }
-        } else {
-            console.error("PARSE ERROR ERROR, no found value variant: ", variant, "selected_value:", selected_value, "option_values", option_values)
-            return undefined
-        }
+        const found_value = option_values.find(
+            (item) => (slug_parent_handle == item.parent_handle && slug_handle == item.handle) ? true : false)
+        if (found_value !== undefined) {
+            const {position = 0} = found_value
+            return {option_value_id: `[${found_value.option_id},${(position).toString()}]`}
+        } else console.error("PARSE ERROR ERROR, no found value variant: ", variant, "selected_value:", selected_value, "option_values", option_values);
     })
 }
 
@@ -174,18 +163,19 @@ export const parseDataProductOptionValues = (data: Array<unknown>, parent_option
     return data.map((value_string, index: number): TProductOptionValueFragmentNew => {
         const _value_string: string = (value_string as string).toString()
         return {
+            id: `[${parent_option.id},${(index + 1).toString()}]`,
             type: "ProductOptionValue",
             title: _value_string,
             parent_handle: slugify(parent_option.handle),
             option: parent_option,
             handle: slugify(_value_string),
             position: index + 1,
-            option_id: parent_option.id
+            option_id: parent_option.id,
         }
     })
 }
 
-export const parseDataProductFragment = (data: TProductFromQ): TProductReturnParsed | undefined => {
+export const parseDataProductFragment = (data: TProductFromQ): TProductReturnParsed|undefined  => {
     if (isNode<TProduct, TProductFromQ>(data, "Product")) {
         const _data: TProductFragmentNew = (data as unknown) as TProductFragmentNew
         //TODO: this is all kind of awful code, need to be reworked eventually. ew.
@@ -198,10 +188,11 @@ export const parseDataProductFragment = (data: TProductFromQ): TProductReturnPar
     }
 }
 
-export const useProductParsing = () => {
-    return {
-        parseDataProductFragment: parseDataProductFragment,
-        getApolloLink: new ApolloLink((operation, forward) => {
+export const parseProduct = parseDataProductFragment
+export default parseProduct
+
+//apollolink getApolloLink stuff
+/* getApolloLink: new ApolloLink((operation, forward) => {
             return forward(operation).map((response) => {
                 const {data} = response
                 if (operation.operationName === 'productByHandle' && (data as ProductByHandleQuery).productByHandle) {
@@ -213,6 +204,5 @@ export const useProductParsing = () => {
                 return response
             });
         })
-    }
-}
-export default useProductParsing
+
+ */

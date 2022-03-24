@@ -4,11 +4,14 @@ import {
     TProductOptionValueFragment,
     TVariantOption
 } from "./";
-import {Uid, Model, Attr, Str, Num, BelongsTo, HasMany} from '@vuex-orm/core'
+import {Uid, Model, Attr, Str, Num, BelongsTo, HasMany, HasOne} from '@vuex-orm/core'
 
 export class ProductOptionValue extends Model implements TProductOptionValueFragment {
     static entity = 'productoptionvalue'
     static primaryKey = ['option_id', 'position']
+
+    @Uid()
+    id?: string
 
     @Str('')
     type: 'ProductOptionValue' = 'ProductOptionValue'
@@ -70,14 +73,16 @@ export class ProductOption extends Model implements TProductOptionFragment {
 
 export class VariantOption extends Model implements TVariantOption {
     static entity = 'variantoption'
+
     static primaryKey = ['variant_id', 'option_value_id']
 
     @Str('')
     variant_id!: TVariantOption["variant_id"]
-
-    @Str('')
+    @Attr([])
     option_value_id!: TVariantOption["option_value_id"]
 
+    @HasOne(() => ProductOptionValue, "id", "option_value_id")
+    option_value?: ProductOptionValue
 }
 
 export default ProductOption

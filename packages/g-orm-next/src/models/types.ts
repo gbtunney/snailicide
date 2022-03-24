@@ -76,7 +76,7 @@ type TProductImageFragment = Merge<ImageFragment, IProductImageFragment>
 
 type TVariantOption = {
     variant_id: string
-    option_value_id: string
+    option_value_id: string[],
 }
 export {
     TProductFragment,

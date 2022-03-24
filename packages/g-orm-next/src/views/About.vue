@@ -3,13 +3,13 @@ import {ref, watch, computed, Ref,defineComponent,onMounted} from 'vue';
 import ProductProvider from './../components/ProductProvider.vue';
 import HelloWorld from './../components/newProductProvider.vue';
 
-//defineComponent(HelloWorld)
+defineComponent(HelloWorld)
 
 const handle = ref('balance')
 //    <button @click="getNewProduct({handle:'local'})">local</button>
    // <button @click="getNewProduct({handle:'balance'})">balance</button
 onMounted(()=>{
-  console.log("MOUNTED@",ProductProvider )
+  console.log("MOUNTED@",HelloWorld )
 
 })
 //const product_provider = defineComponent( ProductProvider)
