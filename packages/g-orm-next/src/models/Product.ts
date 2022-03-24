@@ -1,6 +1,7 @@
 import {Model, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
 import {ProductImage, ProductVariant, ProductOption} from "./";
 import {TProductFragment} from '.'
+import useOrmRepositories from "./../composable/useOrmRepositories";
 
 export class Product extends Model implements TProductFragment {
     static entity = 'products'
@@ -58,6 +59,13 @@ export class Product extends Model implements TProductFragment {
 
     @HasMany(() => ProductOption, 'product_id')
     options = []
+
+    static repo(){
+       return useOrmRepositories()
+    }
+    get Images( ) {
+        return Product.repo().ProductImageRepository.value.where("product_id", this.id).orderBy('position').with('variants.options').all()
+    }
 
     //@HasMany(() => ProductOptionValue, 'product_id')
     //  optionvalues!: ProductOptionValue[]
