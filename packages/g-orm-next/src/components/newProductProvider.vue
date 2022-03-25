@@ -1,13 +1,11 @@
 <template>
-  <div class="newProductProvider" v-if="Product">
-    I AM A TEST COMPONENT@@@ {{ message }} ::::{{ props.handle }} ::::{{ Product }}
+  <div class="newProductProvider">
+productttt
   </div>
 </template>
 <script lang="ts" setup>
-const message = "i am setttttup here"
-import {Component, defineComponent, withDefaults, computed, defineProps, defineEmits, Ref, ref, ComputedRef} from "vue";
-import {useProduct} from './../composable/product';
-
+import {Component, defineComponent, withDefaults, computed, defineProps, watch,defineEmits, Ref, ref, ComputedRef} from "vue";
+import {useProduct,useProductLoader} from './../composable/product';
 const props = withDefaults(
     defineProps<{
       handle?: string,
@@ -17,6 +15,10 @@ const props = withDefaults(
       variant_id: 1
     })
 
-const Product = useProduct(props)
+watch(props,(value)=>{
+  console.warn("watch :value",value)
+})
 
+const loader = useProductLoader(props)
+//const Product = useProduct(props)
 </script>

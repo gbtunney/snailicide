@@ -1,21 +1,16 @@
 <script lang="ts" setup>
-import {ref, watch, computed, Ref,defineComponent,onMounted} from 'vue';
-import ProductProvider from './../components/ProductProvider.vue';
-import HelloWorld from './../components/newProductProvider.vue';
+import {ref, watch, computed, Ref, defineComponent, onMounted} from 'vue';
+import ProductProvider from './../components/newProductProvider.vue';
 
-defineComponent(HelloWorld)
-
-const handle = ref('balance')
+//defineComponent(ProductProvider)
+const handle = ref(undefined)
 //    <button @click="getNewProduct({handle:'local'})">local</button>
-   // <button @click="getNewProduct({handle:'balance'})">balance</button
-onMounted(()=>{
-  console.log("MOUNTED@",HelloWorld )
+// <button @click="getNewProduct({handle:'balance'})">balance</button
 
-})
-//const product_provider = defineComponent( ProductProvider)
 </script>
 <template>
-  <div class="about" >
-<hello-world/>
+  <div class="about">
+    <button @click="handle='balance'"> Balance</button>
+    <product-provider :handle="handle"/>
   </div>
 </template>

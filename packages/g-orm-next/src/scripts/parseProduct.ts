@@ -4,8 +4,6 @@ import {slugify, get} from "@snailicide/g-library";
 import {
     ProductByHandleQuery,
     ProductFragment as TProductFragment,
-    Product as TProduct,
-    ProductVariantFragment as TProductVariantFragment,
     ProductVariantEdge as TProductVariantEdge,
     ProductVariant as TProductVariant,
     ImageFragment as TImageFragment,
@@ -21,6 +19,7 @@ import {
     TProductOptionValueFragment as TProductOptionValueFragmentNew,
     TVariantOption as TVariantOptionNew
 } from './../models'
+import {isIdentity, isNotUndefined, isUndefined} from "./generic";
 
 type TProductImageFragmentNew = Merge<TProductImageFragmentNew2, TImageFragment>
 type TProductFragmentNew = Merge<TProductFragment, TProductFragmentNew2>
@@ -39,7 +38,7 @@ interface IProductParsed extends Omit<TProductFragmentNew, "variants"> {
     variants: TVariantParsed[]
 }
 
-type TProductReturnParsed = IProductParsed
+export type TProductReturnParsed = IProductParsed
 
 
 //TODO: all of these variants are a MESS. PLS FIX THIS!!!! TProductVariantFragmentNew2 is a dumb name
@@ -142,7 +141,7 @@ export const parseDataVariants = (data: Array<any>, options: TProductOptionFragm
                     ...((variant as unknown) as TVariantParsed),
                     selectedOptions: parseVariantSelectedOptions(variant, optionvaluesflat),
                     position: index + 1,
-                   ... image_id
+                    ...image_id
                 }
             return variantParsed //{...variantParsed, ...image_id, position: index + 1}
         }
@@ -174,23 +173,27 @@ export const parseDataProductOptionValues = (data: Array<unknown>, parent_option
         }
     })
 }
-
-export const parseDataProductFragment = (data: TProductFromQ): TProductReturnParsed|undefined  => {
-    if (isNode<TProduct, TProductFromQ>(data, "Product")) {
-        const _data: TProductFragmentNew = (data as unknown) as TProductFragmentNew
-        //TODO: this is all kind of awful code, need to be reworked eventually. ew.
-        const product_option_fragment: TProductOptionFragmentNew[] = (get(data, 'options') as unknown) as TProductOptionFragmentNew[]
-
-        const options = parseDataProductOptions(product_option_fragment)
-        const variants = parseDataVariants(data.variants.edges, options)
-        const images = parseDataProductImages(data.images.edges)
-        return {..._data, variants, options, images}
+export const parseDataProductFragment = (data: ProductByHandleQuery): TProductReturnParsed | undefined => {
+    if (isNotUndefined<ProductByHandleQuery>(data)) {
+        if (isNotUndefined<ProductByHandleQuery["productByHandle"]>(data.productByHandle)) {
+            if (data.productByHandle?.__typename === "Product") {
+                let newProduct: TProductReturnParsed = (data as TProductReturnParsed)
+                const _optiondata = <TProductOptionFragmentNew[]>get(newProduct, 'options')
+                if (isNotUndefined<TProductOptionFragmentNew[]>(_optiondata)) {
+                    const product_option_fragment: TProductOptionFragmentNew[] = _optiondata
+                    newProduct = {
+                        ...newProduct, options: parseDataProductOptions(product_option_fragment),
+                        variants: parseDataVariants(data.productByHandle.variants.edges, product_option_fragment)
+                    }
+                }
+                const images = parseDataProductImages(data.productByHandle.images.edges)
+                return {...newProduct, images}
+            }
+        }
     }
 }
-
 export const parseProduct = parseDataProductFragment
 export default parseProduct
-
 //apollolink getApolloLink stuff
 /* getApolloLink: new ApolloLink((operation, forward) => {
             return forward(operation).map((response) => {
@@ -204,5 +207,4 @@ export default parseProduct
                 return response
             });
         })
-
  */
