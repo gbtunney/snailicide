@@ -8,7 +8,7 @@ import {
     ProductVariant as TProductVariant,
     ImageFragment as TImageFragment,
     ImageEdge as TImageEdge,
-    Image as TImage,
+    Image as TImage, ProductFragment,
 } from "./../graphql/types/generated-types";
 
 import {
@@ -19,7 +19,7 @@ import {
     TProductOptionValueFragment as TProductOptionValueFragmentNew,
     TVariantOption as TVariantOptionNew
 } from './../models'
-import {isIdentity, isNotUndefined, isUndefined} from "./generic";
+import {isNotUndefined, isUndefined, matchProp} from "./generic";
 
 type TProductImageFragmentNew = Merge<TProductImageFragmentNew2, TImageFragment>
 type TProductFragmentNew = Merge<TProductFragment, TProductFragmentNew2>
@@ -85,7 +85,6 @@ const isTypedArray = <T>(data: T, typename: string): data is T => {
         const firstItem: typeof data[0] = data[0]
         if (RA.isUndefined((firstItem).type)) {
             return (typename in firstItem)
-            //  return (firstItem as typeof data[0]).type === typename;
         }
     }
     return false
@@ -139,7 +138,7 @@ export const parseDataVariants = (data: Array<any>, options: TProductOptionFragm
             const variantParsed: TVariantParsed =
                 {
                     ...((variant as unknown) as TVariantParsed),
-                    selectedOptions: parseVariantSelectedOptions(variant, optionvaluesflat),
+                    selectedOptions: [],//parseVariantSelectedOptions(variant, optionvaluesflat),
                     position: index + 1,
                     ...image_id
                 }
@@ -173,25 +172,29 @@ export const parseDataProductOptionValues = (data: Array<unknown>, parent_option
         }
     })
 }
-export const parseDataProductFragment = (data: ProductByHandleQuery): TProductReturnParsed | undefined => {
-    if (isNotUndefined<ProductByHandleQuery>(data)) {
-        if (isNotUndefined<ProductByHandleQuery["productByHandle"]>(data.productByHandle)) {
-            if (data.productByHandle?.__typename === "Product") {
-                let newProduct: TProductReturnParsed = (data as TProductReturnParsed)
-                const _optiondata = <TProductOptionFragmentNew[]>get(newProduct, 'options')
-                if (isNotUndefined<TProductOptionFragmentNew[]>(_optiondata)) {
-                    const product_option_fragment: TProductOptionFragmentNew[] = _optiondata
-                    newProduct = {
-                        ...newProduct, options: parseDataProductOptions(product_option_fragment),
-                        variants: parseDataVariants(data.productByHandle.variants.edges, product_option_fragment)
-                    }
-                }
-                const images = parseDataProductImages(data.productByHandle.images.edges)
-                return {...newProduct, images}
+export const parseDataProductFragment = (data:any): TProductReturnParsed | undefined => {
+    //  if (isNotUndefined<ProductByHandleQuery>(data)) {
+    if (isNotUndefined<TProductFragment>(data)) {
+        const raw:TProductFragment= {...data}
+
+       // if ( isNotUndefined())
+        // if (data.productByHandle?.__typename === "Product") {
+        let newProduct: TProductReturnParsed = ((raw as unknown) as TProductReturnParsed)
+        const _optiondata = <TProductOptionFragmentNew[]>get(newProduct, 'options')
+        if (isNotUndefined<TProductOptionFragmentNew[]>(_optiondata)) {
+            const product_option_fragment: TProductOptionFragmentNew[] = _optiondata
+            newProduct = {
+                ...newProduct, options: parseDataProductOptions(product_option_fragment),
+                variants: parseDataVariants(raw.variants.edges, product_option_fragment)
             }
         }
+        const images = parseDataProductImages(raw.images.edges)
+        return {...newProduct, images}
+        //  }
     }
+    //  }
 }
+
 export const parseProduct = parseDataProductFragment
 export default parseProduct
 //apollolink getApolloLink stuff

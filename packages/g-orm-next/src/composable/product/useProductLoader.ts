@@ -1,70 +1,59 @@
-import {computed, ComputedRef, defineProps, ref, Ref, toRefs, watch, WritableComputedRef} from "vue";
-import {useResult, UseResultReturn} from "@vue/apollo-composable";
+import { ref, Ref, toRefs, watch} from "vue";
+import {useResult, UseResultReturn, useQuery, UseQueryOptions} from "@vue/apollo-composable";
 import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
-import {SetOptional} from 'type-fest';
+import {SetOptional,Mutable} from 'type-fest';
 import {
     ProductByHandleQueryVariables,
-    ProductByHandleQuery,
-    useProductByHandleQuery
+    ProductByHandleQuery, ProductByHandleDocument,
+    useProductByHandleQuery, ProductFragment
 } from "./../../graphql/types/generated-types";
 import {useOrmRepositories} from './../useOrmRepositories'
-import {isRefDefined, isUndefined, isNotUndefined} from "./../../scripts/generic";
+import {isRefDefined, isUndefined, isNotUndefined, matchProp,narrowDefined} from "./../../scripts/generic";
 
-export const test = (value: SetOptional<ProductByHandleQueryVariables, "handle">) => {
-    //if (isRefDefined<SetOptional<ProductByHandleQueryVariables, "handle">>(value)) {
-        //if (isNotUndefined<string>(value.handle)) {
-        //}
-    //}
-}
-export const useProductLoader = (props: SetOptional<ProductByHandleQueryVariables, "handle">  /*props: ProductByHandleQueryVariables*/) => {
+export const useProductLoader = (props: { handle?: string }) => {
     const {ProductRepository} = useOrmRepositories()
-    const {handle = ref(undefined)} = toRefs(props) ///ref withh control
-
-    ////  const {result, loading, error, onResult} = useProductByHandleQuery({handle:handle.value})
-    // const testme= useResult(result, undefined)
-    ///CONROLLED REF.
-    /* const num = refWithControl(0, {
-  onBeforeChange(value, oldValue) {
-    // disallow changes larger then ±5 in one operation
-    if (Math.abs(value - oldValue) > 5)
-      return false // returning `false` to dismiss the change
-  },
-})
-*/
-    whenever(handle, (value) => {
-        console.error("hhandle real.", value)
+    const {handle = ref(undefined)} = toRefs(props)
+    const enabled = controlledRef(false, {
+        onChanged(value, oldValue) {
+            options.value = getQueryOptions(value)
+        }
     })
-    const test = (value: SetOptional<ProductByHandleQueryVariables, "handle"> = {handle: undefined}) => {
-        const productQueryResult: Ref<ProductByHandleQuery["productByHandle"] | undefined> = controlledRef(undefined)
-        const {result, loading, error, onResult} = useProductByHandleQuery({handle: 'local'})
-        whenever(result, (value) => {
-            console.error("DATA LOADEDDD", value)
-        })
+    const getQueryOptions = (enabled: boolean): UseQueryOptions => {
+        return {enabled}
     }
-    const bool = true
-    if (bool) {
-        test()
-    }
+    const options: Record<string, any> = ref({enabled: false})
 
-    const isLoaded = computedWithControl(
-        () => handle.value, // watch source, same as `watch`
-        (): boolean => {
-            if (isRefDefined(handle.value)) {
-                //const _productValue = ProductRepository.getProductByHandle(handle.value)
-                //return isNotUndefined<Product>(_productValue)
-            }
-            return false
-        },
-    )
+    ///DUMMY PAYLOAD TO TRICK APPOLLO
+    const query_payload = ref({handle: "paused"})
+    const {result, loading, error, onResult} = useProductByHandleQuery(query_payload, options)
 
-    watch(isLoaded, (value: boolean) => {
-        console.warn("isLoaded", value, handle.value)
-    }, {immediate: true})
+    const productQueryResult = useResult(result, undefined, (value) => {
+            if (isNotUndefined<ProductByHandleQuery>(result.value) ) {
+                const rawProductDataData  = result.value.productByHandle
+                if (isNotUndefined<ProductByHandleQuery["productByHandle"]>(rawProductDataData)) {
+                        if (matchProp(rawProductDataData as any, "__typename", "Product")) {
+                            console.warn("INNER TRYNING TO PICK DATA!!", value.productByHandle.__typename);
+                            return ( rawProductDataData )
+                        }
+                    }
+            }})
+
+    onResult((value) => {
+     //   console.warn("query updates", value)
+    })
+    whenever(productQueryResult, (value: Mutable<ProductByHandleQuery["productByHandle"]>) => {
+        console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
+        ProductRepository.save({...value}) //(value)
+    })
+    whenever(handle, (value: string, callback: (value: ProductByHandleQueryVariables) => void) => {
+        enabled.value = true
+        query_payload.value = {handle: value}
+    })
 
     watch(handle, (value) => {
-        console.log("handle history", handle.value)
+        if ( value !== undefined ){enabled.value = true;query_payload.value = {"handle": value }}
+        //  console.log("handle history", handle.value, getquery()({handle:'balance'}))
     }, {immediate: true})
-
-    return {}
+    return {useProductByHandleQuery}
 }
 export default useProductLoader

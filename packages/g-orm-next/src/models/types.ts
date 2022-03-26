@@ -1,4 +1,4 @@
-import {Merge, SetOptional} from 'type-fest';
+import {Merge, SetOptional, SetRequired} from 'type-fest';
 
 import {
     ProductFragment,
@@ -42,6 +42,17 @@ interface IProductFragment extends IImageProps {
 type TProductFragment = Merge<SetOptional<ProductFragment,
     'gid' | 'compareAtPriceRange' | 'descriptionHtml'>,
     IProductFragment>
+
+
+type keys = {
+    type?:string,
+    __typename?:string
+}
+
+type FixedFragment<T> = T extends keys ? SetRequired<T, "type"|"__typename"> : never
+
+export type FixedProductFragment = FixedFragment<ProductFragment>
+
 
 interface IProductVariantFragment extends IPosition, IImageProps, IProductProps {
     selectedOptions: ProductOptionValue[]
