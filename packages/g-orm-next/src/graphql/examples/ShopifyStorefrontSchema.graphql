@@ -1,0 +1,179 @@
+"""
+Shopify Storefront Schema - infered from https://www.json2sdl.com
+"""
+
+type MaxVariantPrice {
+    amount: String
+    currencyCode: String
+}
+
+type MinVariantPrice {
+    amount: String
+    currencyCode: String
+}
+
+type CompareAtPriceRange {
+    maxVariantPrice: MaxVariantPrice
+    minVariantPrice: MinVariantPrice
+}
+
+type Image {
+    alt: String
+    gid: String
+    height: Int
+    id: String
+    src: String
+    type: String
+    width: Int
+}
+
+type Node {
+    alt: String
+    gid: String
+    height: Int
+    id: String
+    src: String
+    type: String
+    width: Int
+}
+
+type Edge {
+    cursor: String
+    node: Node
+}
+
+type PageInfo {
+    hasNextPage: Boolean
+    hasPreviousPage: Boolean
+}
+
+type Images {
+    edges: [Edge]
+    pageInfo: PageInfo
+}
+
+type Option {
+    gid: String
+    handle: String
+    id: String
+    title: String
+    type: String
+    values: [String]
+}
+
+type MaxVariantPrice4 {
+
+    amount: String
+    currencyCode: String
+}
+
+type MinVariantPrice5 {
+
+    amount: String
+    currencyCode: String
+}
+
+type PriceRange {
+
+    maxVariantPrice: MaxVariantPrice4
+    minVariantPrice: MinVariantPrice5
+}
+
+type Image8 {
+
+    alt: String
+    gid: String
+    height: Int
+    id: String
+    src: String
+    type: String
+    width: Int
+}
+
+type PriceV2 {
+
+    amount: String
+    currencyCode: String
+}
+
+type SelectedOption {
+    handle: String
+    parent_handle: String
+    title: String
+    type: String
+}
+
+type UnitPriceMeasurement {
+
+    measuredType: JSON
+    quantityUnit: JSON
+    quantityValue: Int
+    referenceUnit: JSON
+    referenceValue: Int
+}
+
+type Node7 {
+
+    available: Boolean
+    compareAtPrice: JSON
+    compareAtPriceV2: JSON
+    currentlyNotInStock: Boolean
+    gid: String
+    id: String
+    image: Image8
+    inventoryQuantity: Int
+    price: String
+    priceV2: PriceV2
+    requiresShipping: Boolean
+    selectedOptions: [SelectedOption]
+    sku: String
+    title: String
+    type: String
+    unitPrice: JSON
+    unitPriceMeasurement: UnitPriceMeasurement
+    weight: Float
+}
+
+type Edge6 {
+
+    cursor: String
+    node: Node7
+}
+
+type PageInfo9 {
+    hasNextPage: Boolean
+    hasPreviousPage: Boolean
+}
+
+type Variants {
+    edges: [Edge6]
+    pageInfo: PageInfo9
+}
+
+type ProductByHandle {
+    available: Boolean
+    compareAtPriceRange: CompareAtPriceRange
+    createdAt: DateTime
+    description: String
+    descriptionHtml: String
+    gid: String
+    handle: String
+    id: String
+    image: Image
+    images: Images
+    onlineStoreUrl: String
+    options: [Option]
+    priceRange: PriceRange
+    productType: String
+    publishedAt: DateTime
+    tags: [String]
+    title: String
+    type: String
+    updatedAt: DateTime
+    variants: Variants
+    vendor: String
+}
+
+type Root {
+    productByHandle: ProductByHandle
+}
