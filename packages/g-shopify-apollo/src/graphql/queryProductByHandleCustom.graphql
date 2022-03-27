@@ -1,0 +1,25 @@
+query productByHandleCustom($handle: String!) {
+    productByHandle(handle: $handle) {
+        ...ProductFragment
+    }
+}
+
+query variantByProduct($handle: String!,$index: Int!) {
+    productByHandle(handle: $handle) {
+        handle
+        variants(first: $index ) {
+            edges {
+                node {
+                    id
+                    title
+                    quantityAvailable
+                    selectedOptions {
+                        parent_handle:name
+                        handle:value
+                        title:value
+                    }
+                }
+            }
+        }
+    }
+}

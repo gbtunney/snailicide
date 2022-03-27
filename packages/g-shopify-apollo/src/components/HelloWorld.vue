@@ -34,12 +34,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
+import {ProductVariant} from './../models';
 export default defineComponent({
   name: 'HelloWorld',
   props: {
     msg: String,
   },
+  setup(){
+    console.log("trying to load a variant!!!!!!!!!!!",ProductVariant())
+  }
 });
 </script>
 

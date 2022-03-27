@@ -13,6 +13,8 @@
     "lib:test": "yarn --cwd packages/g-library test:watch",
     "lib:build": "yarshopin --cwd packages/g-library build",
     "lib:docs": "yarn --cwd packages/g-library docs",
+    "ql": "yarn --cwd packages/g-shopify-apollo serve",
+    "ql:gen": "yarn --cwd packages/g-shopify-apollo codegen",
     "orm": "yarn --cwd packages/g-orm-next serve",
     "orm:gen": "yarn --cwd packages/g-orm-next codegen",
     "ui:test": "yarn --cwd packages/g-patternlab test:watch",
