@@ -1,6 +1,11 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <button @click="handle='balance'"> Balance</button>
+    <button @click="handle='local'"> local</button>
+    <button @click="handle='o-wash-fingering'"> o-wash-fingering</button>
+    <button @click="handle=undefined"> SET TO UNDEFINED!!</button>
+    <product-provider :handle="handle"/>
+    <hr>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -31,17 +36,20 @@
     </ul>
   </div>
 </template>
-
 <script lang="ts">
-import { defineComponent } from 'vue';
-import {ProductVariant} from './../models';
+import {defineComponent, ref} from 'vue';
+//import {ProductVariant} from './../models';
+import ProductProvider  from './ProductProvider.vue';
 export default defineComponent({
   name: 'HelloWorld',
   props: {
     msg: String,
   },
+  components:{ProductProvider},
   setup(){
-    console.log("trying to load a variant!!!!!!!!!!!",ProductVariant())
+    const handle = ref('balance')
+    console.log("trying to load a product!!!!!!!!!!!",handle.value)
+    return {handle}
   }
 });
 </script>

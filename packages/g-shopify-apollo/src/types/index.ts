@@ -21,5 +21,6 @@ export interface iStorefrontApiConfig {
     storefrontAccessToken: string;
     language?: string | undefined;
     version?: string
+    persist?:boolean
     logging?: boolean
 }

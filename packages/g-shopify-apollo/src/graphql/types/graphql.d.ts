@@ -6339,7 +6339,7 @@ export type VariantByProductQueryVariables = Exact<{
 }>;
 
 
-export type VariantByProductQuery = { __typename?: 'QueryRoot', productByHandle?: { __typename?: 'Product', handle: string, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, quantityAvailable?: number | null, selectedOptions: Array<{ __typename?: 'SelectedOption', parent_handle: string, handle: string, title: string }> } }> } } | null };
+export type VariantByProductQuery = { __typename?: 'QueryRoot', productByHandle?: { __typename?: 'Product', id: string, handle: string, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, quantityAvailable?: number | null, selectedOptions: Array<{ __typename?: 'SelectedOption', parent_handle: string, handle: string, title: string }> } }> } } | null };
 
 export type ProductNodeQueryQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -6587,6 +6587,7 @@ export const ProductByHandleCustom = gql`
 export const VariantByProduct = gql`
     query variantByProduct($handle: String!, $index: Int!) {
   productByHandle(handle: $handle) {
+    id
     handle
     variants(first: $index) {
       edges {
