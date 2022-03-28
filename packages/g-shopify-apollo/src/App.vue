@@ -1,17 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    ENTRY POINT!
+    <button @click="handle='balance'"> Balance</button>
+    <button @click="handle='local'"> local</button>
+    <button @click="handle='o-wash-fingering'"> o-wash-fingering</button>
+    <button @click="handle=undefined"> SET TO UNDEFINED!!</button>
+    <product-container :handle="handle"></product-container>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import {defineComponent} from 'vue';
+import ProductContainer from "./components/container/ProductContainer.vue"
+import {useProductByHandleCustomQuery} from "@/types/generated/storefront-types";
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
-  }
+    ProductContainer
+  },
+  data: () => {
+    return {
+      handle: "balance"
+    }
+  },
+  setup(){
+    const {result, loading, error, onResult} = useProductByHandleCustomQuery({handle:"local"})
+console.log("i am gillianjkkjkjkjkjk", result)
+  },
 });
 </script>
 

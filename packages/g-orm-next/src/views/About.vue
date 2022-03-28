@@ -12,10 +12,7 @@ const handle = ref('balance')
     <button @click="handle='balance'"> Balance</button>
     <button @click="handle='local'"> local</button>
     <button @click="handle='o-wash-fingering'"> o-wash-fingering</button>
-
     <button @click="handle=undefined"> SET TO UNDEFINED!!</button>
-
-
     <product-provider :handle="handle"/>
   </div>
 </template>

@@ -1,5 +1,5 @@
 import { ref, Ref, toRefs, watch} from "vue";
-import {useResult, UseQueryOptions} from "@vue/apollo-composable";
+import {useResult, UseQueryOptions,useApolloClient} from "@vue/apollo-composable";
 import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
 import {SetOptional,Mutable} from 'type-fest';
 import {useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
@@ -8,8 +8,10 @@ import {ProductByHandleCustomQuery,ProductByHandleCustomQueryVariables,ProductBy
 
 export const useProductByHandleLoader = ( props: { handle?: string })=>{
     const {handle = ref(undefined)} = toRefs(props)
-    const enabled = controlledRef(true, {
+    const enabled = controlledRef(false, {
         onChanged(value, oldValue) {
+            console.warn("enabled changesd", value)
+
             options.value = getQueryOptions(value)
         }
     })
@@ -19,20 +21,25 @@ export const useProductByHandleLoader = ( props: { handle?: string })=>{
     const options: Record<string, any> = ref({enabled: false})
 
     const query_payload = ref({handle: "local"})
-   const {result, loading, error, onResult} = useProductByHandleCustomQuery(query_payload, options)
+
+    const client = useApolloClient().resolveClient
+    //debugger;
+   const {result, loading, error, onResult} = useProductByHandleCustomQuery(query_payload)
 
     onResult((value)=>{
         console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
     })
     whenever(handle, (value: string, callback: (value: ProductByHandleCustomQueryVariables) => void) => {
-        enabled.value = true
-        query_payload.value = {handle: value}
+           // console.warn("handle changed !!!!!!!!!!", value)
+
+       // enabled.value = true
+        //query_payload.value = {handle: value}
     })
-    return {result}
-/*
+    //return {result}
+
     const productQueryResult = useResult(result, undefined)
     onResult((value) => {
-        //   console.warn("query updates", value)
+          console.warn("query updates", value)
     })
     whenever(productQueryResult, (value) => {
         console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
@@ -46,7 +53,7 @@ export const useProductByHandleLoader = ( props: { handle?: string })=>{
     watch(handle, (value) => {
         if ( value !== undefined ){enabled.value = true;query_payload.value = {"handle": value }}
         //  console.log("handle history", handle.value, getquery()({handle:'balance'}))
-    }, {immediate: true})*/
+    }, {immediate: true})
 
 }
 

@@ -11,6 +11,9 @@ export interface IShopifyBuyState {
 }
 
 export interface IStoreFrontApiConfig extends ShopifyBuy.Config {
+    domain: string;
+    storefrontAccessToken: string;
+    language?: string | undefined;
     version?: string
     logging?: boolean
 }
@@ -28,7 +31,9 @@ export const createApolloHttpLink = (payload: IStoreFrontApiConfig) => {
 }
 export const createApolloClient = (payload: IStoreFrontApiConfig) => {
     return new ApolloClient({
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache(
+
+        ),
         link: from([
             // useProductParsing(),
             useApolloLogging(payload.logging, payload.logging),

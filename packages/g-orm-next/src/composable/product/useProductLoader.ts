@@ -43,7 +43,7 @@ export const useProductLoader = (props: { handle?: string }) => {
     })
     whenever(productQueryResult, (value: Mutable<ProductByHandleQuery["productByHandle"]>) => {
         console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
-        ProductRepository.save({...value}) //(value)
+       // ProductRepository.save({...value}) //(value)
     })
     whenever(handle, (value: string, callback: (value: ProductByHandleQueryVariables) => void) => {
         enabled.value = true
