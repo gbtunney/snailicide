@@ -1,17 +1,17 @@
-import { ref, Ref, toRefs, watch} from "vue";
-import {useResult, UseQueryOptions,useApolloClient} from "@vue/apollo-composable";
+import {ref, Ref, toRefs, watch} from "vue";
+import {useResult, UseQueryOptions} from "@vue/apollo-composable";
 import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
-import {SetOptional,Mutable} from 'type-fest';
+import {SetOptional, Mutable} from 'type-fest';
 import {useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
-//types..
-import {ProductByHandleCustomQuery,ProductByHandleCustomQueryVariables,ProductByHandleData} from './../../types';
+import {ProductByHandleCustomQuery, ProductByHandleCustomQueryVariables, ProductByHandleData} from './../../types';
+import Product, {ProductModel} from "../../models/Product";
 
-export const useProductByHandleLoader = ( props: { handle?: string })=>{
-    const {handle = ref(undefined)} = toRefs(props)
+export const useProductByHandleLoader = (props: { handle: string }) => {
+    const product: Ref<ProductModel | undefined> = ref(undefined)
+    const useProductTest = Product()
+    const {handle = ref("not set")} = toRefs(props)
     const enabled = controlledRef(false, {
         onChanged(value, oldValue) {
-            console.warn("enabled changesd", value)
-
             options.value = getQueryOptions(value)
         }
     })
@@ -19,42 +19,27 @@ export const useProductByHandleLoader = ( props: { handle?: string })=>{
         return {enabled}
     }
     const options: Record<string, any> = ref({enabled: false})
-
-    const query_payload = ref({handle: "local"})
-
-    const client = useApolloClient().resolveClient
-    //debugger;
-   const {result, loading, error, onResult} = useProductByHandleCustomQuery(query_payload)
-
-    onResult((value)=>{
-        console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
-    })
-    whenever(handle, (value: string, callback: (value: ProductByHandleCustomQueryVariables) => void) => {
-           // console.warn("handle changed !!!!!!!!!!", value)
-
-       // enabled.value = true
-        //query_payload.value = {handle: value}
-    })
-    //return {result}
-
+    const query_payload = ref({handle: handle})
+    const {result, loading, error, onResult} = useProductByHandleCustomQuery(query_payload, options)
     const productQueryResult = useResult(result, undefined)
-    onResult((value) => {
-          console.warn("query updates", value)
-    })
+
     whenever(productQueryResult, (value) => {
-        console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
-        // ProductRepository.save({...value}) //(value)
+        const _product = useProductTest.create(value)
+        product.value = _product
+        console.warn("productQueryResult UPDATED!!!!!!!!!!", _product, _product?.cacheID)
     })
-    whenever(handle, (value: string, callback: (value: ProductByHandleCustomQueryVariables) => void) => {
-        enabled.value = true
-        query_payload.value = {handle: value}
-    })
-
     watch(handle, (value) => {
-        if ( value !== undefined ){enabled.value = true;query_payload.value = {"handle": value }}
-        //  console.log("handle history", handle.value, getquery()({handle:'balance'}))
+        if (value !== undefined) {
+            enabled.value = true;
+            query_payload.value = {"handle": value}
+        }
+        if (value === undefined) {
+            enabled.value = false;
+            product.value = undefined
+            query_payload.value = {"handle": "not set"}
+        }
     }, {immediate: true})
-
+    return {product}
 }
 
 export default useProductByHandleLoader

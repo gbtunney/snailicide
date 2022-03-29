@@ -14,7 +14,7 @@ const props = withDefaults(
       variant_id?: string | number
 
     }>(), {
-      handle: 'local',
+      handle: undefined,
       variant_id: 1
     })
 
@@ -22,11 +22,11 @@ watch(props,(value)=>{
   console.warn("watch :value",value)
 })
 const {handle}= toRefs(props)
-const loader = useProductByHandleLoader(props)
+const {product} = useProductByHandleLoader(props)
 //const Product = useProduct(props)
 </script>
 <template>
-  <div class="product container">
-    <h1>I am the product container {{handle}}</h1>
+  <div class="product container" v-if="product">
+    <h1>I am the product container {{handle}}{{product}}</h1>
   </div>
 </template>

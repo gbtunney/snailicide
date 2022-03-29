@@ -21,12 +21,8 @@ export default defineComponent({
   },
   data: () => {
     return {
-      handle: "balance"
+      handle: undefined
     }
-  },
-  setup(){
-    const {result, loading, error, onResult} = useProductByHandleCustomQuery({handle:"local"})
-console.log("i am gillianjkkjkjkjkjk", result)
   },
 });
 </script>

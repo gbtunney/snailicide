@@ -2,6 +2,9 @@ overwrite: true
 schema: "src/graphql/schema/shopify-storefront.json"
 documents: "src/graphql/*.graphql"
 generates:
+  src/types/generated/apollo-helpers.ts:
+    plugins:
+      - typescript-apollo-client-helpers
   src/types/generated/storefront-types.ts:
     config:
       withCompositionFunctions: true

@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@gabrielurbina/type-guard": "^0.1.9",
+    "@graphql-codegen/typescript-apollo-client-helpers": "^2.1.15",
     "@snailicide/g-library": "^1.0.0",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@vue/apollo-option": "^4.0.0-alpha.16",
