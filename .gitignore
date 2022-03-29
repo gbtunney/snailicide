@@ -107,11 +107,8 @@ dist
 compiler.0a41ffdd.js
 apps/styleguide/styleguide/build/
 tailwindDump.json
-services/o-wool-2022/shopify/assets/
-apps/owool/shopify/assets
 apps/backstop/backstop_data
 apps/styleguide/styleguide
-script-tag.liquid
 apps/petlogger/example
 scratch
 archived/backstop/backstop_data
