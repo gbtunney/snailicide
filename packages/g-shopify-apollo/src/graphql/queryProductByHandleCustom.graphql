@@ -26,3 +26,11 @@ query variantByProduct($handle: String!,$index: Int!) {
         }
     }
 }
+
+query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
+    productByHandle(handle: $handle) {
+        variantBySelectedOptions(selectedOptions:$selectedOptions){
+            ...ProductVariantFragment
+        }
+    }
+}

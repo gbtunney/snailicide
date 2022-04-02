@@ -2,10 +2,17 @@ import {ApolloClient, from, gql} from "@apollo/client/core";
 import {iStorefrontApiConfig} from "./../types";
 import {useCache, createApolloHttpLink, useApolloLogging} from ".";
 import {cleanBooleanType} from "@snailicide/g-library";
-import {ProductOptionValueFragmentDoc} from './../types/generated/storefront-types'
+import {ProductOptionFragmentDoc, ProductOptionValueFragmentDoc} from './../types/generated/storefront-types'
 
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
-const typeDefs = ProductOptionValueFragmentDoc
+const typeDefs = gql`
+    extend type ProductOption {
+        gid: String
+        test:String
+        handle:String
+        isLoggedIn:Boolean!
+    }
+`
 export const createApolloClient = (payload: iStorefrontApiConfig) => {
     const {cache} = useCache({persist: payload.persist})
     /* return new Promise((resolve, reject) => {
@@ -22,8 +29,10 @@ export const createApolloClient = (payload: iStorefrontApiConfig) => {
         })
     });*/
     return new ApolloClient({
+        //sresolvers:
         typeDefs,
         cache,
+
         link: from([
             useApolloLogging(payload.logging, payload.logging),
             createApolloHttpLink(payload)

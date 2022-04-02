@@ -1,5 +1,5 @@
 import {ref, Ref, toRefs, watch} from "vue";
-import {useResult, UseQueryOptions} from "@vue/apollo-composable";
+import {useResult, UseQueryOptions,useMutation} from "@vue/apollo-composable";
 import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
 import {useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
 import {
@@ -56,7 +56,7 @@ export const useProductByHandleLoader = (props: { handle: string }) => {
             query_payload.value = {"handle": "not set"}
         }
     }, {immediate: true})
-    return {product}
+    return {product, loading, error }
 }
 
 export default useProductByHandleLoader

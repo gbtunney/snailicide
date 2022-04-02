@@ -1,6 +1,19 @@
 <script lang="ts" setup>
-import {Component,toRefs, defineComponent, withDefaults, computed, defineProps, watch,defineEmits, Ref, ref, ComputedRef} from "vue";
-import {useProductByHandleLoader} from './../../operations/queries/useProductByHandleLoader';
+import {
+  Component,
+  toRefs,
+  defineComponent,
+  withDefaults,
+  computed,
+  defineProps,
+  watch,
+  defineEmits,
+  Ref,
+  ref,
+  ComputedRef
+} from "vue";
+import {useProduct} from './../../operations/queries/useProduct';
+
 const props = withDefaults(
     defineProps<{
       /**
@@ -18,15 +31,17 @@ const props = withDefaults(
       variant_id: 1
     })
 
-watch(props,(value)=>{
-  console.warn("watch :value",value)
+watch(props, (value) => {
+  console.warn("watch :value", value)
 })
-const {handle}= toRefs(props)
-const {product} = useProductByHandleLoader(props)
-//const Product = useProduct(props)
+const {handle} = toRefs(props)
+const {Product, loading, Variants, Options, OptionValues} = useProduct(props)
 </script>
 <template>
-  <div class="product container" v-if="product">
-    <h1>I am the product container {{handle}}{{product}}</h1>
+  <div class="product container">
+    HIHIHHIz LOADING :<h2>{{ loading }}</h2>
+    <div v-if="Product">
+      <h1>I am the product container {{ handle }}{{ Options }}</h1>
+    </div>
   </div>
 </template>

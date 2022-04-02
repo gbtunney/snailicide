@@ -6341,6 +6341,14 @@ export type VariantByProductQueryVariables = Exact<{
 
 export type VariantByProductQuery = { __typename?: 'QueryRoot', productByHandle?: { __typename?: 'Product', id: string, handle: string, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, quantityAvailable?: number | null, selectedOptions: Array<{ __typename?: 'SelectedOption', parent_handle: string, handle: string, title: string }> } }> } } | null };
 
+export type VariantBySelectedOptionsQueryVariables = Exact<{
+  handle: Scalars['String'];
+  selectedOptions: Array<SelectedOptionInput> | SelectedOptionInput;
+}>;
+
+
+export type VariantBySelectedOptionsQuery = { __typename?: 'QueryRoot', productByHandle?: { __typename?: 'Product', variantBySelectedOptions?: { __typename?: 'ProductVariant', id: string, title: string, weight?: number | null, sku?: string | null, currentlyNotInStock: boolean, requiresShipping: boolean, price: any, compareAtPrice?: any | null, type: 'ProductVariant', gid: string, available: boolean, inventoryQuantity?: number | null, image?: { __typename?: 'Image', id?: string | null, width?: number | null, height?: number | null, type: 'Image', gid?: string | null, src: any, alt?: string | null } | null, selectedOptions: Array<{ __typename?: 'SelectedOption', type: 'SelectedOption', parent_handle: string, handle: string, title: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPrice?: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } | null, unitPriceMeasurement?: { __typename?: 'UnitPriceMeasurement', measuredType?: UnitPriceMeasurementMeasuredType | null, quantityUnit?: UnitPriceMeasurementMeasuredUnit | null, quantityValue: number, referenceUnit?: UnitPriceMeasurementMeasuredUnit | null, referenceValue: number } | null } | null } | null };
+
 export type ProductNodeQueryQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -6407,6 +6415,7 @@ declare module '*/queryProductByHandleCustom.graphql' {
   const defaultDocument: DocumentNode;
   export const productByHandleCustom: DocumentNode;
 export const variantByProduct: DocumentNode;
+export const variantBySelectedOptions: DocumentNode;
 
   export default defaultDocument;
 }
@@ -6606,6 +6615,15 @@ export const VariantByProduct = gql`
   }
 }
     `;
+export const VariantBySelectedOptions = gql`
+    query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
+  productByHandle(handle: $handle) {
+    variantBySelectedOptions(selectedOptions: $selectedOptions) {
+      ...ProductVariantFragment
+    }
+  }
+}
+    ${ProductVariantFragment}`;
 export const ProductNodeQuery = gql`
     query productNodeQuery($id: ID!) {
   node(id: $id) {

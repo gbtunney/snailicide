@@ -1,45 +1,91 @@
-import {InMemoryCache, TypePolicies ,gql, HttpLink, from, makeVar, makeReference} from '@apollo/client/core'
+import {
+    InMemoryCache,
+    TypePolicies,
+    gql,
+    ReactiveVar,
+    HttpLink,
+    from,
+    makeVar,
+    makeReference
+} from '@apollo/client/core'
 import {persistCache, LocalStorageWrapper} from 'apollo3-cache-persist';
-import {isDefined, Guard} from '@gabrielurbina/type-guard'
 import {iStorefrontApiConfig} from "./../types";
-import { StrictTypedTypePolicies } from './../types/generated/apollo-helpers'
+import {StrictTypedTypePolicies} from './../types/generated/apollo-helpers'
 import {slugify} from "@snailicide/g-library";
-import {Product} from "@/types/generated/storefront-types";
+import {
+    Product,
+    ProductOption,
+} from "@/types/generated/storefront-types";
 
-//TODO: policites seem to be broke now so idk why
-const typePolicies:TypePolicies = {
-    // Keys in this object will be validated against the types on your schema
+export const isLoggedInVar = makeVar<boolean>(!!localStorage.getItem('token'));
+export type TProductOptionValueFragment = {
+
+    __typename?: 'SelectedOption',
+    type: 'SelectedOption',
+    parent_handle: string,
+    handle: string,
+    title: string
+};
+
+const typePolicies: TypePolicies = {
+    ProductOption: {
+        fields: {
+            values: {
+                read(value: ProductOption["values"], options) {
+                    const name: string | undefined = options.readField("name")
+                    if (name !== undefined) {
+                        const values = value.map((_value) => {
+                            return {
+                                __typename: 'SelectedOption',
+                                type: 'SelectedOption',
+                                parent_handle: name,
+                                handle: slugify(_value),
+                                title: _value,
+
+                                name: name,
+                                value: _value
+                            }
+                        })
+                        return values
+                    }
+                    return undefined
+                }
+            },
+            isLoggedIn: {
+                read() {
+                    return isLoggedInVar();
+                }
+            },
+            name: {
+                read(value, options) {
+                    console.log("FIELD", options.field)
+                    return value//"testtt"
+                }
+            },
+            handle: {
+                read(value: ProductOption, options) {
+                    const name: string | undefined = options.readField("name")
+                    if (name !== undefined) return slugify(name)
+                    return undefined
+                }
+            }
+        }
+    },
     Product: {
-        keyFields: ['id'] ,// Values in this field will be validated against the available fields from the Product type
         fields: {
             variants: {
-                read(value:Product["variants"], options) {
-                  console.error("truing to read variantsssss", value)
-                   return value.edges.map((item)=> item.node)
+                read(value: Product["variants"], options) {
+                    const variants = value.edges.map((item) => item.node)
+                    return value.edges.map((item) => item.node)
                 }
             },
-            title: {
-                read(value, options) {
-                    return value//makeVar(value);
-                }
-            },
-        },
+        }
     },
-    SelectedOption: {
+    Query: {
         fields: {
-            parent_handle: {
-                read(value, options) {
-                    console.error("valyyyyy red ",  options.readField(value))
-                    return slugify(value)//makeVar(value);
-                }
-            },
-        },
-    },
-    Query:{
-        fields:{
-            productByHandle:{
-                read(product, options) {
-                  console.log("identitttt",makeVar(product)) // product.valueOf()
+            productByHandleCustom: {
+                read(value) {
+                    console.error("truing to read variantsssss", value);
                 }
             }
         }
