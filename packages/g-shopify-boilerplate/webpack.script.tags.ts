@@ -1,9 +1,10 @@
-const CopyPlugin = require("copy-webpack-plugin");
+const RA = require("ramda-adjunct")
+const ensureArray = RA.ensureArray
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const glob = require("glob");
+const CopyPlugin = require('copy-webpack-plugin')
 
-const base_directory = path.dirname("index.ts")
 const getFileArr = function (_globpath: string) {
     return glob.sync(_globpath).map(function (_path: string) {
         const regex: RegExp = /[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/;
@@ -17,50 +18,83 @@ const getFileArr = function (_globpath: string) {
     });
 };
 
-const config_options = {
-    input_template: path.resolve(__dirname, "public/template-script-tag.liquid"),
-    output_filename: path.resolve(
-        __dirname,
-        "shopify/snippets/script-tag.liquid"
-    ),
-    directory_js: path.resolve(__dirname, "dist/js/*.js"),
-    directory_css: path.resolve(__dirname, "dist/css/*.css"),
-};
+type Pattern = {
+    from: string | string[]
+    to: string,
+}
 
-const {
-    output_filename: filename,
-    input_template: template,
-    directory_js,
-    directory_css,
-} = config_options;
+type ShopifyBoilerplateConfig = {
+    script_tag: {
+        input_template: string
+        output: string,
+        build: {
+            js: string
+            css: string
+        }
+        copy: boolean
+    }
+    assets: Pattern[]
+}
 
-const options = {
+const CONFIG: ShopifyBoilerplateConfig = {
+    script_tag: {
+        input_template: "build/template/template-script-tag.liquid",
+        output: "shopify/snippets/script-tag.liquid",
+        build: {
+            js: "dist/js/*.js",
+            css: "dist/css/*.css",
+        },
+        copy: true
+    },
+    assets: [
+        {
+            from: ["dist/js/*.js", "dist/css/*.css"],
+            to: "shopify/assets/[name][ext]"
+        },
+        {
+            from: ["src/assets/**/*"],
+            to: "shopify/assets/[name][ext]"
+        },
+        {
+            from: ["src/assets/**/*.liquid"],
+            to: "shopify/snippets/[name][ext]"
+        }]
+}
+
+const script_tag_options = {
     inject: false,
     minify: false,
-    template,
-    filename,
-    files_js: getFileArr(directory_js),
-    files_css: getFileArr(directory_css),
+    template: path.resolve(__dirname, CONFIG.script_tag.input_template),
+    filename: path.resolve(__dirname, CONFIG.script_tag.output),
+    files_js: getFileArr(path.resolve(__dirname, CONFIG.script_tag.build.js)),
+    files_css: getFileArr(path.resolve(__dirname, CONFIG.script_tag.build.css)),
 }
+
+const getAssetPatterns = (config: ShopifyBoilerplateConfig): Pattern[] => {
+    let assetArr: Pattern[][] = (config.assets) ? config.assets.map((asset) => {
+        const sources: string[] = ensureArray(asset.from)
+        return sources.map((item) => {
+            return getCopyPattern(item, asset.to)
+        })
+    }) : []
+    return assetArr.reduce((accumulator, currentValue, currentIndex, array) => {
+        return [...accumulator, ...ensureArray(currentValue)]
+    }, []);
+}
+
+const getCopyPattern = (from: string, to: string): Pattern => {
+    return {
+        from: path.resolve(__dirname, from),
+        to: path.resolve(__dirname, to),
+    }
+}
+
 module.exports = {
     entry: path.resolve(__dirname, "index.ts"),
     plugins: [
-        new HtmlWebpackPlugin(options),
+        new HtmlWebpackPlugin(script_tag_options),
         new CopyPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, "dist/css/*.css"),
-                    to: path.resolve(__dirname, "shopify/assets/[name][ext]"),
-                },
-                {
-                    from: path.resolve(__dirname, "dist/js/*.js"),
-                    to: path.resolve(__dirname, "shopify/assets/[name][ext]"),
-                },
-                {
-                    from: path.resolve(__dirname, "src/assets/**/*"),
-                    to: path.resolve(__dirname, "shopify/assets/[name][ext]"),
-                },
-            ],
+            patterns: getAssetPatterns(CONFIG)
         }),
     ],
 };

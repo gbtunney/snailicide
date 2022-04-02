@@ -3208,6 +3208,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/copy-webpack-plugin@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@types/copy-webpack-plugin/-/copy-webpack-plugin-10.1.0.tgz#5e7e5d44f58530bbb0e39cc01f83fc91aa484387"
+  integrity sha512-Dk0NUW3X6hVQdkH2n9R7NejjPNCocZBiv8XF8Ac5su2d6EKzCcG/yWDwnWGrEsAWvogoADJyUKULwncx0G9Jkg==
+  dependencies:
+    copy-webpack-plugin "*"
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.3.tgz#125b88504b61e3c8bc6f870882003253005c3224"
@@ -7311,7 +7318,7 @@ copy-to-clipboard@^3.3.1:
   dependencies:
     toggle-selection "^1.0.6"
 
-copy-webpack-plugin@^10.2.4:
+copy-webpack-plugin@*, copy-webpack-plugin@^10.2.4:
   version "10.2.4"
   resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-10.2.4.tgz#6c854be3fdaae22025da34b9112ccf81c63308fe"
   integrity sha512-xFVltahqlsRcyyJqQbDY6EYTtyQZF9rf+JPjwHObLdPFMEISqkFkr7mFoVOC6BfYS/dNThyoQKvziugm+OnwBg==

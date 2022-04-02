@@ -29,15 +29,15 @@ if (process.env.NODE_ENV !== 'production'  ) {
       patterns: [
         {
           from: path.resolve(__dirname, "dist/css/*.css"),
-          to: path.resolve(__dirname, "shopify/assets/[name].[ext]"),
+          to: path.resolve(__dirname, "shopify/assets/[name][ext]"),
         },
         {
           from: path.resolve(__dirname, "dist/js/*.js"),
-          to: path.resolve(__dirname, "shopify/assets/[name].[ext]"),
+          to: path.resolve(__dirname, "shopify/assets/[name][ext]"),
         },
         {
           from: path.resolve(__dirname, "src/assets/**/*"),
-          to: path.resolve(__dirname, "shopify/assets/[name].[ext]"),
+          to: path.resolve(__dirname, "shopify/assets/[name][ext]"),
         },
       ],
     }),
