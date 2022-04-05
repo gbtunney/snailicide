@@ -6,6 +6,31 @@ import {ProductOptionFragmentDoc, ProductOptionValueFragmentDoc} from './../type
 
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
 const typeDefs = gql`
+    
+    extend input VariantOptionFilter {
+        index:Int!
+    }
+    query gillianTest($handle: String!, $index:Int!) {
+        productByHandle(handle: $handle) {
+            
+            variantBySelectedOptions(selectedOptions:$selectedOptions){
+                ...ProductVariantFragment
+            }
+        }
+    }
+extend type Product {
+    variant:ProductVariant
+}
+    query testme ($handle: String!, $index:Int!){
+        ...on QueryRoot{
+           product :productByHandle(handle: $handle){
+               variant
+           }
+        }
+    }
+ 
+   
+    
     extend type ProductOption {
         gid: String
         test:String

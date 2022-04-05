@@ -12,6 +12,9 @@ export const isValidShopifyApiNode = <T>(node: T): node is T => {
     }));
     return isApiNode(node)
 }
+const test :{
+    __typename :ApiNodeTypes
+} = {__typename:"Producffft"}
 
 export type Model<T extends ModelTypes, T2> = {
     create: (value: T) => ModelExtended<T2>

@@ -51,21 +51,31 @@ export const useProduct = (props: { handle: string }) => {
             const options = product.value.options.map((_option) => {
                 const id = `ProductOption:${_option.id}`
                 const fragment = gql`
+                    query productOption{
+                        __typename
+                    }
                     fragment ProductOption on ProductOption {
                         id
+                        id:gid
                         handle
                         values
                         test:name
+
                         isLoggedIn
                     }
                 `;
                 const __option: {
+                    __typename: "ProductOption"
                     id: string
                     handle: string
                     test: string
                     isLoggedIn: ReactiveVar<boolean>
-                } | null = useApolloClient().client.cache.readFragment({id, fragment})
-                console.log("__option is", __option)
+                } | null =
+                    useApolloClient()
+                        //  .client.cache.identify({__typename:'ProductOption'})
+                        .client.cache.readFragment({id, fragment, variables: {testing: "gilliiii"}},)
+                console.log("__option is", __option, useApolloClient()
+                    .client.cache.read({id: `ProductOption:${_option.id}`}))
                 if (__option) {
                     //  __option.isLoggedIn=  makeVar(true)// makeVar<boolean>(true);
                     console.log("__option is", __option.isLoggedIn)

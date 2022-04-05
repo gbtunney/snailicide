@@ -1108,7 +1108,7 @@ export type ProductFieldPolicy = {
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	collections?: FieldPolicy<any> | FieldReadFunction<any>,
 	compareAtPriceRange?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?:  FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
 	descriptionHtml?: FieldPolicy<any> | FieldReadFunction<any>,
 	featuredImage?: FieldPolicy<any> | FieldReadFunction<any>,

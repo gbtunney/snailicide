@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
+    "@shopify/admin-graphql-api-utilities": "^1.0.9",
     "@types/copy-webpack-plugin": "^10.1.0",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@vue/apollo-option": "^4.0.0-alpha.16",
