@@ -3,13 +3,10 @@ import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} 
 import useProductByHandleLoader from "./useProductByHandleLoader";
 import {ProductExtended} from "./../../models/Product";
 import {useApolloClient} from "@vue/apollo-composable";
-import {
-    gql,
-    ReactiveVar,
-} from '@apollo/client/core'
 
 //this is a demao.
 import {isLoggedInVar} from "@/apollo/cache";
+import {ProductOptionFragment, ProductOptionFragmentDoc} from "./../../types/generated/storefront-types";
 
 export const useProduct = (props: { handle: string }) => {
     const {product, loading, error} = useProductByHandleLoader(props)
@@ -49,40 +46,21 @@ export const useProduct = (props: { handle: string }) => {
         if (!isReady.value) return undefined
         if (product.value) {
             const options = product.value.options.map((_option) => {
+                if (_option.id === undefined || _option.id === null) return undefined
                 const id = `ProductOption:${_option.id}`
-                const fragment = gql`
-                    query productOption{
-                        __typename
-                    }
-                    fragment ProductOption on ProductOption {
-                        id
-                        id:gid
-                        handle
-                        values
-                        test:name
-
-                        isLoggedIn
-                    }
-                `;
-                const __option: {
-                    __typename: "ProductOption"
-                    id: string
-                    handle: string
-                    test: string
-                    isLoggedIn: ReactiveVar<boolean>
-                } | null =
-                    useApolloClient()
-                        //  .client.cache.identify({__typename:'ProductOption'})
-                        .client.cache.readFragment({id, fragment, variables: {testing: "gilliiii"}},)
-                console.log("__option is", __option, useApolloClient()
-                    .client.cache.read({id: `ProductOption:${_option.id}`}))
-                if (__option) {
-                    //  __option.isLoggedIn=  makeVar(true)// makeVar<boolean>(true);
-                    console.log("__option is", __option.isLoggedIn)
-                    localStorage.setItem('token', "jkjkjkjkkjjk")
-                    isLoggedInVar(true);
+                const fragment = ProductOptionFragmentDoc
+                if (_option.id !== undefined || _option.id !== null) {
+                    const query = useApolloClient()
+                        .client.cache.readFragment<ProductOptionFragment>({id, fragment})
+                    return query
                 }
-                return __option
+                return undefined
+                /* if (__option) {
+                     //  __option.isLoggedIn=  makeVar(true)// makeVar<boolean>(true);
+                     console.log("__option is", __option.isLoggedIn)
+                     localStorage.setItem('token', "jkjkjkjkkjjk")
+                     isLoggedInVar(true);
+                 }*/
             })
             return options
         }

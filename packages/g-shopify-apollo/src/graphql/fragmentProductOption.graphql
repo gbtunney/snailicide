@@ -2,6 +2,7 @@ fragment ProductOptionFragment on ProductOption{
     type:__typename
     id
     gid:id
+    sid:id
     title:name
     handle:name
     values

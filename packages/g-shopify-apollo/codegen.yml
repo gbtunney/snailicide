@@ -8,8 +8,10 @@ generates:
   src/types/generated/storefront-types.ts:
     config:
       withCompositionFunctions: true
+      nonOptionalTypename: true
       vueCompositionApiImportFrom: vue
       dedupeOperationSuffix: true
+      avoidOptionals: true
       scalars:
         DateTime: Date
         NodeDescription: NodeDescription
