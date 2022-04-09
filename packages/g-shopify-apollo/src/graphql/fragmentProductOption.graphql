@@ -1,16 +1,13 @@
 fragment ProductOptionFragment on ProductOption{
-    type:__typename
     id
-    gid:id
-    sid:id
     title:name
-    handle:name
     values
 }
 fragment ProductOptionValueFragment on SelectedOption
 {
-    type:__typename
     parent_handle:name
     handle:value
     title:value
 }
+
+

@@ -13,7 +13,7 @@ import {
   ComputedRef
 } from "vue";
 import {useProduct} from './../../operations/queries/useProduct';
-
+import SimpleSelect from './../ui/SimpleSelect.vue';
 const props = withDefaults(
     defineProps<{
       /**
@@ -30,18 +30,23 @@ const props = withDefaults(
       handle: undefined,
       variant_id: 1
     })
-
+//defineComponent(SimpleSelect)
 watch(props, (value) => {
   console.warn("watch :value", value)
 })
+
 const {handle} = toRefs(props)
-const {Product, loading, Variants, Options, OptionValues} = useProduct(props)
+const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVariant} = useProduct(props)
 </script>
 <template>
   <div class="product container">
     HIHIHHIz LOADING :<h2>{{ loading }}</h2>
     <div v-if="Product">
-      <h1>I am the product container {{ handle }}{{ Options }}</h1>
+      {{Variants}}
+      <div v-for="(option,index) in Options" :key="index">
+        <h2>{{option.title}}</h2>
+        <SimpleSelect @change="test()" :options="option.values"></SimpleSelect>
+      </div>
     </div>
   </div>
 </template>

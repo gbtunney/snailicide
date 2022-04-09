@@ -3,14 +3,36 @@ import App from './App.vue'
 import {gShopify} from './plugin/gShopify'
 import {iStorefrontApiConfig} from "./types";
 import {cleanBooleanType} from "@snailicide/g-library";
+import {LocalStorageWrapper, persistCache} from "apollo3-cache-persist";
+import {useCache} from "./apollo";
 
 const options: iStorefrontApiConfig = {
     domain: process.env.VUE_APP_SHOPIFY_DOMAIN,
     storefrontAccessToken: process.env.VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     version: process.env.VUE_APP_SHOPIFY_STOREFRONT_VERSION,
-    persist: process.env.VUE_APP_APOLLO_PERSIST_CACHE, //todo: these env variables come in as strings :(
-    logging: process.env.VUE_APP_APOLLO_OPERATION_LOGGING
+    persist: cleanBooleanType( process.env.VUE_APP_APOLLO_PERSIST_CACHE ) as boolean, //todo: these env variables come in as strings :(
+    logging: process.env.VUE_APP_APOLLO_OPERATION_LOGGING,
+    cache:useCache()
 }
-createApp(App)
-    .use(gShopify, options)
-    .mount('#app')
+const mountApp = (options: iStorefrontApiConfig) => {
+    createApp(App)
+        .use(gShopify, options)
+        .mount('#app')
+}
+if (options.persist) {
+    persistCache({
+        cache: options.cache,
+        storage: new LocalStorageWrapper(window.localStorage),
+    }).then(() => {
+        if (options.cache) {
+            console.warn("calling   option", options.cache)
+
+            mountApp(options)
+        }
+
+    })
+} else {
+    console.warn("calling no promise      option")
+
+    mountApp(options)
+}

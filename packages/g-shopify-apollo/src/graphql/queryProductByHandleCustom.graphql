@@ -27,6 +27,10 @@ query variantByProduct($handle: String!,$index: Int!) {
     }
 }
 
+extend type QueryRoot {
+    variant(index:Int) : String
+}
+
 query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
     productByHandle(handle: $handle) {
         variantBySelectedOptions(selectedOptions:$selectedOptions){
@@ -34,3 +38,4 @@ query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOpti
         }
     }
 }
+

@@ -9,6 +9,7 @@ import type {
     ProductFragment as ProductFragmentRaw,
     ProductVariantFragment as ProductVariantFragmentRaw
 } from './generated/storefront-types'
+import {InMemoryCache} from "@apollo/client/core";
 
 export type {
     PriceRangeFragment,
@@ -44,4 +45,5 @@ export interface iStorefrontApiConfig {
     version?: string
     persist?: boolean
     logging?: boolean
+    cache:InMemoryCache
 }

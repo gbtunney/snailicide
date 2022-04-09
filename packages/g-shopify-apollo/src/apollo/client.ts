@@ -1,63 +1,66 @@
 import {ApolloClient, from, gql} from "@apollo/client/core";
+import {
+    InMemoryCache,
+
+} from '@apollo/client/core'
 import {iStorefrontApiConfig} from "./../types";
 import {useCache, createApolloHttpLink, useApolloLogging} from ".";
-import {cleanBooleanType} from "@snailicide/g-library";
 import {ProductOptionFragmentDoc, ProductOptionValueFragmentDoc} from './../types/generated/storefront-types'
-
+import cache from "@/apollo/cache";
+// varianttest(
+//             "Identifier for the metafield (maximum of 30 characters)."
+//             index: Int!,
+//
+//         ): ProductVariant
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
 const typeDefs = gql`
-    
     extend input VariantOptionFilter {
         index:Int!
     }
     query gillianTest($handle: String!, $index:Int!) {
         productByHandle(handle: $handle) {
-            
             variantBySelectedOptions(selectedOptions:$selectedOptions){
                 ...ProductVariantFragment
             }
         }
     }
-extend type Product {
-    variant:ProductVariant
-}
-    query testme ($handle: String!, $index:Int!){
-        ...on QueryRoot{
-           product :productByHandle(handle: $handle){
-               variant
-           }
+    type Person {
+        name: String!
+    }
+    extend type Person {
+        salary: Int
+    }
+    extend type QueryRoot {
+        person: Person
+    }
+    query person{
+        person {
+            name
+            __typename
+            salary
         }
     }
- 
-   
-    
+    type ProductOptionValue {
+        id:ID
+        handle: String
+        parent_handle: String
+        option: ProductOption
+        title: String
+    }
+    extend type QueryRoot {
+        testing(index:Int) : String
+    }
+    extend type Product {
+        testing(index:Int!) : String
+    }
     extend type ProductOption {
-        gid: String
-        test:String
-        handle:String
-        isLoggedIn:Boolean!
+        testing(index:Int!) : String
     }
 `
-export const createApolloClient = (payload: iStorefrontApiConfig) => {
-    const {cache} = useCache({persist: payload.persist})
-    /* return new Promise((resolve, reject) => {
-        useCache({persist: payload.persist}).then((cache) => {
-            const client = new ApolloClient({
-                typeDefs,
-                cache: cache,
-                link: from([
-                    useApolloLogging(payload.logging, payload.logging),
-                    createApolloHttpLink(payload)
-                ])
-            });
-            resolve(client);
-        })
-    });*/
+export const createApolloClient =  (payload: iStorefrontApiConfig) => {
     return new ApolloClient({
-        //sresolvers:
         typeDefs,
-        cache,
-
+        cache: payload.cache,
         link: from([
             useApolloLogging(payload.logging, payload.logging),
             createApolloHttpLink(payload)
