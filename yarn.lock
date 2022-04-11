@@ -15722,6 +15722,15 @@ pify@^5.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-5.0.0.tgz#1f5eca3f5e87ebec28cc6d54a0e4aaf00acc127f"
   integrity sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==
 
+pinia-orm@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/pinia-orm/-/pinia-orm-0.9.2.tgz#a9c25ed77f2518d5a61d45d961fdcd56521e7fbd"
+  integrity sha512-zjXs3FLMMftDfT2lpheaNdIFqJSwPv9PRQK4wu4f+Y1g8hwyKz47Vh4R0pjPijx2GQgHyTYeZbs5SC7tH0vZ2w==
+  dependencies:
+    "@types/uuid" "^8.3.3"
+    normalizr "^3.6.1"
+    uuid "^8.3.2"
+
 pinia@^2.0.11, pinia@^2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.12.tgz#4c6f7f59cb41f56f20deee71c403e66d8d3c637d"

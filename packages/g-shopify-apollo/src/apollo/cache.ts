@@ -14,7 +14,7 @@ import {slugify} from "@snailicide/g-library";
 import {
     Exact,
     Product, ProductNodeQuery, ProductVariantConnection,
-    ProductOption, QueryRoot, ProductVariant
+    ProductOption, QueryRoot, ProductVariant,
 } from "@/types/generated/storefront-types";
 import {StringKeyOf, Get, ValueOf, SetRequired, RequireExactlyOne} from 'type-fest';
 import {
@@ -42,16 +42,6 @@ const sid = (value: string): string => {
     return parseGid(gid(value))
 }
 
-/*interface ProductSpecial {
-    variant:FieldReadFunction<any,Record<"index", number>>
-    Variants: FieldReadFunction<ProductVariantConnection,ProductVariant[]|undefined>
-}*/
-
-interface ProductExtended extends Product {
-    variant: ProductVariant | undefined
-    Variants: ProductVariant[]//FieldReadFunction<ProductVariantConnection,ProductVariant[]|undefined>
-}
-
 type  CustomOptions = Record<"args", Record<"index", number>>
 
 export type CustomFieldPolicy<Base> = NonNullable<// Wrap in `NonNullable` to strip away the `undefined` type from the produced union.
@@ -76,22 +66,28 @@ const fileread: FieldReadFunction<ProductVariantConnection, ProductVariant[] | u
 const typePolicies: TypePolicies = {
     Product: {
         fields: {
-            testing: {
-                read(value: any,
-                     options) {
-                    debugger;
-                    //    const {variables: {index = 1} = {index: 1}} = options
-                    // const variants: Get<ProductExtended, "variants"> | undefined = options.readField("variants")
-                    const variants: Readonly<ProductVariantConnection> | undefined = options.readField("variants")
-                    console.log("THHE TITLEEEE", options.readField("variants"), options.isReference("variants"))
-                    if (variants && variants?.edges) { // && variants.edges?.length>0
-                        if (variants.edges?.length > 0) {
-                            return variants.edges[0].node
-                        }
-                    }
-                    return value
-                }
+            test(read, {readField}){
+                debugger;
+                console.log("TESTTT", readField("variants") )
             },
+            gid(read, {readField}) {
+                debugger;
+                return (readField("id")) ? gid(readField("id") as string) : undefined
+            },
+            sid(read, {readField}) {
+                debugger;
+                return (readField("id")) ? sid(readField("id") as string) : undefined
+            },
+            variant(read,{args,readField}){
+                debugger;
+                console.warn("VASRIANT", readField('variants'))
+
+            },
+            variants(read,{args,readField}){
+                debugger;
+                console.warn("VASRIANTS",read, readField('variants'))
+                return read
+            }
         }
     },
     ProductOption: {
@@ -173,10 +169,14 @@ const typePolicies: TypePolicies = {
     },
     Query: {
         fields: {
-            testing(read, options) {
+            product(read, options){
                 debugger;
-                console.warn("CART ITEMS CALLLEDDD HHEREEE!", read, options?.field);
+
+                console.warn("CallVproductE!", options.field?.selectionSet?.selections[0],read,options.toReference(read) ,options.readField("handle"));
             },
+            allVariants(read, options){
+                console.warn("CallVariantsEE!", options.readField("product"), options.storage);
+            }
         }
     }
 }

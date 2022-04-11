@@ -1,0 +1,56 @@
+type Person {
+    name: String!
+}
+extend type Person {
+    salary: Int
+}
+extend type QueryRoot {
+    person: Person
+}
+query person{
+    person {
+        name
+        __typename
+        salary
+    }
+}
+
+input MessageInput {
+    content: String
+    author: String
+}
+
+type Message {
+    id: ID!
+    content: String
+    author: String
+}
+
+extend type Mutation {
+    createMessage(input: MessageInput): Message
+    updateMessage(id: ID!, input: MessageInput): Message
+}
+extend type QueryRoot {
+    testing2(index:Int) : String
+    allVariants: [ProductVariant]
+    getMessage(id: ID!): Message
+}
+
+query testallVariants{
+    allVariants{
+        title
+        quantityAvailable
+        selectedOptions {
+            value
+            name
+        }
+    }
+}
+mutation testmessage {
+    createMessage(input: {
+        author: "andy",
+        content: "hope is a good thing" })
+    {
+        id
+    }
+}

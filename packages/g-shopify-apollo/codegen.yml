@@ -1,5 +1,7 @@
 overwrite: true
-schema: "src/graphql/schema/shopify-storefront.json"
+schema:
+  - "src/graphql/schema/shopify-storefront.json"
+  - "src/graphql/client-schema.graphql"
 documents: "src/graphql/*.graphql"
 generates:
   src/types/generated/apollo-helpers.ts:

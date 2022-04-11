@@ -26,13 +26,10 @@ if (options.persist) {
     }).then(() => {
         if (options.cache) {
             console.warn("calling   option", options.cache)
-
             mountApp(options)
         }
-
     })
 } else {
     console.warn("calling no promise      option")
-
     mountApp(options)
 }

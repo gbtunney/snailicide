@@ -11,8 +11,10 @@ import {useApolloClient} from "@vue/apollo-composable";
 import {isLoggedInVar} from "@/apollo/cache";
 import {
     ProductOptionFragment,
-    ProductOptionFragmentDoc, VariantBySelectedOptionsQueryVariables,
-    useVariantBySelectedOptionsQuery, ProductFragmentDoc
+    ProductOptionFragmentDoc,
+    VariantBySelectedOptionsQueryVariables,
+    useVariantBySelectedOptionsQuery,
+    ProductFragmentDoc,
 } from "./../../types/generated/storefront-types";
 
 export const useProduct = (props: { handle: string }) => {
@@ -43,28 +45,16 @@ export const useProduct = (props: { handle: string }) => {
     const Variants = computed(() => {
         if (!isReady.value) return undefined
         if (product.value) {
-            console.log("ID VALUEEE   testing(index: 4)", `Product:${product.value?.id}` )
+
+         /*   console.log("ID VALUEEE   testing(index: 4)", `Product:${product.value?.id}` )
             const query = useApolloClient().client.cache.readFragment(
                 {
                     id: `Product:${product.value?.id}`,
-                    fragment: gql`
-                        fragment ProductFragmentNew on Product {
-                            id
-                            variants {
-                                edges {
-                                    node {
-                                        title
-                                        id
-                                    }
-                                }
-                            }
-                            handle
-                            title
-                        }`
+                    fragment: ProductFragmentNew5555FragmentDoc
                 }
             )
             console.log("TEST",query)
-
+*/
             return product?.value.variants.edges.map((variant) => {
                 return variant.node
             })
@@ -87,7 +77,6 @@ export const useProduct = (props: { handle: string }) => {
         return undefined
     })
     const getVariant = computed(() => {
-
         return "tess"
     })
 
@@ -98,7 +87,6 @@ export const useProduct = (props: { handle: string }) => {
                 fragment ProductOptionFragmentNew on ProductOption {
                     type: __typename
                     id
-                    testing(index: 4)
                     handle
                     title:name
                 }`

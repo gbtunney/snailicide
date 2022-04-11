@@ -38,12 +38,12 @@ export const useProductByHandleLoader = (props: { handle: string }) => {
     const query_payload = ref({handle: handle})
     const {result, loading, error, onResult} = useProductByHandleCustomQuery(query_payload, options)
     const productQueryResult = useResult(result, undefined, (value) => {
-        return getValidProductData<ProductFragment>(value.productByHandle as unknown) //maybeProduct????? pick function
+        return getValidProductData<ProductFragment>(value.product as unknown) //maybeProduct????? pick function
     })
     whenever(productQueryResult, (value: ProductFragment) => {
         const _product = useProductTest.create(value)
         product.value = _product
-        console.warn("productQueryResult UPDATED!!!!!!!!!!", _product, _product?.cacheID)
+        console.warn("productQueryResult UPDATED!!!!!!!!!!",value, _product, _product?.cacheID)
     })
     watch(handle, (value) => {
         if (value !== undefined) {

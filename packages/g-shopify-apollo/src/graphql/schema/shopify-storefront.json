@@ -26381,7 +26381,7 @@
               "type": {
                 "kind": "ENUM",
                 "name": "UnitPriceMeasurementMeasuredType",
-                "ofType": null
+                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null

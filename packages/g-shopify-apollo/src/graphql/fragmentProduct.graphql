@@ -1,11 +1,10 @@
 fragment ProductFragment on Product {
-    type:__typename
     id
-    gid:id
+    gid @client
+    sid @client
     handle
     title
     available:availableForSale
-
     productType
     vendor
     tags

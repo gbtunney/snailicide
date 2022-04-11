@@ -13,7 +13,10 @@ import {
   ComputedRef
 } from "vue";
 import {useProduct} from './../../operations/queries/useProduct';
+import {useApolloClient} from "@vue/apollo-composable";
+
 import SimpleSelect from './../ui/SimpleSelect.vue';
+import {useVariantByIndexQuery, VariantByIndexDocument} from "@/types/generated/storefront-types";
 const props = withDefaults(
     defineProps<{
       /**
@@ -37,6 +40,10 @@ watch(props, (value) => {
 
 const {handle} = toRefs(props)
 const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVariant} = useProduct(props)
+const {onResult} = useVariantByIndexQuery( {handle:'local',index:3})
+onResult((value)=>{
+  console.log("resu;tttt",value)
+})
 </script>
 <template>
   <div class="product container">

@@ -24,7 +24,7 @@ export type {
     ProductByHandleCustomQuery,
     ProductByHandleCustomQueryVariables
 } from './generated/storefront-types'
-export type ProductByHandleData = ProductByHandleCustomQuery["productByHandle"]
+export type ProductByHandleData = ProductByHandleCustomQuery["product"]
 
 export type ApiNodeTypes = Get<SetRequired<ProductNodeQuery, "node">["__typename"], "node.__typename">
 
