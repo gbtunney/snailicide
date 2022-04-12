@@ -1,9 +1,13 @@
-import {ProductVariant} from "./ProductVariant";
-import {Product} from "./Product";
+export {ProductVariant} from "./ProductVariant";
+export {ProductImage,ProductImageType} from "./ProductImage";
+export {Product,ProductType} from "./Product";
+
+export { VariantOption,ProductOption,ProductOptionValue} from './ProductOption'
+
 import {ObjectOf, OneOf, isNull, isString, Guard, OptionalGuard, isNumber} from "@gabrielurbina/type-guard"
 import { ApiNodeTypes, RequiredFragmentProps, IdentityRequired} from "./../types";
 
-export type ModelTypes = Product | ProductVariant
+//export type ModelTypes = Product | ProductVariant
 
 export const isValidShopifyApiNode = <T>(node: T): node is T => {
     const isApiNode = ObjectOf((self) => ({
@@ -16,9 +20,9 @@ const test :{
     __typename :ApiNodeTypes
 } = {__typename:"Producffft"}
 
-export type Model<T extends ModelTypes, T2> = {
+/*export type Model<T extends ModelTypes, T2> = {
     create: (value: T) => ModelExtended<T2>
-}
+}*/
 
 //additional extended model properties.
 export interface ModelProperties {
@@ -44,5 +48,3 @@ export const create = <T>(_node: T extends RequiredFragmentProps ? IdentityRequi
     }
     return undefined
 }
-
-export {Product, ProductVariant}

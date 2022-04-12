@@ -1,8 +1,7 @@
-import {Get, SetRequired} from "type-fest";
+import {Get, SetRequired, SetOptional} from "type-fest";
 import {
     ProductByHandleCustomQuery,
-    ProductByHandleCustomQueryVariables,
-    ProductNodeQuery
+    ProductByHandleCustomQueryVariables
 } from "./generated/storefront-types";
 
 import type {
@@ -10,23 +9,28 @@ import type {
     ProductVariantFragment as ProductVariantFragmentRaw
 } from './generated/storefront-types'
 import {InMemoryCache} from "@apollo/client/core";
+import {FieldPolicy, FieldReadFunction} from "@apollo/client/cache";
 
 export type {
-    PriceRangeFragment,
-    ProductOptionValueFragment,
-    ProductOptionFragment,
-    PriceFragment,
-    ImageFragment
+    ProductPriceRange,
+    MoneyV2,
 } from './generated/storefront-types'
+
+export {
+    ProductByIdQuery,
+    ProductByIdQueryVariables
+} from "./generated/storefront-types";
 
 ///from query.
 export type {
     ProductByHandleCustomQuery,
     ProductByHandleCustomQueryVariables
 } from './generated/storefront-types'
-export type ProductByHandleData = ProductByHandleCustomQuery["product"]
 
-export type ApiNodeTypes = Get<SetRequired<ProductNodeQuery, "node">["__typename"], "node.__typename">
+import {PossibleNodesQuery, Product} from './generated/storefront-types'
+
+export type ProductByHandleData = ProductByHandleCustomQuery["product"]
+export type ApiNodeTypes = Get<SetRequired<PossibleNodesQuery, "node">["__typename"], "node.__typename">
 
 /// attr required for a valid node, but are likely OPTIONAL
 export type RequiredFragmentProps = {
@@ -35,8 +39,17 @@ export type RequiredFragmentProps = {
 }
 export type IdentityRequired<T extends RequiredFragmentProps> = SetRequired<T, "id" | "__typename">
 
-export type ProductFragment = IdentityRequired<ProductFragmentRaw>
-export type ProductVariantFragment = IdentityRequired<ProductVariantFragmentRaw>
+export type ProductFragment = IdentityRequired<Product>
+
+export type {
+    Scalars,
+    ProductOption,
+    ProductOptionValue,
+    VariantOption,
+    Image as ProductImage,
+    ProductVariant,
+    ProductInstance
+} from "./generated/storefront-types"
 
 export interface iStorefrontApiConfig {
     domain: string;
@@ -45,5 +58,5 @@ export interface iStorefrontApiConfig {
     version?: string
     persist?: boolean
     logging?: boolean
-    cache:InMemoryCache
+    cache: InMemoryCache
 }

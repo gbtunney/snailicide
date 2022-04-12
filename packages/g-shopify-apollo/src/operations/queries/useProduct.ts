@@ -6,12 +6,14 @@ import {ApolloClient, from, gql} from "@apollo/client/core";
 import * as R from "ramda"
 import {getDigitCount, isInteger, toInteger} from "@snailicide/g-library"
 import * as RA from "ramda-adjunct"
-import {ProductExtended} from "./../../models/Product";
+import {Product} from "./../../models/Product";
 import {useApolloClient} from "@vue/apollo-composable";
-import {ProductVariantFragment}from './../../types/generated/storefront-types'
+import {ProductVariantFragment} from './../../types/generated/storefront-types'
+import {ProductFragment} from './../../types'
 //this is a demao.
 import {isLoggedInVar} from "@/apollo/cache";
-import {parseGid,composeGid} from '@shopify/admin-graphql-api-utilities';
+import {parseGid, composeGid} from '@shopify/admin-graphql-api-utilities';
+import {Model, Repository} from '@vuex-orm/core'
 
 import {
     ProductOptionFragment,
@@ -20,9 +22,11 @@ import {
     useVariantBySelectedOptionsQuery,
     ProductFragmentDoc,
 } from "./../../types/generated/storefront-types";
+import {useStore} from "vuex";
 
 export const useProduct = (props: { handle: string }) => {
     const {product, loading, error} = useProductByHandleLoader(props)
+    // const product_repo :Repository<ProductTemp> =  store.$repo(ProductTemp)
 
     const {variants} = useVariantByOptionLoader({
         handle: 'local', selectedOptions: [
@@ -42,7 +46,7 @@ export const useProduct = (props: { handle: string }) => {
         return (product.value && !loading.value)
     })
 
-    const Product: ComputedRef<ProductExtended | undefined> = computed(() => {
+    const Product: ComputedRef<ProductFragment | undefined> = computed(() => {
         if (!isReady.value) return undefined
         return product.value
     })

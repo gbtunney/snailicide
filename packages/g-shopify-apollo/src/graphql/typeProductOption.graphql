@@ -1,6 +1,0 @@
-extend type ProductOption {
-    gid:String
-    sid(index:Int!) : String
-    handle:String
-}
-

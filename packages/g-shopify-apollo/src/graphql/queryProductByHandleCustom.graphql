@@ -3,6 +3,11 @@ query productByHandleCustom($handle: String!) {
         ...ProductFragment
     }
 }
+query productByID($id: ID!) {
+    product(id: $id) {
+        ...ProductFragment
+    }
+}
 
 query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
     product(handle: $handle) {

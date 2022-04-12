@@ -1,7 +1,5 @@
 fragment ProductVariantFragment on ProductVariant {
-    type:__typename
     id
-    gid:id
     title
     available: availableForSale
     inventoryQuantity:quantityAvailable
@@ -15,7 +13,10 @@ fragment ProductVariantFragment on ProductVariant {
         ...ImageFragment
     }
     selectedOptions {
-        ...ProductOptionValueFragment
+        __typename
+        name
+        parent_handle:name
+        handle:value
     }
 
     price

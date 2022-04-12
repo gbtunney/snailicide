@@ -745,17 +745,19 @@ export type HasMetafieldsFieldPolicy = {
 	metafield?: FieldPolicy<any> | FieldReadFunction<any>,
 	metafields?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ImageKeySpecifier = ('altText' | 'gid' | 'height' | 'id' | 'originalSrc' | 'sid' | 'src' | 'transformedSrc' | 'url' | 'width' | ImageKeySpecifier)[];
+export type ImageKeySpecifier = ('altText' | 'height' | 'id' | 'originalSrc' | 'position' | 'product' | 'product_id' | 'src' | 'transformedSrc' | 'url' | 'variants' | 'width' | ImageKeySpecifier)[];
 export type ImageFieldPolicy = {
 	altText?: FieldPolicy<any> | FieldReadFunction<any>,
-	gid?: FieldPolicy<any> | FieldReadFunction<any>,
 	height?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	originalSrc?: FieldPolicy<any> | FieldReadFunction<any>,
-	sid?: FieldPolicy<any> | FieldReadFunction<any>,
+	position?: FieldPolicy<any> | FieldReadFunction<any>,
+	product?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	src?: FieldPolicy<any> | FieldReadFunction<any>,
 	transformedSrc?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>,
+	variants?: FieldPolicy<any> | FieldReadFunction<any>,
 	width?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ImageConnectionKeySpecifier = ('edges' | 'pageInfo' | ImageConnectionKeySpecifier)[];
@@ -1105,8 +1107,9 @@ export type PricingPercentageValueKeySpecifier = ('percentage' | PricingPercenta
 export type PricingPercentageValueFieldPolicy = {
 	percentage?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductKeySpecifier = ('availableForSale' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'gid' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'sid' | 'tags' | 'test' | 'title' | 'totalInventory' | 'updatedAt' | 'variant' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
+export type ProductKeySpecifier = ('available' | 'availableForSale' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'tags' | 'title' | 'totalInventory' | 'updatedAt' | 'variant' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
 export type ProductFieldPolicy = {
+	available?: FieldPolicy<any> | FieldReadFunction<any>,
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	collections?: FieldPolicy<any> | FieldReadFunction<any>,
 	compareAtPriceRange?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1114,7 +1117,6 @@ export type ProductFieldPolicy = {
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
 	descriptionHtml?: FieldPolicy<any> | FieldReadFunction<any>,
 	featuredImage?: FieldPolicy<any> | FieldReadFunction<any>,
-	gid?: FieldPolicy<any> | FieldReadFunction<any>,
 	handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	images?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1129,9 +1131,7 @@ export type ProductFieldPolicy = {
 	requiresSellingPlan?: FieldPolicy<any> | FieldReadFunction<any>,
 	sellingPlanGroups?: FieldPolicy<any> | FieldReadFunction<any>,
 	seo?: FieldPolicy<any> | FieldReadFunction<any>,
-	sid?: FieldPolicy<any> | FieldReadFunction<any>,
 	tags?: FieldPolicy<any> | FieldReadFunction<any>,
-	test?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	totalInventory?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1151,6 +1151,12 @@ export type ProductEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ProductGroupKeySpecifier = ('available' | 'id' | 'items' | ProductGroupKeySpecifier)[];
+export type ProductGroupFieldPolicy = {
+	available?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	items?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type ProductInstanceKeySpecifier = ('customAttributes' | 'id' | 'product' | 'quantity' | 'variant' | ProductInstanceKeySpecifier)[];
 export type ProductInstanceFieldPolicy = {
 	customAttributes?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1159,46 +1165,56 @@ export type ProductInstanceFieldPolicy = {
 	quantity?: FieldPolicy<any> | FieldReadFunction<any>,
 	variant?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductOptionKeySpecifier = ('id' | 'name' | 'values' | ProductOptionKeySpecifier)[];
+export type ProductOptionKeySpecifier = ('handle' | 'id' | 'name' | 'option_values' | 'position' | 'product' | 'product_id' | 'title' | 'values' | ProductOptionKeySpecifier)[];
 export type ProductOptionFieldPolicy = {
+	handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	option_values?: FieldPolicy<any> | FieldReadFunction<any>,
+	position?: FieldPolicy<any> | FieldReadFunction<any>,
+	product?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_id?: FieldPolicy<any> | FieldReadFunction<any>,
+	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	values?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductOptionValueKeySpecifier = ('handle' | 'id' | 'option' | 'parent_handle' | 'title' | ProductOptionValueKeySpecifier)[];
+export type ProductOptionValueKeySpecifier = ('handle' | 'id' | 'option' | 'option_id' | 'parent_handle' | 'position' | 'title' | 'variants' | ProductOptionValueKeySpecifier)[];
 export type ProductOptionValueFieldPolicy = {
 	handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	option?: FieldPolicy<any> | FieldReadFunction<any>,
+	option_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	parent_handle?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>
+	position?: FieldPolicy<any> | FieldReadFunction<any>,
+	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	variants?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ProductPriceRangeKeySpecifier = ('maxVariantPrice' | 'minVariantPrice' | ProductPriceRangeKeySpecifier)[];
 export type ProductPriceRangeFieldPolicy = {
 	maxVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	minVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'id' | 'image' | 'isInCart' | 'metafield' | 'metafields' | 'price' | 'priceV2' | 'product' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
+export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'handle' | 'id' | 'image' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
 export type ProductVariantFieldPolicy = {
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	barcode?: FieldPolicy<any> | FieldReadFunction<any>,
 	compareAtPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	compareAtPriceV2?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyNotInStock?: FieldPolicy<any> | FieldReadFunction<any>,
-	gid?: FieldPolicy<any> | FieldReadFunction<any>,
+	handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	image?: FieldPolicy<any> | FieldReadFunction<any>,
 	isInCart?: FieldPolicy<any> | FieldReadFunction<any>,
 	metafield?: FieldPolicy<any> | FieldReadFunction<any>,
 	metafields?: FieldPolicy<any> | FieldReadFunction<any>,
+	position?: FieldPolicy<any> | FieldReadFunction<any>,
 	price?: FieldPolicy<any> | FieldReadFunction<any>,
 	priceV2?: FieldPolicy<any> | FieldReadFunction<any>,
 	product?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	quantityAvailable?: FieldPolicy<any> | FieldReadFunction<any>,
 	requiresShipping?: FieldPolicy<any> | FieldReadFunction<any>,
 	selectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
 	sellingPlanAllocations?: FieldPolicy<any> | FieldReadFunction<any>,
-	sid?: FieldPolicy<any> | FieldReadFunction<any>,
 	sku?: FieldPolicy<any> | FieldReadFunction<any>,
 	storeAvailability?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1386,6 +1402,17 @@ export type ShopPolicyWithDefaultFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ShopifyNodeKeySpecifier = ('handle' | 'id' | 'position' | ShopifyNodeKeySpecifier)[];
+export type ShopifyNodeFieldPolicy = {
+	handle?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	position?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ShopifyProductNodeKeySpecifier = ('product' | 'product_id' | ShopifyProductNodeKeySpecifier)[];
+export type ShopifyProductNodeFieldPolicy = {
+	product?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_id?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type StoreAvailabilityKeySpecifier = ('available' | 'location' | 'pickUpTime' | StoreAvailabilityKeySpecifier)[];
 export type StoreAvailabilityFieldPolicy = {
 	available?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1433,6 +1460,13 @@ export type UserErrorKeySpecifier = ('field' | 'message' | UserErrorKeySpecifier
 export type UserErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VariantOptionKeySpecifier = ('option_value' | 'option_value_id' | 'variant' | 'variant_id' | VariantOptionKeySpecifier)[];
+export type VariantOptionFieldPolicy = {
+	option_value?: FieldPolicy<any> | FieldReadFunction<any>,
+	option_value_id?: FieldPolicy<any> | FieldReadFunction<any>,
+	variant?: FieldPolicy<any> | FieldReadFunction<any>,
+	variant_id?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type VideoKeySpecifier = ('alt' | 'id' | 'mediaContentType' | 'previewImage' | 'sources' | VideoKeySpecifier)[];
 export type VideoFieldPolicy = {
@@ -2059,6 +2093,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ProductEdgeKeySpecifier | (() => undefined | ProductEdgeKeySpecifier),
 		fields?: ProductEdgeFieldPolicy,
 	},
+	ProductGroup?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ProductGroupKeySpecifier | (() => undefined | ProductGroupKeySpecifier),
+		fields?: ProductGroupFieldPolicy,
+	},
 	ProductInstance?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ProductInstanceKeySpecifier | (() => undefined | ProductInstanceKeySpecifier),
 		fields?: ProductInstanceFieldPolicy,
@@ -2183,6 +2221,14 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ShopPolicyWithDefaultKeySpecifier | (() => undefined | ShopPolicyWithDefaultKeySpecifier),
 		fields?: ShopPolicyWithDefaultFieldPolicy,
 	},
+	ShopifyNode?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ShopifyNodeKeySpecifier | (() => undefined | ShopifyNodeKeySpecifier),
+		fields?: ShopifyNodeFieldPolicy,
+	},
+	ShopifyProductNode?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ShopifyProductNodeKeySpecifier | (() => undefined | ShopifyProductNodeKeySpecifier),
+		fields?: ShopifyProductNodeFieldPolicy,
+	},
 	StoreAvailability?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | StoreAvailabilityKeySpecifier | (() => undefined | StoreAvailabilityKeySpecifier),
 		fields?: StoreAvailabilityFieldPolicy,
@@ -2214,6 +2260,10 @@ export type StrictTypedTypePolicies = {
 	UserError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UserErrorKeySpecifier | (() => undefined | UserErrorKeySpecifier),
 		fields?: UserErrorFieldPolicy,
+	},
+	VariantOption?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VariantOptionKeySpecifier | (() => undefined | VariantOptionKeySpecifier),
+		fields?: VariantOptionFieldPolicy,
 	},
 	Video?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | VideoKeySpecifier | (() => undefined | VideoKeySpecifier),

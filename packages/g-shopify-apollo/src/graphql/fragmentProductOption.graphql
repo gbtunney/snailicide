@@ -1,13 +1,6 @@
 fragment ProductOptionFragment on ProductOption{
     id
     title:name
+    handle:name
     values
 }
-fragment ProductOptionValueFragment on SelectedOption
-{
-    parent_handle:name
-    handle:value
-    title:value
-}
-
-

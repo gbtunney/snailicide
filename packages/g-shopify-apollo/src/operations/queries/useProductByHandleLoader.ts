@@ -1,13 +1,15 @@
 import {ref, Ref, toRefs, watch} from "vue";
 import {useResult, UseQueryOptions,useMutation} from "@vue/apollo-composable";
 import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
+import {isString, ObjectOf, OneOf} from "@gabrielurbina/type-guard";
+import {useStore} from "vuex";
+import {Repository} from "@vuex-orm/core";
 import {useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
 import {
     ApiNodeTypes
 } from './../../types';
-import Product, {ProductExtended} from "../../models/Product";
+import ProductTemp from "../../models/Product";
 import {ProductFragment} from "./../../types";
-import {isString, ObjectOf, OneOf} from "@gabrielurbina/type-guard";
 
 const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined => {
     const isProductQueryData = <T>(value: unknown): value is T => {
@@ -23,8 +25,10 @@ const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined 
 }
 
 export const useProductByHandleLoader = (props: { handle: string }) => {
-    const product: Ref<ProductExtended | undefined> = ref(undefined)
-    const useProductTest = Product()
+    const store = useStore()
+    const product_repo :Repository<ProductTemp> =  store.$repo(ProductTemp)
+    const product: Ref<ProductFragment | undefined> = ref(undefined)
+  //  const useProductTest = Product()
     const {handle = ref("not set")} = toRefs(props)
     const enabled = controlledRef(false, {
         onChanged(value, oldValue) {
@@ -37,13 +41,15 @@ export const useProductByHandleLoader = (props: { handle: string }) => {
     const options: Record<string, any> = ref({enabled: false})
     const query_payload = ref({handle: handle})
     const {result, loading, error, onResult} = useProductByHandleCustomQuery(query_payload, options)
+
     const productQueryResult = useResult(result, undefined, (value) => {
         return getValidProductData<ProductFragment>(value.product as unknown) //maybeProduct????? pick function
     })
     whenever(productQueryResult, (value: ProductFragment) => {
-        const _product = useProductTest.create(value)
-        product.value = _product
-        console.warn("productQueryResult UPDATED!!!!!!!!!!",value, _product, _product?.cacheID)
+     //   const _product = useProductTest.create(value)
+        product_repo.save(value)
+        product.value = value
+        console.warn("productQueryResult UPDATED!!!!!!!!!!", product_repo.query().withAll().all(), value)
     })
     watch(handle, (value) => {
         if (value !== undefined) {

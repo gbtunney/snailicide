@@ -23,11 +23,12 @@
     "core-js": "^3.8.3",
     "graphql": "^16.3.0",
     "pinia": "^2.0.12",
-    "pinia-orm": "^0.9.2",
     "ramda": "^0.28.0",
     "ramda-adjunct": "^3.0.0",
     "type-fest": "^2.12.1",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-property-decorator": "^9.1.2",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^3.1.1",

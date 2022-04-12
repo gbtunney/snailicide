@@ -1,7 +1,5 @@
 fragment ProductFragment on Product {
     id
-    gid @client
-    sid @client
     handle
     title
     available:availableForSale

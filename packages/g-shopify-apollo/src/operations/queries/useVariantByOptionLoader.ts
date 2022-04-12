@@ -9,7 +9,7 @@ import {
 import {
     ApiNodeTypes
 } from './../../types';
-import Product, {ProductExtended} from "../../models/Product";
+import Product from "../../models/Product";
 import {ProductFragment} from "./../../types";
 import {isString, ObjectOf, OneOf} from "@gabrielurbina/type-guard";
 
@@ -28,7 +28,7 @@ const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined 
 
 export const useProductByHandleLoader = (props: { handle: string , selectedOptions:VariantBySelectedOptionsQueryVariables["selectedOptions"]} ) => {
     const variants: Ref<any | undefined> = ref(undefined)
-    const useProductTest = Product()
+   // const useProductTest = Product()
    // const {handle = ref("not set")} = toRefs(props)
 
     const query_payload_object = toReactive(props)

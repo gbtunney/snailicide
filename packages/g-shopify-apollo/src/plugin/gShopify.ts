@@ -3,13 +3,16 @@ import {createPinia} from 'pinia'
 import {DefaultApolloClient} from "@vue/apollo-composable";
 import {iStorefrontApiConfig} from "./../types";
 import createApolloClient from "../apollo/client";
-import PiniaOrm from 'pinia-orm'
+import {createStore} from 'vuex'
+import VuexORM from '@vuex-orm/core'
+
 export const gShopify: Plugin = {
     install(app, options: iStorefrontApiConfig) {
         const client = createApolloClient(options)
         app.provide(DefaultApolloClient, client)
-        const pinia = createPinia().use(PiniaOrm.install())
-        app.use(pinia)
+        const vuex = createStore({plugins: [VuexORM.install()]})
+        app.use(vuex)
+        app.use(createPinia())
     }
 }
 export default gShopify
