@@ -3,12 +3,16 @@ import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} 
 import useProductByHandleLoader from "./useProductByHandleLoader";
 import useVariantByOptionLoader from "./useVariantByOptionLoader";
 import {ApolloClient, from, gql} from "@apollo/client/core";
-
+import * as R from "ramda"
+import {getDigitCount, isInteger, toInteger} from "@snailicide/g-library"
+import * as RA from "ramda-adjunct"
 import {ProductExtended} from "./../../models/Product";
 import {useApolloClient} from "@vue/apollo-composable";
-
+import {ProductVariantFragment}from './../../types/generated/storefront-types'
 //this is a demao.
 import {isLoggedInVar} from "@/apollo/cache";
+import {parseGid,composeGid} from '@shopify/admin-graphql-api-utilities';
+
 import {
     ProductOptionFragment,
     ProductOptionFragmentDoc,
@@ -45,23 +49,34 @@ export const useProduct = (props: { handle: string }) => {
     const Variants = computed(() => {
         if (!isReady.value) return undefined
         if (product.value) {
-
-         /*   console.log("ID VALUEEE   testing(index: 4)", `Product:${product.value?.id}` )
-            const query = useApolloClient().client.cache.readFragment(
-                {
-                    id: `Product:${product.value?.id}`,
-                    fragment: ProductFragmentNew5555FragmentDoc
-                }
-            )
-            console.log("TEST",query)
-*/
             return product?.value.variants.edges.map((variant) => {
                 return variant.node
             })
         }
         return undefined
     })
-
+    const getVariantByIndex = (index: number | string = 1): ProductVariantFragment | undefined => {
+        if (!isReady.value || Variants.value === undefined) return undefined
+        if (RA.isString(index)) {
+            if (isInteger(index)) index = toInteger(index) as number
+            const found = Variants.value.find((variant) => {
+                if (index === variant.id) return true
+            })
+            if (found) return found
+        }
+        if (RA.isInteger(index)) {
+            if (getDigitCount(index) >= 9) {
+                const gid = btoa(composeGid("ProductVariant", index))
+                const found_gid = Variants.value.find((variant) => {
+                    if (gid === variant.id) return true
+                })
+                if (found_gid) return found_gid
+            } else if (index <= Variants.value?.length) {
+                return Variants.value[index - 1]
+            }
+        }
+        return Variants.value[0]
+    }
     const ProductImage = computed(() => {
         if (!isReady.value) return undefined
         if (product.value) {
@@ -159,6 +174,7 @@ export const useProduct = (props: { handle: string }) => {
         Options,
         OptionValues,
         getVariant,
+        getVariantByIndex,
         optionsUpdated
     }
 }

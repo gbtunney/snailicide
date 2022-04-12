@@ -32,7 +32,7 @@ export type TProductOptionValueFragment = {
     title: string
 };
 
-import {parseGid} from '@shopify/admin-graphql-api-utilities';
+import {parseGid,composeGid} from '@shopify/admin-graphql-api-utilities';
 import {useApolloClient} from "@vue/apollo-composable";
 
 const gid = (value: string): string => {
@@ -66,28 +66,12 @@ const fileread: FieldReadFunction<ProductVariantConnection, ProductVariant[] | u
 const typePolicies: TypePolicies = {
     Product: {
         fields: {
-            test(read, {readField}){
-                debugger;
-                console.log("TESTTT", readField("variants") )
-            },
             gid(read, {readField}) {
-                debugger;
                 return (readField("id")) ? gid(readField("id") as string) : undefined
             },
             sid(read, {readField}) {
-                debugger;
-                return (readField("id")) ? sid(readField("id") as string) : undefined
+                    return (readField("id")) ? sid(readField("id") as string) : undefined
             },
-            variant(read,{args,readField}){
-                debugger;
-                console.warn("VASRIANT", readField('variants'))
-
-            },
-            variants(read,{args,readField}){
-                debugger;
-                console.warn("VASRIANTS",read, readField('variants'))
-                return read
-            }
         }
     },
     ProductOption: {
@@ -169,11 +153,6 @@ const typePolicies: TypePolicies = {
     },
     Query: {
         fields: {
-            product(read, options){
-                debugger;
-
-                console.warn("CallVproductE!", options.field?.selectionSet?.selections[0],read,options.toReference(read) ,options.readField("handle"));
-            },
             allVariants(read, options){
                 console.warn("CallVariantsEE!", options.readField("product"), options.storage);
             }

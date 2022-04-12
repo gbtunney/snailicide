@@ -31,25 +31,23 @@ const props = withDefaults(
 
     }>(), {
       handle: undefined,
-      variant_id: 1
-    })
+      variant_id: '5'//99//'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzEwNjkzNA=='// '22620513665142'
+
+})
 //defineComponent(SimpleSelect)
 watch(props, (value) => {
   console.warn("watch :value", value)
 })
 
-const {handle} = toRefs(props)
-const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVariant} = useProduct(props)
-const {onResult} = useVariantByIndexQuery( {handle:'local',index:3})
-onResult((value)=>{
-  console.log("resu;tttt",value)
-})
+const {handle,variant_id} = toRefs(props)
+const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVariant,getVariantByIndex} = useProduct(props)
+
 </script>
 <template>
   <div class="product container">
     HIHIHHIz LOADING :<h2>{{ loading }}</h2>
     <div v-if="Product">
-      {{Variants}}
+      {{getVariantByIndex(variant_id) }}
       <div v-for="(option,index) in Options" :key="index">
         <h2>{{option.title}}</h2>
         <SimpleSelect @change="test()" :options="option.values"></SimpleSelect>
