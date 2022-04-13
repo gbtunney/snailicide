@@ -2,8 +2,8 @@ import {ModelExtended, Product, ProductImage, ProductOption} from './'
 import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo, HasMany} from '@vuex-orm/core'
 import { VariantOption} from '.'
 import {Merge} from 'type-fest';
-import {ProductVariantFragment} from "./../types";
-export type TProductVariant = ModelExtended<ProductVariantFragment>
+import {ProductVariant as TProductVariant} from "./../types";
+//export type TProductVariant = ModelExtended<TProductVariant>
 
 /*
 interface OverrideIVariant {
@@ -24,7 +24,7 @@ export class ProductVariant extends Model implements Partial<TProductVariant> {
     @Str('')
     title!: TProductVariant["title"]
     @Bool(false)
-    available!: TProductVariant["available"]
+    availableForSale!: TProductVariant["availableForSale"]
 
     @Num(0)
     position!: TProductVariant["position"]
@@ -33,7 +33,7 @@ export class ProductVariant extends Model implements Partial<TProductVariant> {
     sku!: TProductVariant["sku"]
 
     @Num(0)
-    inventoryQuantity!: TProductVariant["inventoryQuantity"]
+    quantityAvailable!: TProductVariant["quantityAvailable"]
 
     @Num(0)
     weight!: TProductVariant["weight"]
@@ -59,12 +59,12 @@ export class ProductVariant extends Model implements Partial<TProductVariant> {
    // selectedOptions!: VariantOption[]
 
     @Str('')
-    product_id?:  string//TProductVariant["product_id"]
+    product_id?:  TProductVariant["product_id"]
     @BelongsTo(() => Product, 'product_id')
-    product?: Product// TProductVariant["product"]
+    product?: TProductVariant["product"]
 
     @Str('')
-    image_id?:string //TProductVariant["image_id"]
+    image_id?:TProductVariant["image_id"]
 
     @BelongsTo(() => ProductImage, 'image_id')
     image?:TProductVariant["image"]

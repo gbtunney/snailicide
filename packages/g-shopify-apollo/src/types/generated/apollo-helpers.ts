@@ -1193,7 +1193,7 @@ export type ProductPriceRangeFieldPolicy = {
 	maxVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	minVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'handle' | 'id' | 'image' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
+export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
 export type ProductVariantFieldPolicy = {
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	barcode?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1203,6 +1203,7 @@ export type ProductVariantFieldPolicy = {
 	handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	image?: FieldPolicy<any> | FieldReadFunction<any>,
+	image_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	isInCart?: FieldPolicy<any> | FieldReadFunction<any>,
 	metafield?: FieldPolicy<any> | FieldReadFunction<any>,
 	metafields?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1233,8 +1234,9 @@ export type ProductVariantEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryRootKeySpecifier = ('articles' | 'blog' | 'blogByHandle' | 'blogs' | 'cart' | 'collection' | 'collectionByHandle' | 'collections' | 'customer' | 'localization' | 'locations' | 'node' | 'nodes' | 'page' | 'pageByHandle' | 'pages' | 'product' | 'productByHandle' | 'productRecommendations' | 'productTags' | 'productTypes' | 'products' | 'publicApiVersions' | 'shop' | QueryRootKeySpecifier)[];
+export type QueryRootKeySpecifier = ('allVariants' | 'articles' | 'blog' | 'blogByHandle' | 'blogs' | 'cart' | 'collection' | 'collectionByHandle' | 'collections' | 'customer' | 'localization' | 'locations' | 'node' | 'nodes' | 'page' | 'pageByHandle' | 'pages' | 'product' | 'productByHandle' | 'productRecommendations' | 'productTags' | 'productTypes' | 'products' | 'publicApiVersions' | 'shop' | 'testOption' | 'testProduct' | QueryRootKeySpecifier)[];
 export type QueryRootFieldPolicy = {
+	allVariants?: FieldPolicy<any> | FieldReadFunction<any>,
 	articles?: FieldPolicy<any> | FieldReadFunction<any>,
 	blog?: FieldPolicy<any> | FieldReadFunction<any>,
 	blogByHandle?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1258,7 +1260,9 @@ export type QueryRootFieldPolicy = {
 	productTypes?: FieldPolicy<any> | FieldReadFunction<any>,
 	products?: FieldPolicy<any> | FieldReadFunction<any>,
 	publicApiVersions?: FieldPolicy<any> | FieldReadFunction<any>,
-	shop?: FieldPolicy<any> | FieldReadFunction<any>
+	shop?: FieldPolicy<any> | FieldReadFunction<any>,
+	testOption?: FieldPolicy<any> | FieldReadFunction<any>,
+	testProduct?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SEOKeySpecifier = ('description' | 'title' | SEOKeySpecifier)[];
 export type SEOFieldPolicy = {

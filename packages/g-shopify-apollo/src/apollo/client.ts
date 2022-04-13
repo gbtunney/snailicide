@@ -7,7 +7,6 @@ import {iStorefrontApiConfig} from "./../types";
 import {useCache, createApolloHttpLink, useApolloLogging} from ".";
 import {
     ProductOptionFragmentDoc,
-    ProductOptionValueFragmentDoc,
 } from './../types/generated/storefront-types'
 import cache from "@/apollo/cache";
 // varianttest(

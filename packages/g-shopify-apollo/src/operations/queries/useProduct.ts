@@ -8,7 +8,7 @@ import {getDigitCount, isInteger, toInteger} from "@snailicide/g-library"
 import * as RA from "ramda-adjunct"
 import {Product} from "./../../models/Product";
 import {useApolloClient} from "@vue/apollo-composable";
-import {ProductVariantFragment} from './../../types/generated/storefront-types'
+import {ProductVariant} from './../../types/generated/storefront-types'
 import {ProductFragment} from './../../types'
 //this is a demao.
 import {isLoggedInVar} from "@/apollo/cache";
@@ -59,7 +59,7 @@ export const useProduct = (props: { handle: string }) => {
         }
         return undefined
     })
-    const getVariantByIndex = (index: number | string = 1): ProductVariantFragment | undefined => {
+    const getVariantByIndex = (index: number | string = 1): ProductVariant | undefined => {
         if (!isReady.value || Variants.value === undefined) return undefined
         if (RA.isString(index)) {
             if (isInteger(index)) index = toInteger(index) as number
@@ -81,13 +81,13 @@ export const useProduct = (props: { handle: string }) => {
         }
         return Variants.value[0]
     }
-    const ProductImage = computed(() => {
+  /*  const ProductImage = computed(() => {
         if (!isReady.value) return undefined
         if (product.value) {
-            return product.value.image
+            return product.value.images[0]
         }
         return undefined
-    })
+    })*/
     const Images = computed(() => {
         if (!isReady.value) return undefined
         if (product.value) {
@@ -174,7 +174,6 @@ export const useProduct = (props: { handle: string }) => {
         error,
         Variants,
         Images,
-        ProductImage,
         Options,
         OptionValues,
         getVariant,

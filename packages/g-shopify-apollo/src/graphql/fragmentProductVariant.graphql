@@ -9,6 +9,16 @@ fragment ProductVariantFragment on ProductVariant {
     currentlyNotInStock
     requiresShipping
 
+    product {
+        id
+        title
+        options{
+            id
+            name
+            values
+        }
+    }
+
     image {
         ...ImageFragment
     }
