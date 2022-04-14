@@ -1,18 +1,38 @@
+directive @client on FIELD_DEFINITION
+directive @uppercase on FIELD_DEFINITION
+
+interface Extended_ID {
+    gid : String! @client
+    sid : Int! @client
+}
+
 interface ShopifyNode {
     id:ID!
     handle:String
     position:Int
 }
+
 interface ShopifyProductNode {
     product_id: ID
     product:Product
 }
-extend type ProductVariant implements ShopifyNode & ShopifyProductNode {
+
+extend type Product implements Extended_ID{
+    available:Boolean
+    variant(index:Int!) : ProductVariant  @client
+    gid : String! @client
+    sid : Int!  @client
+}
+
+extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extended_ID {
     isInCart: Boolean!
     handle:String
     position:Int
     product_id: ID
     image_id:ID!
+
+    gid : String!
+    sid : Int!
 }
 extend type ProductOption implements ShopifyNode & ShopifyProductNode{
     handle:String
@@ -57,23 +77,19 @@ type ProductGroup {
     available:Boolean
     items: [ProductInstance]
 }
-extend type Product {
-    available:Boolean
-    variant(index:Int!) : ProductVariant
-}
+
 extend type QueryRoot{
     testProduct(index:Int!) : Product
     testOption(index:Int!) : ProductOption
-    allVariants:[ProductVariant]
+    allVariants: [ProductVariant] @client
 }
 
 query testproductop {
     allVariants @client{
         id
-        sku
-        quantityAvailable
+        __typename
+        title
     }
-
 }
 
 #
@@ -90,8 +106,8 @@ query variantByIndex($handle: String!, $index:Int!) {
         id
         handle
         variant(index:$index) @client{
-            handle @client
-            title
+            id
+            sku
             quantityAvailable
         }
         variants(first: 250){

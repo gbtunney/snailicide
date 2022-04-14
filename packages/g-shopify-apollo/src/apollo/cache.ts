@@ -9,14 +9,29 @@ import {
 
 } from '@apollo/client/core'
 import {FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy} from '@apollo/client/cache';
+import {hasDirectives, isInlineFragment} from '@apollo/client/utilities';
+
 import {ProductFieldPolicy, StrictTypedTypePolicies} from './../types/generated/apollo-helpers'
+import {InvalidationPolicyCache} from '@nerdwallet/apollo-cache-policies';
+
 import {slugify} from "@snailicide/g-library";
 import {
     Exact,
     Product, ProductVariantConnection,
-    ProductOption, QueryRoot, ProductVariant,Node
+    ProductOption, QueryRoot, ProductVariant, Node
 } from "@/types/generated/storefront-types";
-import {StringKeyOf, Get,LiteralUnion,Except, Merge,RequireAllOrNone,ValueOf, SetRequired, RequireExactlyOne,LiteralToPrimitive} from 'type-fest';
+import {
+    StringKeyOf,
+    Get,
+    LiteralUnion,
+    Except,
+    Merge,
+    RequireAllOrNone,
+    ValueOf,
+    SetRequired,
+    RequireExactlyOne,
+    LiteralToPrimitive
+} from 'type-fest';
 import {
     FieldMergeFunction,
     KeyFieldsFunction, FieldFunctionOptions,
@@ -32,16 +47,9 @@ export type TProductOptionValueFragment = {
     title: string
 };
 
-import {parseGid,composeGid} from '@shopify/admin-graphql-api-utilities';
+import {parseGid, composeGid} from '@shopify/admin-graphql-api-utilities';
 import {useApolloClient} from "@vue/apollo-composable";
 import {matchProp, isUndefined, isNotUndefined} from "@/types";
-
-const gid = (value: string): string => {
-    return atob(value)
-}
-const sid = (value: string): string => {
-    return parseGid(gid(value))
-}
 
 type  CustomOptions = Record<"args", Record<"index", number>>
 
@@ -65,17 +73,25 @@ const fileread: FieldReadFunction<ProductVariantConnection, ProductVariant[] | u
 }
 
 const typePolicies: TypePolicies = {
-    /*ProductVariantConnection:{
-        keyFields:[]
-    },*/
 
+    ShopifyNode: {
+        fields: {
+            handle() {
+                alert()
+                debugger
+            }
+        }
+    },
     Product: {
         fields: {
-            gid(read, {readField}) {
-                return (readField("id")) ? gid(readField("id") as string) : undefined
-            },
-            sid(read, {readField}) {
-                    return (readField("id")) ? sid(readField("id") as string) : undefined
+            variant: {
+                keyArgs: [],
+                read(read, options) {
+                    const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache)
+                    //      debugger;
+                    console.log(read, filtered, options)
+                    return (filtered.length > 0) ? (filtered[0]) : undefined
+                }
             },
         }
     },
@@ -100,16 +116,6 @@ const typePolicies: TypePolicies = {
                 }
                 console.warn("CART ITEMS CALLLEDDD HHEREEE!", read, values2, options?.field);
                 return read
-            },
-            id: {
-                read(value, options) {
-                    const alias: string | undefined = (options.field?.alias?.value) ? options.field.alias.value : undefined
-                    return (alias === "gid")
-                        ? gid(value)
-                        : (alias === "sid")
-                            ? sid(value)
-                            : value
-                }
             },
             handle: {
                 read(value, options) {
@@ -158,73 +164,44 @@ const typePolicies: TypePolicies = {
     },
     Query: {
         fields: {
-            allVariants(read, options){
-                  //  debugger;
-                debugger;
-                const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache )
-              //  return filtered.map(()=>{
-                   // makeReference()
-
-              //  })
-                const filt2=   filtered.map((item)=>{
-                    if (item !== undefined){
-                        const id =options.cache.identify(item)
-                        if ( id !== undefined ){
-                        //    console.log("mappp",id,options.toReference(id) )
-                            return options.toReference(id)
-                        }
-                    }
-                    return
-                })
-                console.warn("CallVariantsEE!", filt2, makeVar(filtered)());
-               // return filt2
-                return makeVar(filtered)()
-              // options.make()
+            allVariants(read, options) {
+                //return "helllo!!!!!!!!!!"
+                const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache)
+                const todo = options.cache.readFragment({
+                    id: "ProductVariant:Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4Mjg3NzU1OA==",// The value of the to-do item's cache ID
+                    fragment: gql`
+                        fragment tttttt on ProductVariant {
+                            id
+                            __typename
+                            sku
+                        }`,
+                });
+                console.log(todo, options)
+                return [todo]
             }
         }
     }
 }
-/*
-type ConvertTypename<T extends {__typename: LiteralToPrimitive<T["__typename"]>} ? T extends {__typename: LiteralToPrimitive<T["__typename"]>} : never;
-    =Merge<NonNullable<T>,{__typename: LiteralToPrimitive<T["__typename"]>}>
-*/
 
-
-// Merge<NonNullable<T>,LiteralToPrimitive<T["__typename"]>>
-
-//: Merge<NonNullable<T,LiteralToPrimitive>
-//
-
-type test<T> = T extends Node ? Node : never
-//type ConvertTypename<T extends ProductVariant ? T : never> = Merge<ProductVariant,{ __typename : LiteralToPrimitive<ProductVariant["__typename"]>}> = {id:'jkjkjkjk'}
-const filterByTypes = <T=ProductVariant>( type:string,cache:InMemoryCache)=>{
+const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) => {
     const serializedState = cache.extract()
-
-  //  console.log("!!!!!_itemPROP IS MATCHED!!!", Object.keys(serializedState) )
     const typeNameItems = Object.values(serializedState)
-    return typeNameItems.filter((_item)=>{
-        if (isUndefined<T>(_item?.__typename)){
-            return false
-        }else{
-           // console.log("comparing ",_item?.__typename,typeof _item?.__typename , type,typeof type)
-            if ( _item?.__typename && (_item?.__typename).toString()){
-                if ( (_item?.__typename).toString() === type ){
+    return typeNameItems.filter((_item) => {
+        if (isUndefined<T>(_item?.__typename)) return false
+        else {
+            if (_item?.__typename && (_item?.__typename).toString()) {
+                if ((_item?.__typename).toString() === type) {
                     return true
                 }
             }
-        return false
-           /* if (isNotUndefined<Get<StoreObject,"__typename">>(_item?.__typename)  ){
-                if ( isNotUndefined<Get<T,"__typename">>( _item?.__typename as Get<T,"__typename">)) {
-                    console.log("-----match",matchProp<StoreObject>((_item as StoreObject ),"__typename","__typename"))
-                  return  matchProp<StoreObject>((_item as StoreObject ),"__typename","__typename")
-                }
-              }
-            return false*/
+            return false
         }
-
     })
 }
 
+/*export const useNewCache = (): InvalidationPolicyCache => {
+    return new InvalidationPolicyCache({typePolicies: typePolicies})
+}*/
 export const useCache = (): InMemoryCache => {
     return new InMemoryCache({typePolicies: typePolicies})
 }

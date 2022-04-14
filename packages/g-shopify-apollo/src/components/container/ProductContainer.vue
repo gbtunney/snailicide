@@ -16,7 +16,7 @@ import {useProduct} from './../../operations/queries/useProduct';
 import {useApolloClient} from "@vue/apollo-composable";
 
 import SimpleSelect from './../ui/SimpleSelect.vue';
-import {useVariantByIndexQuery,useTestproductopQuery, VariantByIndexDocument} from "@/types/generated/storefront-types";
+import {useVariantByIndexQuery,useTestproductopQuery,VariantByIndexDocument} from "@/types/generated/storefront-types";
 const props = withDefaults(
     defineProps<{
       /**
@@ -38,10 +38,11 @@ const props = withDefaults(
 watch(props, (value) => {
   //console.warn("watch :value", value)
 })
-debugger
-const {result,onResult,onError} = useTestproductopQuery()
+
+const {result,onResult,error,query,onError} = useVariantByIndexQuery({handle:'local',index:7})
+console.warn("useTestproductopQuery :value", result,error)
+
 onResult((value)=>{
-  debugger
   console.warn("onResult :value", value)
 
 })

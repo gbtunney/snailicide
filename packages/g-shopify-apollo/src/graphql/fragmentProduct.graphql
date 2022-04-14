@@ -1,8 +1,12 @@
 fragment ProductFragment on Product {
     id
     handle
-    title
-    available:availableForSale
+    title @uppercase
+
+    gid @client
+    sid @client
+
+    availableForSale
     productType
     vendor
     tags

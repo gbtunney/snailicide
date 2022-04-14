@@ -1,4 +1,4 @@
-import {Get,Primitive, SetRequired, SetOptional} from "type-fest";
+import {Get, Primitive, SetRequired, SetOptional} from "type-fest";
 import {
     ProductByHandleCustomQuery,
     ProductByHandleCustomQueryVariables
@@ -9,16 +9,16 @@ import type {
     ProductVariantFragment as ProductVariantFragmentRaw
 } from './generated/storefront-types'
 import {InMemoryCache} from "@apollo/client/core";
-import {FieldPolicy, FieldReadFunction} from "@apollo/client/cache";
 
+export type {CustomTypePolicy, CustomFieldPolicy} from "./apolloTypedPolicies"
 export type {
     ProductPriceRange,
     MoneyV2,
 } from './generated/storefront-types'
 
 export {
-   // ProductByIdQuery,
-   // ProductByIdQueryVariables
+    // ProductByIdQuery,
+    // ProductByIdQueryVariables
 } from "./generated/storefront-types";
 
 ///from query.
@@ -70,15 +70,16 @@ export type Nullish = null | undefined
 
 export const narrowDefined = isUndefined
 
-export const matchProp = <T = unknown>(data: T extends NonNullable<T> ?  NonNullable<T> : never,
+export const matchProp = <T = unknown>(data: T extends NonNullable<T> ? NonNullable<T> : never,
                                        key: keyof NonNullable<T> extends Primitive ? keyof NonNullable<T> : never,
-                                       value:  Primitive
-): data is  T extends NonNullable<T> ?  NonNullable<T> : never => {
+                                       value: Primitive
+): data is  T extends NonNullable<T> ? NonNullable<T> : never => {
 
     if (isNotUndefined<NonNullable<T>>(data) && isNotUndefined<Primitive>(key) && isNotUndefined(value)) {
-        if (isNotUndefined(data[key])){
-            if( String(data[key] )=== String(value)) return true
-        } return false
+        if (isNotUndefined(data[key])) {
+            if (String(data[key]) === String(value)) return true
+        }
+        return false
     }
     return false
 }
