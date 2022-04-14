@@ -24,7 +24,7 @@ fragment ProductFragment on Product {
     }
 
     options {
-       ...ProductOptionFragment
+        ...ProductOptionFragment
     }
     image:featuredImage{
         ...ImageFragment

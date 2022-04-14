@@ -1,35 +1,27 @@
 import {Get, Primitive, SetRequired, SetOptional} from "type-fest";
+import {InMemoryCache} from "@apollo/client/core";
+import {isNil} from "ramda";
+import {isNotNil} from "ramda-adjunct";
 import {
     ProductByHandleCustomQuery,
     ProductByHandleCustomQueryVariables
 } from "./generated/storefront-types";
-
-import type {
-    ProductFragment as ProductFragmentRaw,
-    ProductVariantFragment as ProductVariantFragmentRaw
-} from './generated/storefront-types'
-import {InMemoryCache} from "@apollo/client/core";
+import {PossibleNodesQuery, Product} from './generated/storefront-types'
 
 export type {CustomTypePolicy, CustomFieldPolicy} from "./apolloTypedPolicies"
+export {readField} from './apolloTypedPolicies'
 export type {
     ProductPriceRange,
     MoneyV2,
 } from './generated/storefront-types'
 
-export {
-    // ProductByIdQuery,
-    // ProductByIdQueryVariables
-} from "./generated/storefront-types";
+export {} from "./generated/storefront-types";
 
 ///from query.
 export type {
     ProductByHandleCustomQuery,
     ProductByHandleCustomQueryVariables
 } from './generated/storefront-types'
-
-import {PossibleNodesQuery, Product} from './generated/storefront-types'
-import {isNil} from "ramda";
-import {isNotNil} from "ramda-adjunct";
 
 export type ProductByHandleData = ProductByHandleCustomQuery["product"]
 export type ApiNodeTypes = Get<SetRequired<PossibleNodesQuery, "node">["__typename"], "node.__typename">

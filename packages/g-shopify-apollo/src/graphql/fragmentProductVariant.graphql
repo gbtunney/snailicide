@@ -6,6 +6,7 @@ fragment ProductVariantFragment on ProductVariant {
     gid @client
     sid @client
 
+    product_id @client
     weight
     sku
     currentlyNotInStock
@@ -13,12 +14,7 @@ fragment ProductVariantFragment on ProductVariant {
 
     product {
         id
-        title
-        options{
-            id
-            name
-            values
-        }
+        __typename
     }
 
     image {

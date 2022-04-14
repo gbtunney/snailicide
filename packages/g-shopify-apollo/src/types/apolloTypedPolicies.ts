@@ -1,6 +1,7 @@
 import {StringKeyOf} from "type-fest";
-import {FieldReadFunction, TypePolicy} from "@apollo/client/cache";
-import {FieldPolicy} from "@apollo/client/cache/inmemory/policies";
+import {FieldReadFunction, ReadFieldOptions, TypePolicy} from "@apollo/client/cache";
+import {FieldFunctionOptions, FieldPolicy} from "@apollo/client/cache/inmemory/policies";
+import {Reference, StoreObject} from "@apollo/client/core";
 
 type KeysForType<BaseType> = StringKeyOf<BaseType>[]
 
@@ -20,3 +21,32 @@ export type CustomFieldPolicy<Base> = NonNullable<// Wrap in `NonNullable` to st
             FieldPolicy<undefined | Base[fieldkey],   /*read type - will be undefined if its a local schema @client typer*/
                 Base[fieldkey]>  /* returns the propertys type from the schema */>
     }[keyof Base]>;
+
+
+type DeepReference<X> = X extends Record<string, any>
+    ? X extends { id: string }
+        ? Reference
+        : {
+            [K in keyof X]: DeepReference<X[K]>;
+        }
+    : X extends Array<{ id: string }>
+        ? Array<Reference>
+        : X;
+
+export interface ReadFieldFunction {
+    <T, K extends keyof T = keyof T>(
+        context: FieldFunctionOptions,
+        options: ReadFieldOptions
+    ): DeepReference<T[K]>;
+
+    <T, K extends keyof T = keyof T>(
+        context: FieldFunctionOptions,
+        fieldName: K,
+        from?: Reference | StoreObject | undefined
+    ): DeepReference<T[K]>;
+}
+
+export const readField: ReadFieldFunction = (...args: any) => {
+    const [context, ...restArgs] = args;
+    return context.readField(...restArgs);
+};

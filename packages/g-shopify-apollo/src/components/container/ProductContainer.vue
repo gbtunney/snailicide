@@ -39,13 +39,13 @@ watch(props, (value) => {
   //console.warn("watch :value", value)
 })
 
-const {result,onResult,error,query,onError} = useVariantByIndexQuery({handle:'local',index:7})
-console.warn("useTestproductopQuery :value", result,error)
+//const {result,onResult,error,query,onError} = useVariantByIndexQuery({handle:'local',index:7})
+//console.warn("useTestproductopQuery :value", result,error)
 
-onResult((value)=>{
-  console.warn("onResult :value", value)
+//onResult((value)=>{
+ // console.warn("onResult :value", value)
 
-})
+//})
 
 const {handle,variant_id} = toRefs(props)
 const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVariant,getVariantByIndex} = useProduct(props)
@@ -55,7 +55,7 @@ const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVaria
   <div class="product container">
     HIHIHHIz LOADING :<h2>{{ loading }}</h2>
     <div v-if="Product">
-      {{getVariantByIndex(variant_id) }}
+      {{Product }}
       <div v-for="(option,index) in Options" :key="index">
         <h2>{{option.title}}</h2>
         <SimpleSelect @change="test()" :options="option.values"></SimpleSelect>
