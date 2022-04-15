@@ -1,6 +1,10 @@
 fragment ProductOptionFragment on ProductOption{
     id
     title:name
-    handle:name
+    handle @client
+    option_values @client {
+        title
+        handle
+    }
     values
 }

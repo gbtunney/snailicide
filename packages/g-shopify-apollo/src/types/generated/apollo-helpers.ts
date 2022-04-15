@@ -1184,10 +1184,9 @@ export type ProductOptionFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	values?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductOptionValueKeySpecifier = ('handle' | 'id' | 'option' | 'option_id' | 'parent_handle' | 'position' | 'title' | 'variants' | ProductOptionValueKeySpecifier)[];
+export type ProductOptionValueKeySpecifier = ('handle' | 'option' | 'option_id' | 'parent_handle' | 'position' | 'title' | 'variants' | ProductOptionValueKeySpecifier)[];
 export type ProductOptionValueFieldPolicy = {
 	handle?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	option?: FieldPolicy<any> | FieldReadFunction<any>,
 	option_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	parent_handle?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1415,10 +1414,9 @@ export type ShopPolicyWithDefaultFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ShopifyNodeKeySpecifier = ('handle' | 'id' | 'position' | ShopifyNodeKeySpecifier)[];
+export type ShopifyNodeKeySpecifier = ('handle' | 'position' | ShopifyNodeKeySpecifier)[];
 export type ShopifyNodeFieldPolicy = {
 	handle?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	position?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ShopifyProductNodeKeySpecifier = ('product' | 'product_id' | ShopifyProductNodeKeySpecifier)[];

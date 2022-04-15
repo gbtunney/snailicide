@@ -57,8 +57,8 @@ const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVaria
     <div v-if="Product">
       {{Product }}
       <div v-for="(option,index) in Options" :key="index">
-        <h2>{{option.title}}</h2>
-        <SimpleSelect @change="test()" :options="option.values"></SimpleSelect>
+        <h2>{{option}}</h2>
+<!--        <SimpleSelect @change="test()" :options="option.values"></SimpleSelect>-->
       </div>
     </div>
   </div>

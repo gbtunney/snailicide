@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@gabrielurbina/type-guard": "^0.1.9",
+    "@nerdwallet/apollo-cache-policies": "^2.6.0",
     "@shopify/admin-graphql-api-utilities": "^1.0.9",
     "@snailicide/g-library": "^1.0.0",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
@@ -19,6 +20,7 @@
     "@vueuse/core": "^8.2.0",
     "@vuex-orm/core": "^1.0.0-draft.16",
     "add": "^2.0.6",
+    "apollo-link-directive": "^0.1.0",
     "apollo3-cache-persist": "^0.14.0",
     "core-js": "^3.8.3",
     "graphql": "^16.3.0",

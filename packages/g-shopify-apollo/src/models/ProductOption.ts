@@ -1,6 +1,4 @@
-import {
-    Product, ProductVariant, ProductImage,
-} from "./";
+
 import {
     ProductOption as TProductOption,
     ProductOptionValue as TProductOptionValue,
@@ -12,8 +10,8 @@ export class ProductOptionValue extends Model implements Omit<TProductOptionValu
     static entity = 'productoptionvalue'
     static primaryKey = ['option_id', 'position']
 
-    @Str('')
-    id!: TProductOptionValue["id"]
+  //      @Str('')
+    //id!: TProductOptionValue["id"]
 
     @Str('')
     __typename: 'ProductOptionValue' = 'ProductOptionValue'
@@ -67,7 +65,7 @@ export class ProductOption extends Model implements Omit<TProductOption, "name" 
     @Str('')
     product_id!: TProductOption['product_id']
 
-    @BelongsTo(() => Product, 'product_id')
+   // @BelongsTo(() => Product, 'product_id')
     product!: TProductOption["product"]
 
     @HasMany(() => ProductOptionValue, 'option_id')
@@ -85,7 +83,7 @@ export class VariantOption extends Model implements TVariantOption {
     @Str('')
     variant_id!: TVariantOption["variant_id"]
 
-    @HasOne(() => ProductVariant, "id", "variant_id")
+ //   @HasOne(() => ProductVariant, "id", "variant_id")
     variant!: TVariantOption["variant"]
 
     @Attr([])

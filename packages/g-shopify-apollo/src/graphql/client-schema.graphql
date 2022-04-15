@@ -2,12 +2,11 @@ directive @client on FIELD_DEFINITION
 directive @uppercase on FIELD_DEFINITION
 
 interface Extended_ID {
-    gid : String! @client
-    sid : Int! @client
+    gid : String!
+    sid : Int!
 }
 
 interface ShopifyNode {
-    id:ID!
     handle:String
     position:Int
 }
@@ -38,9 +37,9 @@ extend type ProductOption implements ShopifyNode & ShopifyProductNode{
     handle:String
     title:String
     position:Int
-    product_id: ID!
+    product_id: ID
     product:Product
-    option_values:[ProductOptionValue]
+    option_values:[ProductOptionValue!]
 }
 extend type Image implements ShopifyProductNode{
     position:Int
@@ -50,7 +49,6 @@ extend type Image implements ShopifyProductNode{
 }
 
 type ProductOptionValue implements ShopifyNode{
-    id:ID!
     handle: String
     title: String
     parent_handle: String

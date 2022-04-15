@@ -1,10 +1,10 @@
 import {InMemoryCache, gql} from "@apollo/client/core";
+import * as RA from "ramda-adjunct"
 import {slugify} from "@snailicide/g-library";
-import {TypePolicies} from "@apollo/client/cache";
-import {readField, CustomTypePolicy, isUndefined, ProductVariant} from "./../types";
+import {readField, CustomTypePolicy, isUndefined} from "./../types";
+import {Product, ProductVariant, ProductOption, ProductOptionValue} from "./../types/generated/storefront-types";
 
-import {Product} from "./../types/generated/storefront-types";
-import {policyExtended_ID} from "./typeExtendedID";
+import {policyExtended_ID} from ".";
 
 const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) => {
     const serializedState = cache.extract()
@@ -13,19 +13,88 @@ const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) =
         if (isUndefined<T>(_item?.__typename)) return false
         else {
             if (_item?.__typename && (_item?.__typename).toString()) {
-                if ((_item?.__typename).toString() === type) {
-                    return true
-                }
+                if ((_item?.__typename).toString() === type) return true
             }
-            return false
         }
     })
 }
-
+const getProductOptionValuesExpanded = (option: ProductOption) => {
+    const {id: option_id, values = []} = option
+    return values.map((value): ProductOptionValue => {
+        const dataObject: ProductOptionValue = {
+            __typename: "ProductOptionValue",
+            handle: slugify(value),
+            title: value,
+            option_id,
+            option
+        }
+        return dataObject
+    })
+}
+export const typePolicyProductOption: CustomTypePolicy<ProductOption> = {}
+export const typePolicyProductOptionValue: CustomTypePolicy<ProductOptionValue> = {
+    keyFields: ["option_id", "handle"]
+}
 export const typePolicyProduct: CustomTypePolicy<Product> = {
     //  keyFields: ["gid"],
     fields: {
         ...policyExtended_ID.fields,
+        options: {
+            merge(excisting, incoming, options) {
+                const optionArray = incoming.map((_option) => {
+                    const option_id = options.cache.identify(_option/*readField<ProductOption, 'id'>(options, 'id')*/)
+                    //**** retrieve the id and value field from the reference
+                    const _current_option_data = options.cache.readFragment<ProductOption>({
+                        id: option_id,
+                        fragment: gql`fragment GetOptionValues on ProductOption {id name values}`
+                    })
+                    if (RA.isNotNil(_current_option_data)) {
+                        const _productoption_write = options.cache.writeFragment<Partial<ProductOption>, ProductOption>({
+                            id: option_id,
+                            fragment: gql`
+                                fragment OptionID on ProductOption {
+                                    handle @client
+                                    option_values @client {
+                                        title
+                                        handle
+                                        option_id
+                                        option
+                                    }
+                                }
+                            `,
+                            data: {
+                                handle: slugify(_current_option_data.name),
+                                option_values: getProductOptionValuesExpanded(_current_option_data) ///compiled option_values
+                            }
+                        })
+                        if (!_productoption_write) throw "Product Option attempt to WRITE option_values :::: FAILED!!!!!!!"
+
+                        /* * TEST THE ADDED VALUES ( todo: turn off later * */
+                        const _productoption_read_test = options.cache.readFragment<ProductOption>({
+                            id: option_id,
+                            fragment: gql`
+                                fragment OptionID on ProductOption {
+                                    id
+                                    __typename
+                                    name
+                                    handle
+                                    values
+                                    option_values @client {
+                                        title
+                                        handle
+                                        option_id
+                                        option
+                                    }
+                                }
+                            `
+                        })
+                        if (!_productoption_read_test) throw "Product Option attempt to read option_values FAILED!!!!!!!"
+                        else console.log("Product Option: added option_values READ SUCCESS!!!", _productoption_read_test)
+                    }
+                })
+                return incoming
+            }
+        },
         variant: {
             read(read, options) {
                 debugger;
@@ -33,49 +102,8 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
                 const _indexvar: number = (options.variables?.index) ? options.variables?.index : 4
                 console.log(options, _index, _indexvar)
                 const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache)
-                if (filtered && filtered.length <= _index) {
-                    return (filtered[_index] as unknown) as ProductVariant
-                }
-                return
+                if (filtered && filtered.length <= _index) return (filtered[_index] as unknown) as ProductVariant
             }
         }
     }
-}
-
-export const typePolicyProductVariant: CustomTypePolicy<ProductVariant> = {
-    fields: {
-        ...policyExtended_ID.fields,
-        product_id(read, options) {
-            //todo: set a variable to if return the typename in the ID
-            const boolIncludeType = true
-
-            const _productFieldID = options.cache.identify(readField<ProductVariant, 'product'>(options, 'product'))
-            const _product = options.cache.readFragment<Product>({
-                id: _productFieldID,
-                fragment: gql`
-                    fragment ProductID on Product{
-                        id
-                        __typename
-                    }
-                `
-            })
-            return (_product?.id)
-                ? (boolIncludeType)
-                    ? `${_product.__typename}:${_product.id}`
-                    : _product.id
-                : undefined
-        },
-        handle(read, options) {
-            const title: string | undefined = options.readField("title")
-            return (title) ? slugify(title) : undefined
-        },
-    }
-}
-export const typePolicyMerged: TypePolicies = {
-    ProductVariant: {
-        ...typePolicyProductVariant
-    },
-    Product: {
-        ...typePolicyProduct
-    },
 }

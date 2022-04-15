@@ -1,13 +1,31 @@
-export {ProductVariant} from "./ProductVariant";
-export {ProductImage,ProductImageType} from "./ProductImage";
-export {Product,ProductType} from "./Product";
-
-export { VariantOption,ProductOption,ProductOptionValue} from './ProductOption'
-
 import {ObjectOf, OneOf, isNull, isString, Guard, OptionalGuard, isNumber} from "@gabrielurbina/type-guard"
-import { ApiNodeTypes, RequiredFragmentProps, IdentityRequired} from "./../types";
+import {ApiNodeTypes, RequiredFragmentProps, IdentityRequired} from "./../types";
+import {TypePolicies} from "@apollo/client/cache";
 
-//export type ModelTypes = Product | ProductVariant
+
+import {
+    typePolicyProduct,
+    typePolicyProductOption,
+    typePolicyProductOptionValue
+} from "./typeProduct";
+import typePolicyProductVariant from "./ProductVariant";
+
+export {policyExtended_ID} from "./typeExtendedID";
+
+export const typePolicyMerged: TypePolicies = {
+    ProductOption: {
+        ...typePolicyProductOption
+    },
+    ProductOptionValue: {
+        ...typePolicyProductOptionValue
+    },
+    ProductVariant: {
+        ...typePolicyProductVariant
+    },
+    Product: {
+        ...typePolicyProduct
+    },
+}
 
 export const isValidShopifyApiNode = <T>(node: T): node is T => {
     const isApiNode = ObjectOf((self) => ({
@@ -16,15 +34,7 @@ export const isValidShopifyApiNode = <T>(node: T): node is T => {
     }));
     return isApiNode(node)
 }
-const test :{
-    __typename :ApiNodeTypes
-} = {__typename:"Producffft"}
 
-/*export type Model<T extends ModelTypes, T2> = {
-    create: (value: T) => ModelExtended<T2>
-}*/
-
-//additional extended model properties.
 export interface ModelProperties {
     position?: number
     cacheID: string
@@ -48,3 +58,4 @@ export const create = <T>(_node: T extends RequiredFragmentProps ? IdentityRequi
     }
     return undefined
 }
+export default typePolicyMerged

@@ -1,4 +1,3 @@
-import {Product, ProductVariant} from ".";
 import {ProductImage as TProductImage} from "./../types"
 
 import {Model, Attr, Str, Num, BelongsTo, HasMany} from '@vuex-orm/core'
@@ -32,10 +31,10 @@ export class ProductImage extends Model implements Partial<TProductImage> {
     @Str('')
     product_id!: TProductImage['product_id']
 
-    @BelongsTo(() => Product, 'product_id')
+  //  @BelongsTo(() => Product, 'product_id')
     product!: TProductImage["product"]
 
-    @HasMany(() => ProductVariant, 'image_id')
+  //  @HasMany(() => ProductVariant, 'image_id')
     variants!: TProductImage['variants']
 }
 

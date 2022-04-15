@@ -13,7 +13,6 @@ const sid = (value: string): number | undefined => {
     }
 }
 export const policyExtended_ID: CustomTypePolicy<Extended_Id> = {
-    //keyFields: ["gid"],
     fields: {
         gid(read, options) {
             const id: string | undefined = options.readField("id")

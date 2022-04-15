@@ -10,11 +10,17 @@ generates:
   src/types/generated/storefront-types.ts:
     config:
       withCompositionFunctions: true
-      nonOptionalTypename: true
       vueCompositionApiImportFrom: vue
       dedupeOperationSuffix: true
-      avoidOptionals: true
+      dedupeFragments: true
+      inlineFragmentTypes: combine
+      nonOptionalTypename: true
+      avoidOptionals: false
+      maybeValue: T | undefined
       scalars:
+        Int: number
+        String: string
+        Boolean: boolean
         DateTime: Date
         NodeDescription: NodeDescription
         Money: number

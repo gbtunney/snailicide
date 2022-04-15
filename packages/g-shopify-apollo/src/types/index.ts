@@ -59,19 +59,3 @@ export const isUndefined = <T = unknown, Rtn = undefined>(data: NonNullable<any>
 export const isNotUndefined = <T = unknown>(data: T | Nullish): data is T => isNotNil<T>(data)
 
 export type Nullish = null | undefined
-
-export const narrowDefined = isUndefined
-
-export const matchProp = <T = unknown>(data: T extends NonNullable<T> ? NonNullable<T> : never,
-                                       key: keyof NonNullable<T> extends Primitive ? keyof NonNullable<T> : never,
-                                       value: Primitive
-): data is  T extends NonNullable<T> ? NonNullable<T> : never => {
-
-    if (isNotUndefined<NonNullable<T>>(data) && isNotUndefined<Primitive>(key) && isNotUndefined(value)) {
-        if (isNotUndefined(data[key])) {
-            if (String(data[key]) === String(value)) return true
-        }
-        return false
-    }
-    return false
-}
