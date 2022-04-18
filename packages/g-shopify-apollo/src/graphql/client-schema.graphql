@@ -1,9 +1,10 @@
 directive @client on FIELD_DEFINITION
 directive @uppercase on FIELD_DEFINITION
 
-interface Extended_ID {
-    gid : String!
-    sid : Int!
+interface Extended_ID  {
+    gid : String
+    sid : Int
+    cacheID:String
 }
 
 interface ShopifyNode {
@@ -19,8 +20,9 @@ interface ShopifyProductNode {
 extend type Product implements Extended_ID{
     available:Boolean
     variant(index:Int!) : ProductVariant  @client
-    gid : String! @client
-    sid : Int!  @client
+    gid : String @client
+    sid : Int @client
+    cacheID:String! @client
 }
 
 extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extended_ID {
@@ -30,8 +32,9 @@ extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extende
     product_id: ID
     image_id:ID!
 
-    gid : String!
-    sid : Int!
+    gid : String
+    sid : Int
+    cacheID:String @client
 }
 extend type ProductOption implements ShopifyNode & ShopifyProductNode{
     handle:String
@@ -45,7 +48,7 @@ extend type Image implements ShopifyProductNode{
     position:Int
     product_id: ID
     product:Product
-    variants:[ProductVariant]
+    variants:[ProductVariant!]
 }
 
 type ProductOptionValue implements ShopifyNode{
@@ -55,7 +58,7 @@ type ProductOptionValue implements ShopifyNode{
     position:Int
     option_id:ID!
     option: ProductOption
-    variants:[ProductVariant]
+    variants:[ProductVariant!]
 }
 type VariantOption {
     option_value_id: ID!
@@ -66,14 +69,14 @@ type VariantOption {
 type ProductInstance {
     id: ID!
     quantity: Int!
-    customAttributes : [Attribute]
+    customAttributes : [Attribute!]
     variant : ProductVariant
     product: Product
 }
 type ProductGroup {
     id: ID!
     available:Boolean
-    items: [ProductInstance]
+    items: [ProductInstance!]
 }
 
 extend type QueryRoot{

@@ -2417,7 +2417,7 @@
           "fields": [
             {
               "name": "subtotalAmount",
-              "description": "The estimated amount, before taxes and discounts, for the customer to pay at checkout.",
+              "description": "The estimated amount, before taxes and discounts, for the customer to pay.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2433,7 +2433,7 @@
             },
             {
               "name": "totalAmount",
-              "description": "The estimated total amount for the customer to pay at checkout.",
+              "description": "The estimated total amount for the customer to pay.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -7746,7 +7746,7 @@
         {
           "kind": "ENUM",
           "name": "CountryCode",
-          "description": "ISO 3166-1 alpha-2 country codes with some differences.",
+          "description": "The code designating a country, which generally follows ISO 3166-1 alpha-2 guidelines.\nIf a territory doesn't have a country code value in the `CountryCode` enum, it might be considered a subdivision\nof another country. For example, the territories associated with Spain are represented by the country code `ES`,\nand the territories associated with the United States of America are represented by the country code `US`.\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -12523,7 +12523,7 @@
         {
           "kind": "SCALAR",
           "name": "DateTime",
-          "description": "Represents an [ISO 8601](https:\/\/en.wikipedia.org\/wiki\/ISO_8601)-encoded date and time string.\nFor example, 3:30 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is\nrepresented as `\"2019-09-07T15:50:00Z`\".\n",
+          "description": "Represents an [ISO 8601](https:\/\/en.wikipedia.org\/wiki\/ISO_8601)-encoded date and time string.\nFor example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is\nrepresented as `\"2019-09-07T15:50:00Z`\".\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -13325,7 +13325,7 @@
         {
           "kind": "ENUM",
           "name": "FilterType",
-          "description": "Denotes the type of data this filter group represents.",
+          "description": "The type of data that the filter group represents.\n\nFor more information, refer to [Filter products in a collection with the Storefront API]\n(https:\/\/shopify.dev\/api\/examples\/filter-products).\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,

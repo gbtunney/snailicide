@@ -3145,8 +3145,9 @@ export type Domain = {
 };
 
 export type Extended_Id = {
-  gid: Scalars['String'];
-  sid: Scalars['Int'];
+  cacheID?: Maybe<Scalars['String']>;
+  gid?: Maybe<Scalars['String']>;
+  sid?: Maybe<Scalars['Int']>;
 };
 
 /** Represents a video hosted outside of Shopify. */
@@ -3370,7 +3371,7 @@ export type Image = ShopifyProductNode & {
    *
    */
   url: Scalars['URL'];
-  variants?: Maybe<Array<Maybe<ProductVariant>>>;
+  variants?: Maybe<Array<ProductVariant>>;
   /** The original width of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
   width?: Maybe<Scalars['Int']>;
 };
@@ -4953,6 +4954,7 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
   available?: Maybe<Scalars['Boolean']>;
   /** Indicates if at least one product variant is available for sale. */
   availableForSale: Scalars['Boolean'];
+  cacheID: Scalars['String'];
   /** List of collections a product belongs to. */
   collections: CollectionConnection;
   /** The compare at price of the product across all variants. */
@@ -4970,7 +4972,7 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
    *
    */
   featuredImage?: Maybe<Image>;
-  gid: Scalars['String'];
+  gid?: Maybe<Scalars['String']>;
   /**
    * A human-friendly unique string for the Product automatically generated from its title.
    * They are used by the Liquid templating language to refer to objects.
@@ -5007,7 +5009,7 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
   sellingPlanGroups: SellingPlanGroupConnection;
   /** The product's SEO information. */
   seo: Seo;
-  sid: Scalars['Int'];
+  sid?: Maybe<Scalars['Int']>;
   /**
    * A comma separated list of tags that have been added to the product.
    * Additional access scope required for private apps: unauthenticated_read_product_tags.
@@ -5240,7 +5242,7 @@ export type ProductGroup = {
   __typename: 'ProductGroup';
   available?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
-  items?: Maybe<Array<Maybe<ProductInstance>>>;
+  items?: Maybe<Array<ProductInstance>>;
 };
 
 /** The set of valid sort keys for the ProductImage query. */
@@ -5261,7 +5263,7 @@ export enum ProductImageSortKeys {
 
 export type ProductInstance = {
   __typename: 'ProductInstance';
-  customAttributes?: Maybe<Array<Maybe<Attribute>>>;
+  customAttributes?: Maybe<Array<Attribute>>;
   id: Scalars['ID'];
   product?: Maybe<Product>;
   quantity: Scalars['Int'];
@@ -5312,7 +5314,7 @@ export type ProductOptionValue = ShopifyNode & {
   parent_handle?: Maybe<Scalars['String']>;
   position?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
-  variants?: Maybe<Array<Maybe<ProductVariant>>>;
+  variants?: Maybe<Array<ProductVariant>>;
 };
 
 /** The price range of the product. */
@@ -5357,6 +5359,7 @@ export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & 
   availableForSale: Scalars['Boolean'];
   /** The barcode (for example, ISBN, UPC, or GTIN) associated with the variant. */
   barcode?: Maybe<Scalars['String']>;
+  cacheID?: Maybe<Scalars['String']>;
   /**
    * The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPrice` is higher than `price`.
    * @deprecated Use `compareAtPriceV2` instead
@@ -5366,7 +5369,7 @@ export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & 
   compareAtPriceV2?: Maybe<MoneyV2>;
   /** Whether a product is out of stock but still available for purchase (used for backorders). */
   currentlyNotInStock: Scalars['Boolean'];
-  gid: Scalars['String'];
+  gid?: Maybe<Scalars['String']>;
   handle?: Maybe<Scalars['String']>;
   /** A globally-unique identifier. */
   id: Scalars['ID'];
@@ -5404,7 +5407,7 @@ export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & 
   selectedOptions: Array<SelectedOption>;
   /** Represents an association between a variant and a selling plan. Selling plan allocations describe which selling plans are available for each variant, and what their impact is on pricing. */
   sellingPlanAllocations: SellingPlanAllocationConnection;
-  sid: Scalars['Int'];
+  sid?: Maybe<Scalars['Int']>;
   /** The SKU (stock keeping unit) associated with the variant. */
   sku?: Maybe<Scalars['String']>;
   /** The in-store pickup availability of this variant by location. */
@@ -6457,9 +6460,9 @@ export type PriceRangeFragment = { __typename: 'ProductPriceRange', minVariantPr
     & PriceFragment
   ) };
 
-export type ImageFragment = { __typename: 'Image', id?: string | undefined, width?: number | undefined, height?: number | undefined, src: string, alt?: string | undefined };
+export type ImageFragment = { __typename: 'Image', id?: string | undefined, width?: number | undefined, height?: number | undefined, src: string, alt?: string | undefined, variants?: Array<{ __typename: 'ProductVariant', id: string }> | undefined };
 
-export type ProductFragment = { __typename: 'Product', id: string, handle: string, title: string, gid: string, sid: number, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, compareAtPriceRange: (
+export type ProductFragment = { __typename: 'Product', id: string, handle: string, title: string, gid?: string | undefined, sid?: number | undefined, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, compareAtPriceRange: (
     { __typename: 'ProductPriceRange' }
     & PriceRangeFragment
   ), priceRange: (
@@ -6487,7 +6490,7 @@ export type ProductFragment = { __typename: 'Product', id: string, handle: strin
 
 export type ProductOptionFragment = { __typename: 'ProductOption', id: string, handle?: string | undefined, values: Array<string>, title: string, option_values?: Array<{ __typename: 'ProductOptionValue', title?: string | undefined, handle?: string | undefined }> | undefined };
 
-export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, gid: string, sid: number, product_id?: string | undefined, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string }, image?: (
+export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, gid?: string | undefined, sid?: number | undefined, product_id?: string | undefined, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string }, image?: (
     { __typename: 'Image' }
     & ImageFragment
   ) | undefined, selectedOptions: Array<{ __typename: 'SelectedOption', name: string, parent_handle: string, handle: string }>, priceV2: (
@@ -6572,6 +6575,10 @@ export const ImageFragmentDoc = gql`
   alt: altText
   width
   height
+  variants @client {
+    id
+    __typename
+  }
 }
     `;
 export const PageInfoFragmentDoc = gql`
@@ -6583,7 +6590,7 @@ export const PageInfoFragmentDoc = gql`
 export const ProductVariantFragmentDoc = gql`
     fragment ProductVariantFragment on ProductVariant {
   id
-  title @uppercase
+  title
   availableForSale
   inventoryQuantity: quantityAvailable
   gid @client

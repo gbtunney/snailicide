@@ -1,11 +1,19 @@
 import {InMemoryCache, gql} from "@apollo/client/core";
 import * as RA from "ramda-adjunct"
 import {slugify} from "@snailicide/g-library";
-import {readField, CustomTypePolicy, isUndefined} from "./../types";
-import {Product, ProductVariant, ProductOption, ProductOptionValue} from "./../types/generated/storefront-types";
+import {readField, CustomTypePolicy, isUndefined, ProductImage} from "./../types";
+import {
+    Product,
+    ProductVariant,
+    ProductOption,
+    ProductOptionValue,
+    ProductVariantEdge,
+    ProductVariantConnection
+} from "./../types/generated/storefront-types";
 
-import {policyExtended_ID} from ".";
+import {policyExtended_ID} from './typeExtendedID'
 
+console.log("policyExtended_ID", policyExtended_ID)
 const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) => {
     const serializedState = cache.extract()
     const typeNameItems = Object.values(serializedState)
@@ -31,6 +39,25 @@ const getProductOptionValuesExpanded = (option: ProductOption) => {
         return dataObject
     })
 }
+
+/* * Product Images  * */
+export const typePolicyProductImage: CustomTypePolicy<ProductImage> = {
+    fields: {
+        /* * Product Images : merge variant field. * */
+        variants: {
+            merge(excisting, incoming, options) {
+                if (excisting === undefined) excisting = []
+                console.log("hi incoming", incoming, "excisting ", excisting)
+                return (incoming !== undefined
+                    && RA.isArray(excisting) && RA.isArray(incoming))
+                    ? [...excisting, ...incoming]
+                    : incoming
+            }
+        }
+    }
+}
+export const typePolicyVariantEdge: CustomTypePolicy<ProductVariantEdge> = {}
+
 export const typePolicyProductOption: CustomTypePolicy<ProductOption> = {}
 export const typePolicyProductOptionValue: CustomTypePolicy<ProductOptionValue> = {
     keyFields: ["option_id", "handle"]
@@ -40,6 +67,7 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
     fields: {
         ...policyExtended_ID.fields,
         options: {
+            /* * Create Option Value objects and add to cache.  * */
             merge(excisting, incoming, options) {
                 const optionArray = incoming.map((_option) => {
                     const option_id = options.cache.identify(_option/*readField<ProductOption, 'id'>(options, 'id')*/)
@@ -52,7 +80,7 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
                         const _productoption_write = options.cache.writeFragment<Partial<ProductOption>, ProductOption>({
                             id: option_id,
                             fragment: gql`
-                                fragment OptionID on ProductOption {
+                                fragment WriteProductOption on ProductOption {
                                     handle @client
                                     option_values @client {
                                         title

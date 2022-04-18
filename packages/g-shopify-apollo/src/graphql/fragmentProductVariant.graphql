@@ -1,6 +1,6 @@
 fragment ProductVariantFragment on ProductVariant {
     id
-    title @uppercase
+    title
     availableForSale
     inventoryQuantity:quantityAvailable
     gid @client

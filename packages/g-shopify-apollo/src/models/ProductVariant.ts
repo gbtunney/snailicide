@@ -1,8 +1,9 @@
-import {CustomTypePolicy, ProductVariant, readField} from "@/types";
 import {policyExtended_ID} from "./typeExtendedID";
-import {Product} from "./../types/generated/storefront-types";
+import {Product, ProductOption, ProductVariant} from "./../types/generated/storefront-types";
 import {gql} from "@apollo/client/core";
 import {slugify} from "@snailicide/g-library";
+import {readField, CustomTypePolicy} from "./../types";
+import * as RA from "ramda-adjunct";
 
 export const typePolicyProductVariant: CustomTypePolicy<ProductVariant> = {
     fields: {
@@ -10,7 +11,6 @@ export const typePolicyProductVariant: CustomTypePolicy<ProductVariant> = {
         product_id(read, options) {
             //todo: set a variable to if return the typename in the ID
             const boolIncludeType = true
-
             const _productFieldID = options.cache.identify(readField<ProductVariant, 'product'>(options, 'product'))
             const _product = options.cache.readFragment<Product>({
                 id: _productFieldID,

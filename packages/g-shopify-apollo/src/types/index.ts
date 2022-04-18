@@ -59,3 +59,13 @@ export const isUndefined = <T = unknown, Rtn = undefined>(data: NonNullable<any>
 export const isNotUndefined = <T = unknown>(data: T | Nullish): data is T => isNotNil<T>(data)
 
 export type Nullish = null | undefined
+
+export type DeepPartial<T> = T extends object ? {
+    [P in keyof T]?: DeepPartial<T[P]>;
+} : T;
+
+//TODO: update for reference??
+export const getIdentity =( value : string )=>{
+    const [__typename, id ]= value.split( ":");
+    return {__typename: __typename as `ProductVariant`,id}
+}

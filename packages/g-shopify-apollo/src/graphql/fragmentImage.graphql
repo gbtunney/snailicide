@@ -4,4 +4,9 @@ fragment ImageFragment on Image{
     alt:altText
     width
     height
+    variants @client {
+        id
+        __typename
+    }
 }
+

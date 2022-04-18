@@ -691,8 +691,9 @@ export type DomainFieldPolicy = {
 	sslEnabled?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Extended_IDKeySpecifier = ('gid' | 'sid' | Extended_IDKeySpecifier)[];
+export type Extended_IDKeySpecifier = ('cacheID' | 'gid' | 'sid' | Extended_IDKeySpecifier)[];
 export type Extended_IDFieldPolicy = {
+	cacheID?: FieldPolicy<any> | FieldReadFunction<any>,
 	gid?: FieldPolicy<any> | FieldReadFunction<any>,
 	sid?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -1112,10 +1113,11 @@ export type PricingPercentageValueKeySpecifier = ('percentage' | PricingPercenta
 export type PricingPercentageValueFieldPolicy = {
 	percentage?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductKeySpecifier = ('available' | 'availableForSale' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'gid' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'sid' | 'tags' | 'title' | 'totalInventory' | 'updatedAt' | 'variant' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
+export type ProductKeySpecifier = ('available' | 'availableForSale' | 'cacheID' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'gid' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'sid' | 'tags' | 'title' | 'totalInventory' | 'updatedAt' | 'variant' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
 export type ProductFieldPolicy = {
 	available?: FieldPolicy<any> | FieldReadFunction<any>,
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
+	cacheID?: FieldPolicy<any> | FieldReadFunction<any>,
 	collections?: FieldPolicy<any> | FieldReadFunction<any>,
 	compareAtPriceRange?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1199,10 +1201,11 @@ export type ProductPriceRangeFieldPolicy = {
 	maxVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	minVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
+export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'cacheID' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
 export type ProductVariantFieldPolicy = {
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	barcode?: FieldPolicy<any> | FieldReadFunction<any>,
+	cacheID?: FieldPolicy<any> | FieldReadFunction<any>,
 	compareAtPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	compareAtPriceV2?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyNotInStock?: FieldPolicy<any> | FieldReadFunction<any>,

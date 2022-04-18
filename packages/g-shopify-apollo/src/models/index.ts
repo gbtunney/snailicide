@@ -4,15 +4,17 @@ import {TypePolicies} from "@apollo/client/cache";
 
 
 import {
-    typePolicyProduct,
+    typePolicyProduct, typePolicyProductImage,
     typePolicyProductOption,
-    typePolicyProductOptionValue
+    typePolicyProductOptionValue,
+    typePolicyVariantEdge
 } from "./typeProduct";
 import typePolicyProductVariant from "./ProductVariant";
 
 export {policyExtended_ID} from "./typeExtendedID";
 
 export const typePolicyMerged: TypePolicies = {
+
     ProductOption: {
         ...typePolicyProductOption
     },
@@ -25,6 +27,9 @@ export const typePolicyMerged: TypePolicies = {
     Product: {
         ...typePolicyProduct
     },
+    Image: {
+        ...typePolicyProductImage
+    }
 }
 
 export const isValidShopifyApiNode = <T>(node: T): node is T => {
@@ -58,4 +63,5 @@ export const create = <T>(_node: T extends RequiredFragmentProps ? IdentityRequi
     }
     return undefined
 }
+//export const policyExtended_ID
 export default typePolicyMerged

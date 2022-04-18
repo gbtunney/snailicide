@@ -14,6 +14,11 @@ const sid = (value: string): number | undefined => {
 }
 export const policyExtended_ID: CustomTypePolicy<Extended_Id> = {
     fields: {
+        cacheID(read, options){
+            const id: string | undefined = options.readField("id")
+            const __typename: string | undefined = options.readField("__typename")
+            return (id !== undefined && __typename !== undefined ) ? `${__typename}:${id}` : undefined
+        },
         gid(read, options) {
             const id: string | undefined = options.readField("id")
             return (id !== undefined) ? gid(id) : undefined

@@ -40,7 +40,9 @@ export const useProduct = (props: { handle: string }) => {
             }
         ]
     })
+    const test = useApolloClient().client.cache
 
+    console.log("THR LCLIENT ", test)
     const isReady = computed(() => {
         const test = useApolloClient().client.cache
         return (product.value && !loading.value)
