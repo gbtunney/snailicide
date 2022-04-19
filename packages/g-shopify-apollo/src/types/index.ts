@@ -69,3 +69,8 @@ export const getIdentity =( value : string )=>{
     const [__typename, id ]= value.split( ":");
     return {__typename: __typename as `ProductVariant`,id}
 }
+
+export type ProductComponentProps = {
+    handle : string
+    variant_id: string | number
+}

@@ -5,10 +5,12 @@ import {
     VariantOption as TVariantOption,
 } from './../types'
 import {Uid, Model, Attr, Str, Num, BelongsTo, HasMany, HasOne} from '@vuex-orm/core'
+import {TProduct} from "@/models/Product";
+import {slugify} from "@snailicide/g-library";
 
 export class ProductOptionValue extends Model implements Omit<TProductOptionValue, "variants"> {
     static entity = 'productoptionvalue'
-    static primaryKey = ['option_id', 'position']
+    static primaryKey = ['option_id', 'handle']
 
   //      @Str('')
     //id!: TProductOptionValue["id"]
@@ -53,8 +55,9 @@ export class ProductOption extends Model implements Omit<TProductOption, "name" 
     @Str('')
     __typename: 'ProductOption' = 'ProductOption'
 
-    @Str('')
-    handle!: TProductOption["handle"]
+    get handle(): TProductOption["handle"]{
+        return ( this.title )?slugify(  this.title ):undefined
+    }
 
     @Str('')
     title!: TProductOption["title"]
@@ -66,7 +69,7 @@ export class ProductOption extends Model implements Omit<TProductOption, "name" 
     product_id!: TProductOption['product_id']
 
    // @BelongsTo(() => Product, 'product_id')
-    product!: TProductOption["product"]
+    //product!: TProductOption["product"]
 
     @HasMany(() => ProductOptionValue, 'option_id')
     option_values!: TProductOption["option_values"]

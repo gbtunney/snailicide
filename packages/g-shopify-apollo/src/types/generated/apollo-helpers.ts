@@ -1113,8 +1113,10 @@ export type PricingPercentageValueKeySpecifier = ('percentage' | PricingPercenta
 export type PricingPercentageValueFieldPolicy = {
 	percentage?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductKeySpecifier = ('available' | 'availableForSale' | 'cacheID' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'gid' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'sid' | 'tags' | 'title' | 'totalInventory' | 'updatedAt' | 'variant' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
+export type ProductKeySpecifier = ('Images' | 'Variants' | 'available' | 'availableForSale' | 'cacheID' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'gid' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'sid' | 'tags' | 'title' | 'totalInventory' | 'updatedAt' | 'variant' | 'variantByFilter' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
 export type ProductFieldPolicy = {
+	Images?: FieldPolicy<any> | FieldReadFunction<any>,
+	Variants?: FieldPolicy<any> | FieldReadFunction<any>,
 	available?: FieldPolicy<any> | FieldReadFunction<any>,
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	cacheID?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1145,6 +1147,7 @@ export type ProductFieldPolicy = {
 	totalInventory?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	variant?: FieldPolicy<any> | FieldReadFunction<any>,
+	variantByFilter?: FieldPolicy<any> | FieldReadFunction<any>,
 	variantBySelectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
 	variants?: FieldPolicy<any> | FieldReadFunction<any>,
 	vendor?: FieldPolicy<any> | FieldReadFunction<any>
@@ -1201,7 +1204,7 @@ export type ProductPriceRangeFieldPolicy = {
 	maxVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	minVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'cacheID' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
+export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'cacheID' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'selected_option_values' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
 export type ProductVariantFieldPolicy = {
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	barcode?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1225,6 +1228,7 @@ export type ProductVariantFieldPolicy = {
 	quantityAvailable?: FieldPolicy<any> | FieldReadFunction<any>,
 	requiresShipping?: FieldPolicy<any> | FieldReadFunction<any>,
 	selectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
+	selected_option_values?: FieldPolicy<any> | FieldReadFunction<any>,
 	sellingPlanAllocations?: FieldPolicy<any> | FieldReadFunction<any>,
 	sid?: FieldPolicy<any> | FieldReadFunction<any>,
 	sku?: FieldPolicy<any> | FieldReadFunction<any>,

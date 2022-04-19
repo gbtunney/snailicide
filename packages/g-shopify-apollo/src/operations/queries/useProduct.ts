@@ -1,4 +1,4 @@
-import {ref, computed, Ref, toRefs, watch, ComputedRef} from "vue";
+import {ref, computed, shallowReactive, reactive, Ref, toRefs, watch, ComputedRef} from "vue";
 import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
 import useProductByHandleLoader from "./useProductByHandleLoader";
 import useVariantByOptionLoader from "./useVariantByOptionLoader";
@@ -26,27 +26,9 @@ import {useStore} from "vuex";
 
 export const useProduct = (props: { handle: string }) => {
     const {product, loading, error} = useProductByHandleLoader(props)
-    // const product_repo :Repository<ProductTemp> =  store.$repo(ProductTemp)
+    const Client = () => useApolloClient().client.cache
 
-    const {variants} = useVariantByOptionLoader({
-        handle: 'local', selectedOptions: [
-            /*    {
-                    "name": "Color",
-                    "value": "Wood Dove",
-                },*/
-            {
-                "name": "Size",
-                "value": "Skein",
-            }
-        ]
-    })
-    const test = useApolloClient().client.cache
-
-    console.log("THR LCLIENT ", test)
-    const isReady = computed(() => {
-        const test = useApolloClient().client.cache
-        return (product.value && !loading.value)
-    })
+    const isReady = computed(() => (product.value && !loading.value))
 
     const Product: ComputedRef<ProductFragment | undefined> = computed(() => {
         if (!isReady.value) return undefined
@@ -54,11 +36,7 @@ export const useProduct = (props: { handle: string }) => {
     })
     const Variants = computed(() => {
         if (!isReady.value) return undefined
-        if (product.value) {
-            return product?.value.variants.edges.map((variant) => {
-                return variant.node
-            })
-        }
+        if (product.value) return product?.value.variants.edges.map((variant) => variant.node)
         return undefined
     })
     const getVariantByIndex = (index: number | string = 1): ProductVariant | undefined => {
@@ -83,22 +61,19 @@ export const useProduct = (props: { handle: string }) => {
         }
         return Variants.value[0]
     }
-  /*  const ProductImage = computed(() => {
-        if (!isReady.value) return undefined
-        if (product.value) {
-            return product.value.images[0]
-        }
-        return undefined
-    })*/
+    /*  const ProductImage = computed(() => {
+          if (!isReady.value) return undefined
+          if (product.value) {
+              return product.value.images[0]
+          }
+          return undefined
+      })*/
     const Images = computed(() => {
         if (!isReady.value) return undefined
         if (product.value) {
             return product.value.images.edges.map((image) => image.node)
         }
         return undefined
-    })
-    const getVariant = computed(() => {
-        return "tess"
     })
 
     const Options = computed(() => {
@@ -151,25 +126,9 @@ export const useProduct = (props: { handle: string }) => {
         return undefined
     })
 
-    const optionsUpdated = (_option_values: VariantBySelectedOptionsQueryVariables["selectedOptions"]) => {
-        if (!isReady.value) return undefined
-        if (product.value) {
-            const obj: VariantBySelectedOptionsQueryVariables = {
-                handle: product.value.handle,
-                selectedOptions: [
-                    {
-                        "name": "Color",
-                        "value": "Wood Dove",
-                    },
-                    {
-                        "name": "Size",
-                        "value": "Skein",
-                    }
-                ]
-            }
-        }
-    }
     return {
+        Client,
+        isReady,
         Product,
         product,
         loading,
@@ -178,8 +137,6 @@ export const useProduct = (props: { handle: string }) => {
         Images,
         Options,
         OptionValues,
-        getVariant,
         getVariantByIndex,
-        optionsUpdated
     }
 }

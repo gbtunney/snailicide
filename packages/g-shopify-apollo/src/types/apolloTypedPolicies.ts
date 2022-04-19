@@ -1,6 +1,6 @@
 import {StringKeyOf} from "type-fest";
 import {FieldReadFunction, ReadFieldOptions, TypePolicy} from "@apollo/client/cache";
-import {FieldFunctionOptions, FieldPolicy} from "@apollo/client/cache/inmemory/policies";
+import {FieldFunctionOptions, FieldPolicy,} from "@apollo/client/cache/inmemory/policies";
 import {Reference, StoreObject} from "@apollo/client/core";
 
 type KeysForType<BaseType> = StringKeyOf<BaseType>[]
@@ -50,3 +50,5 @@ export const readField: ReadFieldFunction = (...args: any) => {
     const [context, ...restArgs] = args;
     return context.readField(...restArgs);
 };
+
+

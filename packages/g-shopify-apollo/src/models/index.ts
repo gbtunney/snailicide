@@ -1,13 +1,11 @@
 import {ObjectOf, OneOf, isNull, isString, Guard, OptionalGuard, isNumber} from "@gabrielurbina/type-guard"
-import {ApiNodeTypes, RequiredFragmentProps, IdentityRequired} from "./../types";
+import {ApiNodeTypes, RequiredFragmentProps, IdentityRequired, readField,} from "./../types";
 import {TypePolicies} from "@apollo/client/cache";
-
 
 import {
     typePolicyProduct, typePolicyProductImage,
     typePolicyProductOption,
     typePolicyProductOptionValue,
-    typePolicyVariantEdge
 } from "./typeProduct";
 import typePolicyProductVariant from "./ProductVariant";
 
@@ -29,7 +27,7 @@ export const typePolicyMerged: TypePolicies = {
     },
     Image: {
         ...typePolicyProductImage
-    }
+    },
 }
 
 export const isValidShopifyApiNode = <T>(node: T): node is T => {

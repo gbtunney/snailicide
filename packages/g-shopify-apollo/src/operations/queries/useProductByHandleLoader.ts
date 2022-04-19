@@ -1,15 +1,13 @@
 import {ref, Ref, toRefs, watch} from "vue";
-import {useResult, UseQueryOptions,useMutation} from "@vue/apollo-composable";
-import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
+import {useResult, UseQueryOptions} from "@vue/apollo-composable";
+import {controlledRef, whenever} from '@vueuse/core'
 import {isString, ObjectOf, OneOf} from "@gabrielurbina/type-guard";
-import {useStore} from "vuex";
-import {Repository} from "@vuex-orm/core";
 import {useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
 import {
     ApiNodeTypes
 } from './../../types';
-import ProductTemp from "../../models/Product";
 import {ProductFragment} from "./../../types";
+import {Product as TProduct} from "./../../types/generated/storefront-types";
 
 const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined => {
     const isProductQueryData = <T>(value: unknown): value is T => {
@@ -25,11 +23,9 @@ const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined 
 }
 
 export const useProductByHandleLoader = (props: { handle: string }) => {
-    const store = useStore()
-    const product_repo :Repository<ProductTemp> =  store.$repo(ProductTemp)
     const product: Ref<ProductFragment | undefined> = ref(undefined)
-  //  const useProductTest = Product()
-    const {handle = ref("not set")} = toRefs(props)
+    const {handle = ref("")} = toRefs(props)
+
     const enabled = controlledRef(false, {
         onChanged(value, oldValue) {
             options.value = getQueryOptions(value)
@@ -45,24 +41,21 @@ export const useProductByHandleLoader = (props: { handle: string }) => {
     const productQueryResult = useResult(result, undefined, (value) => {
         return getValidProductData<ProductFragment>(value.product as unknown) //maybeProduct????? pick function
     })
-    whenever(productQueryResult, (value: ProductFragment) => {
-     //   const _product = useProductTest.create(value)
-        product_repo.save(value)
+    whenever(productQueryResult, (value: TProduct) => {
         product.value = value
-        console.warn("productQueryResult UPDATED!!!!!!!!!!", product_repo.query().withAll().all(), value)
+        console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
     })
     watch(handle, (value) => {
-        if (value !== undefined) {
+        if (value === undefined || value === "") {
+            enabled.value = false;
+            product.value = undefined
+            query_payload.value = {"handle": ""}
+        } else if (value !== undefined) {
             enabled.value = true;
             query_payload.value = {"handle": value}
         }
-        if (value === undefined) {
-            enabled.value = false;
-            product.value = undefined
-            query_payload.value = {"handle": "not set"}
-        }
     }, {immediate: true})
-    return {product, loading, error }
+    return {product, loading, error}
 }
 
 export default useProductByHandleLoader

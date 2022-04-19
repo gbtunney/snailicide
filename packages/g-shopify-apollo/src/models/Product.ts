@@ -1,8 +1,12 @@
 import {ProductFragment} from "./../types"
 import {ModelExtended} from "."
 import {Model, ModelFields, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
+import {ProductOption} from './ProductOption'
 
 export type TProduct = ModelExtended<ProductFragment>
+import {slugify} from "@snailicide/g-library";
+///import {ProductVariant} from "./ProductVariant";
+import ProductImage from "./ProductImage";
 
 export class Product extends Model implements Partial<TProduct> {
     static entity = 'products'
@@ -24,6 +28,15 @@ export class Product extends Model implements Partial<TProduct> {
 
     @Str('')
     productType!: TProduct["productType"]
+
+    @HasMany(() => ProductOption, 'product_id')
+    options?: TProduct["options"]
+
+    //@HasMany(() => ProductVariant, 'product_id')
+    Variants?: TProduct["Variants"]
+
+    @HasMany(() => ProductImage, 'product_id')
+    Images?: TProduct["Images"]
 
     get gid(): TProduct["gid"] {
         return (this.id && this.id.length > 0) ? atob(this.id) : this.id

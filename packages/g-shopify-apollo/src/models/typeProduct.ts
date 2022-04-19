@@ -8,10 +8,11 @@ import {
     ProductOption,
     ProductOptionValue,
     ProductVariantEdge,
-    ProductVariantConnection
+    ProductVariantConnection, VariantByIndexQueryVariables
 } from "./../types/generated/storefront-types";
 
 import {policyExtended_ID} from './typeExtendedID'
+import {FieldFunctionOptions} from "@apollo/client/cache/inmemory/policies";
 
 console.log("policyExtended_ID", policyExtended_ID)
 const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) => {
@@ -66,16 +67,23 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
     //  keyFields: ["gid"],
     fields: {
         ...policyExtended_ID.fields,
-        options: {
-            /* * Create Option Value objects and add to cache.  * */
+        /*options: {
+            /!* * Create Option Value objects and add to cache.  * *!/
             merge(excisting, incoming, options) {
                 const optionArray = incoming.map((_option) => {
-                    const option_id = options.cache.identify(_option/*readField<ProductOption, 'id'>(options, 'id')*/)
-                    //**** retrieve the id and value field from the reference
+                    const option_id = options.cache.identify(_option/!*readField<ProductOption, 'id'>(options, 'id')*!/)
+                    //!**** retrieve the id and value field from the reference
                     const _current_option_data = options.cache.readFragment<ProductOption>({
                         id: option_id,
                         fragment: gql`fragment GetOptionValues on ProductOption {id name values}`
                     })
+
+                    const _current_variants_data = options.cache.readFragment<Product>({
+                        id: option_id,
+                        fragment: gql`fragment GetOptionValues on ProductOption {id name values}`
+                    })
+
+
                     if (RA.isNotNil(_current_option_data)) {
                         const _productoption_write = options.cache.writeFragment<Partial<ProductOption>, ProductOption>({
                             id: option_id,
@@ -97,7 +105,7 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
                         })
                         if (!_productoption_write) throw "Product Option attempt to WRITE option_values :::: FAILED!!!!!!!"
 
-                        /* * TEST THE ADDED VALUES ( todo: turn off later * */
+                        /!* * TEST THE ADDED VALUES ( todo: turn off later * *!/
                         const _productoption_read_test = options.cache.readFragment<ProductOption>({
                             id: option_id,
                             fragment: gql`
@@ -122,15 +130,17 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
                 })
                 return incoming
             }
-        },
+        },*/
         variant: {
-            read(read, options) {
-                debugger;
-                const _index: number = (options.args?.index) ? options.args?.index : 4
-                const _indexvar: number = (options.variables?.index) ? options.variables?.index : 4
-                console.log(options, _index, _indexvar)
-                const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache)
-                if (filtered && filtered.length <= _index) return (filtered[_index] as unknown) as ProductVariant
+            read(read, options: FieldFunctionOptions<Partial<VariantByIndexQueryVariables>, Partial<VariantByIndexQueryVariables>>) {
+                const {variables} = options
+                if (variables?.handle) {
+                    const testme = options.readField("product")
+                    console.log("variables are ", variables, testme)
+                }
+                return read
+                // const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache)
+                //  if (filtered && filtered.length <= _index) return (filtered[_index] as unknown) as ProductVariant
             }
         }
     }

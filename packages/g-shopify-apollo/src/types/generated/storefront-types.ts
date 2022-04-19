@@ -4951,6 +4951,8 @@ export type PricingValue = MoneyV2 | PricingPercentageValue;
  */
 export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishable & {
   __typename: 'Product';
+  Images?: Maybe<Array<Image>>;
+  Variants?: Maybe<Array<ProductVariant>>;
   available?: Maybe<Scalars['Boolean']>;
   /** Indicates if at least one product variant is available for sale. */
   availableForSale: Scalars['Boolean'];
@@ -5029,6 +5031,7 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
    */
   updatedAt: Scalars['DateTime'];
   variant?: Maybe<ProductVariant>;
+  variantByFilter?: Maybe<ProductVariant>;
   /**
    * Find a product’s variant based on its selected options.
    * This is useful for converting a user’s selection of product options into a single matching variant.
@@ -5145,6 +5148,15 @@ export type ProductSellingPlanGroupsArgs = {
  */
 export type ProductVariantArgs = {
   index: Scalars['Int'];
+};
+
+
+/**
+ * A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
+ * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
+ */
+export type ProductVariantByFilterArgs = {
+  input?: InputMaybe<VariantFilter>;
 };
 
 
@@ -5405,6 +5417,7 @@ export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & 
   requiresShipping: Scalars['Boolean'];
   /** List of product options applied to the variant. */
   selectedOptions: Array<SelectedOption>;
+  selected_option_values?: Maybe<Array<ProductOptionValue>>;
   /** Represents an association between a variant and a selling plan. Selling plan allocations describe which selling plans are available for each variant, and what their impact is on pricing. */
   sellingPlanAllocations: SellingPlanAllocationConnection;
   sid?: Maybe<Scalars['Int']>;
@@ -6367,6 +6380,11 @@ export type UserError = DisplayableError & {
   message: Scalars['String'];
 };
 
+export type VariantFilter = {
+  id?: InputMaybe<Scalars['ID']>;
+  index?: InputMaybe<Scalars['Int']>;
+};
+
 export type VariantOption = {
   __typename: 'VariantOption';
   option_value?: Maybe<ProductOptionValue>;
@@ -6446,7 +6464,7 @@ export type VariantByIndexQueryVariables = Exact<{
 }>;
 
 
-export type VariantByIndexQuery = { __typename: 'QueryRoot', product?: { __typename: 'Product', id: string, handle: string, variant?: { __typename: 'ProductVariant', id: string, sku?: string | undefined, quantityAvailable?: number | undefined } | undefined, variants: { __typename: 'ProductVariantConnection', edges: Array<{ __typename: 'ProductVariantEdge', node: { __typename: 'ProductVariant', title: string } }> } } | undefined };
+export type VariantByIndexQuery = { __typename: 'QueryRoot', productAlias?: { __typename: 'Product', id: string, handle: string, variant?: { __typename: 'ProductVariant', id: string, sku?: string | undefined, quantityAvailable?: number | undefined } | undefined } | undefined };
 
 export type PageInfoFragment = { __typename: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean };
 
@@ -6490,7 +6508,7 @@ export type ProductFragment = { __typename: 'Product', id: string, handle: strin
 
 export type ProductOptionFragment = { __typename: 'ProductOption', id: string, handle?: string | undefined, values: Array<string>, title: string, option_values?: Array<{ __typename: 'ProductOptionValue', title?: string | undefined, handle?: string | undefined }> | undefined };
 
-export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, gid?: string | undefined, sid?: number | undefined, product_id?: string | undefined, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string }, image?: (
+export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, gid?: string | undefined, sid?: number | undefined, product_id?: string | undefined, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string, options: Array<{ __typename: 'ProductOption', name: string, id: string }> }, image?: (
     { __typename: 'Image' }
     & ImageFragment
   ) | undefined, selectedOptions: Array<{ __typename: 'SelectedOption', name: string, parent_handle: string, handle: string }>, priceV2: (
@@ -6603,6 +6621,11 @@ export const ProductVariantFragmentDoc = gql`
   product {
     id
     __typename
+    options {
+      name
+      id
+      __typename
+    }
   }
   image {
     ...ImageFragment
@@ -6753,20 +6776,13 @@ export function usePossibleNodesLazyQuery(variables: PossibleNodesQueryVariables
 export type PossibleNodesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<PossibleNodesQuery, PossibleNodesQueryVariables>;
 export const VariantByIndexDocument = gql`
     query variantByIndex($handle: String!, $index: Int!) {
-  product(handle: $handle) {
+  productAlias: product(handle: $handle) {
     id
     handle
     variant(index: $index) @client {
       id
       sku
       quantityAvailable
-    }
-    variants(first: 250) {
-      edges {
-        node {
-          title
-        }
-      }
     }
   }
 }
