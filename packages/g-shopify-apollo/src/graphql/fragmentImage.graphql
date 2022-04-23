@@ -1,7 +1,7 @@
 fragment ImageFragment on Image{
     id
     src:originalSrc
-    alt:altText
+    altText
     width
     height
     variants @client {

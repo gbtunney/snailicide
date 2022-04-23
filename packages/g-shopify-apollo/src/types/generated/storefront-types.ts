@@ -6478,7 +6478,7 @@ export type PriceRangeFragment = { __typename: 'ProductPriceRange', minVariantPr
     & PriceFragment
   ) };
 
-export type ImageFragment = { __typename: 'Image', id?: string | undefined, width?: number | undefined, height?: number | undefined, src: string, alt?: string | undefined, variants?: Array<{ __typename: 'ProductVariant', id: string }> | undefined };
+export type ImageFragment = { __typename: 'Image', id?: string | undefined, altText?: string | undefined, width?: number | undefined, height?: number | undefined, src: string, variants?: Array<{ __typename: 'ProductVariant', id: string }> | undefined };
 
 export type ProductFragment = { __typename: 'Product', id: string, handle: string, title: string, gid?: string | undefined, sid?: number | undefined, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, compareAtPriceRange: (
     { __typename: 'ProductPriceRange' }
@@ -6593,7 +6593,7 @@ export const ImageFragmentDoc = gql`
     fragment ImageFragment on Image {
   id
   src: originalSrc
-  alt: altText
+  altText
   width
   height
   variants @client {

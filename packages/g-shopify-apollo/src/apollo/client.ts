@@ -20,16 +20,16 @@ const adminDirectiveLink: unknown = new DirectiveLink(
 
 const getProductOptionValuesExpanded = (option: ProductOption) => {
     const {id: option_id, values = []} = option
-    return values.map((value): ProductOptionValue => {
-        const dataObject: ProductOptionValue = {
+    return values.map((value, index: number): ProductOptionValue => {
+        return {
             __typename: "ProductOptionValue",
             handle: slugify(value),
             title: value,
             option_id,
             option,
+            position: index++,
             variants: []
         }
-        return dataObject
     })
 }
 
@@ -39,12 +39,10 @@ const logTimeLink = new ApolloLink((operation, forward) => {
             if (data?.data?.product) {
                 const {id: product_id} = data.data.product
                 if (data.data.product.options) {
-                    data.data.product.options = data.data.product.options.map((_option: ProductOption) => {
-                        const newValueArr = getProductOptionValuesExpanded(_option)
-                        return {..._option, option_values: newValueArr}
+                    data.data.product.options = data.data.product.options.map((_option: ProductOption, index: number) => {
+                        return {..._option, position: index++, option_values: getProductOptionValuesExpanded(_option)}
                     })
                 }
-
                 if (data.data.product.variants.edges) {
                     data.data.product.variants.edges = data.data.product.variants.edges.map((_variant: any, index: number) => {
                         let selected_option_values = []
@@ -83,7 +81,7 @@ const logTimeLink = new ApolloLink((operation, forward) => {
                         const node = {
                             ..._variant?.node,
                             selected_option_values,
-                            position: index,
+                            position: index++,
                             product_id,
                             image_id: _variant?.node.image?.id
                         }
@@ -91,48 +89,17 @@ const logTimeLink = new ApolloLink((operation, forward) => {
 
                     })
 
-                    data.data.product.Variants = data.data.product.variants.edges.map((_variant:any)=>{
-                        return _variant?.node
+                    data.data.product.Variants = data.data.product.variants.edges.map((_variant: any, index: number) => {
+                        return {..._variant?.node, position: index++}
                     })
                 }
                 if (data.data.product.images.edges) {
-                    data.data.product.images.edges = data.data.product.images.edges.map((_image: any, index: number) => {
-                        const node = {..._image?.node, position: index, product_id}
-                        return {..._image, node}
+                    data.data.product.Images = data.data.product.images.edges.map((_image: any, index: number) => {
+                        return {..._image?.node, position: index++, product_id}
+
                     })
                 }
             }
-            console.log("-----option  s!!!", data?.data?.product)
-
-            /*   if (data?.data?.product.variants.edges) {
-                   const testImagemap = new Map();
-                   const variants = data.data.product.variants.edges.forEach((variantedge: any) => {
-                       if (variantedge && variantedge?.node) {
-                           const image = variantedge.node.image
-                           const newimageObj = {
-                               ...image,
-                               variants: [{__typename: "ProductVariant", id: variantedge.node.id}]
-                           }
-
-                           if (testImagemap.get(image.id)) {
-                               console.log("already set ... compiling... ? ")
-                           } else {
-                               testImagemap.set(image.id, {__typename: "ProductVariant", id: variantedge.node.id})
-                               console.log("setting a value.. ? ")
-
-                           }
-
-                           variantedge.node.image = newimageObj
-                       }
-                       //  const image = {. {variants: [{ __typename : "ProductVariant", id: variantedge.node.id }]
-                       // return  {variantedge , {node:}}    variantedge?.node?.image.variants = [" i am a variant "]
-                       ///debugger;
-                       //}
-
-                       // return variantedge
-
-                   })
-               }*/
         }
         return data;
     })
@@ -144,13 +111,6 @@ const additiveLink = from([
 const typeDefs = gql`
     extend input VariantOptionFilter {
         index:Int!
-    }
-    query gillianTest($handle: String!, $index:Int!) {
-        productByHandle(handle: $handle) {
-            variantBySelectedOptions(selectedOptions:$selectedOptions){
-                ...ProductVariantFragment
-            }
-        }
     }
 `
 //const typeDefs = TestmessageDocument

@@ -10,8 +10,8 @@ export const gShopify: Plugin = {
     install(app, options: iStorefrontApiConfig) {
         const client = createApolloClient(options)
         app.provide(DefaultApolloClient, client)
-        //const vuex = createStore({plugins: [VuexORM.install()]})
-       // app.use(vuex)
+        const vuex = createStore({plugins: [VuexORM.install()]})
+        app.use(vuex)
         app.use(createPinia())
     }
 }

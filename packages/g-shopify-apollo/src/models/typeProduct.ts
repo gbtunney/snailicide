@@ -14,7 +14,6 @@ import {
 import {policyExtended_ID} from './typeExtendedID'
 import {FieldFunctionOptions} from "@apollo/client/cache/inmemory/policies";
 
-console.log("policyExtended_ID", policyExtended_ID)
 const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) => {
     const serializedState = cache.extract()
     const typeNameItems = Object.values(serializedState)
@@ -138,16 +137,16 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
             read(read, options: FieldFunctionOptions<Partial<VariantByIndexQueryVariables>, Partial<VariantByIndexQueryVariables>>) {
                 const {variables} = options
                 if (variables?.index) {
-                    const {index}=variables
-                    const variants = readField<Product,"Variants">(options,"Variants")
+                    const {index} = variables
+                    const variants = readField<Product, "Variants">(options, "Variants")
                     return variants
-                 /*   if (variants && variants.length >= index) {
-                        const variantindexed = readField<Product,"Variants">(options,"Variants",variants[index])
-                        const variantindexed2 = options.readField('2',variants[index])
-                       // debugger;
+                    /*   if (variants && variants.length >= index) {
+                           const variantindexed = readField<Product,"Variants">(options,"Variants",variants[index])
+                           const variantindexed2 = options.readField('2',variants[index])
+                          // debugger;
 
-                        return variants[index]
-                    }*/
+                           return variants[index]
+                       }*/
                 }
 
                 return undefined

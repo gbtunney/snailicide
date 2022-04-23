@@ -90,8 +90,6 @@ type ProductGroup {
     items: [ProductInstance!]
 }
 
-
-
 query testproductop {
     allVariants @client{
         id

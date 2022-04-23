@@ -7,7 +7,7 @@ import {
     typePolicyProductOption,
     typePolicyProductOptionValue,
 } from "./typeProduct";
-import typePolicyProductVariant from "./ProductVariant";
+import typePolicyProductVariant from "./typeProductVariant";
 
 export {policyExtended_ID} from "./typeExtendedID";
 
