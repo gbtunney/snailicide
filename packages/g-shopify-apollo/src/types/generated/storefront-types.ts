@@ -5030,7 +5030,7 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
    *
    */
   updatedAt: Scalars['DateTime'];
-  variant?: Maybe<ProductVariant>;
+  variant?: Maybe<Array<ProductVariant>>;
   variantByFilter?: Maybe<ProductVariant>;
   /**
    * Find a product’s variant based on its selected options.
@@ -6464,7 +6464,7 @@ export type VariantByIndexQueryVariables = Exact<{
 }>;
 
 
-export type VariantByIndexQuery = { __typename: 'QueryRoot', productAlias?: { __typename: 'Product', id: string, handle: string, variant?: { __typename: 'ProductVariant', id: string, sku?: string | undefined, quantityAvailable?: number | undefined } | undefined } | undefined };
+export type VariantByIndexQuery = { __typename: 'QueryRoot', productAlias?: { __typename: 'Product', id: string, handle: string } | undefined };
 
 export type PageInfoFragment = { __typename: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean };
 
@@ -6492,7 +6492,10 @@ export type ProductFragment = { __typename: 'Product', id: string, handle: strin
   )>, image?: (
     { __typename: 'Image' }
     & ImageFragment
-  ) | undefined, variants: { __typename: 'ProductVariantConnection', pageInfo: (
+  ) | undefined, Variants?: Array<(
+    { __typename: 'ProductVariant' }
+    & ProductVariantFragment
+  )> | undefined, variants: { __typename: 'ProductVariantConnection', pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
     ), edges: Array<{ __typename: 'ProductVariantEdge', cursor: string, node: (
@@ -6599,12 +6602,6 @@ export const ImageFragmentDoc = gql`
   }
 }
     `;
-export const PageInfoFragmentDoc = gql`
-    fragment PageInfoFragment on PageInfo {
-  hasNextPage
-  hasPreviousPage
-}
-    `;
 export const ProductVariantFragmentDoc = gql`
     fragment ProductVariantFragment on ProductVariant {
   id
@@ -6656,6 +6653,12 @@ export const ProductVariantFragmentDoc = gql`
   }
 }
     `;
+export const PageInfoFragmentDoc = gql`
+    fragment PageInfoFragment on PageInfo {
+  hasNextPage
+  hasPreviousPage
+}
+    `;
 export const ProductFragmentDoc = gql`
     fragment ProductFragment on Product {
   id
@@ -6682,6 +6685,9 @@ export const ProductFragmentDoc = gql`
   }
   image: featuredImage {
     ...ImageFragment
+  }
+  Variants @client {
+    ...ProductVariantFragment
   }
   variants(first: 250) {
     pageInfo {
@@ -6749,8 +6755,8 @@ ${PriceRangeFragmentDoc}
 ${PriceFragmentDoc}
 ${ProductOptionFragmentDoc}
 ${ImageFragmentDoc}
-${PageInfoFragmentDoc}
-${ProductVariantFragmentDoc}`;
+${ProductVariantFragmentDoc}
+${PageInfoFragmentDoc}`;
 
 /**
  * __usePossibleNodesQuery__
@@ -6779,11 +6785,6 @@ export const VariantByIndexDocument = gql`
   productAlias: product(handle: $handle) {
     id
     handle
-    variant(index: $index) @client {
-      id
-      sku
-      quantityAvailable
-    }
   }
 }
     `;
@@ -6822,8 +6823,8 @@ ${PriceRangeFragmentDoc}
 ${PriceFragmentDoc}
 ${ProductOptionFragmentDoc}
 ${ImageFragmentDoc}
-${PageInfoFragmentDoc}
-${ProductVariantFragmentDoc}`;
+${ProductVariantFragmentDoc}
+${PageInfoFragmentDoc}`;
 
 /**
  * __useProductByHandleCustomQuery__
@@ -6858,8 +6859,8 @@ ${PriceRangeFragmentDoc}
 ${PriceFragmentDoc}
 ${ProductOptionFragmentDoc}
 ${ImageFragmentDoc}
-${PageInfoFragmentDoc}
-${ProductVariantFragmentDoc}`;
+${ProductVariantFragmentDoc}
+${PageInfoFragmentDoc}`;
 
 /**
  * __useProductByIdQuery__

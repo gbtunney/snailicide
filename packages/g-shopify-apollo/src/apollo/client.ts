@@ -90,6 +90,10 @@ const logTimeLink = new ApolloLink((operation, forward) => {
                         return {..._variant, node}
 
                     })
+
+                    data.data.product.Variants = data.data.product.variants.edges.map((_variant:any)=>{
+                        return _variant?.node
+                    })
                 }
                 if (data.data.product.images.edges) {
                     data.data.product.images.edges = data.data.product.images.edges.map((_image: any, index: number) => {

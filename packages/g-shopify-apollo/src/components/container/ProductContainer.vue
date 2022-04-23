@@ -13,7 +13,8 @@ import {
   ComputedRef
 } from "vue";
 import {useProduct} from './../../operations/queries/useProduct';
-import {useApolloClient} from "@vue/apollo-composable";
+import {useProductInstance} from "./../../operations/queries/useProductInstance";
+import {useApolloClient,provideApolloClient} from "@vue/apollo-composable";
 
 import SimpleSelect from './../ui/SimpleSelect.vue';
 import {useVariantByIndexQuery,useTestproductopQuery,VariantByIndexDocument} from "@/types/generated/storefront-types";
@@ -22,7 +23,7 @@ const props = withDefaults(
       /**
        * Product Handle
        */
-      handle?: string,
+      handle: string,
 
       /**
        * Variant ID or index
@@ -30,14 +31,15 @@ const props = withDefaults(
       variant_id?: string | number
 
     }>(), {
-      handle: undefined,
+      handle: "",
       variant_id: '5'//99//'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzEwNjkzNA=='// '22620513665142'
 
 })
 //defineComponent(SimpleSelect)
-watch(props, (value) => {
-  //console.warn("watch :value", value)
-})
+
+
+const CLIENT = useApolloClient().client
+
 
 //const {result,onResult,error,query,onError} = useVariantByIndexQuery({handle:'local',index:7})
 //console.warn("useTestproductopQuery :value", result,error)
@@ -48,12 +50,15 @@ watch(props, (value) => {
 //})
 
 const {handle,variant_id} = toRefs(props)
-const {Product, loading, Variants, Options, OptionValues,optionsUpdated,getVariant,getVariantByIndex} = useProduct(props)
 
+const {Product, loading, Variants, Options, OptionValues  ,getVariantByIndex} = useProductInstance(props)
+//{Product, loading, Variants, Options, OptionValues,optionsUpdated,getVariant,getVariantByIndex}
 </script>
 <template>
   <div class="product container">
-    HIHIHHIz LOADING :<h2>{{ loading }}</h2>
+   HIHIHHIz LOADING :<h2>{{ loading }}</h2>
+    <button @click="clickTest">Test me</button>
+
     <div v-if="Product">
       {{Product }}
       <div v-for="(option,index) in Options" :key="index">

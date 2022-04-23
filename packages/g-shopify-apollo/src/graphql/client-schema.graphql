@@ -17,12 +17,21 @@ interface ShopifyProductNode {
     product:Product
 }
 
+input VariantFilter {
+    index:Int
+    id:ID
+}
+
 extend type Product implements Extended_ID{
     available:Boolean
-    variant(index:Int!) : ProductVariant  @client
+    variant(index:Int!) : [ProductVariant!]  @client
     gid : String @client
     sid : Int @client
     cacheID:String! @client
+
+    variantByFilter(input:VariantFilter):ProductVariant @client
+    Variants: [ProductVariant!] @client
+    Images: [Image!] @client
 }
 
 extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extended_ID {
@@ -31,6 +40,8 @@ extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extende
     position:Int
     product_id: ID
     image_id:ID!
+
+    selected_option_values:[ProductOptionValue!]
 
     gid : String
     sid : Int
@@ -79,11 +90,7 @@ type ProductGroup {
     items: [ProductInstance!]
 }
 
-extend type QueryRoot{
-    testProduct(index:Int!) : Product
-    testOption(index:Int!) : ProductOption
-    allVariants: [ProductVariant] @client
-}
+
 
 query testproductop {
     allVariants @client{
@@ -102,22 +109,23 @@ query possibleNodes($id: ID!) {
     }
 }
 
+
+
+
+
 query variantByIndex($handle: String!, $index:Int!) {
-    product(handle: $handle) {
+    productAlias:product(handle: $handle) {
         id
         handle
-        variant(index:$index) @client{
-            id
-            sku
-            quantityAvailable
-        }
-        variants(first: 250){
-            edges {
-                node {
-                    title
-                }
-            }
-        }
+
+
     }
 }
+
+extend type QueryRoot{
+    testProduct(index:Int!) : Product
+    testOption(index:Int!) : ProductOption
+    allVariants: [ProductVariant] @client
+}
+
 

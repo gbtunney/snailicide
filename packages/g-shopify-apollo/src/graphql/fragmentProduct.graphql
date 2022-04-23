@@ -29,6 +29,10 @@ fragment ProductFragment on Product {
     image:featuredImage{
         ...ImageFragment
     }
+    Variants @client {
+        ...ProductVariantFragment
+
+    }
     variants(first: 250) {
         pageInfo {
             ...PageInfoFragment

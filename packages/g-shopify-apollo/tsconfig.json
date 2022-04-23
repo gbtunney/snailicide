@@ -10,6 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
     "useDefineForClassFields": false,
     "sourceMap": true,
     "baseUrl": ".",
