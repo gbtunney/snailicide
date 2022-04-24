@@ -1,23 +1,8 @@
-import {ModelExtended} from './'
+import {Attr, BelongsTo, Bool, HasMany, Model, Num, Str} from '@vuex-orm/core'
 import {Product} from './Product'
 import {ProductImage} from './ProductImage'
-import {ProductOption, VariantOptionType} from './ProductOption'
-
-import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo, HasMany} from '@vuex-orm/core'
 import {VariantOption} from './ProductOption'
-import {Merge} from 'type-fest';
-import {Maybe, ProductVariant as TProductVariant, Product as TProduct} from './../types/generated/storefront-types'
-//export type TProductVariant = ModelExtended<ProductVariant>
-
-/*
-interface OverrideIVariant {
-    selectedOptions : VariantOption[]
-}
-
-type ShopifyProductVariant =
-    Merge<TProductVariantFragment, OverrideIVariant>
-*/
-
+import {ProductVariant as TProductVariant} from './../types/generated/storefront-types'
 
 export class ProductVariant extends Model implements Partial<TProductVariant> {
     static entity = 'variants'

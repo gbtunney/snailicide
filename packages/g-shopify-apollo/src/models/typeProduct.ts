@@ -1,14 +1,14 @@
-import {InMemoryCache, gql} from "@apollo/client/core";
+import {InMemoryCache} from "@apollo/client/core";
 import * as RA from "ramda-adjunct"
 import {slugify} from "@snailicide/g-library";
-import {readField, CustomTypePolicy, isUndefined, ProductImage} from "./../types";
+import {CustomTypePolicy, isUndefined, ProductImage, readField} from "./../types";
 import {
     Product,
-    ProductVariant,
     ProductOption,
     ProductOptionValue,
+    ProductVariant,
     ProductVariantEdge,
-    ProductVariantConnection, VariantByIndexQueryVariables
+    VariantByIndexQueryVariables
 } from "./../types/generated/storefront-types";
 
 import {policyExtended_ID} from './typeExtendedID'
@@ -67,7 +67,13 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
     fields: {
         ...policyExtended_ID.fields,
 
-        /*options: {
+        options: {
+            read(value) {
+                // alert()
+
+                return value
+            }
+        },/*
             /!* * Create Option Value objects and add to cache.  * *!/
             merge(excisting, incoming, options) {
                 const optionArray = incoming.map((_option) => {
@@ -148,7 +154,6 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
                            return variants[index]
                        }*/
                 }
-
                 return undefined
                 // const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache)
                 //  if (filtered && filtered.length <= _index) return (filtered[_index] as unknown) as ProductVariant

@@ -1,28 +1,13 @@
-import {ref, computed, shallowReactive, reactive, Ref, toRefs, watch, ComputedRef} from "vue";
-import {controlledRef, computedWithControl, useRefHistory, whenever, isDefined} from '@vueuse/core'
+import {computed, ComputedRef} from "vue";
 import useProductByHandleLoader from "./useProductByHandleLoader";
-import useVariantByOptionLoader from "./useVariantByOptionLoader";
-import {ApolloClient, from, gql} from "@apollo/client/core";
-import * as R from "ramda"
+import {gql} from "@apollo/client/core";
 import {getDigitCount, isInteger, toInteger} from "@snailicide/g-library"
 import * as RA from "ramda-adjunct"
-import {Product} from "./../../models/Product";
 import {useApolloClient} from "@vue/apollo-composable";
-import {ProductVariant} from './../../types/generated/storefront-types'
+import {ProductOptionFragmentDoc, ProductVariant} from './../../types/generated/storefront-types'
 import {ProductFragment} from './../../types'
 //this is a demao.
-import {isLoggedInVar} from "@/apollo/cache";
-import {parseGid, composeGid} from '@shopify/admin-graphql-api-utilities';
-import {Model, Repository} from '@vuex-orm/core'
-
-import {
-    ProductOptionFragment,
-    ProductOptionFragmentDoc,
-    VariantBySelectedOptionsQueryVariables,
-    useVariantBySelectedOptionsQuery,
-    ProductFragmentDoc,
-} from "./../../types/generated/storefront-types";
-import {useStore} from "vuex";
+import {composeGid} from '@shopify/admin-graphql-api-utilities';
 
 export const useProduct = (props: { handle: string }) => {
     const {product, loading, error} = useProductByHandleLoader(props)

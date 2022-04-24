@@ -1,10 +1,7 @@
 import {slugify} from "@snailicide/g-library";
-import {Uid, Model, Attr, Str, Num, BelongsTo, HasMany, HasOne} from '@vuex-orm/core'
+import {Attr, BelongsTo, HasMany, HasOne, Model, Num, Str, Uid} from '@vuex-orm/core'
+import {ProductOption as TProductOption, ProductOptionValue as TProductOptionValue,} from './../types'
 import {VariantOption as TVariantOption} from './../types/generated/storefront-types'
-import {
-    ProductOption as TProductOption,
-    ProductOptionValue as TProductOptionValue,
-} from './../types'
 import {ProductVariant} from './ProductVariant'
 import {Product} from "./Product";
 

@@ -1,12 +1,13 @@
-import {Get, Primitive, SetRequired, SetOptional} from "type-fest";
+import {Get, SetRequired} from "type-fest";
 import {InMemoryCache} from "@apollo/client/core";
 import {isNil} from "ramda";
 import {isNotNil} from "ramda-adjunct";
 import {
+    PossibleNodesQuery,
+    Product,
     ProductByHandleCustomQuery,
     ProductByHandleCustomQueryVariables
 } from "./generated/storefront-types";
-import {PossibleNodesQuery, Product} from './generated/storefront-types'
 
 export type {CustomTypePolicy, CustomFieldPolicy} from "./apolloTypedPolicies"
 export {readField} from './apolloTypedPolicies'

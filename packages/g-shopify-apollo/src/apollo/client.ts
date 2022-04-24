@@ -14,6 +14,11 @@ export const createApolloClient = (payload: iStorefrontApiConfig) => {
     return new ApolloClient({
         typeDefs,
         cache: payload.cache,
+        defaultOptions: {
+            query:{
+                fetchPolicy:'cache-only'
+            }
+        },
         link: from([
             useApolloLogging(payload.logging, payload.logging),
             parseDataLink,

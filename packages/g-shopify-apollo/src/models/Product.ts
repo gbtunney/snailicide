@@ -1,6 +1,5 @@
 import {TProduct} from "./../types"
-import {ModelExtended} from "."
-import {Model, ModelFields, Uid, Attr, Str, Bool, HasMany} from '@vuex-orm/core'
+import {Bool, HasMany, Model, Str} from '@vuex-orm/core'
 import {ProductOption} from './ProductOption'
 import {ProductVariant} from "./ProductVariant";
 import ProductImage from "./ProductImage";

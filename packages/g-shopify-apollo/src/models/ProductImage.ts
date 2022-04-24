@@ -1,4 +1,4 @@
-import {Model, Str, Num, BelongsTo, HasMany} from '@vuex-orm/core'
+import {BelongsTo, HasMany, Model, Num, Str} from '@vuex-orm/core'
 import {Product} from "./Product";
 import ProductVariant from "./ProductVariant";
 import {ProductImage as TProductImage} from "./../types"

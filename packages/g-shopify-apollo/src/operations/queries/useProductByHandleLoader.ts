@@ -1,13 +1,9 @@
 import {ref, Ref, toRefs, watch} from "vue";
-import {useResult, UseQueryOptions} from "@vue/apollo-composable";
+import {UseQueryOptions, useResult} from "@vue/apollo-composable";
 import {controlledRef, whenever} from '@vueuse/core'
 import {isString, ObjectOf, OneOf} from "@gabrielurbina/type-guard";
-import {useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
-import {
-    ApiNodeTypes
-} from './../../types';
-import {ProductFragment} from "./../../types";
-import {Product as TProduct} from "./../../types/generated/storefront-types";
+import {Product as TProduct, useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
+import {ApiNodeTypes, ProductFragment} from './../../types';
 
 const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined => {
     const isProductQueryData = <T>(value: unknown): value is T => {
@@ -55,7 +51,6 @@ export const useProductByHandleLoader = (props: { handle: string }) => {
             query_payload.value = {"handle": value}
         }
     }, {immediate: true})
-    return {product, loading, error}
+    return {product, loading, error, onResult}
 }
-
 export default useProductByHandleLoader

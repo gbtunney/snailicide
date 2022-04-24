@@ -1163,19 +1163,25 @@ export type ProductEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductGroupKeySpecifier = ('available' | 'id' | 'items' | ProductGroupKeySpecifier)[];
+export type ProductGroupKeySpecifier = ('add_to_cart_enabled' | 'available' | 'id' | 'items' | 'max_children' | ProductGroupKeySpecifier)[];
 export type ProductGroupFieldPolicy = {
+	add_to_cart_enabled?: FieldPolicy<any> | FieldReadFunction<any>,
 	available?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	items?: FieldPolicy<any> | FieldReadFunction<any>
+	items?: FieldPolicy<any> | FieldReadFunction<any>,
+	max_children?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductInstanceKeySpecifier = ('customAttributes' | 'id' | 'product' | 'quantity' | 'variant' | ProductInstanceKeySpecifier)[];
+export type ProductInstanceKeySpecifier = ('customAttributes' | 'group' | 'group_id' | 'id' | 'product' | 'product_handle' | 'quantity' | 'variant' | 'variant_id' | ProductInstanceKeySpecifier)[];
 export type ProductInstanceFieldPolicy = {
 	customAttributes?: FieldPolicy<any> | FieldReadFunction<any>,
+	group?: FieldPolicy<any> | FieldReadFunction<any>,
+	group_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	product?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	quantity?: FieldPolicy<any> | FieldReadFunction<any>,
-	variant?: FieldPolicy<any> | FieldReadFunction<any>
+	variant?: FieldPolicy<any> | FieldReadFunction<any>,
+	variant_id?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ProductOptionKeySpecifier = ('handle' | 'id' | 'name' | 'option_values' | 'position' | 'product' | 'product_id' | 'title' | 'values' | ProductOptionKeySpecifier)[];
 export type ProductOptionFieldPolicy = {

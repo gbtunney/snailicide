@@ -5252,9 +5252,11 @@ export type ProductFilter = {
 
 export type ProductGroup = {
   __typename: 'ProductGroup';
+  add_to_cart_enabled?: Maybe<Scalars['Boolean']>;
   available?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
-  items?: Maybe<Array<ProductInstance>>;
+  items?: Maybe<Array<Maybe<ProductInstance>>>;
+  max_children?: Maybe<Scalars['Int']>;
 };
 
 /** The set of valid sort keys for the ProductImage query. */
@@ -5275,11 +5277,15 @@ export enum ProductImageSortKeys {
 
 export type ProductInstance = {
   __typename: 'ProductInstance';
-  customAttributes?: Maybe<Array<Attribute>>;
+  customAttributes?: Maybe<Array<Maybe<Attribute>>>;
+  group?: Maybe<ProductGroup>;
+  group_id?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   product?: Maybe<Product>;
+  product_handle?: Maybe<Scalars['String']>;
   quantity: Scalars['Int'];
   variant?: Maybe<ProductVariant>;
+  variant_id?: Maybe<Scalars['String']>;
 };
 
 /** The set of valid sort keys for the ProductMedia query. */

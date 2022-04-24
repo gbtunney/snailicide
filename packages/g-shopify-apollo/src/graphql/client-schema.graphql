@@ -94,14 +94,23 @@ type VariantOption implements ShopifyProductNode{
 type ProductInstance {
     id: ID!
     quantity: Int!
-    customAttributes : [Attribute!]
+
+    customAttributes : [Attribute]
+
+    group_id:String
+    group:ProductGroup
     variant : ProductVariant
+    variant_id: String
+
+    product_handle:String
     product: Product
 }
 type ProductGroup {
     id: ID!
     available:Boolean
-    items: [ProductInstance!]
+    items: [ProductInstance]
+    max_children: Int
+    add_to_cart_enabled:Boolean
 }
 
 query testproductop {
