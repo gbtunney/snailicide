@@ -28,8 +28,8 @@ const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) =
 }
 const getProductOptionValuesExpanded = (option: ProductOption) => {
     const {id: option_id, values = []} = option
-    return values.map((value): ProductOptionValue => {
-        const dataObject: ProductOptionValue = {
+    return values.map((value): Partial<ProductOptionValue> => {
+        const dataObject: Partial<ProductOptionValue> = {
             __typename: "ProductOptionValue",
             handle: slugify(value),
             title: value,

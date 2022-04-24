@@ -13,8 +13,8 @@ interface ShopifyNode {
 }
 
 interface ShopifyProductNode {
-    product_id: ID
-    product:Product
+    product_id: ID!
+    product:Product!
 }
 
 input VariantFilter {
@@ -38,44 +38,58 @@ extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extende
     isInCart: Boolean!
     handle:String
     position:Int
-    product_id: ID
+
+    product_id: ID!
+
     image_id:ID!
 
-    selected_option_values:[ProductOptionValue!]
-
+    SelectedOptions: [VariantOption!]!
     gid : String
     sid : Int
     cacheID:String @client
 }
 extend type ProductOption implements ShopifyNode & ShopifyProductNode{
+    option_values:[ProductOptionValue!]
+
     handle:String
     title:String
     position:Int
-    product_id: ID
-    product:Product
-    option_values:[ProductOptionValue!]
+    product_id: ID!
+    product:Product!
 }
 extend type Image implements ShopifyProductNode{
-    position:Int
-    product_id: ID
-    product:Product
     variants:[ProductVariant!]
+
+    product_id: ID!
+    product:Product!
+    position:Int
 }
 
-type ProductOptionValue implements ShopifyNode{
+type ProductOptionValue implements ShopifyNode & ShopifyProductNode{
     handle: String
-    title: String
     parent_handle: String
+    variants:[VariantOption!]!
+
+    product_id: ID!
+    product:Product!
+
+    title: String
     position:Int
-    option_id:ID!
-    option: ProductOption
-    variants:[ProductVariant!]
+
+    option_id: ID!
+    option: ProductOption!
 }
-type VariantOption {
-    option_value_id: ID!
-    option_value:ProductOptionValue
+type VariantOption implements ShopifyProductNode{
+    parent_handle:String!
+
+    option_value_handle: String!
+    option_value:ProductOptionValue!
+
+    product_id : ID!
+    product: Product!
+
     variant_id : ID!
-    variant:ProductVariant
+    variant:ProductVariant!
 }
 type ProductInstance {
     id: ID!

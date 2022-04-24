@@ -1189,13 +1189,15 @@ export type ProductOptionFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	values?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductOptionValueKeySpecifier = ('handle' | 'option' | 'option_id' | 'parent_handle' | 'position' | 'title' | 'variants' | ProductOptionValueKeySpecifier)[];
+export type ProductOptionValueKeySpecifier = ('handle' | 'option' | 'option_id' | 'parent_handle' | 'position' | 'product' | 'product_id' | 'title' | 'variants' | ProductOptionValueKeySpecifier)[];
 export type ProductOptionValueFieldPolicy = {
 	handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	option?: FieldPolicy<any> | FieldReadFunction<any>,
 	option_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	parent_handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	position?: FieldPolicy<any> | FieldReadFunction<any>,
+	product?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	variants?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -1204,8 +1206,9 @@ export type ProductPriceRangeFieldPolicy = {
 	maxVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	minVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductVariantKeySpecifier = ('availableForSale' | 'barcode' | 'cacheID' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'selected_option_values' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
+export type ProductVariantKeySpecifier = ('SelectedOptions' | 'availableForSale' | 'barcode' | 'cacheID' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
 export type ProductVariantFieldPolicy = {
+	SelectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
 	barcode?: FieldPolicy<any> | FieldReadFunction<any>,
 	cacheID?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1228,7 +1231,6 @@ export type ProductVariantFieldPolicy = {
 	quantityAvailable?: FieldPolicy<any> | FieldReadFunction<any>,
 	requiresShipping?: FieldPolicy<any> | FieldReadFunction<any>,
 	selectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
-	selected_option_values?: FieldPolicy<any> | FieldReadFunction<any>,
 	sellingPlanAllocations?: FieldPolicy<any> | FieldReadFunction<any>,
 	sid?: FieldPolicy<any> | FieldReadFunction<any>,
 	sku?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1479,10 +1481,13 @@ export type UserErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type VariantOptionKeySpecifier = ('option_value' | 'option_value_id' | 'variant' | 'variant_id' | VariantOptionKeySpecifier)[];
+export type VariantOptionKeySpecifier = ('option_value' | 'option_value_handle' | 'parent_handle' | 'product' | 'product_id' | 'variant' | 'variant_id' | VariantOptionKeySpecifier)[];
 export type VariantOptionFieldPolicy = {
 	option_value?: FieldPolicy<any> | FieldReadFunction<any>,
-	option_value_id?: FieldPolicy<any> | FieldReadFunction<any>,
+	option_value_handle?: FieldPolicy<any> | FieldReadFunction<any>,
+	parent_handle?: FieldPolicy<any> | FieldReadFunction<any>,
+	product?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	variant?: FieldPolicy<any> | FieldReadFunction<any>,
 	variant_id?: FieldPolicy<any> | FieldReadFunction<any>
 };

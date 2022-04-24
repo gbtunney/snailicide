@@ -88,8 +88,9 @@ const {Product , loading, Variants, Options, OptionValues  ,getVariantByIndex} =
 const  clickTest=(e :Event):void => {
   // @ts-expect-error nkj
   const _product: ComputedRef<Testproduct> = (Product) as  ComputedRef<Testproduct>
+  console.error ("clickkk _product", _product)
+
   productRepo.save(  _product.value)
-  console.error ("clickkk", e,Product,productRepo.all())
   console.error ("clickkk",productRepo.withAllRecursive().get())
 
 }

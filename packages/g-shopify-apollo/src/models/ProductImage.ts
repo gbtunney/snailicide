@@ -1,13 +1,7 @@
+import {Model, Str, Num, BelongsTo, HasMany} from '@vuex-orm/core'
+import {Product} from "./Product";
+import ProductVariant from "./ProductVariant";
 import {ProductImage as TProductImage} from "./../types"
-
-import {Model, Attr, Str, Num, BelongsTo, HasMany} from '@vuex-orm/core'
-import {Product} from "@/models/Product";
-import ProductVariant from "@/models/ProductVariant";
-
-const test: TProductImage["altText"] = "fdfdf"
-
-//todo: switch these classes.
-
 
 export class ProductImage extends Model implements Partial<TProductImage> {
     static entity = 'productimages'
@@ -17,7 +11,6 @@ export class ProductImage extends Model implements Partial<TProductImage> {
 
     @Str('Image')
     __typename?: 'Image'
-    // type:  = 'Image'
 
     @Str('')
     altText!: TProductImage["altText"]

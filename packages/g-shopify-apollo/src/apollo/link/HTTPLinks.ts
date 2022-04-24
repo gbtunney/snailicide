@@ -1,4 +1,4 @@
-import {iStorefrontApiConfig} from "./../types";
+import {iStorefrontApiConfig} from "../../types";
 import {HttpLink} from "@apollo/client/core";
 
 export const createApolloHttpLink = (payload: iStorefrontApiConfig) => {

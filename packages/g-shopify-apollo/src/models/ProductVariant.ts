@@ -1,7 +1,7 @@
 import {ModelExtended} from './'
 import {Product} from './Product'
 import {ProductImage} from './ProductImage'
-import {ProductOption} from './ProductOption'
+import {ProductOption, VariantOptionType} from './ProductOption'
 
 import {Model, Attr, Str, Bool, Num, HasOne, BelongsTo, HasMany} from '@vuex-orm/core'
 import {VariantOption} from './ProductOption'
@@ -17,6 +17,7 @@ interface OverrideIVariant {
 type ShopifyProductVariant =
     Merge<TProductVariantFragment, OverrideIVariant>
 */
+
 
 export class ProductVariant extends Model implements Partial<TProductVariant> {
     static entity = 'variants'
@@ -60,17 +61,20 @@ export class ProductVariant extends Model implements Partial<TProductVariant> {
     @Attr(undefined)
     unitPrice!: TProductVariant["unitPrice"]
 
-    // @HasMany(() => VariantOption, 'variant_id')
-    // selectedOptions!: VariantOption[]
+    @Attr([])
+    selectedOptions!: TProductVariant["selectedOptions"]
+
+    @HasMany(() => VariantOption, 'variant_id', 'id')
+    SelectedOptions!: TProductVariant["SelectedOptions"]
 
     @Str('')
-    product_id?: string//TProductVariant["product_id"]
+    product_id?: TProductVariant["product_id"]
 
     @BelongsTo(() => Product, 'product_id')
-    product!: TProduct// TProductVariant["product"]
+    product!: TProductVariant["product"]
 
     @Str('')
-    image_id?: string //TProductVariant["image_id"]
+    image_id?: TProductVariant["image_id"]
 
     @BelongsTo(() => ProductImage, 'image_id')
     image?: TProductVariant["image"]

@@ -41,6 +41,7 @@ export type {
     ProductOptionValue,
     VariantOption,
     Image as ProductImage,
+    Product as TProduct,
     ProductVariant,
     ProductInstance
 } from "./generated/storefront-types"
@@ -65,12 +66,12 @@ export type DeepPartial<T> = T extends object ? {
 } : T;
 
 //TODO: update for reference??
-export const getIdentity =( value : string )=>{
-    const [__typename, id ]= value.split( ":");
-    return {__typename: __typename as `ProductVariant`,id}
+export const getIdentity = (value: string) => {
+    const [__typename, id] = value.split(":");
+    return {__typename: __typename as `ProductVariant`, id}
 }
 
 export type ProductComponentProps = {
-    handle : string
+    handle: string
     variant_id: string | number
 }

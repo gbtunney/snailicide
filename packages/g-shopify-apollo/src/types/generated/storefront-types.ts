@@ -3344,8 +3344,8 @@ export type Image = ShopifyProductNode & {
    */
   originalSrc: Scalars['URL'];
   position?: Maybe<Scalars['Int']>;
-  product?: Maybe<Product>;
-  product_id?: Maybe<Scalars['ID']>;
+  product: Product;
+  product_id: Scalars['ID'];
   /**
    * The location of the image as a URL.
    * @deprecated Use `url` instead
@@ -5311,22 +5311,24 @@ export type ProductOption = Node & ShopifyNode & ShopifyProductNode & {
   name: Scalars['String'];
   option_values?: Maybe<Array<ProductOptionValue>>;
   position?: Maybe<Scalars['Int']>;
-  product?: Maybe<Product>;
-  product_id?: Maybe<Scalars['ID']>;
+  product: Product;
+  product_id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
   /** The corresponding value to the product option name. */
   values: Array<Scalars['String']>;
 };
 
-export type ProductOptionValue = ShopifyNode & {
+export type ProductOptionValue = ShopifyNode & ShopifyProductNode & {
   __typename: 'ProductOptionValue';
   handle?: Maybe<Scalars['String']>;
-  option?: Maybe<ProductOption>;
+  option: ProductOption;
   option_id: Scalars['ID'];
   parent_handle?: Maybe<Scalars['String']>;
   position?: Maybe<Scalars['Int']>;
+  product: Product;
+  product_id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
-  variants?: Maybe<Array<ProductVariant>>;
+  variants: Array<VariantOption>;
 };
 
 /** The price range of the product. */
@@ -5367,6 +5369,7 @@ export enum ProductSortKeys {
 /** A product variant represents a different version of a product, such as differing sizes or differing colors. */
 export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & ShopifyProductNode & {
   __typename: 'ProductVariant';
+  SelectedOptions: Array<VariantOption>;
   /** Indicates if the product variant is available for sale. */
   availableForSale: Scalars['Boolean'];
   /** The barcode (for example, ISBN, UPC, or GTIN) associated with the variant. */
@@ -5410,14 +5413,13 @@ export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & 
   priceV2: MoneyV2;
   /** The product object that the product variant belongs to. */
   product: Product;
-  product_id?: Maybe<Scalars['ID']>;
+  product_id: Scalars['ID'];
   /** The total sellable quantity of the variant for online sales channels. */
   quantityAvailable?: Maybe<Scalars['Int']>;
   /** Whether a customer needs to provide a shipping address when placing an order for the product variant. */
   requiresShipping: Scalars['Boolean'];
   /** List of product options applied to the variant. */
   selectedOptions: Array<SelectedOption>;
-  selected_option_values?: Maybe<Array<ProductOptionValue>>;
   /** Represents an association between a variant and a selling plan. Selling plan allocations describe which selling plans are available for each variant, and what their impact is on pricing. */
   sellingPlanAllocations: SellingPlanAllocationConnection;
   sid?: Maybe<Scalars['Int']>;
@@ -6121,8 +6123,8 @@ export type ShopifyNode = {
 };
 
 export type ShopifyProductNode = {
-  product?: Maybe<Product>;
-  product_id?: Maybe<Scalars['ID']>;
+  product: Product;
+  product_id: Scalars['ID'];
 };
 
 /**
@@ -6385,11 +6387,14 @@ export type VariantFilter = {
   index?: InputMaybe<Scalars['Int']>;
 };
 
-export type VariantOption = {
+export type VariantOption = ShopifyProductNode & {
   __typename: 'VariantOption';
-  option_value?: Maybe<ProductOptionValue>;
-  option_value_id: Scalars['ID'];
-  variant?: Maybe<ProductVariant>;
+  option_value: ProductOptionValue;
+  option_value_handle: Scalars['String'];
+  parent_handle: Scalars['String'];
+  product: Product;
+  product_id: Scalars['ID'];
+  variant: ProductVariant;
   variant_id: Scalars['ID'];
 };
 
@@ -6511,7 +6516,7 @@ export type ProductFragment = { __typename: 'Product', id: string, handle: strin
 
 export type ProductOptionFragment = { __typename: 'ProductOption', id: string, handle?: string | undefined, values: Array<string>, title: string, option_values?: Array<{ __typename: 'ProductOptionValue', title?: string | undefined, handle?: string | undefined }> | undefined };
 
-export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, gid?: string | undefined, sid?: number | undefined, product_id?: string | undefined, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string, options: Array<{ __typename: 'ProductOption', name: string, id: string }> }, image?: (
+export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, gid?: string | undefined, sid?: number | undefined, product_id: string, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string, options: Array<{ __typename: 'ProductOption', name: string, id: string }> }, image?: (
     { __typename: 'Image' }
     & ImageFragment
   ) | undefined, selectedOptions: Array<{ __typename: 'SelectedOption', name: string, parent_handle: string, handle: string }>, priceV2: (
@@ -6663,7 +6668,7 @@ export const ProductFragmentDoc = gql`
     fragment ProductFragment on Product {
   id
   handle
-  title @uppercase
+  title
   gid @client
   sid @client
   availableForSale

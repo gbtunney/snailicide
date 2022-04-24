@@ -1,7 +1,7 @@
 fragment ProductFragment on Product {
     id
     handle
-    title @uppercase
+    title
 
     gid @client
     sid @client

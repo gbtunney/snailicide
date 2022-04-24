@@ -1,19 +1,19 @@
-
+import {slugify} from "@snailicide/g-library";
+import {Uid, Model, Attr, Str, Num, BelongsTo, HasMany, HasOne} from '@vuex-orm/core'
+import {VariantOption as TVariantOption} from './../types/generated/storefront-types'
 import {
     ProductOption as TProductOption,
     ProductOptionValue as TProductOptionValue,
-    VariantOption as TVariantOption,
 } from './../types'
-import {Uid, Model, Attr, Str, Num, BelongsTo, HasMany, HasOne} from '@vuex-orm/core'
-import {TProduct} from "@/models/Product";
-import {slugify} from "@snailicide/g-library";
+import {ProductVariant} from './ProductVariant'
+import {Product} from "./Product";
 
-export class ProductOptionValue extends Model implements Omit<TProductOptionValue, "variants"> {
+export class ProductOptionValue extends Model implements Partial<TProductOptionValue> {
     static entity = 'productoptionvalue'
-    static primaryKey = ['option_id', 'handle']
+    static primaryKey = ['parent_handle', 'handle']
 
-  //      @Str('')
-    //id!: TProductOptionValue["id"]
+    @Uid()
+    id!: string
 
     @Str('')
     __typename: 'ProductOptionValue' = 'ProductOptionValue'
@@ -27,22 +27,24 @@ export class ProductOptionValue extends Model implements Omit<TProductOptionValu
     @Num(1)
     position!: TProductOptionValue['position']
 
-    //  @Attr(undefined)
-    // product_id!: TProductOptionValueFragment['p']
+    @Str('')
+    product_id!: TProductOptionValue['product_id']
 
-    // @BelongsTo(() => Product, 'product_id')
-    // product!: Product
+    @BelongsTo(() => Product, 'product_id')
+    product!: TProductOptionValue["product"]
 
     @Str('')
     parent_handle!: TProductOptionValue["parent_handle"]
 
-    @Attr('')
+    @Str('')
     option_id!: TProductOptionValue['option_id']
 
     @BelongsTo(() => ProductOption, 'option_id')
     option!: TProductOptionValue["option"]
 
-    //@HasMany(()=>ProductVariant,"")
+    @HasMany(() => VariantOption, ['product_id', 'parent_handle', 'handle'].toString(), '$id')
+    variants!: TProductOptionValue["variants"]
+    //TVariantOption["option_value"]
 }
 
 
@@ -55,8 +57,8 @@ export class ProductOption extends Model implements Omit<TProductOption, "name" 
     @Str('')
     __typename: 'ProductOption' = 'ProductOption'
 
-    get handle(): TProductOption["handle"]{
-        return ( this.title )?slugify(  this.title ):undefined
+    get handle(): TProductOption["handle"] {
+        return (this.title) ? slugify(this.title) : undefined
     }
 
     @Str('')
@@ -68,31 +70,42 @@ export class ProductOption extends Model implements Omit<TProductOption, "name" 
     @Str('')
     product_id!: TProductOption['product_id']
 
-   // @BelongsTo(() => Product, 'product_id')
-    //product!: TProductOption["product"]
+    @BelongsTo(() => Product, 'product_id')
+    product!: TProductOption["product"]
 
     @HasMany(() => ProductOptionValue, 'option_id')
     option_values!: TProductOption["option_values"]
-
 }
 
 export class VariantOption extends Model implements TVariantOption {
     static entity = 'variantoption'
-    static primaryKey = ['variant_id', 'option_value_id']
+    static primaryKey = ['parent_handle', 'option_value_handle', 'product_id', 'variant_id']
+
+    @Uid()
+    id!: string
+
+    @Str(' ')
+    variant_id!: TVariantOption["variant_id"]
+
+    @BelongsTo(() => ProductVariant, "variant_id", "id")
+    variant!: TVariantOption["variant"]
 
     @Str('')
     __typename: 'VariantOption' = 'VariantOption'
 
     @Str('')
-    variant_id!: TVariantOption["variant_id"]
+    product_id!: TVariantOption["product_id"]
 
- //   @HasOne(() => ProductVariant, "id", "variant_id")
-    variant!: TVariantOption["variant"]
+    @HasOne(() => Product, "id", "product_id")
+    product!: TVariantOption["product"]
 
-    @Attr([])
-    option_value_id!: TVariantOption["option_value_id"]
+    @Str('') ///ProdOption handle
+    parent_handle!: TVariantOption["parent_handle"]
 
-    @HasOne(() => ProductOptionValue, "id", "option_value_id")
+    @Str(' not dset')
+    option_value_handle!: TVariantOption["option_value_handle"]
+
+    @BelongsTo(() => ProductOptionValue, ['parent_handle', 'handle'].toString(), "$id")
     option_value!: TVariantOption["option_value"]
 }
 
