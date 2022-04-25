@@ -1,69 +1,70 @@
 import {Attr, BelongsTo, Bool, HasMany, Model, Num, Str} from '@vuex-orm/core'
-import {Product} from './Product'
-import {ProductImage} from './ProductImage'
-import {VariantOption} from './ProductOption'
-import {ProductVariant as TProductVariant} from './../types/generated/storefront-types'
+import {ProductModel} from './Product'
+import {ProductImageModel} from './ProductImage'
+import {VariantOptionModel} from './ProductOption'
 
-export class ProductVariant extends Model implements Partial<TProductVariant> {
+import {TProductVariantGQL,TProductVariantGQLPartial} from './../types/generated'
+
+export class ProductVariantModel extends Model implements TProductVariantGQLPartial {
     static entity = 'variants'
 
     @Attr('')
-    id!: TProductVariant["id"]
+    id!: TProductVariantGQL["id"]
     @Str('')
     __typename: 'ProductVariant' = 'ProductVariant'
     @Str('')
-    title!: TProductVariant["title"]
+    title!: TProductVariantGQL["title"]
 
     @Bool(false)
-    availableForSale!: TProductVariant["availableForSale"]
+    availableForSale!: TProductVariantGQL["availableForSale"]
 
     @Num(0)
-    position!: TProductVariant["position"]
+    position!: TProductVariantGQL["position"]
 
     @Str('')
-    sku!: TProductVariant["sku"]
+    sku!: TProductVariantGQL["sku"]
 
     @Num(0)
-    quantityAvailable!: TProductVariant["quantityAvailable"]
+    quantityAvailable!: TProductVariantGQL["quantityAvailable"]
 
     @Num(0)
-    weight!: TProductVariant["weight"]
+    weight!: TProductVariantGQL["weight"]
 
     @Bool(false)
-    currentlyNotInStock!: TProductVariant["currentlyNotInStock"]
+    currentlyNotInStock!: TProductVariantGQL["currentlyNotInStock"]
 
     @Bool(false)
-    requiresShipping!: TProductVariant["requiresShipping"]
+    requiresShipping!: TProductVariantGQL["requiresShipping"]
     /* * Price fields * */
     @Num(0)
-    price!: TProductVariant["price"]
+    price!: TProductVariantGQL["price"]
     @Attr(undefined)
-    priceV2!: TProductVariant["priceV2"]
+    priceV2!: TProductVariantGQL["priceV2"]
     // @Num(0)
-    //  compareAtPrice: TProductVariant["compareAtPrice"]
+    //  compareAtPrice: TProductVariantGQL["compareAtPrice"]
     @Attr(undefined)
-    compareAtPriceV2 !: TProductVariant["compareAtPriceV2"]
+    compareAtPriceV2 !: TProductVariantGQL["compareAtPriceV2"]
     @Attr(undefined)
-    unitPrice!: TProductVariant["unitPrice"]
+    unitPrice!: TProductVariantGQL["unitPrice"]
 
     @Attr([])
-    selectedOptions!: TProductVariant["selectedOptions"]
+    selectedOptions!: TProductVariantGQL["selectedOptions"]
 
-    @HasMany(() => VariantOption, 'variant_id', 'id')
-    SelectedOptions!: TProductVariant["SelectedOptions"]
-
-    @Str('')
-    product_id?: TProductVariant["product_id"]
-
-    @BelongsTo(() => Product, 'product_id')
-    product!: TProductVariant["product"]
+    @HasMany(() => VariantOptionModel, 'variant_id', 'id')
+    SelectedOptions!: TProductVariantGQL["SelectedOptions"]
 
     @Str('')
-    image_id?: TProductVariant["image_id"]
+    product_id?: TProductVariantGQL["product_id"]
 
-    @BelongsTo(() => ProductImage, 'image_id')
-    image?: TProductVariant["image"]
+    @BelongsTo(() => ProductModel, 'product_id')
+    product!: TProductVariantGQL["product"]
+
+    @Str('')
+    image_id?: TProductVariantGQL["image_id"]
+
+    @BelongsTo(() => ProductImageModel, 'image_id')
+    image?: TProductVariantGQL["image"]
 }
 
-export default ProductVariant
-export {ProductVariant as ProductVariantType}
+export default ProductVariantModel
+export {ProductVariantModel as TProductVariantModel}

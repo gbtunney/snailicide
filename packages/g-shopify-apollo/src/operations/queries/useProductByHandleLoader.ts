@@ -2,8 +2,12 @@ import {ref, Ref, toRefs, watch} from "vue";
 import {UseQueryOptions, useResult} from "@vue/apollo-composable";
 import {controlledRef, whenever} from '@vueuse/core'
 import {isString, ObjectOf, OneOf} from "@gabrielurbina/type-guard";
-import {Product as TProduct, useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
-import {ApiNodeTypes, ProductFragment} from './../../types';
+
+//todo: move this??
+import {useProductByHandleCustomQuery} from "./../../types/generated/storefront-types";
+
+import {ApiNodeTypes} from './../../types';
+import {TProductFragment} from './../../types/generated';
 
 const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined => {
     const isProductQueryData = <T>(value: unknown): value is T => {
@@ -19,7 +23,7 @@ const getValidProductData = <T = unknown>(maybeProduct: unknown): T | undefined 
 }
 
 export const useProductByHandleLoader = (props: { handle: string }) => {
-    const product: Ref<ProductFragment | undefined> = ref(undefined)
+    const product: Ref<TProductFragment | undefined> = ref(undefined)
     const {handle = ref("")} = toRefs(props)
 
     const enabled = controlledRef(false, {
@@ -35,9 +39,9 @@ export const useProductByHandleLoader = (props: { handle: string }) => {
     const {result, loading, error, onResult} = useProductByHandleCustomQuery(query_payload, options)
 
     const productQueryResult = useResult(result, undefined, (value) => {
-        return getValidProductData<ProductFragment>(value.product as unknown) //maybeProduct????? pick function
+        return getValidProductData<TProductFragment>(value.product as unknown) //maybeProduct????? pick function
     })
-    whenever(productQueryResult, (value: TProduct) => {
+    whenever(productQueryResult, (value: TProductFragment) => {
         product.value = value
         console.warn("productQueryResult UPDATED!!!!!!!!!!", value)
     })

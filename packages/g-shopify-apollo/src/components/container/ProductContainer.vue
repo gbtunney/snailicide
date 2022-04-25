@@ -12,10 +12,17 @@ import {
   ref,
   ComputedRef,
 } from "vue";
-import {useProduct} from './../../operations/queries/useProduct';
-import {useProductInstance} from "./../../operations/queries/useProductInstance";
+
 import {useApolloClient, provideApolloClient} from "@vue/apollo-composable";
 import SimpleSelect from './../ui/SimpleSelect.vue';
+
+import {useOrmRepositories} from "./../../repository/useOrmRepositories";
+import ProductInstanceModel, {TProductInstanceModel} from "./../../models/ProductInstance";
+import ProductGroupModel from "./../../models/ProductGroup";
+import {
+  TProductInstanceGQL, TProductInstanceGQLPartial,
+  TProductGroupGQL, TProductGroupGQLPartial
+} from "./../../types/generated";
 
 const props = withDefaults(
     defineProps<{
@@ -32,37 +39,28 @@ const props = withDefaults(
     }>(), {
       handle: "",
       variant_id: '5'//99//'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzEwNjkzNA=='// '22620513665142'
-
     })
-//defineComponent(SimpleSelect)
-
-//import {useStore} from 'vuex'
-import {useOrmRepositories} from "@/repository/useOrmRepositories";
-import ProductInstance, {ProductInstanceType} from "@/models/ProductInstance";
-import ProductGroup from "@/models/ProductGroup";
-import {
-  ProductInstance as TProductInstance,
-  ProductGroup as TProductGroup
-} from "@/types/generated/storefront-types";
 
 const CLIENT = useApolloClient().client
 const {
-  ProductGroupRepository: groupRepo,
-  ProductRepository: productRepo,
-  ProductInstanceRepository: instanceRepo
+  groupRepo,
+  productRepo,
+  instanceRepo
 } = useOrmRepositories()
 const {handle, variant_id} = toRefs(props)
-const {Product, isLoading,isReady, Variants,Options, OptionValues ,Images } = productRepo.init(props)
+const {Product, isLoading, isReady, Variants, Options, OptionValues, Images} = productRepo.init(props)
 
 const clickTest = (e: Event): void => {
-  const demoProduct: TProductInstance = {
+  const demoProduct: TProductInstanceGQL = {
+
     __typename: 'ProductInstance',
     id: '4444',
     product_handle: 'local',
     quantity: 3,
     variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjYyMDUxMzQzNTc2Ng=="
   }
-  const _group: TProductGroup = {
+
+  const _group: TProductGroupGQLPartial = {
     __typename: 'ProductGroup',
     id: '324234324',
     max_children: 2,
@@ -108,10 +106,10 @@ const clickTest = (e: Event): void => {
 
     <div v-if="isReady">
       done
-      {{Product.title}}
-          <div v-for="(option,index) in Options" :key="index">
+      {{ Product.title }}
+      <div v-for="(option,index) in Options" :key="index">
         <h2>{{ option.title }}</h2>
-           <SimpleSelect @change="test()" :options="option.option_values"></SimpleSelect>
+        <SimpleSelect @change="test()" :options="option.option_values"></SimpleSelect>
       </div>
     </div>
   </div>

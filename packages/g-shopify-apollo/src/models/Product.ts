@@ -1,48 +1,54 @@
-import {TProduct} from "./../types"
 import {Bool, HasMany, Model, Str} from '@vuex-orm/core'
-import {ProductOption} from './ProductOption'
-import {ProductVariant} from "./ProductVariant";
-import ProductImage from "./ProductImage";
+import {ProductOptionModel} from './ProductOption'
+import {ProductVariantModel} from "./ProductVariant";
+import {ProductImageModel} from "./ProductImage";
+/* * TYPES   GENERSTED * */
+import {
+    TProductGQL,
+    TProductGQLPartial,
+    TProductFragment,
+    TProductFragmentPartial
+} from "./../types/generated";
 
-export class Product extends Model implements Partial<TProduct> {
+export class ProductModel extends Model implements TProductGQLPartial {
     static entity = 'products'
     static primaryKey = 'id'
 
     @Str('')
-    id!: TProduct["id"]
+    id!: TProductGQL["id"]
 
     @Str('Product')
     __typename?: "Product"
 
     @Str('')
-    handle!: TProduct["handle"]
+    handle!: TProductGQL["handle"]
 
     @Str('title')
-    title!: TProduct["title"]
+    title!: TProductGQL["title"]
 
     @Bool(false)
-    available!: TProduct["availableForSale"]
+    available!: TProductGQL["availableForSale"]
 
     @Str(' ')
-    productType!: TProduct["productType"]
+    productType!: TProductGQL["productType"]
 
-    @HasMany(() => ProductOption, 'product_id')
-    options?: TProduct["options"]
+    @HasMany(() => ProductOptionModel, 'product_id')
+    options?: TProductGQL["options"]
 
-    @HasMany(() => ProductVariant, 'product_id')
-    Variants!: TProduct["Variants"]
+    @HasMany(() => ProductVariantModel, 'product_id')
+    Variants!: TProductGQL["Variants"]
 
-    @HasMany(() => ProductImage, 'product_id')
-    Images?: TProduct["Images"]
+    @HasMany(() => ProductImageModel, 'product_id')
+    Images!: TProductGQL["Images"]
 
-    get gid(): TProduct["gid"] {
+    get gid(): TProductGQL["gid"] {
         return (this.id && this.id.length > 0) ? atob(this.id) : this.id
     }
 
-    get cacheID(): TProduct['cacheID'] {
+    get cacheID(): TProductGQL['cacheID'] {
         return `${this.__typename}:${this.id}`
     }
 }
 
-export default Product
-export {Product as ProductType}
+export default ProductModel
+export {ProductModel as TProductModel}

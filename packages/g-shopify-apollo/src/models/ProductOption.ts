@@ -1,11 +1,19 @@
 import {slugify} from "@snailicide/g-library";
 import {Attr, BelongsTo, HasMany, HasOne, Model, Num, Str, Uid} from '@vuex-orm/core'
-import {ProductOption as TProductOption, ProductOptionValue as TProductOptionValue,} from './../types'
-import {VariantOption as TVariantOption} from './../types/generated/storefront-types'
-import {ProductVariant} from './ProductVariant'
-import {Product} from "./Product";
 
-export class ProductOptionValue extends Model implements Partial<TProductOptionValue> {
+import {ProductVariantModel} from './ProductVariant'
+import {ProductModel} from "./Product";
+
+import {
+    TProductOptionGQL,
+    TProductOptionGQLPartial,
+    TProductOptionValueGQL,
+    TProductOptionValueGQLPartial,
+    TVariantOptionGQL,
+    TVariantOptionGQLPartial
+} from "./../types/generated";
+
+export class ProductOptionValueModel extends Model implements TProductOptionValueGQLPartial {
     static entity = 'productoptionvalue'
     static primaryKey = ['parent_handle', 'handle']
 
@@ -16,65 +24,65 @@ export class ProductOptionValue extends Model implements Partial<TProductOptionV
     __typename: 'ProductOptionValue' = 'ProductOptionValue'
 
     @Str('')
-    handle!: TProductOptionValue['handle']
+    handle!: TProductOptionValueGQL['handle']
 
     @Str('')
-    title!: TProductOptionValue["title"]
+    title!: TProductOptionValueGQL["title"]
 
     @Num(1)
-    position!: TProductOptionValue['position']
+    position!: TProductOptionValueGQL['position']
 
     @Str('')
-    product_id!: TProductOptionValue['product_id']
+    product_id!: TProductOptionValueGQL['product_id']
 
-    @BelongsTo(() => Product, 'product_id')
-    product!: TProductOptionValue["product"]
-
-    @Str('')
-    parent_handle!: TProductOptionValue["parent_handle"]
+    @BelongsTo(() => ProductModel, 'product_id')
+    product!: TProductOptionValueGQL["product"]
 
     @Str('')
-    option_id!: TProductOptionValue['option_id']
+    parent_handle!: TProductOptionValueGQL["parent_handle"]
 
-    @BelongsTo(() => ProductOption, 'option_id')
-    option!: TProductOptionValue["option"]
+    @Str('')
+    option_id!: TProductOptionValueGQL['option_id']
 
-    @HasMany(() => VariantOption, ['product_id', 'parent_handle', 'handle'].toString(), '$id')
-    variants!: TProductOptionValue["variants"]
+    @BelongsTo(() => ProductOptionModel, 'option_id')
+    option!: TProductOptionValueGQL["option"]
+
+    @HasMany(() => VariantOptionModel, ['product_id', 'parent_handle', 'handle'].toString(), '$id')
+    variants!: TProductOptionValueGQL["variants"]
     //TVariantOption["option_value"]
 }
 
 
-export class ProductOption extends Model implements Omit<TProductOption, "name" | "values"> {
+export class ProductOptionModel extends Model implements Omit<TProductOptionGQLPartial, "name" | "values"> {
     static entity = 'productoption'
 
     @Attr('')
-    id!: TProductOption["id"]
+    id!: TProductOptionGQL["id"]
 
     @Str('')
     __typename: 'ProductOption' = 'ProductOption'
 
-    get handle(): TProductOption["handle"] {
+    get handle(): TProductOptionGQL["handle"] {
         return (this.title) ? slugify(this.title) : undefined
     }
 
     @Str('')
-    title!: TProductOption["title"]
+    title!: TProductOptionGQL["title"]
 
     @Num(1)
-    position!: TProductOption["position"]
+    position!: TProductOptionGQL["position"]
 
     @Str('')
-    product_id!: TProductOption['product_id']
+    product_id!: TProductOptionGQL['product_id']
 
-    @BelongsTo(() => Product, 'product_id')
-    product!: TProductOption["product"]
+    @BelongsTo(() => ProductModel, 'product_id')
+    product!: TProductOptionGQL["product"]
 
-    @HasMany(() => ProductOptionValue, 'option_id')
-    option_values!: TProductOption["option_values"]
+    @HasMany(() => ProductOptionValueModel, 'option_id')
+    option_values!: TProductOptionGQL["option_values"]
 }
 
-export class VariantOption extends Model implements TVariantOption {
+export class VariantOptionModel extends Model implements TVariantOptionGQLPartial {
     static entity = 'variantoption'
     static primaryKey = ['parent_handle', 'option_value_handle', 'product_id', 'variant_id']
 
@@ -82,33 +90,33 @@ export class VariantOption extends Model implements TVariantOption {
     id!: string
 
     @Str(' ')
-    variant_id!: TVariantOption["variant_id"]
+    variant_id!: TVariantOptionGQL["variant_id"]
 
-    @BelongsTo(() => ProductVariant, "variant_id", "id")
-    variant!: TVariantOption["variant"]
+    @BelongsTo(() => ProductVariantModel, "variant_id", "id")
+    variant!: TVariantOptionGQL["variant"]
 
     @Str('')
     __typename: 'VariantOption' = 'VariantOption'
 
     @Str('')
-    product_id!: TVariantOption["product_id"]
+    product_id!: TVariantOptionGQL["product_id"]
 
-    @HasOne(() => Product, "id", "product_id")
-    product!: TVariantOption["product"]
+    @HasOne(() => ProductModel, "id", "product_id")
+    product!: TVariantOptionGQL["product"]
 
     @Str('') ///ProdOption handle
-    parent_handle!: TVariantOption["parent_handle"]
+    parent_handle!: TVariantOptionGQL["parent_handle"]
 
     @Str(' not dset')
-    option_value_handle!: TVariantOption["option_value_handle"]
+    option_value_handle!: TVariantOptionGQL["option_value_handle"]
 
-    @BelongsTo(() => ProductOptionValue, ['parent_handle', 'handle'].toString(), "$id")
-    option_value!: TVariantOption["option_value"]
+    @BelongsTo(() => ProductOptionValueModel, ['parent_handle', 'handle'].toString(), "$id")
+    option_value!: TVariantOptionGQL["option_value"]
 }
 
-export default ProductOption
+export default ProductOptionModel
 export {
-    ProductOption as ProductOptionType,
-    ProductOptionValue as ProductOptionValueType,
-    VariantOption as VariantOptionType
+    ProductOptionModel as TProductOptionModel,
+    ProductOptionValueModel as TProductOptionValueModel,
+    VariantOptionModel as TVariantOptionModel
 }

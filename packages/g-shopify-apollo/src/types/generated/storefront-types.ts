@@ -5264,7 +5264,7 @@ export type ProductGroup = {
   add_to_cart_enabled?: Maybe<Scalars['Boolean']>;
   available?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
-  items?: Maybe<Array<Maybe<ProductInstance>>>;
+  items: Array<ProductInstance>;
   max_children?: Maybe<Scalars['Int']>;
 };
 

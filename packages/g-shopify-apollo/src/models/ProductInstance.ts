@@ -1,10 +1,10 @@
 import {BelongsTo, HasOne, Model, Num, Str, Uid} from "@vuex-orm/core";
-import {ProductInstance as TProductInstance} from "./../types/generated/storefront-types";
-import {Product} from "./Product";
-import {ProductVariant} from "./ProductVariant";
-import ProductGroup from "./ProductGroup"
+import {TProductInstanceGQL, TProductInstanceGQLPartial} from "./../types/generated";
+import {ProductModel} from "./Product";
+import {ProductVariantModel} from "./ProductVariant";
+import ProductGroupModel from "./ProductGroup"
 
-export class ProductInstance extends Model implements Partial<TProductInstance> {
+export class ProductInstanceModel extends Model implements TProductInstanceGQLPartial {
     static entity = 'productinstance'
     static primaryKey = 'id'
 
@@ -15,26 +15,26 @@ export class ProductInstance extends Model implements Partial<TProductInstance> 
     __typename: 'ProductInstance' = 'ProductInstance'
 
     @Str('')
-    group_id?: TProductInstance['group_id']
+    group_id?: TProductInstanceGQL['group_id']
 
-    @BelongsTo(() => ProductGroup, "id", 'group_id')
-    group?: TProductInstance["group"]
+    @BelongsTo(() => ProductGroupModel, "id", 'group_id')
+    group?: TProductInstanceGQL["group"]
 
     @Str('')
-    product_handle?: TProductInstance['product_handle']
+    product_handle?: TProductInstanceGQL['product_handle']
 
-    @HasOne(() => Product, 'handle', 'product_handle')
-    product?: TProductInstance["product"]
+    @HasOne(() => ProductModel, 'handle', 'product_handle')
+    product?: TProductInstanceGQL["product"]
 
     @Num(1)
-    quantity?: TProductInstance['quantity']
+    quantity?: TProductInstanceGQL['quantity']
 
     @Str('')
-    variant_id?: TProductInstance['variant_id']
+    variant_id?: TProductInstanceGQL['variant_id']
 
-    @HasOne(() => ProductVariant, "id", 'variant_id')
-    variant?: TProductInstance["variant"]
+    @HasOne(() => ProductVariantModel, "id", 'variant_id')
+    variant?: TProductInstanceGQL["variant"]
 }
 
-export default ProductInstance
-export {ProductInstance as ProductInstanceType}
+export default ProductInstanceModel
+export {ProductInstanceModel as TProductInstanceModel}

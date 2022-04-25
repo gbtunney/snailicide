@@ -2,10 +2,9 @@ import {useStore} from "vuex";
 import {Repository, Query, Collection} from '@vuex-orm/core'
 
 /* * ORM Models * */
-import {Product} from './../models/Product'
-import {ProductVariant} from './../models/ProductVariant'
-import {ProductImage} from './../models/ProductImage'
-import {ProductOption, ProductOptionValue, VariantOption} from './../models/ProductOption'
+import {ProductVariantModel} from './../models/ProductVariant'
+import {ProductImageModel} from './../models/ProductImage'
+import {ProductOptionModel, ProductOptionValueModel, VariantOptionModel} from './../models/ProductOption'
 import ProductInstance from "./../models/ProductInstance";
 import ProductGroup from "./../models/ProductGroup";
 
@@ -15,21 +14,26 @@ import {ProductRepository} from './ProductRepository'
 export const useOrmRepositories = () => {
     const store = useStore()
 
-    const productRepo = store.$repo(ProductRepository)
     const instanceRepo = store.$repo(ProductInstance)
     const groupRepo = store.$repo(ProductGroup)
-    const variantRepo = store.$repo(ProductVariant)
-    const imageRepo = store.$repo(ProductImage)
-    const optionRepo = store.$repo(ProductOption)
-    const optionValueRepo = store.$repo(ProductOptionValue)
+
+    const productRepo = store.$repo(ProductRepository)
+    const variantRepo = store.$repo(ProductVariantModel)
+    const imageRepo = store.$repo(ProductImageModel)
+
+    const optionRepo = store.$repo(ProductOptionModel)
+    const optionValueRepo = store.$repo(ProductOptionValueModel)
     return {
         store,
-       productRepo,
         instanceRepo,
         groupRepo,
+
+        productRepo,
         variantRepo,
         imageRepo,
-        optionRepo
+
+        optionRepo,
+        optionValueRepo
     }
 }
 export default useOrmRepositories

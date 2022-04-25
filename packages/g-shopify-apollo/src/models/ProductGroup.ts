@@ -1,8 +1,9 @@
 import {Bool, HasMany, Model, Num, Str, Uid} from "@vuex-orm/core";
-import {ProductGroup as TProductGroup} from "./../types/generated/storefront-types";
-import {ProductInstance} from "./ProductInstance";
 
-export class ProductGroup extends Model implements Partial<TProductGroup> {
+import {TProductGroupGQL, TProductGroupGQLPartial} from "./../types/generated";
+import {ProductInstanceModel} from "./ProductInstance";
+
+export class ProductGroupModel extends Model implements TProductGroupGQLPartial {
     static entity = 'productgroup'
     static primaryKey = 'id'// ['parent_handle', 'handle']
 
@@ -13,17 +14,17 @@ export class ProductGroup extends Model implements Partial<TProductGroup> {
     __typename: 'ProductGroup' = 'ProductGroup'
 
     @Num(6)
-    max_children?: TProductGroup['max_children']
+    max_children?: TProductGroupGQL['max_children']
 
     @Bool(true)
-    add_to_cart_enabled?: TProductGroup['add_to_cart_enabled']
+    add_to_cart_enabled?: TProductGroupGQL['add_to_cart_enabled']
 
     @Bool(false)
-    available?: TProductGroup['available']
+    available?: TProductGroupGQL['available']
 
-    @HasMany(() => ProductInstance, "group_id", 'id')
-    items!: TProductGroup["items"]
+    @HasMany(() => ProductInstanceModel, "group_id", 'id')
+    items!: TProductGroupGQL["items"]
 }
 
-export default ProductGroup
-export {ProductGroup as ProductGroupType}
+export default ProductGroupModel
+export {ProductGroupModel as TProductGroupModel}

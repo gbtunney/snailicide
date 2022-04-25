@@ -1,37 +1,40 @@
 import {Repository, Item, Collection} from '@vuex-orm/core'
 import {computed, ComputedRef, ref, toRefs, watch} from "vue";
-import {useProduct} from "@/operations/queries/useProduct";
-import {ProductComponentProps, ProductImage, ProductVariant, TProduct} from "@/types";
+import {useOrmRepositories} from "./useOrmRepositories";
 import useProductByHandleLoader from "./../operations/queries/useProductByHandleLoader";
-import Product, {Product as Testproduct} from './../models/Product'
 
-//import ProductImage from './../models/ProductImage'
+/* * TYPES!!!! * */
+import {ProductComponentProps} from "./../types";
+import {TProductGQL, TProductGQLPartial} from "./../types/generated";
 
-import {gql} from "@apollo/client/core";
-import {useApolloClient} from "@vue/apollo-composable";
-import {useOrmRepositories} from "@/repository/useOrmRepositories";
-import {ProductVariantType} from "@/models/ProductVariant";
-import {ProductOptionType, VariantOptionType, ProductOptionValueType} from "@/models/ProductOption";
+/* * NEW FORMAT NAMING!! * */
+import ProductModel, {TProductModel} from './../models/Product'
+import {ProductImageModel, TProductImageModel} from './../models/ProductImage'
+import {ProductVariantModel, TProductVariantModel} from "./../models/ProductVariant";
+import {
+    TProductOptionValueModel,
+    TVariantOptionModel,
+    ProductOptionValueModel,
+    TProductOptionModel
+} from "./../models/ProductOption";
 
-export class ProductRepository extends Repository<Product> {
-    use = Product
+export class ProductRepository extends Repository<ProductModel> {
+    use = ProductModel
 
     init(product_props: ProductComponentProps) {
-        // {Product, isReady,loading, Variants, Options, OptionValues,optionsUpdated,getVariant,getVariantByIndex}
         const {handle = ref(undefined), variant_id = 1} = toRefs(product_props)
         const {
-            //ProductGroupRepository: groupRepo,
-            // ProductRepository: productRepo,
-            //  ProductInstanceRepository: instanceRepo
-            ProductVariantRepository: variantRepo,
-            ProductImageRepository: imageRepo,
-            ProductOptionRepository: optionRepo,
-            ProductOptionValueRepository: optionValueRepo
+            variantRepo,
+            imageRepo,
+            optionRepo,
+            optionValueRepo,
+
+            instanceRepo,
+            groupRepo
         } = useOrmRepositories()
         // const productTest = useProduct(product_props)
         const {product, loading: isLoading, error, onResult} = useProductByHandleLoader(product_props)
         onResult((value) => {
-            //   debugger;
             if (isLoading.value === false && value.data.product) {
                 this.save(value.data.product)
                 console.log("PRRIOIOIOIOIIO", handle.value, this.query().where("handle", handle.value).withAll().get())
@@ -39,31 +42,29 @@ export class ProductRepository extends Repository<Product> {
         })
         const isReady = computed(() => (product.value && !isLoading.value))
 
-        const Product: ComputedRef<Item<Product> | undefined> = computed(() => {
+        const Product: ComputedRef<Item<TProductModel> | undefined> = computed(() => {
             if (!isReady.value) return undefined
             if (product?.value && this.find(product?.value.id)) {
                 return (this.query().whereId(product?.value.id).withAll().first())
             }
             return undefined//product.value
         })
-        const Variants: ComputedRef<Collection<ProductVariantType> | undefined> = computed(() => {
+        const Variants: ComputedRef<Collection<TProductVariantModel> | undefined> = computed(() => {
             if (!isReady.value) return undefined
-            const variants: Collection<ProductVariantType> | undefined = variantRepo.query().where("product_id", product.value?.id).withAll().get()
+            const variants: Collection<TProductVariantModel> = variantRepo.query().where("product_id", product.value?.id).withAll().get()
             if (variants) return variants
             return undefined
         })
 
-        const Images: ComputedRef<ProductImage[] | undefined> = computed(() => {
+        const Images: ComputedRef<TProductGQL["Images"] | undefined> = computed(() => {
             if (!isReady.value) return undefined
-            if (Product.value) {
-                return Product.value?.Images//images.edges.map((image) => image.node)
-            }
+            if (Product.value) return Product.value?.Images
             return undefined
         })
 
         const Options = computed(() => {
             if (!isReady.value) return undefined
-            const options: Collection<ProductOptionType> = optionRepo.query().where("product_id", product.value?.id).withAll().get()
+            const options: Collection<TProductOptionModel> = optionRepo.query().where("product_id", product.value?.id).withAll().get()
             if (options) return options
             return undefined
         })

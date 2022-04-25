@@ -108,7 +108,7 @@ type ProductInstance {
 type ProductGroup {
     id: ID!
     available:Boolean
-    items: [ProductInstance]
+    items: [ProductInstance!]!
     max_children: Int
     add_to_cart_enabled:Boolean
 }

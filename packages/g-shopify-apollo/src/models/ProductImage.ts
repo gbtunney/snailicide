@@ -1,42 +1,43 @@
 import {BelongsTo, HasMany, Model, Num, Str} from '@vuex-orm/core'
-import {Product} from "./Product";
-import ProductVariant from "./ProductVariant";
-import {ProductImage as TProductImage} from "./../types"
+import {ProductModel} from "./Product";
+import {ProductVariantModel} from "./ProductVariant";
 
-export class ProductImage extends Model implements Partial<TProductImage> {
+import {TProductImageGQL,TProductImageFragment,TProductImageGQLPartial,TProductImageFragmentPartial} from "./../types/generated";
+
+export class ProductImageModel extends Model implements TProductImageGQLPartial {
     static entity = 'productimages'
 
     @Str('')
-    id!: TProductImage["id"]
+    id!: TProductImageGQL["id"]
 
     @Str('Image')
     __typename?: 'Image'
 
     @Str('')
-    altText!: TProductImage["altText"]
+    altText!: TProductImageGQL["altText"]
 
     @Str('')
-    src!: TProductImage['src']
+    src!: TProductImageGQL['src']
 
     @Num(1)
-    position!: TProductImage['position']
+    position!: TProductImageGQL['position']
 
     @Num(500)
-    width!: TProductImage['width']
+    width!: TProductImageGQL['width']
 
     @Num(500)
-    height!: TProductImage['height']
+    height!: TProductImageGQL['height']
 
     @Str('')
-    product_id!: TProductImage['product_id']
+    product_id!: TProductImageGQL['product_id']
 
-    @BelongsTo(() => Product, 'product_id')
-    product!: TProductImage["product"]
+    @BelongsTo(() => ProductModel, 'product_id')
+    product!: TProductImageGQL["product"]
 
-    @HasMany(() => ProductVariant, 'image_id')
-    variants!: TProductImage['variants']
+    @HasMany(() => ProductVariantModel, 'image_id')
+    variants!: TProductImageGQL['variants']
 }
 
-export default ProductImage
-export {ProductImage as ProductImageType}
+export default ProductImageModel
+export {ProductImageModel as TProductImageModel}
 
