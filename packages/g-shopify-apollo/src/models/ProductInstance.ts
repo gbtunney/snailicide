@@ -8,7 +8,7 @@ export class ProductInstanceModel extends Model implements TProductInstanceGQLPa
     static entity = 'productinstance'
     static primaryKey = 'id'
 
-    @Uid()
+    @Str(' ')
     id!: string
 
     @Str('')
@@ -23,7 +23,7 @@ export class ProductInstanceModel extends Model implements TProductInstanceGQLPa
     @Str('')
     product_handle?: TProductInstanceGQL['product_handle']
 
-    @HasOne(() => ProductModel, 'handle', 'product_handle')
+    @BelongsTo(() => ProductModel,  'product_handle','handle')
     product?: TProductInstanceGQL["product"]
 
     @Num(1)
@@ -35,6 +35,13 @@ export class ProductInstanceModel extends Model implements TProductInstanceGQLPa
     @HasOne(() => ProductVariantModel, "id", 'variant_id')
     variant?: TProductInstanceGQL["variant"]
 }
-
+/*
+ Options Boolena
+            selection_mode: this.string("normal").nullable(),
+            add_to_cart_enabled: this.boolean(EDITABLE_DEFAULTS["addToCart"]), /// this is bool to allow a add to cart button for TOTAL GROUP.
+            quantity_editable: this.boolean(EDITABLE_DEFAULTS["quantity"]),
+            variant_editable: this.boolean(EDITABLE_DEFAULTS["variant"]),
+            options_editable: this.attr(EDITABLE_DEFAULTS["options"]), //future pref dont know when implement
+*/
 export default ProductInstanceModel
 export {ProductInstanceModel as TProductInstanceModel}

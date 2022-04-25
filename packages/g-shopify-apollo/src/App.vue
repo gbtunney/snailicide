@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-black text-white w-full h-full block">
+  <div class="bg-black text-white w-full h-full block children:m-2">
     ENTRY POINT!
-    <button @click="handle='balance'"> Balance</button>
-    <button @click="handle='local'"> local</button>
-    <button @click="handle='o-wash-fingering'"> o-wash-fingering</button>
+    <button @click="handle='balance'"> Balance</button> |
+    <button @click="handle='local'"> local</button> |
+    <button @click="handle='o-wash-fingering'"> o-wash-fingering</button> |
     <button @click="handle=undefined"> SET TO UNDEFINED!!</button>
     <product-container :handle="handle"></product-container>
   </div>
@@ -21,7 +21,7 @@ export default defineComponent({
   },
   data: () => {
     return {
-      handle: undefined
+      handle: 'local'
     }
   },
 });

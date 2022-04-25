@@ -776,6 +776,14 @@ export type ImageEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type InstanceOptionsKeySpecifier = ('add_to_cart_enabled' | 'attributes_editable' | 'product_option_editable' | 'quantity_editable' | 'variant_editable' | InstanceOptionsKeySpecifier)[];
+export type InstanceOptionsFieldPolicy = {
+	add_to_cart_enabled?: FieldPolicy<any> | FieldReadFunction<any>,
+	attributes_editable?: FieldPolicy<any> | FieldReadFunction<any>,
+	product_option_editable?: FieldPolicy<any> | FieldReadFunction<any>,
+	quantity_editable?: FieldPolicy<any> | FieldReadFunction<any>,
+	variant_editable?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type LocalizationKeySpecifier = ('availableCountries' | 'country' | LocalizationKeySpecifier)[];
 export type LocalizationFieldPolicy = {
 	availableCountries?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1973,6 +1981,10 @@ export type StrictTypedTypePolicies = {
 	ImageEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ImageEdgeKeySpecifier | (() => undefined | ImageEdgeKeySpecifier),
 		fields?: ImageEdgeFieldPolicy,
+	},
+	InstanceOptions?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | InstanceOptionsKeySpecifier | (() => undefined | InstanceOptionsKeySpecifier),
+		fields?: InstanceOptionsFieldPolicy,
 	},
 	Localization?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocalizationKeySpecifier | (() => undefined | LocalizationKeySpecifier),

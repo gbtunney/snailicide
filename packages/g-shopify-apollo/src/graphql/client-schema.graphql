@@ -91,6 +91,39 @@ type VariantOption implements ShopifyProductNode{
     variant_id : ID!
     variant:ProductVariant!
 }
+
+# Instance Options Toggles #
+interface InstanceOptions {
+    add_to_cart_enabled:Boolean!
+    quantity_editable:Boolean!
+    product_option_editable: OptionEditableValues!
+    variant_editable:Boolean!
+    attributes_editable :Boolean!
+}
+# NOT IN USE YET #
+enum EditableOptions {
+    QUANTITY_EDITABLE
+    VARIANT_EDITABLE
+    OPTIONS_EDITABLE
+    ATTRIBUTES_EDITABLE
+    ADD_TO_CART_EDITABLE
+}
+
+enum Selection_Mode_Options {
+    NORMAL
+    EXTENDED
+    READ_ONLY
+    LINE_ITEM
+    GROUP_ITEM
+}
+# DONE NOT IN USE YET #
+
+enum OptionEditableValues {
+    ALL
+    NONE
+    OPTION
+}
+
 type ProductInstance {
     id: ID!
     quantity: Int!

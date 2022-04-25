@@ -10,11 +10,12 @@ import ProductGroup from "./../models/ProductGroup";
 
 /* * CUstom Repository  * */
 import {ProductRepository} from './ProductRepository'
+import ProductInstanceRepository from "@/repository/ProductInstanceRepository";
 
 export const useOrmRepositories = () => {
     const store = useStore()
 
-    const instanceRepo = store.$repo(ProductInstance)
+    const instanceRepo = store.$repo(ProductInstanceRepository)
     const groupRepo = store.$repo(ProductGroup)
 
     const productRepo = store.$repo(ProductRepository)

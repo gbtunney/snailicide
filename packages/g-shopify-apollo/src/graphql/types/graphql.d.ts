@@ -3148,6 +3148,14 @@ export type Domain = {
   url: Scalars['URL'];
 };
 
+export enum EditableOptions {
+  AddToCartEditable = 'ADD_TO_CART_EDITABLE',
+  AttributesEditable = 'ATTRIBUTES_EDITABLE',
+  OptionsEditable = 'OPTIONS_EDITABLE',
+  QuantityEditable = 'QUANTITY_EDITABLE',
+  VariantEditable = 'VARIANT_EDITABLE'
+}
+
 export type Extended_Id = {
   cacheID?: Maybe<Scalars['String']>;
   gid?: Maybe<Scalars['String']>;
@@ -3460,6 +3468,14 @@ export type ImageTransformInput = {
    *
    */
   scale?: InputMaybe<Scalars['Int']>;
+};
+
+export type InstanceOptions = {
+  add_to_cart_enabled: Scalars['Boolean'];
+  attributes_editable: Scalars['Boolean'];
+  product_option_editable: OptionEditableValues;
+  quantity_editable: Scalars['Boolean'];
+  variant_editable: Scalars['Boolean'];
 };
 
 /** Information about the localized experiences configured for the shop. */
@@ -4463,6 +4479,12 @@ export type OnlineStorePublishable = {
   /** The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel. */
   onlineStoreUrl?: Maybe<Scalars['URL']>;
 };
+
+export enum OptionEditableValues {
+  All = 'ALL',
+  None = 'NONE',
+  Option = 'OPTION'
+}
 
 /** An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information. */
 export type Order = HasMetafields & Node & {
@@ -5837,6 +5859,14 @@ export type SelectedOptionInput = {
   /** The product option’s value. */
   value: Scalars['String'];
 };
+
+export enum Selection_Mode_Options {
+  Extended = 'EXTENDED',
+  GroupItem = 'GROUP_ITEM',
+  LineItem = 'LINE_ITEM',
+  Normal = 'NORMAL',
+  ReadOnly = 'READ_ONLY'
+}
 
 /** Represents how products and variants can be sold and purchased. */
 export type SellingPlan = {

@@ -8,6 +8,7 @@ import {
     ProductByHandleCustomQuery,
     ProductByHandleCustomQueryVariables
 } from "./generated/storefront-types";
+import {TProductInstanceGQL} from "@/types/generated";
 
 export type {CustomTypePolicy, CustomFieldPolicy} from "./apolloTypedPolicies"
 export {readField} from './apolloTypedPolicies'
@@ -74,5 +75,15 @@ export const getIdentity = (value: string) => {
 
 export type ProductComponentProps = {
     handle: string
-    variant_id: string | number
+    variant_id?: string | number
+    instance_id: string
 }
+
+/* * COMPONENT PROPS PICKED FROM GQL TYPE * */
+type ProductInstanceGQLProps = Pick<TProductInstanceGQL,
+    'id' | 'group_id' | 'variant_id' | 'product_handle' | 'quantity' | 'customAttributes'>
+
+type TProductInstanceComponentProps = ProductInstanceGQLProps & Pick<ProductComponentProps, 'handle'>
+
+export type ProductInstanceComponentProps
+    = TProductInstanceComponentProps & ProductInstanceGQLProps
