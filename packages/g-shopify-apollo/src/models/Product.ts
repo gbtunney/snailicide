@@ -30,7 +30,7 @@ export class Product extends Model implements Partial<TProduct> {
     options?: TProduct["options"]
 
     @HasMany(() => ProductVariant, 'product_id')
-    Variants: TProduct["Variants"]
+    Variants!: TProduct["Variants"]
 
     @HasMany(() => ProductImage, 'product_id')
     Images?: TProduct["Images"]

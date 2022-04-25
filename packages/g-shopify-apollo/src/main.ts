@@ -5,6 +5,7 @@ import {useCache} from "./apollo";
 import App from './App.vue'
 import {gShopify} from './plugin/gShopify'
 import {iStorefrontApiConfig} from "./types";
+import 'windi.css'
 
 const options: iStorefrontApiConfig = {
     domain: process.env.VUE_APP_SHOPIFY_DOMAIN,

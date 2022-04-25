@@ -30,8 +30,8 @@ extend type Product implements Extended_ID{
     cacheID:String! @client
 
     variantByFilter(input:VariantFilter):ProductVariant @client
-    Variants: [ProductVariant!] @client
-    Images: [Image!] @client
+    Variants: [ProductVariant!]! @client
+    Images: [Image!]! @client
 }
 
 extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extended_ID {

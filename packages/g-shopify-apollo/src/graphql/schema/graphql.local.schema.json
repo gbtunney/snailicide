@@ -9969,8 +9969,8 @@
           {
             "name": "BYR",
             "description": "Belarusian Ruble (BYR).",
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead."
           },
           {
             "name": "BZD",
@@ -10701,8 +10701,8 @@
           {
             "name": "VEF",
             "description": "Venezuelan Bolivares (VEF).",
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead."
           },
           {
             "name": "VES",
@@ -13042,8 +13042,8 @@
           {
             "name": "ONE",
             "description": "The value is specifically applied onto a particular line.",
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use ACROSS instead."
           }
         ],
         "possibleTypes": null
@@ -21615,15 +21615,19 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Image",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Image",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -21635,15 +21639,19 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ProductVariant",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ProductVariant",
+                    "ofType": null
+                  }
                 }
               }
             },

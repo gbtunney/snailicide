@@ -52,7 +52,7 @@ const {
   ProductInstanceRepository: instanceRepo
 } = useOrmRepositories()
 const {handle, variant_id} = toRefs(props)
-const {Product, isLoading, Variants/*, Options, OptionValues  ,getVariantByIndex*/} = productRepo.init(props)
+const {Product, isLoading,isReady, Variants,Options, OptionValues ,Images } = productRepo.init(props)
 
 const clickTest = (e: Event): void => {
   const demoProduct: TProductInstance = {
@@ -107,10 +107,11 @@ const clickTest = (e: Event): void => {
     <button @click="clickTest">Test me</button>
 
     <div v-if="isReady">
-      {{ Product }}
-      <div v-for="(option,index) in Options" :key="index">
-        <h2>{{ option }}</h2>
-        <!--        <SimpleSelect @change="test()" :options="option.values"></SimpleSelect>-->
+      done
+      {{Product.title}}
+          <div v-for="(option,index) in Options" :key="index">
+        <h2>{{ option.title }}</h2>
+           <SimpleSelect @change="test()" :options="option.option_values"></SimpleSelect>
       </div>
     </div>
   </div>

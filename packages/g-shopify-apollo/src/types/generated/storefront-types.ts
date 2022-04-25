@@ -2324,7 +2324,10 @@ export enum CurrencyCode {
   Bwp = 'BWP',
   /** Belarusian Ruble (BYN). */
   Byn = 'BYN',
-  /** Belarusian Ruble (BYR). */
+  /**
+   * Belarusian Ruble (BYR).
+   * @deprecated `BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.
+   */
   Byr = 'BYR',
   /** Belize Dollar (BZD). */
   Bzd = 'BZD',
@@ -2568,7 +2571,10 @@ export enum CurrencyCode {
   Uyu = 'UYU',
   /** Uzbekistan som (UZS). */
   Uzs = 'UZS',
-  /** Venezuelan Bolivares (VEF). */
+  /**
+   * Venezuelan Bolivares (VEF).
+   * @deprecated `VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.
+   */
   Vef = 'VEF',
   /** Venezuelan Bolivares (VES). */
   Ves = 'VES',
@@ -3051,7 +3057,10 @@ export enum DiscountApplicationAllocationMethod {
   Across = 'ACROSS',
   /** The value is applied onto every entitled line. */
   Each = 'EACH',
-  /** The value is specifically applied onto a particular line. */
+  /**
+   * The value is specifically applied onto a particular line.
+   * @deprecated Use ACROSS instead.
+   */
   One = 'ONE'
 }
 
@@ -4951,8 +4960,8 @@ export type PricingValue = MoneyV2 | PricingPercentageValue;
  */
 export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishable & {
   __typename: 'Product';
-  Images?: Maybe<Array<Image>>;
-  Variants?: Maybe<Array<ProductVariant>>;
+  Images: Array<Image>;
+  Variants: Array<ProductVariant>;
   available?: Maybe<Scalars['Boolean']>;
   /** Indicates if at least one product variant is available for sale. */
   availableForSale: Scalars['Boolean'];
@@ -6503,10 +6512,10 @@ export type ProductFragment = { __typename: 'Product', id: string, handle: strin
   )>, image?: (
     { __typename: 'Image' }
     & ImageFragment
-  ) | undefined, Variants?: Array<(
+  ) | undefined, Variants: Array<(
     { __typename: 'ProductVariant' }
     & ProductVariantFragment
-  )> | undefined, variants: { __typename: 'ProductVariantConnection', pageInfo: (
+  )>, variants: { __typename: 'ProductVariantConnection', pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
     ), edges: Array<{ __typename: 'ProductVariantEdge', cursor: string, node: (

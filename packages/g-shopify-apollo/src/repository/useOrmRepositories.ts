@@ -1,30 +1,35 @@
 import {useStore} from "vuex";
 import {Repository, Query, Collection} from '@vuex-orm/core'
-import {computed} from "vue";
-//import {ProductRepository}from './../repository/ProductRepository'
+
+/* * ORM Models * */
 import {Product} from './../models/Product'
-import {ProductRepository} from './ProductRepository'
+import {ProductVariant} from './../models/ProductVariant'
+import {ProductImage} from './../models/ProductImage'
+import {ProductOption, ProductOptionValue, VariantOption} from './../models/ProductOption'
 import ProductInstance from "./../models/ProductInstance";
 import ProductGroup from "./../models/ProductGroup";
+
+/* * CUstom Repository  * */
+import {ProductRepository} from './ProductRepository'
+
 export const useOrmRepositories = () => {
     const store = useStore()
-    const product = store.$repo(ProductRepository)
-    const product_instance =  store.$repo(ProductInstance)
-    const product_group = store.$repo(ProductGroup)
-    // const ProductRepository = computed(() => store.$repo<Product>(Product))
-    //  const ProductVariantRepository = computed(() => store.$repo(ProductVariant))
-    //  const ProductImageRepository = computed(() => store.$repo(ProductImage))
-    //  const ProductOptionRepository = computed(() => store.$repo(ProductOption))
-    //  const ProductOptionValueRepository = computed(() => store.$repo(ProductOptionValue))
+
+    const productRepo = store.$repo(ProductRepository)
+    const instanceRepo = store.$repo(ProductInstance)
+    const groupRepo = store.$repo(ProductGroup)
+    const variantRepo = store.$repo(ProductVariant)
+    const imageRepo = store.$repo(ProductImage)
+    const optionRepo = store.$repo(ProductOption)
+    const optionValueRepo = store.$repo(ProductOptionValue)
     return {
         store,
-        ProductRepository: product,
-        ProductInstanceRepository:product_instance,
-        ProductGroupRepository:product_group,
-        // ProductVariantRepository,
-        // ProductImageRepository,
-        // ProductOptionRepository,
-        // ProductOptionValueRepository
+       productRepo,
+        instanceRepo,
+        groupRepo,
+        variantRepo,
+        imageRepo,
+        optionRepo
     }
 }
 export default useOrmRepositories

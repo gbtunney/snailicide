@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-black text-white w-full h-full block">
     ENTRY POINT!
     <button @click="handle='balance'"> Balance</button>
     <button @click="handle='local'"> local</button>
