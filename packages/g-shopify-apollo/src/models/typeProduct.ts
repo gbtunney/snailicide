@@ -18,7 +18,7 @@ const filterByTypes = <T = ProductVariant>(type: string, cache: InMemoryCache) =
     const serializedState = cache.extract()
     const typeNameItems = Object.values(serializedState)
     return typeNameItems.filter((_item) => {
-        if (isUndefined<T>(_item?.__typename)) return false
+        if (isUndefined(_item?.__typename)) return false
         else {
             if (_item?.__typename && (_item?.__typename).toString()) {
                 if ((_item?.__typename).toString() === type) return true

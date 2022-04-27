@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@gabrielurbina/type-guard": "^0.1.9",
+    "@graphql-codegen/schema-ast": "^2.4.1",
     "@nerdwallet/apollo-cache-policies": "^2.6.0",
     "@shopify/admin-graphql-api-utilities": "^1.0.9",
     "@snailicide/g-library": "^1.0.0",

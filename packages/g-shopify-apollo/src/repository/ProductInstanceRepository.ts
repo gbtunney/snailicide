@@ -1,5 +1,6 @@
 import {Repository, Item, Collection} from '@vuex-orm/core'
 import {computed, ComputedRef, Ref, ref, toRefs, watch} from "vue";
+
 import {useOrmRepositories} from "./useOrmRepositories";
 import useProductByHandleLoader from "./../operations/queries/useProductByHandleLoader";
 
@@ -86,15 +87,7 @@ export class ProductInstanceRepository extends Repository<ProductInstanceModel> 
             }
             return 0
         })
-        //// WHHERE SHOHULD I PUT THIHS?/????
-        const getProductHandleToID = computed((_handle: string | undefined) => {
-            if (_handle === '' || _handle === undefined) return undefined
-            else {
-                const _product = productRepo.query().where('handle', _handle).with('Variants').first()
-                console.log("_product_product_product", _product)
-                return (_product) ? _product : undefined
-            }
-        })
+        //// TODO:???WHHERE SHOHULD I PUT THIHS?/???? MOVE TO PRODUCT MODEL OR REPO
         const Variants = computed(() => {
             if (!isInstanceReady.value) return undefined
             if (repoHandle.value && variant_id?.value) {
@@ -108,31 +101,6 @@ export class ProductInstanceRepository extends Repository<ProductInstanceModel> 
             }
             return undefined
         })
-        console.warn("ALL Variants", Variants)
-
-        /*   const getVariantByIndex = (index: number | string = 1): ProductVariantModel | undefined => {
-               if (!isInstanceReady.value || Variants.value === undefined) return undefined
-               if (RA.isString(index)) {
-                   if (isInteger(index)) index = toInteger(index) as number
-                   const found = Variants.value.find((variant) => {
-                       if (index === variant.id) return true
-                   })
-                   if (found) return found
-               }
-               if (RA.isInteger(index)) {
-                   if (getDigitCount(index) >= 9) {
-                       const gid = btoa(composeGid("ProductVariant", index))
-                       const found_gid = Variants.value.find((variant) => {
-                           if (gid === variant.id) return true
-                       })
-                       if (found_gid) return found_gid
-                   } else if (index <= Variants.value?.length) {
-                       return Variants.value[index - 1]
-                   }
-               }
-               return Variants.value[0]
-           }
-   */
         /* const Variant: ComputedRef<Collection<TProductVariantModel> | undefined> = computed(() => {
              if (!isReady.value) return undefined
              const variants: Collection<TProductVariantModel> = variantRepo.query().where("product_id", product.value?.id).withAll().get()

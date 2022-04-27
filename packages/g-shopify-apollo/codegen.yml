@@ -4,6 +4,9 @@ schema:
   - "src/graphql/client-schema.graphql"
 documents: "src/graphql/*.graphql"
 generates:
+  src/graphql/schema/generatedSchema.graphql:
+    plugins:
+      - schema-ast
   src/types/generated/apollo-helpers.ts:
     plugins:
       - typescript-apollo-client-helpers

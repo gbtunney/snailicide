@@ -1,10 +1,10 @@
-import {Repository, Item, Collection} from '@vuex-orm/core'
+import {Repository, Item, Collection, Model} from '@vuex-orm/core'
 import {computed, ComputedRef, ref, toRefs, watch} from "vue";
 import {useOrmRepositories} from "./useOrmRepositories";
 import useProductByHandleLoader from "./../operations/queries/useProductByHandleLoader";
 
 /* * TYPES!!!! * */
-import {ProductComponentProps} from "./../types";
+import {buildQuery, isNotUndefined, isUndefined, ProductComponentProps} from "./../types";
 import {TProductGQL, TProductGQLPartial} from "./../types/generated";
 
 /* * NEW FORMAT NAMING!! * */
@@ -17,6 +17,10 @@ import {
     ProductOptionValueModel,
     TProductOptionModel
 } from "./../models/ProductOption";
+import {EagerLoadConstraint} from "@vuex-orm/core/dist/src/query/Options";
+import {Query} from "@vuex-orm/core/dist/src/query/Query";
+
+type TRelationFunc = 'with' | 'withAll' | 'withAllRecursive'
 
 export class ProductRepository extends Repository<ProductModel> {
     use = ProductModel
@@ -28,7 +32,6 @@ export class ProductRepository extends Repository<ProductModel> {
             imageRepo,
             optionRepo,
             optionValueRepo,
-
             instanceRepo,
             groupRepo
         } = useOrmRepositories()
@@ -37,7 +40,9 @@ export class ProductRepository extends Repository<ProductModel> {
         onResult((value) => {
             if (isLoading.value === false && value.data.product) {
                 this.save(value.data.product)
-                console.log("PRRIOIOIOIOIIO", handle.value, this.query().where("handle", handle.value).withAll().get())
+                debugger;
+                console.log("get handnnnmnmmnm", this.getProductByHandle('local'))
+                //    console.log("PRRIOIOIOIOIIO", handle.value, this.query().where("handle", handle.value).withAll().get())
             }
         })
         const isReady = computed(() => (product.value && !isLoading.value))
@@ -78,6 +83,16 @@ export class ProductRepository extends Repository<ProductModel> {
             return undefined
         })
         return {isReady, isLoading, Product, Variants, Options, OptionValues, Images}
+    }
+
+    ///TODO -- GET BY GENERIC ???
+    //************** REPOSITORY METHODS  *****************//
+    getProductByHandle = (_handle: string | undefined, levels = 0): ProductModel | undefined => {
+        if (_handle === '' || _handle === undefined) return undefined
+        else {
+            const query_result = (buildQuery<ProductModel>(this.query().where('handle', _handle), false, levels)() as unknown) as ProductModel
+            return isNotUndefined<ProductModel>(query_result) ? query_result : undefined
+        }
     }
 
     getLatestPublished() {
