@@ -50,7 +50,6 @@ export class ProductModel extends Model implements TProductGQLPartial {
     get gid(): TProductGQL["gid"] {
         return (this.id && this.id.length > 0) ? atob(this.id) : this.id
     }
-
     get cacheID(): TProductGQL['cacheID'] {
         return `${this.__typename}:${this.id}`
     }
@@ -67,13 +66,14 @@ export class ProductModel extends Model implements TProductGQLPartial {
      * @param { number } index - Possible: Position | ArrayIndex
      * @return { ProductVariant | undefined }
      */
-    getVariantByIndex(index: number = 0) {
+    getVariantByIndex(index = 0) {
         if (RA.isInteger(index) && index <= this.Variants.length) {
             // is within range of array length
             ///first check positions :: THIS ASSUMES POSITION STARTS AT 0
             const found_by_position = this.Variants.find((variant) => {
                 if (index === variant.position) return true
             })
+
             return isNotUndefined(found_by_position)
                 ? found_by_position
                 : this.Variants[index]
@@ -107,7 +107,7 @@ export class ProductModel extends Model implements TProductGQLPartial {
                 index = composeGid("ProductVariant", index) as string
             }
             // Position OR index :::: RETURN Variant
-            else if (this.getVariantByIndex(index)) return
+            else if (this.getVariantByIndex(index)) return this.getVariantByIndex(index)
         }
         // if it is still  a string after conversions,
         // assume either

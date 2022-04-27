@@ -1,9 +1,10 @@
 import {Attr, BelongsTo, Bool, HasMany, Model, Num, Str} from '@vuex-orm/core'
 import {ProductModel} from './Product'
 import {ProductImageModel} from './ProductImage'
-import {VariantOptionModel} from './ProductOption'
+import {ProductOptionValueModel, VariantOptionModel} from './ProductOption'
 
-import {TProductVariantGQL,TProductVariantGQLPartial} from './../types/generated'
+import {TProductGQL, TProductOptionGQL,TProductOptionValueGQL, TProductVariantGQL, TProductVariantGQLPartial} from './../types/generated'
+import {slugify} from "@snailicide/g-library";
 
 export class ProductVariantModel extends Model implements TProductVariantGQLPartial {
     static entity = 'variants'
@@ -50,6 +51,8 @@ export class ProductVariantModel extends Model implements TProductVariantGQLPart
     @Attr([])
     selectedOptions!: TProductVariantGQL["selectedOptions"]
 
+    ///TODO: fix this!
+    //since pivot doesnt excist anymore, use field selected_options
     @HasMany(() => VariantOptionModel, 'variant_id', 'id')
     SelectedOptions!: TProductVariantGQL["SelectedOptions"]
 
@@ -64,6 +67,25 @@ export class ProductVariantModel extends Model implements TProductVariantGQLPart
 
     @BelongsTo(() => ProductImageModel, 'image_id')
     image?: TProductVariantGQL["image"]
+
+    //************** GETTERS  *****************//
+    get selected_options():TProductOptionValueGQL[]|undefined {
+       return this.SelectedOptions.map( (pivot) =>{
+            return pivot.option_value
+        })
+    }
+
+    get handle(): TProductVariantGQL["handle"] {
+        return (this.title) ? slugify(this.title) : undefined
+    }
+
+    get gid(): TProductVariantGQL["gid"] {
+        return (this.id && this.id.length > 0) ? atob(this.id) : this.id
+    }
+
+    get cacheID(): TProductVariantGQL['cacheID'] {
+        return `${this.__typename}:${this.id}`
+    }
 }
 
 export default ProductVariantModel

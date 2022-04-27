@@ -5,7 +5,7 @@ import useProductByHandleLoader from "./../operations/queries/useProductByHandle
 
 /* * TYPES!!!! * */
 import {buildQuery, isNotUndefined, isUndefined, ProductComponentProps} from "./../types";
-import {TProductGQL, TProductGQLPartial} from "./../types/generated";
+import {TProductGQL, TProductGQLPartial, TProductVariantGQLPartial} from "./../types/generated";
 
 /* * NEW FORMAT NAMING!! * */
 import ProductModel, {TProductModel} from './../models/Product'
@@ -39,9 +39,17 @@ export class ProductRepository extends Repository<ProductModel> {
         const {product, loading: isLoading, error, onResult} = useProductByHandleLoader(product_props)
         onResult((value) => {
             if (isLoading.value === false && value.data.product) {
+                /* * Save to ORM!! * */
                 this.save(value.data.product)
-                debugger;
-                console.log("get handnnnmnmmnm", this.getProductByHandle('local'))
+                const prod = this.getProductByHandle('local', 3)
+                if (prod !== undefined) {
+                    const testmeIndex = prod.getVariantByIndex(0)
+                    const test2:TProductVariantGQLPartial|undefined = prod.getVariantByUnique('ash--skein')
+                    //sid 22620513632374
+                    //gid://shopify/ProductVariant/22620513632374
+                    // "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzA0MTM5OA=="
+                    console.log("get handnnnmnmmnm", test2?.selected_options, this.withAll().where("id", prod.id))
+                }
                 //    console.log("PRRIOIOIOIOIIO", handle.value, this.query().where("handle", handle.value).withAll().get())
             }
         })
@@ -49,8 +57,8 @@ export class ProductRepository extends Repository<ProductModel> {
 
         const Product: ComputedRef<Item<TProductModel> | undefined> = computed(() => {
             if (!isReady.value) return undefined
-            if (product?.value && this.find(product?.value.id)) {
-                return (this.query().whereId(product?.value.id).withAll().first())
+            if (product?.value?.handle) {
+                return this.getProductByHandle(product.value?.handle, 3)
             }
             return undefined//product.value
         })
@@ -90,7 +98,7 @@ export class ProductRepository extends Repository<ProductModel> {
     getProductByHandle = (_handle: string | undefined, levels = 0): ProductModel | undefined => {
         if (_handle === '' || _handle === undefined) return undefined
         else {
-            const query_result = (buildQuery<ProductModel>(this.query().where('handle', _handle), false, levels)() as unknown) as ProductModel
+            const query_result = (buildQuery<ProductModel>(this.query().where('handle', _handle), false, levels) as unknown) as ProductModel
             return isNotUndefined<ProductModel>(query_result) ? query_result : undefined
         }
     }

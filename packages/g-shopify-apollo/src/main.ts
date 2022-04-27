@@ -26,7 +26,7 @@ if (options.persist) {
         storage: new LocalStorageWrapper(window.localStorage),
     }).then(() => {
         if (options.cache) {
-            console.warn("calling   option", options.cache)
+            console.warn("calling option", options.cache)
             mountApp(options)
         }
     })

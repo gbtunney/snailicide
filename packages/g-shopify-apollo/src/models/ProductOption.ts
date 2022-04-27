@@ -62,10 +62,6 @@ export class ProductOptionModel extends Model implements Omit<TProductOptionGQLP
     @Str('')
     __typename: 'ProductOption' = 'ProductOption'
 
-    get handle(): TProductOptionGQL["handle"] {
-        return (this.title) ? slugify(this.title) : undefined
-    }
-
     @Str('')
     title!: TProductOptionGQL["title"]
 
@@ -80,6 +76,10 @@ export class ProductOptionModel extends Model implements Omit<TProductOptionGQLP
 
     @HasMany(() => ProductOptionValueModel, 'option_id')
     option_values!: TProductOptionGQL["option_values"]
+
+    get handle(): TProductOptionGQL["handle"] {
+        return (this.title) ? slugify(this.title) : undefined
+    }
 }
 
 export class VariantOptionModel extends Model implements TVariantOptionGQLPartial {

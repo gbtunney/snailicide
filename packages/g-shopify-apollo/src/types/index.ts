@@ -90,7 +90,7 @@ export const buildQuery = <T = Model>(_query: Query<T extends Model ? T : never>
         (_levels > 0)
             ? _query.withAllRecursive(_levels)
             : _query.withAll()
-    return (_collection === true) ? _baseQuery.get : _baseQuery.first
+    return (_collection === true) ? _baseQuery.get() : _baseQuery.first()
 }
 
 ////TYPE GUATD NAMES THAT MIMICK RA's TYPE FUNCTIONS
