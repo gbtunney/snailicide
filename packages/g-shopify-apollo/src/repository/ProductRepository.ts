@@ -48,7 +48,7 @@ export class ProductRepository extends Repository<ProductModel> {
                     //sid 22620513632374
                     //gid://shopify/ProductVariant/22620513632374
                     // "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzA0MTM5OA=="
-                    console.log("get handnnnmnmmnm", test2?.selected_options, this.withAll().where("id", prod.id))
+                 //   console.log("get handnnnmnmmnm", test2?.selected_options, this.withAll().where("id", prod.id))
                 }
                 //    console.log("PRRIOIOIOIOIIO", handle.value, this.query().where("handle", handle.value).withAll().get())
             }

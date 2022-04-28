@@ -4,12 +4,25 @@ schema:
   - "src/graphql/client-schema.graphql"
 documents: "src/graphql/*.graphql"
 generates:
-  src/graphql/schema/generatedSchema.graphql:
+
+  # Schema AST generation *************************
+  # This is used for diagram / modeling using MoonModeler
+  src/graphql/schema/local.schema.ast.graphql:
     plugins:
       - schema-ast
-  src/types/generated/apollo-helpers.ts:
+
+  # Schema Introspection *************************
+  src/graphql/schema/local.schema.introspection.json:
     plugins:
-      - typescript-apollo-client-helpers
+      - "introspection"
+
+  # Schema : Client Typedefs for apollo *************************
+  src/graphql/schema/local.schema.document.ts:
+    schema: 'src/graphql/client-schema.graphql'
+      # plugins:
+     # - typescript-typedefsv2.ts
+
+  # Typescript : Main file *************************
   src/types/generated/storefront-types.ts:
     config:
       withCompositionFunctions: true
@@ -38,12 +51,3 @@ generates:
       - typescript
       - typescript-operations
       - typescript-vue-apollo
-  src/graphql/types/graphql.d.ts:
-    plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-graphql-files-modules"
-      - "typescript-document-nodes"
-  src/graphql/schema/graphql.local.schema.json:
-    plugins:
-      - "introspection"
