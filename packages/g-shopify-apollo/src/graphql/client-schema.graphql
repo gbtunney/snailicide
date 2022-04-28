@@ -1,9 +1,9 @@
 directive @client on FIELD_DEFINITION
-directive @uppercase on FIELD_DEFINITION
+
 
 interface Extended_ID  {
+    #    sid : Int
     gid : String
-    sid : Int
     cacheID:String
 }
 
@@ -22,14 +22,12 @@ input VariantFilter {
     id:ID
 }
 
+
 extend type Product implements Extended_ID{
     available:Boolean
-    variant(index:Int!) : [ProductVariant!]  @client
-    gid : String @client
-    sid : Int @client
-    cacheID:String! @client
+    gid : String
+    cacheID:String
 
-    variantByFilter(input:VariantFilter):ProductVariant @client
     Variants: [ProductVariant!]! @client
     Images: [Image!]! @client
 }
@@ -39,14 +37,13 @@ extend type ProductVariant implements ShopifyNode & ShopifyProductNode & Extende
     handle:String
     position:Int
 
-    product_id: ID!
-
-    image_id:ID!
-
-    SelectedOptions: [VariantOption!]!
     gid : String
-    sid : Int
-    cacheID:String @client
+    cacheID:String
+
+    product_id: ID!
+    image_id:ID!
+    SelectedOptions: [ProductOptionValue!]!
+    pivot_selected_options: [VariantOption!]!
 }
 extend type ProductOption implements ShopifyNode & ShopifyProductNode{
     option_values:[ProductOptionValue!]
@@ -66,9 +63,14 @@ extend type Image implements ShopifyProductNode{
 }
 
 type ProductOptionValue implements ShopifyNode & ShopifyProductNode{
+
+    key:String!
+
     handle: String
     parent_handle: String
-    variants:[VariantOption!]!
+
+    Variants:[ProductVariant!]!
+    pivot_variants:[VariantOption!]!
 
     product_id: ID!
     product:Product!
@@ -83,6 +85,7 @@ type VariantOption implements ShopifyProductNode{
     parent_handle:String!
 
     option_value_handle: String!
+    option_value_key: String!
     option_value:ProductOptionValue!
 
     product_id : ID!
@@ -171,8 +174,6 @@ query variantByIndex($handle: String!, $index:Int!) {
     productAlias:product(handle: $handle) {
         id
         handle
-
-
     }
 }
 
@@ -181,5 +182,3 @@ extend type QueryRoot{
     testOption(index:Int!) : ProductOption
     allVariants: [ProductVariant] @client
 }
-
-

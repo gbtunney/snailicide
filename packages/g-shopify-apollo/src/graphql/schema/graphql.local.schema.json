@@ -1796,7 +1796,7 @@
           },
           {
             "name": "discountCodes",
-            "description": "The discount codes that have been applied to the cart.",
+            "description": "The case-insensitive discount codes that the customer added at checkout.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2600,7 +2600,7 @@
           },
           {
             "name": "discountCodes",
-            "description": "The discount codes to apply to the cart.",
+            "description": "The case-insensitive discount codes that the customer added at checkout.\n",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -10599,8 +10599,8 @@
           {
             "name": "STD",
             "description": "Sao Tome And Principe Dobra (STD).",
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "`STD` is deprecated. Use `STN` available from version `2022-07` onwards instead."
           },
           {
             "name": "SYP",
@@ -13499,18 +13499,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sid",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
               "ofType": null
             },
             "isDeprecated": false,
@@ -17163,7 +17151,7 @@
               },
               {
                 "name": "discountCodes",
-                "description": "The discount codes to apply to the cart.",
+                "description": "The case-insensitive discount codes that the customer added at checkout.\n",
                 "type": {
                   "kind": "LIST",
                   "name": null,
@@ -18015,7 +18003,7 @@
           },
           {
             "name": "checkoutDiscountCodeRemove",
-            "description": "Removes the applied discount from an existing checkout.",
+            "description": "Removes the applied discounts from an existing checkout.",
             "args": [
               {
                 "name": "checkoutId",
@@ -21852,13 +21840,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -22592,18 +22576,6 @@
             "deprecationReason": null
           },
           {
-            "name": "sid",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "tags",
             "description": "A comma separated list of tags that have been added to the product.\nAdditional access scope required for private apps: unauthenticated_read_product_tags.\n",
             "args": [],
@@ -22667,68 +22639,6 @@
                 "name": "DateTime",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "variant",
-            "description": null,
-            "args": [
-              {
-                "name": "index",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ProductVariant",
-                  "ofType": null
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "variantByFilter",
-            "description": null,
-            "args": [
-              {
-                "name": "input",
-                "description": null,
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "VariantFilter",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "ProductVariant",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -23633,7 +23543,43 @@
         "description": null,
         "fields": [
           {
+            "name": "Variants",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ProductVariant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "handle",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "key",
             "description": null,
             "args": [],
             "type": {
@@ -23684,6 +23630,30 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pivot_variants",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "VariantOption",
+                    "ofType": null
+                  }
+                }
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -23740,30 +23710,6 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "variants",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "VariantOption",
-                    "ofType": null
-                  }
-                }
-              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -23913,7 +23859,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "VariantOption",
+                    "name": "ProductOptionValue",
                     "ofType": null
                   }
                 }
@@ -24221,6 +24167,30 @@
             "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
           },
           {
+            "name": "pivot_selected_options",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "VariantOption",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "position",
             "description": null,
             "args": [],
@@ -24421,18 +24391,6 @@
                 "name": "SellingPlanAllocationConnection",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sid",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -28970,6 +28928,18 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "option_value_key",
+            "description": null,
+            "args": [],
+            "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
@@ -30426,15 +30396,6 @@
             "deprecationReason": null
           }
         ]
-      },
-      {
-        "name": "uppercase",
-        "description": null,
-        "isRepeatable": false,
-        "locations": [
-          "FIELD_DEFINITION"
-        ],
-        "args": []
       }
     ]
   }

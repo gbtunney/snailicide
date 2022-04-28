@@ -1731,7 +1731,7 @@
             },
             {
               "name": "discountCodes",
-              "description": "The discount codes that have been applied to the cart.",
+              "description": "The case-insensitive discount codes that the customer added at checkout.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2521,7 +2521,7 @@
             },
             {
               "name": "discountCodes",
-              "description": "The discount codes to apply to the cart.",
+              "description": "The case-insensitive discount codes that the customer added at checkout.\n",
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -10242,12 +10242,6 @@
               "deprecationReason": null
             },
             {
-              "name": "STD",
-              "description": "Sao Tome And Principe Dobra (STD).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "RSD",
               "description": "Serbian dinar (RSD).",
               "isDeprecated": false,
@@ -10516,6 +10510,12 @@
               "description": "Somali Shilling (SOS).",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "STD",
+              "description": "Sao Tome And Principe Dobra (STD).",
+              "isDeprecated": true,
+              "deprecationReason": "`STD` is deprecated. Use `STN` available from version `2022-07` onwards instead."
             },
             {
               "name": "TJS",
@@ -16498,7 +16498,7 @@
                 },
                 {
                   "name": "discountCodes",
-                  "description": "The discount codes to apply to the cart.",
+                  "description": "The case-insensitive discount codes that the customer added at checkout.\n",
                   "type": {
                     "kind": "LIST",
                     "name": null,
@@ -17278,7 +17278,7 @@
             },
             {
               "name": "checkoutDiscountCodeRemove",
-              "description": "Removes the applied discount from an existing checkout.",
+              "description": "Removes the applied discounts from an existing checkout.",
               "args": [
                 {
                   "name": "checkoutId",

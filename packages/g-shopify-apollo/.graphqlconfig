@@ -1,6 +1,7 @@
 {
   "name": "Shopify Storefront Schema",
-  "schemaPath": "src/graphql/schema/shopify-storefront.json",
+  "schemaPath": "src/graphql/shopify.endpoint.schema.json",
+  "excludes": ["src/graphql/schema/*.graphql"],
   "extensions": {
     "endpoints": {
       "shopify Endpoint": {

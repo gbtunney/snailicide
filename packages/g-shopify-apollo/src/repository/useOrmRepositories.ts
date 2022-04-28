@@ -1,16 +1,14 @@
 import {useStore} from "vuex";
-import {Repository, Query, Collection} from '@vuex-orm/core'
 
 /* * ORM Models * */
 import {ProductVariantModel} from './../models/ProductVariant'
 import {ProductImageModel} from './../models/ProductImage'
 import {ProductOptionModel, ProductOptionValueModel, VariantOptionModel} from './../models/ProductOption'
-import ProductInstance from "./../models/ProductInstance";
 import ProductGroup from "./../models/ProductGroup";
 
 /* * CUstom Repository  * */
 import {ProductRepository} from './ProductRepository'
-import ProductInstanceRepository from "@/repository/ProductInstanceRepository";
+import ProductInstanceRepository from "./ProductInstanceRepository";
 
 export const useOrmRepositories = () => {
     const store = useStore()
@@ -24,6 +22,18 @@ export const useOrmRepositories = () => {
 
     const optionRepo = store.$repo(ProductOptionModel)
     const optionValueRepo = store.$repo(ProductOptionValueModel)
+
+    const pivotOptionValueRepo = store.$repo(VariantOptionModel)
+
+    const getAllModelInstanceStats = () => {
+        return {
+            product: productRepo.all().length,
+            variant: variantRepo.all().length,
+            option: optionRepo.all().length,
+            optionValue: optionValueRepo.all().length,
+            pivotOptionValu: pivotOptionValueRepo.all().length
+        }
+    }
     return {
         store,
         instanceRepo,
@@ -34,7 +44,10 @@ export const useOrmRepositories = () => {
         imageRepo,
 
         optionRepo,
-        optionValueRepo
+        optionValueRepo,
+        pivotOptionValueRepo,
+
+        getAllModelInstanceStats
     }
 }
 export default useOrmRepositories

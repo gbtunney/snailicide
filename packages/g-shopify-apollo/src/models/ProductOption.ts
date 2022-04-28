@@ -1,5 +1,5 @@
 import {slugify} from "@snailicide/g-library";
-import {Attr, BelongsTo, HasMany, HasOne, Model, Num, Str, Uid} from '@vuex-orm/core'
+import {Attr, BelongsTo, HasMany, HasOne, Model, Num, Str} from '@vuex-orm/core'
 
 import {ProductVariantModel} from './ProductVariant'
 import {ProductModel} from "./Product";
@@ -15,10 +15,11 @@ import {
 
 export class ProductOptionValueModel extends Model implements TProductOptionValueGQLPartial {
     static entity = 'productoptionvalue'
-    static primaryKey = ['parent_handle', 'handle']
+    static primaryKey =
+        ['parent_handle', 'handle'/*'option_value_handle'*/, 'product_id']
 
-    @Uid()
-    id!: string
+    @HasMany(() => VariantOptionModel, 'option_value_id', "key")
+    pivot_variants!: TProductOptionValueGQL["pivot_variants"]
 
     @Str('')
     __typename: 'ProductOptionValue' = 'ProductOptionValue'
@@ -47,11 +48,18 @@ export class ProductOptionValueModel extends Model implements TProductOptionValu
     @BelongsTo(() => ProductOptionModel, 'option_id')
     option!: TProductOptionValueGQL["option"]
 
-    @HasMany(() => VariantOptionModel, ['product_id', 'parent_handle', 'handle'].toString(), '$id')
-    variants!: TProductOptionValueGQL["variants"]
-    //TVariantOption["option_value"]
-}
+    //************** GETTERS  *****************//
 
+    /**ManytoMany Psuedo Relation **/
+    get Variants(): TProductOptionValueGQL["Variants"] {
+        return this.pivot_variants.map((pivot) => pivot.variant)
+    }
+
+    /*gwt a string off thiw entities own primary key*/
+    get key(): TProductOptionValueGQL["key"] {
+        return JSON.stringify([this.parent_handle, this.handle,/*'option_value_handle'*/ this.product_id])
+    }
+}
 
 export class ProductOptionModel extends Model implements Omit<TProductOptionGQLPartial, "name" | "values"> {
     static entity = 'productoption'
@@ -84,19 +92,17 @@ export class ProductOptionModel extends Model implements Omit<TProductOptionGQLP
 
 export class VariantOptionModel extends Model implements TVariantOptionGQLPartial {
     static entity = 'variantoption'
-    static primaryKey = ['parent_handle', 'option_value_handle', 'product_id', 'variant_id']
-
-    @Uid()
-    id!: string
+    static primaryKey
+        = ['parent_handle', 'option_value_handle', 'product_id' /* << -this is the matchh of optionvalue id */,
+        'variant_id']
+    // @Uid()
+    // id!: string
 
     @Str(' ')
     variant_id!: TVariantOptionGQL["variant_id"]
 
     @BelongsTo(() => ProductVariantModel, "variant_id", "id")
     variant!: TVariantOptionGQL["variant"]
-
-    @Str('')
-    __typename: 'VariantOption' = 'VariantOption'
 
     @Str('')
     product_id!: TVariantOptionGQL["product_id"]
@@ -112,6 +118,12 @@ export class VariantOptionModel extends Model implements TVariantOptionGQLPartia
 
     @BelongsTo(() => ProductOptionValueModel, ['parent_handle', 'handle'].toString(), "$id")
     option_value!: TVariantOptionGQL["option_value"]
+
+    //************** GETTERS  *****************//
+    // ManytoMany !! get a string that matches the OptionValue CompositeKey
+    get option_value_key(): TVariantOptionGQL["option_value_key"] {
+        return JSON.stringify([this.parent_handle, this.option_value_handle, this.product_id])
+    }
 }
 
 export default ProductOptionModel

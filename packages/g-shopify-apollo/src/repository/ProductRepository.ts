@@ -1,24 +1,16 @@
-import {Repository, Item, Collection, Model} from '@vuex-orm/core'
-import {computed, ComputedRef, ref, toRefs, watch} from "vue";
+import {Collection, Item, Repository} from '@vuex-orm/core'
+import {computed, ComputedRef, ref, toRefs} from "vue";
 import {useOrmRepositories} from "./useOrmRepositories";
 import useProductByHandleLoader from "./../operations/queries/useProductByHandleLoader";
 
 /* * TYPES!!!! * */
-import {buildQuery, isNotUndefined, isUndefined, ProductComponentProps} from "./../types";
-import {TProductGQL, TProductGQLPartial, TProductVariantGQLPartial} from "./../types/generated";
+import {buildQuery, isNotUndefined, ProductComponentProps} from "./../types";
+import {TProductGQL, TProductVariantGQLPartial} from "./../types/generated";
 
 /* * NEW FORMAT NAMING!! * */
 import ProductModel, {TProductModel} from './../models/Product'
-import {ProductImageModel, TProductImageModel} from './../models/ProductImage'
-import {ProductVariantModel, TProductVariantModel} from "./../models/ProductVariant";
-import {
-    TProductOptionValueModel,
-    TVariantOptionModel,
-    ProductOptionValueModel,
-    TProductOptionModel
-} from "./../models/ProductOption";
-import {EagerLoadConstraint} from "@vuex-orm/core/dist/src/query/Options";
-import {Query} from "@vuex-orm/core/dist/src/query/Query";
+import {TProductVariantModel} from "./../models/ProductVariant";
+import {TProductOptionModel} from "./../models/ProductOption";
 
 type TRelationFunc = 'with' | 'withAll' | 'withAllRecursive'
 
@@ -29,28 +21,25 @@ export class ProductRepository extends Repository<ProductModel> {
         const {handle = ref(undefined), variant_id = 1} = toRefs(product_props)
         const {
             variantRepo,
-            imageRepo,
             optionRepo,
-            optionValueRepo,
-            instanceRepo,
-            groupRepo
+            getAllModelInstanceStats,
         } = useOrmRepositories()
-        // const productTest = useProduct(product_props)
         const {product, loading: isLoading, error, onResult} = useProductByHandleLoader(product_props)
         onResult((value) => {
             if (isLoading.value === false && value.data.product) {
+
                 /* * Save to ORM!! * */
                 this.save(value.data.product)
-                const prod = this.getProductByHandle('local', 3)
+
+                // tests , temporary
+                const prod = this.getProductByHandle(value.data.product.handle, 2)
                 if (prod !== undefined) {
-                    const testmeIndex = prod.getVariantByIndex(0)
-                    const test2:TProductVariantGQLPartial|undefined = prod.getVariantByUnique('ash--skein')
-                    //sid 22620513632374
-                    //gid://shopify/ProductVariant/22620513632374
-                    // "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzA0MTM5OA=="
-                    console.log("get handnnnmnmmnm", test2?.selected_options, this.withAll().where("id", prod.id))
+                    const testmeIndex = prod.getVariantByIndex(0) //THIS IS DEPENDANT ON THE PRODUCTS LEVELS
+                    const test2: TProductVariantGQLPartial | undefined = prod.getVariantByUnique('ash--skein')
+                    //test valuessid 22620513632374//gid://shopify/ProductVariant/22620513632374// "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yMjU4OTI4MzA0MTM5OA=="
+                    console.log("get handnnnmnmmnm", prod, testmeIndex,
+                        getAllModelInstanceStats())
                 }
-                //    console.log("PRRIOIOIOIOIIO", handle.value, this.query().where("handle", handle.value).withAll().get())
             }
         })
         const isReady = computed(() => (product.value && !isLoading.value))

@@ -691,11 +691,10 @@ export type DomainFieldPolicy = {
 	sslEnabled?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Extended_IDKeySpecifier = ('cacheID' | 'gid' | 'sid' | Extended_IDKeySpecifier)[];
+export type Extended_IDKeySpecifier = ('cacheID' | 'gid' | Extended_IDKeySpecifier)[];
 export type Extended_IDFieldPolicy = {
 	cacheID?: FieldPolicy<any> | FieldReadFunction<any>,
-	gid?: FieldPolicy<any> | FieldReadFunction<any>,
-	sid?: FieldPolicy<any> | FieldReadFunction<any>
+	gid?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ExternalVideoKeySpecifier = ('alt' | 'embeddedUrl' | 'host' | 'id' | 'mediaContentType' | 'previewImage' | ExternalVideoKeySpecifier)[];
 export type ExternalVideoFieldPolicy = {
@@ -1121,7 +1120,7 @@ export type PricingPercentageValueKeySpecifier = ('percentage' | PricingPercenta
 export type PricingPercentageValueFieldPolicy = {
 	percentage?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductKeySpecifier = ('Images' | 'Variants' | 'available' | 'availableForSale' | 'cacheID' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'gid' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'sid' | 'tags' | 'title' | 'totalInventory' | 'updatedAt' | 'variant' | 'variantByFilter' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
+export type ProductKeySpecifier = ('Images' | 'Variants' | 'available' | 'availableForSale' | 'cacheID' | 'collections' | 'compareAtPriceRange' | 'createdAt' | 'description' | 'descriptionHtml' | 'featuredImage' | 'gid' | 'handle' | 'id' | 'images' | 'media' | 'metafield' | 'metafields' | 'onlineStoreUrl' | 'options' | 'priceRange' | 'productType' | 'publishedAt' | 'requiresSellingPlan' | 'sellingPlanGroups' | 'seo' | 'tags' | 'title' | 'totalInventory' | 'updatedAt' | 'variantBySelectedOptions' | 'variants' | 'vendor' | ProductKeySpecifier)[];
 export type ProductFieldPolicy = {
 	Images?: FieldPolicy<any> | FieldReadFunction<any>,
 	Variants?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1149,13 +1148,10 @@ export type ProductFieldPolicy = {
 	requiresSellingPlan?: FieldPolicy<any> | FieldReadFunction<any>,
 	sellingPlanGroups?: FieldPolicy<any> | FieldReadFunction<any>,
 	seo?: FieldPolicy<any> | FieldReadFunction<any>,
-	sid?: FieldPolicy<any> | FieldReadFunction<any>,
 	tags?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	totalInventory?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	variant?: FieldPolicy<any> | FieldReadFunction<any>,
-	variantByFilter?: FieldPolicy<any> | FieldReadFunction<any>,
 	variantBySelectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
 	variants?: FieldPolicy<any> | FieldReadFunction<any>,
 	vendor?: FieldPolicy<any> | FieldReadFunction<any>
@@ -1203,24 +1199,26 @@ export type ProductOptionFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	values?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductOptionValueKeySpecifier = ('handle' | 'option' | 'option_id' | 'parent_handle' | 'position' | 'product' | 'product_id' | 'title' | 'variants' | ProductOptionValueKeySpecifier)[];
+export type ProductOptionValueKeySpecifier = ('Variants' | 'handle' | 'key' | 'option' | 'option_id' | 'parent_handle' | 'pivot_variants' | 'position' | 'product' | 'product_id' | 'title' | ProductOptionValueKeySpecifier)[];
 export type ProductOptionValueFieldPolicy = {
+	Variants?: FieldPolicy<any> | FieldReadFunction<any>,
 	handle?: FieldPolicy<any> | FieldReadFunction<any>,
+	key?: FieldPolicy<any> | FieldReadFunction<any>,
 	option?: FieldPolicy<any> | FieldReadFunction<any>,
 	option_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	parent_handle?: FieldPolicy<any> | FieldReadFunction<any>,
+	pivot_variants?: FieldPolicy<any> | FieldReadFunction<any>,
 	position?: FieldPolicy<any> | FieldReadFunction<any>,
 	product?: FieldPolicy<any> | FieldReadFunction<any>,
 	product_id?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	variants?: FieldPolicy<any> | FieldReadFunction<any>
+	title?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ProductPriceRangeKeySpecifier = ('maxVariantPrice' | 'minVariantPrice' | ProductPriceRangeKeySpecifier)[];
 export type ProductPriceRangeFieldPolicy = {
 	maxVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>,
 	minVariantPrice?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductVariantKeySpecifier = ('SelectedOptions' | 'availableForSale' | 'barcode' | 'cacheID' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sid' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
+export type ProductVariantKeySpecifier = ('SelectedOptions' | 'availableForSale' | 'barcode' | 'cacheID' | 'compareAtPrice' | 'compareAtPriceV2' | 'currentlyNotInStock' | 'gid' | 'handle' | 'id' | 'image' | 'image_id' | 'isInCart' | 'metafield' | 'metafields' | 'pivot_selected_options' | 'position' | 'price' | 'priceV2' | 'product' | 'product_id' | 'quantityAvailable' | 'requiresShipping' | 'selectedOptions' | 'sellingPlanAllocations' | 'sku' | 'storeAvailability' | 'title' | 'unitPrice' | 'unitPriceMeasurement' | 'weight' | 'weightUnit' | ProductVariantKeySpecifier)[];
 export type ProductVariantFieldPolicy = {
 	SelectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
 	availableForSale?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1237,6 +1235,7 @@ export type ProductVariantFieldPolicy = {
 	isInCart?: FieldPolicy<any> | FieldReadFunction<any>,
 	metafield?: FieldPolicy<any> | FieldReadFunction<any>,
 	metafields?: FieldPolicy<any> | FieldReadFunction<any>,
+	pivot_selected_options?: FieldPolicy<any> | FieldReadFunction<any>,
 	position?: FieldPolicy<any> | FieldReadFunction<any>,
 	price?: FieldPolicy<any> | FieldReadFunction<any>,
 	priceV2?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1246,7 +1245,6 @@ export type ProductVariantFieldPolicy = {
 	requiresShipping?: FieldPolicy<any> | FieldReadFunction<any>,
 	selectedOptions?: FieldPolicy<any> | FieldReadFunction<any>,
 	sellingPlanAllocations?: FieldPolicy<any> | FieldReadFunction<any>,
-	sid?: FieldPolicy<any> | FieldReadFunction<any>,
 	sku?: FieldPolicy<any> | FieldReadFunction<any>,
 	storeAvailability?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1495,10 +1493,11 @@ export type UserErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type VariantOptionKeySpecifier = ('option_value' | 'option_value_handle' | 'parent_handle' | 'product' | 'product_id' | 'variant' | 'variant_id' | VariantOptionKeySpecifier)[];
+export type VariantOptionKeySpecifier = ('option_value' | 'option_value_handle' | 'option_value_key' | 'parent_handle' | 'product' | 'product_id' | 'variant' | 'variant_id' | VariantOptionKeySpecifier)[];
 export type VariantOptionFieldPolicy = {
 	option_value?: FieldPolicy<any> | FieldReadFunction<any>,
 	option_value_handle?: FieldPolicy<any> | FieldReadFunction<any>,
+	option_value_key?: FieldPolicy<any> | FieldReadFunction<any>,
 	parent_handle?: FieldPolicy<any> | FieldReadFunction<any>,
 	product?: FieldPolicy<any> | FieldReadFunction<any>,
 	product_id?: FieldPolicy<any> | FieldReadFunction<any>,

@@ -3,10 +3,7 @@ fragment ProductVariantFragment on ProductVariant {
     title
     availableForSale
     inventoryQuantity:quantityAvailable
-    gid @client
-    sid @client
 
-    product_id @client
     weight
     sku
     currentlyNotInStock
@@ -25,11 +22,19 @@ fragment ProductVariantFragment on ProductVariant {
     image {
         ...ImageFragment
     }
+
     selectedOptions {
         __typename
         name
         parent_handle:name
         handle:value
+    }
+
+    pivot_selected_options @client {
+        parent_handle
+        option_value_handle
+        variant_id
+        product_id
     }
 
     price

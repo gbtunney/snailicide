@@ -64,16 +64,10 @@ export const typePolicyProductOptionValue: CustomTypePolicy<ProductOptionValue> 
 }
 export const typePolicyProduct: CustomTypePolicy<Product> = {
     //  keyFields: ["gid"],
-    fields: {
+   /* fields: {
         ...policyExtended_ID.fields,
 
-        options: {
-            read(value) {
-                // alert()
-
-                return value
-            }
-        },/*
+       /!*
             /!* * Create Option Value objects and add to cache.  * *!/
             merge(excisting, incoming, options) {
                 const optionArray = incoming.map((_option) => {
@@ -136,28 +130,7 @@ export const typePolicyProduct: CustomTypePolicy<Product> = {
                 })
                 return incoming
             }
-        },*/
+        },*!/
 
-        variant: {
-            // @ts-expect-error jhhhh
-            read(read, options: FieldFunctionOptions<Partial<VariantByIndexQueryVariables>, Partial<VariantByIndexQueryVariables>>) {
-                const {variables} = options
-                if (variables?.index) {
-                    const {index} = variables
-                    const variants = readField<Product, "Variants">(options, "Variants")
-                    return variants
-                    /*   if (variants && variants.length >= index) {
-                           const variantindexed = readField<Product,"Variants">(options,"Variants",variants[index])
-                           const variantindexed2 = options.readField('2',variants[index])
-                          // debugger;
-
-                           return variants[index]
-                       }*/
-                }
-                return undefined
-                // const filtered = filterByTypes<ProductVariant>("ProductVariant", options.cache)
-                //  if (filtered && filtered.length <= _index) return (filtered[_index] as unknown) as ProductVariant
-            }
-        },
-    }
+    }*/
 }

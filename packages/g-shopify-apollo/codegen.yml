@@ -1,8 +1,8 @@
 overwrite: true
 schema:
-  - "src/graphql/schema/shopify-storefront.json"
-  - "src/graphql/client-schema.graphql"
-documents: "src/graphql/*.graphql"
+  - src/graphql/shopify.endpoint.schema.json
+  - src/graphql/client-schema.graphql
+documents: src/graphql/*.graphql
 generates:
   src/graphql/schema/generatedSchema.graphql:
     plugins:
