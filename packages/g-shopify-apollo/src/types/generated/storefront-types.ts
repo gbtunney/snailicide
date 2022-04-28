@@ -5346,7 +5346,7 @@ export type ProductOptionValue = ShopifyNode & ShopifyProductNode & {
   __typename: 'ProductOptionValue';
   Variants: Array<ProductVariant>;
   handle?: Maybe<Scalars['String']>;
-  key?: Maybe<Scalars['String']>;
+  key: Scalars['String'];
   option: ProductOption;
   option_id: Scalars['ID'];
   parent_handle?: Maybe<Scalars['String']>;
@@ -6424,7 +6424,7 @@ export type VariantFilter = {
 export type VariantOption = ShopifyProductNode & {
   __typename: 'VariantOption';
   option_value: ProductOptionValue;
-  option_value_handle?: Maybe<Scalars['String']>;
+  option_value_handle: Scalars['String'];
   option_value_key: Scalars['String'];
   parent_handle: Scalars['String'];
   product: Product;
@@ -6554,7 +6554,7 @@ export type ProductOptionFragment = { __typename: 'ProductOption', id: string, h
 export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string, options: Array<{ __typename: 'ProductOption', name: string, id: string }> }, image?: (
     { __typename: 'Image' }
     & ImageFragment
-  ) | undefined, selectedOptions: Array<{ __typename: 'SelectedOption', name: string, parent_handle: string, handle: string }>, pivot_selected_options: Array<{ __typename: 'VariantOption', parent_handle: string, option_value_handle?: string | undefined, variant_id: string, product_id: string }>, priceV2: (
+  ) | undefined, selectedOptions: Array<{ __typename: 'SelectedOption', name: string, parent_handle: string, handle: string }>, pivot_selected_options: Array<{ __typename: 'VariantOption', parent_handle: string, option_value_handle: string, variant_id: string, product_id: string }>, priceV2: (
     { __typename: 'MoneyV2' }
     & PriceFragment
   ), compareAtPriceV2?: (
@@ -6601,6 +6601,245 @@ export type ShopQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ShopQuery = { __typename: 'QueryRoot', shop: { __typename: 'Shop', description?: string | undefined, moneyFormat: string, name: string, paymentSettings: { __typename: 'PaymentSettings', enabledPresentmentCurrencies: Array<CurrencyCode> }, primaryDomain: { __typename: 'Domain', host: string, sslEnabled: boolean, url: string } } };
 
+export const PriceFragment = gql`
+    fragment PriceFragment on MoneyV2 {
+  amount
+  currencyCode
+}
+    `;
+export const PriceRange = gql`
+    fragment PriceRange on ProductPriceRange {
+  minVariantPrice {
+    ...PriceFragment
+  }
+  maxVariantPrice {
+    ...PriceFragment
+  }
+}
+    `;
+export const ProductOptionFragment = gql`
+    fragment ProductOptionFragment on ProductOption {
+  id
+  title: name
+  handle @client
+  option_values @client {
+    title
+    handle
+  }
+  values
+}
+    `;
+export const ImageFragment = gql`
+    fragment ImageFragment on Image {
+  id
+  src: originalSrc
+  altText
+  width
+  height
+  variants @client {
+    id
+    __typename
+  }
+}
+    `;
+export const ProductVariantFragment = gql`
+    fragment ProductVariantFragment on ProductVariant {
+  id
+  title
+  availableForSale
+  inventoryQuantity: quantityAvailable
+  weight
+  sku
+  currentlyNotInStock
+  requiresShipping
+  product {
+    id
+    __typename
+    options {
+      name
+      id
+      __typename
+    }
+  }
+  image {
+    ...ImageFragment
+  }
+  selectedOptions {
+    __typename
+    name
+    parent_handle: name
+    handle: value
+  }
+  pivot_selected_options @client {
+    parent_handle
+    option_value_handle
+    variant_id
+    product_id
+  }
+  price
+  priceV2 {
+    ...PriceFragment
+  }
+  compareAtPrice
+  compareAtPriceV2 {
+    ...PriceFragment
+  }
+  unitPrice {
+    ...PriceFragment
+  }
+  unitPriceMeasurement {
+    measuredType
+    quantityUnit
+    quantityValue
+    referenceUnit
+    referenceValue
+  }
+}
+    `;
+export const PageInfoFragment = gql`
+    fragment PageInfoFragment on PageInfo {
+  hasNextPage
+  hasPreviousPage
+}
+    `;
+export const ProductFragment = gql`
+    fragment ProductFragment on Product {
+  id
+  handle
+  title
+  availableForSale
+  productType
+  vendor
+  tags
+  onlineStoreUrl
+  createdAt
+  updatedAt
+  publishedAt
+  compareAtPriceRange {
+    ...PriceRange
+  }
+  priceRange {
+    ...PriceRange
+  }
+  options {
+    ...ProductOptionFragment
+  }
+  image: featuredImage {
+    ...ImageFragment
+  }
+  Variants @client {
+    ...ProductVariantFragment
+  }
+  variants(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ProductVariantFragment
+      }
+    }
+  }
+  images(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ImageFragment
+      }
+    }
+  }
+  description
+  descriptionHtml
+}
+    `;
+export const Testproductop = gql`
+    query testproductop {
+  allVariants @client {
+    id
+    __typename
+    title
+  }
+}
+    `;
+export const PossibleNodes = gql`
+    query possibleNodes($id: ID!) {
+  node(id: $id) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragment}
+${PriceRange}
+${PriceFragment}
+${ProductOptionFragment}
+${ImageFragment}
+${ProductVariantFragment}
+${PageInfoFragment}`;
+export const VariantByIndex = gql`
+    query variantByIndex($handle: String!, $index: Int!) {
+  productAlias: product(handle: $handle) {
+    id
+    handle
+  }
+}
+    `;
+export const ProductByHandleCustom = gql`
+    query productByHandleCustom($handle: String!) {
+  product(handle: $handle) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragment}
+${PriceRange}
+${PriceFragment}
+${ProductOptionFragment}
+${ImageFragment}
+${ProductVariantFragment}
+${PageInfoFragment}`;
+export const ProductById = gql`
+    query productByID($id: ID!) {
+  product(id: $id) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragment}
+${PriceRange}
+${PriceFragment}
+${ProductOptionFragment}
+${ImageFragment}
+${ProductVariantFragment}
+${PageInfoFragment}`;
+export const VariantBySelectedOptions = gql`
+    query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
+  product(handle: $handle) {
+    variantBySelectedOptions(selectedOptions: $selectedOptions) {
+      ...ProductVariantFragment
+    }
+  }
+}
+    ${ProductVariantFragment}
+${ImageFragment}
+${PriceFragment}`;
+export const Shop = gql`
+    query shop {
+  shop {
+    paymentSettings {
+      enabledPresentmentCurrencies
+    }
+    description
+    moneyFormat
+    name
+    primaryDomain {
+      host
+      sslEnabled
+      url
+    }
+  }
+}
+    `;
 export const PriceFragmentDoc = gql`
     fragment PriceFragment on MoneyV2 {
   amount

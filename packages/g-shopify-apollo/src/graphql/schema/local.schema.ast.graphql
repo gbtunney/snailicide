@@ -5883,7 +5883,7 @@ type ProductOption implements Node & ShopifyNode & ShopifyProductNode {
 type ProductOptionValue implements ShopifyNode & ShopifyProductNode {
   Variants: [ProductVariant!]!
   handle: String
-  key: String
+  key: String!
   option: ProductOption!
   option_id: ID!
   parent_handle: String
@@ -7099,7 +7099,7 @@ input VariantFilter {
 
 type VariantOption implements ShopifyProductNode {
   option_value: ProductOptionValue!
-  option_value_handle: String
+  option_value_handle: String!
   option_value_key: String!
   parent_handle: String!
   product: Product!
