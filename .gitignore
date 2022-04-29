@@ -118,3 +118,4 @@ archived/styleguide/**/*.svg
 packages/g-shopify-boilerplate
 packages/g-orm-next/src/composable/backup
 Projectcodestyle.xml
+script-tag.liquid

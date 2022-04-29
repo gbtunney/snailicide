@@ -39,7 +39,7 @@ type ShopifyBoilerplateConfig = {
 const CONFIG: ShopifyBoilerplateConfig = {
     script_tag: {
         input_template: "build/template/template-script-tag.liquid",
-        output: "shopify/snippets/script-tag.liquid",
+        output: "shopify/snippets/s-script-tag.liquid",
         build: {
             js: "dist/js/*.js",
             css: "dist/css/*.css",
@@ -56,8 +56,8 @@ const CONFIG: ShopifyBoilerplateConfig = {
             to: "shopify/assets/[name][ext]"
         },
         {
-            from: ["src/assets/**/*.liquid"],
-            to: "shopify/snippets/[name][ext]"
+            from: ["src/assets/snippets/**/*.liquid"],
+            to: "shopify/snippets/s-[name][ext]"
         }]
 }
 

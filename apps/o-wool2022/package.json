@@ -5,12 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "start": "run-p -sr  build-watch shopify:serve && --live-reload hot-reload",
-    "deploy": "run-s build webpack:copy webpack:scripts && cd shopify && shopify theme push",
+    "deploy": "run-s build webpack && cd shopify && shopify theme push",
     "build-watch": "vue-cli-service build-watch --mode development",
     "build": "vue-cli-service build",
-    "test:build": "run-s build webpack:copy webpack:scripts",
-    "webpack:scripts": "webpack --config=webpack.script.tags.ts",
-    "webpack:copy": "webpack --config=webpack.copy.ts",
+    "clean": "run-s clean:dist clean:snippets",
+    "clean:dist": "rm -R -f dist   &&   rm -R -f shopify/assets",
+    "clean:snippets": " rm -f shopify/snippets/s-*.liquid",
+    "test:build": "run-s build webpack",
+    "webpack": "webpack --config=webpack.script.tags.ts",
     "shopify:serve": "cd shopify && shopify theme serve",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"

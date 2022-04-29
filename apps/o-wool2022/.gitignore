@@ -23,5 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 #Custom
-shopify/snippets/script-tag.liquid
+shopify/snippets/s-*.liquid
+shopify/assets
 src/assets/brooklyn_assets
