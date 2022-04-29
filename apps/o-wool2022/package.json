@@ -11,6 +11,7 @@
     "test:build": "run-s build webpack:copy webpack:scripts",
     "webpack:scripts": "webpack --config=webpack.script.tags.ts",
     "webpack:copy": "webpack --config=webpack.copy.ts",
+    "shopify:serve": "cd shopify && shopify theme serve",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },

@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "owool": "yarn --cwd apps/owool start",
-    "owool:deploy": "yarn --cwd apps/owool deploy",
-    "owool:test": "yarn --cwd apps/owool test:build",
+    "owool": "yarn --cwd apps/o-wool2022 start",
+    "owool:deploy": "yarn --cwd apps/o-wool2022 deploy",
+    "owool:test": "yarn --cwd apps/o-wool2022 test:build",
     "styleguide": "yarn --cwd apps/styleguide styleguide",
     "lib:test": "yarn --cwd packages/g-library test:watch",
     "lib:build": "yarshopin --cwd packages/g-library build",
