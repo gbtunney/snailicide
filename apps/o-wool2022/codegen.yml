@@ -1,0 +1,47 @@
+overwrite: true
+schema:
+  - src/graphql/shopify.endpoint.schema.json
+  - src/graphql/client.schema.graphql
+documents: src/graphql/*.graphql
+generates:
+
+  # Schema AST generation *************************
+  # This is used for diagram / modeling using MoonModeler
+  src/graphql/schema/local.schema.ast.graphql:
+    plugins:
+      - schema-ast
+
+  # Schema Introspection *************************
+  src/graphql/schema/local.schema.introspection.json:
+    plugins:
+      - introspection
+
+  src/types/generated/storefront-types.ts:
+    config:
+      withCompositionFunctions: true
+      vueCompositionApiImportFrom: vue
+      dedupeOperationSuffix: true
+      dedupeFragments: true
+      inlineFragmentTypes: combine
+      nonOptionalTypename: true
+      avoidOptionals: false
+      maybeValue: T | undefined
+      scalars:
+        Int: number
+        String: string
+        Boolean: boolean
+        DateTime: Date
+        NodeDescription: NodeDescription
+        Money: number
+        Decimal: number
+        URL: string
+        HTML: Element
+    plugins:
+      - add:
+          content: '/* * Graphql Generated Types and Operations * */'
+      - add:
+          content: '/* * FILE IS GENERATED: DO NOT EDIT * */'
+      - typescript
+      - typescript-operations
+      - typescript-document-nodes
+      - typescript-vue-apollo

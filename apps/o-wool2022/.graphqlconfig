@@ -1,0 +1,16 @@
+{
+  "name": "Shopify Storefront Schema",
+  "schemaPath": "src/graphql/shopify.endpoint.schema.json",
+  "excludes": ["src/graphql/schema/*.graphql"],
+  "extensions": {
+    "endpoints": {
+      "shopify Endpoint": {
+        "url": "https://${env:VUE_APP_SHOPIFY_DOMAIN}/api/${env:VUE_APP_SHOPIFY_STOREFRONT_VERSION}/graphql.json",
+        "headers": {
+          "X-Shopify-Storefront-Access-Token": "${env:VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN}"
+        },
+        "introspect": true
+      }
+    }
+  }
+}
