@@ -47,6 +47,8 @@ export class ProductInstanceRepository extends Repository<ProductInstanceModel> 
 
         /* * WATCH PROPS!!!!! * */
         watch(props, (value) => {
+
+            // Incoming Product Handle
             if (value.handle !== undefined || value.handle !== '') {
                 if (value.handle !== repoHandle.value) {
                     ////TODO:
@@ -62,13 +64,22 @@ export class ProductInstanceRepository extends Repository<ProductInstanceModel> 
             }
             if (repoHandle.value !== '' || repoHandle.value !== undefined) {
                 const save_props = {...props, id: instance_id.value, product_handle: repoHandle.value}
-                console.log("Saveing to Instance ORMMMM", save_props)
+
+               // const product_check = productRepo.query().where("handle",repoHandle.value).first()
+           //     console.log("Saveing to Instance ORMMMM",  product_check ,product_check?.getVariantByUnique(props.variant_id) )
+
+                //instance is saved here!!
                 this.save(save_props)
             }
         }, {immediate: true})
 
         ///  Bool to see if its saved todo: check for ID, handle, and variant_id
-        const isInstanceReady = computed(() => (instance_id?.value && this.find(instance_id?.value)))
+        const isInstanceReady = computed(() => {
+            if ( !instance_id?.value  )return
+            if ( !instance_id?.value  )return
+            const instanceResult = this.query().whereId(instance_id?.value).with('product').first();
+            return (instanceResult && instanceResult.product )
+        })
 
         //query instance by instance ID
         const Instance: ComputedRef<Item<TProductInstanceModel> | undefined> = computed(() => {
@@ -87,8 +98,20 @@ export class ProductInstanceRepository extends Repository<ProductInstanceModel> 
             }
             return 0
         })
+
+        const SelectedVariant = computed(() => {
+            if (!isInstanceReady.value) return undefined
+            if (repoHandle.value && variant_id?.value) {
+                const product_check =   Instance.value?.product //productRepo.query().where("handle",repoHandle.value).withAll().first()
+
+               console.warn("THE PRODUCT IS LOADE", Instance.value,product_check ,
+                   product_check//.ge.getVariantByUnique(Instance.value?.variant_id ,variantRepo),
+                   )
+            }
+            return Instance.value?.variant_id
+        })
         //// TODO:???WHHERE SHOHULD I PUT THIHS?/???? MOVE TO PRODUCT MODEL OR REPO
-        const Variants = computed(() => {
+        /*const Variants = computed(() => {
             if (!isInstanceReady.value) return undefined
             if (repoHandle.value && variant_id?.value) {
                 const _product = productRepo.query().where('handle', repoHandle.value).with('Variants').first()
@@ -100,14 +123,14 @@ export class ProductInstanceRepository extends Repository<ProductInstanceModel> 
                 }
             }
             return undefined
-        })
+        })*/
         /* const Variant: ComputedRef<Collection<TProductVariantModel> | undefined> = computed(() => {
              if (!isReady.value) return undefined
              const variants: Collection<TProductVariantModel> = variantRepo.query().where("product_id", product.value?.id).withAll().get()
              if (variants) return variants
              return undefined
          })*/
-        return {isInstanceReady, Instance, Variants, Quantity}
+        return {isInstanceReady, Instance, SelectedVariant,Quantity}
     }
 
     ///TODO: make some kind of setting for withAll
