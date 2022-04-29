@@ -1,20 +1,18 @@
-import * as R from "ramda"
 import * as RA from "ramda-adjunct"
 import {composeGid} from '@shopify/admin-graphql-api-utilities';
-import {isInteger, toInteger, getDigitCount} from '@snailicide/g-library'
-import {Bool, HasMany, Model, Str} from '@vuex-orm/core'
+import {getDigitCount, isInteger, toInteger} from '@snailicide/g-library'
+import {Bool, HasMany, Model, Repository, Str} from '@vuex-orm/core'
 import {ProductOptionModel} from './ProductOption'
 import {ProductVariantModel} from "./ProductVariant";
 import {ProductImageModel} from "./ProductImage";
 /* * TYPES   GENERSTED * */
-import {
-    TProductGQL,
-    TProductGQLPartial,
-    TProductFragment,
-    TProductFragmentPartial
-} from "./../types/generated";
-import {isNotUndefined, tg_isNilOrEmpty} from "@/types";
-
+import {TProductGQL, TProductGQLPartial} from "./../types/generated";
+import {isNotUndefined} from "./../types";
+import {tg_isNilOrEmpty} from "./../types/utilities";
+import {useStore} from "vuex";
+import ProductInstanceRepository from "@/repository/ProductInstanceRepository";
+import {Vue} from "vue-property-decorator";
+import { mapRepos } from '@vuex-orm/core'
 export class ProductModel extends Model implements TProductGQLPartial {
     static entity = 'products'
     static primaryKey = 'id'
@@ -50,6 +48,7 @@ export class ProductModel extends Model implements TProductGQLPartial {
     get gid(): TProductGQL["gid"] {
         return (this.id && this.id.length > 0) ? atob(this.id) : this.id
     }
+
     get cacheID(): TProductGQL['cacheID'] {
         return `${this.__typename}:${this.id}`
     }
@@ -73,7 +72,6 @@ export class ProductModel extends Model implements TProductGQLPartial {
             const found_by_position = this.Variants.find((variant) => {
                 if (index === variant.position) return true
             })
-
             return isNotUndefined(found_by_position)
                 ? found_by_position
                 : this.Variants[index]
@@ -88,8 +86,12 @@ export class ProductModel extends Model implements TProductGQLPartial {
      * Integer == Position | Index | SID
      * @return { ProductVariant | undefined }
      */
-    getVariantByUnique(index: number | string = 1) {
-        //return if no variants available on product
+    getVariantByUnique(index: number | string = 1,_test : Repository<ProductVariantModel>|undefined = undefined) {
+
+        if ( _test &&  ! this.Variants?.length ){
+            console.log("56hhhhjjhjhjhjjh",_test.all())
+        }
+         //return if no variants available on product
         if (tg_isNilOrEmpty(this.Variants)) return undefined
 
         //if index is an integer masquerading as a string , cast.

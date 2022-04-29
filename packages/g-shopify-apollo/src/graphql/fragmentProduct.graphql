@@ -3,9 +3,6 @@ fragment ProductFragment on Product {
     handle
     title
 
-    gid @client
-    sid @client
-
     availableForSale
     productType
     vendor
@@ -53,6 +50,7 @@ fragment ProductFragment on Product {
             node {
                 ...ImageFragment
             }
+
         }
     }
     description

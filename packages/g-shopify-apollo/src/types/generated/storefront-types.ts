@@ -444,7 +444,10 @@ export type Cart = Node & {
   checkoutUrl: Scalars['URL'];
   /** The date and time when the cart was created. */
   createdAt: Scalars['DateTime'];
-  /** The discount codes that have been applied to the cart. */
+  /**
+   * The case-insensitive discount codes that the customer added at checkout.
+   *
+   */
   discountCodes: Array<CartDiscountCode>;
   /** The estimated costs that the buyer will pay at checkout. The estimated costs are subject to change and changes will be reflected at checkout. The `estimatedCost` field uses the `buyerIdentity` field to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). */
   estimatedCost: CartEstimatedCost;
@@ -606,7 +609,10 @@ export type CartInput = {
   attributes?: InputMaybe<Array<AttributeInput>>;
   /** The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address. */
   buyerIdentity?: InputMaybe<CartBuyerIdentityInput>;
-  /** The discount codes to apply to the cart. */
+  /**
+   * The case-insensitive discount codes that the customer added at checkout.
+   *
+   */
   discountCodes?: InputMaybe<Array<Scalars['String']>>;
   /** A list of merchandise lines to add to the cart. */
   lines?: InputMaybe<Array<CartLineInput>>;
@@ -2537,7 +2543,10 @@ export enum CurrencyCode {
   Srd = 'SRD',
   /** South Sudanese Pound (SSP). */
   Ssp = 'SSP',
-  /** Sao Tome And Principe Dobra (STD). */
+  /**
+   * Sao Tome And Principe Dobra (STD).
+   * @deprecated `STD` is deprecated. Use `STN` available from version `2022-07` onwards instead.
+   */
   Std = 'STD',
   /** Syrian Pound (SYP). */
   Syp = 'SYP',
@@ -3164,7 +3173,6 @@ export enum EditableOptions {
 export type Extended_Id = {
   cacheID?: Maybe<Scalars['String']>;
   gid?: Maybe<Scalars['String']>;
-  sid?: Maybe<Scalars['Int']>;
 };
 
 /** Represents a video hosted outside of Shopify. */
@@ -4026,7 +4034,7 @@ export type Mutation = {
   checkoutDiscountCodeApply?: Maybe<CheckoutDiscountCodeApplyPayload>;
   /** Applies a discount to an existing checkout using a discount code. */
   checkoutDiscountCodeApplyV2?: Maybe<CheckoutDiscountCodeApplyV2Payload>;
-  /** Removes the applied discount from an existing checkout. */
+  /** Removes the applied discounts from an existing checkout. */
   checkoutDiscountCodeRemove?: Maybe<CheckoutDiscountCodeRemovePayload>;
   /**
    * Updates the email on an existing checkout.
@@ -4987,7 +4995,7 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
   available?: Maybe<Scalars['Boolean']>;
   /** Indicates if at least one product variant is available for sale. */
   availableForSale: Scalars['Boolean'];
-  cacheID: Scalars['String'];
+  cacheID?: Maybe<Scalars['String']>;
   /** List of collections a product belongs to. */
   collections: CollectionConnection;
   /** The compare at price of the product across all variants. */
@@ -5042,7 +5050,6 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
   sellingPlanGroups: SellingPlanGroupConnection;
   /** The product's SEO information. */
   seo: Seo;
-  sid?: Maybe<Scalars['Int']>;
   /**
    * A comma separated list of tags that have been added to the product.
    * Additional access scope required for private apps: unauthenticated_read_product_tags.
@@ -5061,8 +5068,6 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
    *
    */
   updatedAt: Scalars['DateTime'];
-  variant?: Maybe<Array<ProductVariant>>;
-  variantByFilter?: Maybe<ProductVariant>;
   /**
    * Find a product’s variant based on its selected options.
    * This is useful for converting a user’s selection of product options into a single matching variant.
@@ -5170,24 +5175,6 @@ export type ProductSellingPlanGroupsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   reverse?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-/**
- * A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
- * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
- */
-export type ProductVariantArgs = {
-  index: Scalars['Int'];
-};
-
-
-/**
- * A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
- * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
- */
-export type ProductVariantByFilterArgs = {
-  input?: InputMaybe<VariantFilter>;
 };
 
 
@@ -5357,15 +5344,17 @@ export type ProductOption = Node & ShopifyNode & ShopifyProductNode & {
 
 export type ProductOptionValue = ShopifyNode & ShopifyProductNode & {
   __typename: 'ProductOptionValue';
+  Variants: Array<ProductVariant>;
   handle?: Maybe<Scalars['String']>;
+  key: Scalars['String'];
   option: ProductOption;
   option_id: Scalars['ID'];
   parent_handle?: Maybe<Scalars['String']>;
+  pivot_variants: Array<VariantOption>;
   position?: Maybe<Scalars['Int']>;
   product: Product;
   product_id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
-  variants: Array<VariantOption>;
 };
 
 /** The price range of the product. */
@@ -5406,7 +5395,7 @@ export enum ProductSortKeys {
 /** A product variant represents a different version of a product, such as differing sizes or differing colors. */
 export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & ShopifyProductNode & {
   __typename: 'ProductVariant';
-  SelectedOptions: Array<VariantOption>;
+  SelectedOptions: Array<ProductOptionValue>;
   /** Indicates if the product variant is available for sale. */
   availableForSale: Scalars['Boolean'];
   /** The barcode (for example, ISBN, UPC, or GTIN) associated with the variant. */
@@ -5440,6 +5429,7 @@ export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & 
    *
    */
   metafields: MetafieldConnection;
+  pivot_selected_options: Array<VariantOption>;
   position?: Maybe<Scalars['Int']>;
   /**
    * The product variant’s price.
@@ -5459,7 +5449,6 @@ export type ProductVariant = Extended_Id & HasMetafields & Node & ShopifyNode & 
   selectedOptions: Array<SelectedOption>;
   /** Represents an association between a variant and a selling plan. Selling plan allocations describe which selling plans are available for each variant, and what their impact is on pricing. */
   sellingPlanAllocations: SellingPlanAllocationConnection;
-  sid?: Maybe<Scalars['Int']>;
   /** The SKU (stock keeping unit) associated with the variant. */
   sku?: Maybe<Scalars['String']>;
   /** The in-store pickup availability of this variant by location. */
@@ -6436,6 +6425,7 @@ export type VariantOption = ShopifyProductNode & {
   __typename: 'VariantOption';
   option_value: ProductOptionValue;
   option_value_handle: Scalars['String'];
+  option_value_key: Scalars['String'];
   parent_handle: Scalars['String'];
   product: Product;
   product_id: Scalars['ID'];
@@ -6530,7 +6520,7 @@ export type PriceRangeFragment = { __typename: 'ProductPriceRange', minVariantPr
 
 export type ImageFragment = { __typename: 'Image', id?: string | undefined, altText?: string | undefined, width?: number | undefined, height?: number | undefined, src: string, variants?: Array<{ __typename: 'ProductVariant', id: string }> | undefined };
 
-export type ProductFragment = { __typename: 'Product', id: string, handle: string, title: string, gid?: string | undefined, sid?: number | undefined, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, compareAtPriceRange: (
+export type ProductFragment = { __typename: 'Product', id: string, handle: string, title: string, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, compareAtPriceRange: (
     { __typename: 'ProductPriceRange' }
     & PriceRangeFragment
   ), priceRange: (
@@ -6561,10 +6551,10 @@ export type ProductFragment = { __typename: 'Product', id: string, handle: strin
 
 export type ProductOptionFragment = { __typename: 'ProductOption', id: string, handle?: string | undefined, values: Array<string>, title: string, option_values?: Array<{ __typename: 'ProductOptionValue', title?: string | undefined, handle?: string | undefined }> | undefined };
 
-export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, gid?: string | undefined, sid?: number | undefined, product_id: string, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string, options: Array<{ __typename: 'ProductOption', name: string, id: string }> }, image?: (
+export type ProductVariantFragment = { __typename: 'ProductVariant', id: string, title: string, availableForSale: boolean, weight?: number | undefined, sku?: string | undefined, currentlyNotInStock: boolean, requiresShipping: boolean, price: number, compareAtPrice?: number | undefined, inventoryQuantity?: number | undefined, product: { __typename: 'Product', id: string, options: Array<{ __typename: 'ProductOption', name: string, id: string }> }, image?: (
     { __typename: 'Image' }
     & ImageFragment
-  ) | undefined, selectedOptions: Array<{ __typename: 'SelectedOption', name: string, parent_handle: string, handle: string }>, priceV2: (
+  ) | undefined, selectedOptions: Array<{ __typename: 'SelectedOption', name: string, parent_handle: string, handle: string }>, pivot_selected_options: Array<{ __typename: 'VariantOption', parent_handle: string, option_value_handle: string, variant_id: string, product_id: string }>, priceV2: (
     { __typename: 'MoneyV2' }
     & PriceFragment
   ), compareAtPriceV2?: (
@@ -6611,6 +6601,245 @@ export type ShopQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ShopQuery = { __typename: 'QueryRoot', shop: { __typename: 'Shop', description?: string | undefined, moneyFormat: string, name: string, paymentSettings: { __typename: 'PaymentSettings', enabledPresentmentCurrencies: Array<CurrencyCode> }, primaryDomain: { __typename: 'Domain', host: string, sslEnabled: boolean, url: string } } };
 
+export const PriceFragment = gql`
+    fragment PriceFragment on MoneyV2 {
+  amount
+  currencyCode
+}
+    `;
+export const PriceRange = gql`
+    fragment PriceRange on ProductPriceRange {
+  minVariantPrice {
+    ...PriceFragment
+  }
+  maxVariantPrice {
+    ...PriceFragment
+  }
+}
+    `;
+export const ProductOptionFragment = gql`
+    fragment ProductOptionFragment on ProductOption {
+  id
+  title: name
+  handle @client
+  option_values @client {
+    title
+    handle
+  }
+  values
+}
+    `;
+export const ImageFragment = gql`
+    fragment ImageFragment on Image {
+  id
+  src: originalSrc
+  altText
+  width
+  height
+  variants @client {
+    id
+    __typename
+  }
+}
+    `;
+export const ProductVariantFragment = gql`
+    fragment ProductVariantFragment on ProductVariant {
+  id
+  title
+  availableForSale
+  inventoryQuantity: quantityAvailable
+  weight
+  sku
+  currentlyNotInStock
+  requiresShipping
+  product {
+    id
+    __typename
+    options {
+      name
+      id
+      __typename
+    }
+  }
+  image {
+    ...ImageFragment
+  }
+  selectedOptions {
+    __typename
+    name
+    parent_handle: name
+    handle: value
+  }
+  pivot_selected_options @client {
+    parent_handle
+    option_value_handle
+    variant_id
+    product_id
+  }
+  price
+  priceV2 {
+    ...PriceFragment
+  }
+  compareAtPrice
+  compareAtPriceV2 {
+    ...PriceFragment
+  }
+  unitPrice {
+    ...PriceFragment
+  }
+  unitPriceMeasurement {
+    measuredType
+    quantityUnit
+    quantityValue
+    referenceUnit
+    referenceValue
+  }
+}
+    `;
+export const PageInfoFragment = gql`
+    fragment PageInfoFragment on PageInfo {
+  hasNextPage
+  hasPreviousPage
+}
+    `;
+export const ProductFragment = gql`
+    fragment ProductFragment on Product {
+  id
+  handle
+  title
+  availableForSale
+  productType
+  vendor
+  tags
+  onlineStoreUrl
+  createdAt
+  updatedAt
+  publishedAt
+  compareAtPriceRange {
+    ...PriceRange
+  }
+  priceRange {
+    ...PriceRange
+  }
+  options {
+    ...ProductOptionFragment
+  }
+  image: featuredImage {
+    ...ImageFragment
+  }
+  Variants @client {
+    ...ProductVariantFragment
+  }
+  variants(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ProductVariantFragment
+      }
+    }
+  }
+  images(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ImageFragment
+      }
+    }
+  }
+  description
+  descriptionHtml
+}
+    `;
+export const Testproductop = gql`
+    query testproductop {
+  allVariants @client {
+    id
+    __typename
+    title
+  }
+}
+    `;
+export const PossibleNodes = gql`
+    query possibleNodes($id: ID!) {
+  node(id: $id) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragment}
+${PriceRange}
+${PriceFragment}
+${ProductOptionFragment}
+${ImageFragment}
+${ProductVariantFragment}
+${PageInfoFragment}`;
+export const VariantByIndex = gql`
+    query variantByIndex($handle: String!, $index: Int!) {
+  productAlias: product(handle: $handle) {
+    id
+    handle
+  }
+}
+    `;
+export const ProductByHandleCustom = gql`
+    query productByHandleCustom($handle: String!) {
+  product(handle: $handle) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragment}
+${PriceRange}
+${PriceFragment}
+${ProductOptionFragment}
+${ImageFragment}
+${ProductVariantFragment}
+${PageInfoFragment}`;
+export const ProductById = gql`
+    query productByID($id: ID!) {
+  product(id: $id) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragment}
+${PriceRange}
+${PriceFragment}
+${ProductOptionFragment}
+${ImageFragment}
+${ProductVariantFragment}
+${PageInfoFragment}`;
+export const VariantBySelectedOptions = gql`
+    query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
+  product(handle: $handle) {
+    variantBySelectedOptions(selectedOptions: $selectedOptions) {
+      ...ProductVariantFragment
+    }
+  }
+}
+    ${ProductVariantFragment}
+${ImageFragment}
+${PriceFragment}`;
+export const Shop = gql`
+    query shop {
+  shop {
+    paymentSettings {
+      enabledPresentmentCurrencies
+    }
+    description
+    moneyFormat
+    name
+    primaryDomain {
+      host
+      sslEnabled
+      url
+    }
+  }
+}
+    `;
 export const PriceFragmentDoc = gql`
     fragment PriceFragment on MoneyV2 {
   amount
@@ -6658,9 +6887,6 @@ export const ProductVariantFragmentDoc = gql`
   title
   availableForSale
   inventoryQuantity: quantityAvailable
-  gid @client
-  sid @client
-  product_id @client
   weight
   sku
   currentlyNotInStock
@@ -6682,6 +6908,12 @@ export const ProductVariantFragmentDoc = gql`
     name
     parent_handle: name
     handle: value
+  }
+  pivot_selected_options @client {
+    parent_handle
+    option_value_handle
+    variant_id
+    product_id
   }
   price
   priceV2 {
@@ -6714,8 +6946,6 @@ export const ProductFragmentDoc = gql`
   id
   handle
   title
-  gid @client
-  sid @client
   availableForSale
   productType
   vendor

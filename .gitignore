@@ -71,7 +71,6 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -116,3 +115,6 @@ archived/owool/shopify/assets
 archived/styleguide/styleguide/build
 apps/petlogger/src/data/db
 archived/styleguide/**/*.svg
+packages/g-shopify-boilerplate
+packages/g-orm-next/src/composable/backup
+Projectcodestyle.xml

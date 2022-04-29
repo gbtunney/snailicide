@@ -52,25 +52,20 @@ export const parseDataLink = new ApolloLink((operation, forward) => {
 
                         const variant_id = (_variant?.node?.id) ? _variant.node.id : "44444444444"
                         /* * Parse Selected Options / VariantOption * */
-                        const SelectedOptions = RA.ensureArray(_variant?.node?.selectedOptions).map((_selected_option) => {
+                        const pivot_selected_options = RA.ensureArray(_variant?.node?.selectedOptions).map((_selected_option) => {
                             return {
+                                __typename: 'VariantOption',
                                 parent_handle: slugify(_selected_option?.parent_handle),
                                 option_value_handle: slugify(_selected_option?.handle),
-                                // __typename: 'VariantOption',
                                 variant_id,
                                 product_id,
                             }
-                            //      console.log("testdatax",variant_id,_variant?.node?.id,testdata)
-                            // return testdata
                         })
+                        return {..._variant?.node, position: index++, pivot_selected_options, product_id}
 
-                        return {..._variant?.node, position: index++, SelectedOptions, product_id}
-                        // console.log("ttttt",ttttt)
-                        // return ttttt
                     })
                     /* * Assign alterered values to DATA * */
                     data.data.product.Variants = Node
-                    //    console.log("node",Node)
                 }
 
                 /* * Parse Product Image!! * */
