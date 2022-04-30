@@ -3,6 +3,7 @@ import * as chroma from "chroma.ts";
 import * as RA from "ramda-adjunct"
 import {Chromable} from "chroma.ts";
 
+//TODO: Fix this busted typescript using tg_isPrimitive or something and reenabble strict mode
 const colorDefaultKeys = Array.from(Object.entries({...colors})).reduce((accumulator, [key, value]) => {
         //console.log("COLORRRR",accumulator,key, ( value["500"] )? value['500'] : value)
         const new_color_value: Chromable | false = (RA.isString(value) && chroma.color(value))

@@ -35,6 +35,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import  {gIconify} from "@snailicide/g-windi"
 
 export default defineComponent({
   name: 'HelloWorld',
