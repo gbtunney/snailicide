@@ -15,7 +15,7 @@ const colorDefaultKeys = Array.from(Object.entries({...colors})).reduce((accumul
         return {...accumulator, ...(new_color_value) ? {[key]: {"DEFAULT": new_color_value}} : {}}
     },
     {});
-export default {
+export const presetColorDefaults = {
     theme: {
         colors: colorDefaultKeys,
         extend: {
@@ -23,3 +23,4 @@ export default {
         }
     },
 }
+export default presetColorDefaults

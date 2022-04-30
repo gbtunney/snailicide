@@ -1,7 +1,5 @@
 import colors from 'windicss/colors'
-import plugin from 'windicss/plugin'
 import {IWindiConfig} from "./composable/useWindiCSS"
-import {Config, Theme, BaseTheme, Shortcut, DeepNestObject} from "windicss/types/interfaces";
 
 /* * Import Presets * */
 import presetOwool from "./presets/owool"

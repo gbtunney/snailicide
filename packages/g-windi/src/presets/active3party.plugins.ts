@@ -13,6 +13,7 @@ const active_plugins = [
         modifiers: ['DEFAULT', 'sm', 'lg', 'red'],
     })
 ]
-export default {
+export const preset3rdPartyPlugins = {
     plugins: active_plugins
 }
+export default preset3rdPartyPlugins
