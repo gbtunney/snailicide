@@ -73,10 +73,9 @@
 <body class="{% if customer %}customer-logged-in {% endif %}template{{ template | split: '.' | first | camelize }} {{ page.title }} {{ product.title }}">
 
 
-<div class="wrapper">
+<div id="app" class="wrapper">
 
 
-    <div id="appvue" class="hover:bg-red-200 bg-purple-400 font-sans cronos-pro-display text-2xl">     <h2>Gilliabn</h2> </div>
     <!-- Header -->
     <header id="top" class="clearfix">
         <button type="button" class="mobile-nav-trigger navbar-toggle" id="MobileNavTrigger" data-menu-state="close" style="display:none;">
@@ -128,9 +127,10 @@
         </nav>
 
         <div id="umbrella">
-            <ul>
+            <ul class="text-2xl text-red-500">
                 {% if settings.sm_facebook %}
                     <li id="sm-facebook">
+                        <g-icon icon="ant-design:instagram-filled"/>
                     <a href="{{ settings.sm_facebook_link }}" class="social-icons" target="_blank">Facebook</a>
                     </li>{% endif %}
                 {% if settings.sm_twitter %}
@@ -139,6 +139,7 @@
                     </li>{% endif %}
                 {% if settings.sm_ravelry %}
                     <li id="sm-ravelry">
+                        <g-icon icon="fa-brands:ravelry" />
                     <a href="{{ settings.sm_ravelry_link }}" class="social-icons" target="_blank">Ravelry</a>
                     </li>{% endif %}
                 {% if settings.sm_pinterest %}
@@ -146,7 +147,9 @@
                     <a href="{{ settings.sm_pinterest_link }}" class="social-icons" target="_blank">Pinterest</a>
                     </li>{% endif %}
                 {% if settings.sm_instagram %}
-                    <li id="sm-instagram">
+                    <li class="g-svg h-1/2 btn" >
+                        <inline-svg src="{{ 'llama.svg' | asset_url }}"/>
+
                     <a href="{{ settings.sm_instagram_link }}" class="social-icons" target="_blank">Instagram</a>
                     </li>{% endif %}
                 {% if shop.customer_accounts_enabled %}
@@ -165,9 +168,18 @@
                     </li>
                 {% endif %}
 
+                <div class="g-svg h-1/2 " >
+                    helllo!~!!
+                    <inline-svg src="{{ 'llama.svg' | asset_url }}"/>
+
+                </div>
                 <li class="cart-link">
+                    <g-icon icon="mdi-light:cart" ></g-icon>
+
                     <a href="/cart" class="num-items-in-cart">
-              <span class="icon">
+
+              <span class="icon btn">
+                  btn tet
                {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}
               </span>
                     </a>
@@ -367,8 +379,6 @@
     </script>
 {% endif %}
 
-
-
 {{ 'enhance.jquery.js' | asset_url | script_tag }}
 {{ 'hoverintent.jquery.js' | asset_url | script_tag }}
 {{ 'radiance.js' | asset_url | script_tag }}
@@ -423,13 +433,11 @@
         }
     });
 </script>
-
-
-{% render 's-script-tag', script-tag: "js" %}
-
 <script>window.KlarnaThemeGlobals = {};{% case template.name %} {% when "product" %} window.KlarnaThemeGlobals.data_purchase_amount ="{{ product.first_available_variant.price }}";
     window.KlarnaThemeGlobals.productVariants = "{{ product.variants | json }}";
     window.KlarnaThemeGlobals.documentCopy = document.cloneNode(true);{% when "cart" %} window.KlarnaThemeGlobals.data_purchase_amount ="{{ cart.total_price }}";
-    window.KlarnaThemeGlobals.documentCopy = document.cloneNode(true);{% endcase %}</script>
+    window.KlarnaThemeGlobals.documentCopy = document.cloneNode(true);{% endcase %}
+</script>
+{% render 's-script-tag', script-tag: "js" %}
 </body>
 </html>

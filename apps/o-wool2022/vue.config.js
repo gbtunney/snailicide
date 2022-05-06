@@ -3,19 +3,18 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 process.env.VUE_TEST_APP_VERSION = "i am a gillian!!!!"//require('./package.json').version
 
-console.error ("jdkjfkjjkj",process.env)
 module.exports = defineConfig({
-  transpileDependencies: true,
   filenameHashing: false,
-  runtimeCompiler: true,
+runtimeCompiler:true,
   css: {
-    extract: true,
+    extract: (process.env.NODE_ENV === 'production'  ) ,
   },
   configureWebpack: {
     plugins: [],
     resolve: {
       alias: {
         '@node': path.resolve(__dirname, 'node_modules'),
+        '@': path.resolve(__dirname, 'src/'),
 
       },
     }
