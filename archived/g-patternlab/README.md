@@ -1,4 +1,4 @@
-# @snailicide/g-windi
+# g-patternlab
 
 ## Project setup
 ```

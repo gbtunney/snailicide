@@ -1,4 +1,3 @@
-export type {PlainObject} from "./types";
 export {get} from "./types";
 
 export {
@@ -40,7 +39,14 @@ export {
     transformString,
     transformStringAll,
     validateString,
-    validateStringBatch
+    validateStringBatch,
+    startsWith,
+    endsWith,
+    includes,
+    eq,
+    contains,
+    match
+
 } from './scripts/transformString'
 
 /*

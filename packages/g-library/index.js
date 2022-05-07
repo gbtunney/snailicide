@@ -38,6 +38,12 @@ export {
     transformString,
     transformStringAll,
     validateString,
+    startsWith,
+    endsWith,
+    includes,
+    eq,
+    contains,
+    match
 } from './src/scripts/transformString'
 
 export {importantConsoleLog} from "./src/scripts/_console"
