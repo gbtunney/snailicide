@@ -1,4 +1,4 @@
-export type {
+/*export type {
     EmptyObject,
     PlainObject,
     EmptyString,
@@ -10,7 +10,11 @@ export type {
     DeepPartial,
 } from "./types/utilities"
 
+export type{CSSColorSpecialProp} from "./types";
+export {tg_isCSSColorSpecial, tg_isNotCSSColorSpecial} from "./types";*/
+
 /* * TYPEGUARDS!!!!!! * */
+/*
 export {
     tg_isFalsy,
     tg_isTruthy,
@@ -26,3 +30,4 @@ export {
     tg_isUndefined,
     tg_isNotUndefined
 } from './types//utilities'
+*/

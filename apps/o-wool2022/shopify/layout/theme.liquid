@@ -55,8 +55,8 @@
 
     {{ 'custom.css' | asset_url | stylesheet_tag }}
     {{ 'slick.css' | asset_url | stylesheet_tag }}
-    {% render 's-script-tag', script-tag: "css" %}
-
+{% comment %}    {% render 's-script-tag', script-tag: "css" %}
+{% endcomment %}
     {% if template contains 'customers' %}
         {{ "shopify_common.js" | shopify_asset_url | script_tag }}
         {{ "customer_area.js" | shopify_asset_url | script_tag }}
@@ -126,72 +126,19 @@
 
         </nav>
 
-        <div id="umbrella">
-            <ul class="text-2xl text-red-500">
-                {% if settings.sm_facebook %}
-                    <li id="sm-facebook">
-                        <g-icon icon="ant-design:instagram-filled"/>
-                    <a href="{{ settings.sm_facebook_link }}" class="social-icons" target="_blank">Facebook</a>
-                    </li>{% endif %}
-                {% if settings.sm_twitter %}
-                    <li id="sm-twitter">
-                    <a href="{{ settings.sm_twitter_link }}" class="social-icons" target="_blank">Twitter</a>
-                    </li>{% endif %}
-                {% if settings.sm_ravelry %}
-                    <li id="sm-ravelry">
-                        <g-icon icon="fa-brands:ravelry" />
-                    <a href="{{ settings.sm_ravelry_link }}" class="social-icons" target="_blank">Ravelry</a>
-                    </li>{% endif %}
-                {% if settings.sm_pinterest %}
-                    <li id="sm-pinterest">
-                    <a href="{{ settings.sm_pinterest_link }}" class="social-icons" target="_blank">Pinterest</a>
-                    </li>{% endif %}
-                {% if settings.sm_instagram %}
-                    <li class="g-svg h-1/2 btn" >
-                        <inline-svg src="{{ 'llama.svg' | asset_url }}"/>
+        {% render 's-ui-social-icons' %}
 
-                    <a href="{{ settings.sm_instagram_link }}" class="social-icons" target="_blank">Instagram</a>
-                    </li>{% endif %}
-                {% if shop.customer_accounts_enabled %}
-                    <li class="customer-account-links">
-                        {% if customer %}
-                            <p>{{ 'Log Out' | customer_logout_link }}</p>
-                        {% else %}
-                            <p>{{ 'Log In' | customer_login_link }}</p>
-                        {% endif %}
-                    </li>
-                {% endif %}
 
-                {% if customer %}
-                    <li>
-                        <a href="/account">My Account</a>
-                    </li>
-                {% endif %}
-
-                <div class="g-svg h-1/2 " >
-                    helllo!~!!
-                    <inline-svg src="{{ 'llama.svg' | asset_url }}"/>
-
-                </div>
-                <li class="cart-link">
-                    <g-icon icon="mdi-light:cart" ></g-icon>
-
-                    <a href="/cart" class="num-items-in-cart">
-
-              <span class="icon btn">
-                  btn tet
-               {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}
-              </span>
-                    </a>
-                </li>
-            </ul>
-        </div><!-- /#umbrella -->
-        <img src="{{ 'hr.png' | asset_url }}" alt="divider">
     </header>
+
+    <div class="container bg-red">
+        <g-kabob class="text-brandGrey" :inline="true" path="{{ 'divider.svg' | asset_url }}"></g-kabob>
+        {% render 'g-styleguide' %}
+    </div>
+
 
     <!-- Content -->
     <div class="content-wrapper clearfix">
-
         {% if template == 'list-collections' %}
             {% include 'collection-listing' %}
         {% else %}
@@ -205,10 +152,14 @@
         {% endif %}
 
     </div><!-- /.content -->
-
+=
     <!-- Footer -->
-    <footer bg="purple-500" class="bg-pink bg-yellow-700" id="bottom">
+    <footer id="bottom" >
+        <g-kabob class="text-brandGrey-lt " :inline="true" path="{{ 'divider.svg' | asset_url }}"></g-kabob>
+
         <img src="{{ 'hr.png' | asset_url }}" alt="divider">
+
+       <hr> <button>bhi</button>
         <div id="footer-1">
             <!-- BEGIN: Constant Contact Basic Opt-in Email List Form -->
 

@@ -1,0 +1,184 @@
+<script>
+    // IE 6+7 do not calculate the width of the #umbrella properly
+    $('#umbrella').width($('#umbrella ul').width());
+</script>
+<![endif]-->
+
+{% if settings.twitterwidget_visible and settings.show_right_column %}
+    {{ 'jquery.tweet.js' | asset_url | script_tag }}
+    <script>
+        $(".tweets-wrapper").tweet(
+            {
+                count: "{{ settings.twitterwidget_numtweets }}",
+                username: "{{ settings.twitterwidget_username }}",
+                loading_text: "loading tweets...",
+                template: function (i) {
+                    return i["text"]
+                }
+            });
+    </script>
+{% endif %}
+
+{% if product.available %}
+    <script>
+        $("#qty-box select").selectbox();
+        {% assign look_for_image_match = false %}
+        {% assign option_index = 0 %}
+        {% for option in product.options %}
+        {% assign downcased_option = option | downcase %}
+        {% if downcased_option contains 'color' %}
+        {% assign look_for_image_match = true %}
+        {% assign option_index = forloop.index0 %}
+        {% endif %}
+        {% endfor %}
+        Shopify.doNotTriggerClickOnThumb = false;
+        var selectCallback = function (variant, selector) {
+
+            if (variant && variant.available) {
+                // selected a valid variant
+                $('#add-to-cart').removeClass('disabled');
+                $('#add-to-cart-msg').hide();// remove unavailable class from add-to-cart button, and re-enable button
+                if (variant.compare_at_price == null) {
+                    $('#product-header-title .price').html(Shopify.formatMoney(variant.price, "{{ shop.money_with_currency_format }}"));
+                } else {
+                    $('#product-header-title .price').html('<span class="compare_at_price">' + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_with_currency_format }}") + '</span>' + Shopify.formatMoney(variant.price, "{{ shop.money_with_currency_format }}"));
+                }
+            } else {
+                // variant doesn't exist
+                $('#add-to-cart-msg').hide();
+                $('#add-to-cart').addClass('disabled'); // set add-to-cart button to unavailable class and disable button
+                var message = variant ? "Sold Out" : "Unavailable";
+                $('#product-header-title .price').text(message); // update price-field message
+            }
+
+            if (variant.available && variant.inventory_management == 'shopify' && variant.inventory_quantity <= '20') {
+                $('#add-to-cart-msg').hide();
+                $('#number-available').text(variant.inventory_quantity + ' available').fadeIn();
+            } else if (variant.inventory_management == 'shopify' && variant.inventory_quantity == 0) {
+                $('#add-to-cart-msg').hide();
+                $('#number-available').text('sold out').fadeIn();
+            } else {
+                $('#add-to-cart-msg').hide();
+                $('#number-available').hide();
+            }
+
+            {% if look_for_image_match %}
+            if (variant && !Shopify.doNotTriggerClickOnThumb) {
+                $('#thumbs a[title="' + variant.options[ '{{ option_index }}' ] + '"]' ).trigger('click');
+            }
+            {% endif %}
+            Shopify.doNotTriggerClickOnThumb = false;
+        };
+        // initialize multi selector for product
+        $(function () {
+
+            new Shopify.OptionSelectors("product-select", {
+                product: "{{ product | json }}",
+                onVariantSelected: selectCallback
+            });
+            {% if product.options.size >= 1 and product.options.first != 'Title' %}
+            $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+            {% endif %}
+
+            {% assign found_one_in_stock = false %}
+            {% for variant in product.variants %}
+            {% if variant.available and found_one_in_stock == false %}
+            {% assign found_one_in_stock = true %}
+            {% for option in product.options %}
+            $('.single-option-selector:eq(' + {{ forloop.index0 }} +')').val({{ variant.options[forloop.index0] | json }}).trigger('change').selectbox("attach");
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+
+
+            {% if look_for_image_match %}
+            $('#thumbs li a').bind('click', function () {
+                var color = jQuery(this).attr('title');
+                if (color && color !== '') {
+                    var options = $('.single-option-selector:eq({{ option_index }}) option[value="' + color + '"]');
+                    if (options.size() !== 0) {
+                        Shopify.doNotTriggerClickOnThumb = true;
+                        $('.single-option-selector:eq({{ option_index }})').val(color).trigger('change').selectbox("detach").selectbox("attach");
+                    }
+                }
+            });
+            {% endif %}
+
+
+        });
+    </script>
+{% endif %}
+{% if template == 'index' and settings.show_carousel %}
+    {{ 'jquery.tools.min.js' | asset_url | script_tag }}
+{% endif %}
+
+{% if template contains 'product' and settings.main_image_display == 'Lightbox' %}
+    {{ 'jquery.easing-1.3.pack.js' | asset_url | script_tag }}
+    {{ 'jquery.mousewheel-3.0.4.pack.js' | asset_url | script_tag }}
+    {{ 'jquery.fancybox-1.3.4.pack.js' | asset_url | script_tag }}
+    <script>
+        $("a[rel='fancybox']").fancybox({
+            'hideOnContentClick': true
+        });
+    </script>
+{% endif %}
+
+{{ 'enhance.jquery.js' | asset_url | script_tag }}
+{{ 'hoverintent.jquery.js' | asset_url | script_tag }}
+{{ 'radiance.js' | asset_url | script_tag }}
+
+<script type="text/javascript" charset="utf-8">
+    //<![CDATA[
+
+    // Including api.jquery.js conditionnally.
+    if (typeof Shopify.onCartShippingRatesUpdate === 'undefined') {
+        document.write({{ "api.jquery.js" | shopify_asset_url | script_tag | json }});
+    }
+
+    //]]>
+</script>
+
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery('#MobileNavTrigger').on('click', function (event) {
+            jQuery('body').toggleClass('MobileNavActive');
+        });
+    });
+</script>
+
+
+<!-- ==============     Freeshipping progress bar     ============== -->
+<script>
+    $(document).ready(function () {
+        var Orders_Over = 150; //$X amount shipping limit
+        get_freeshipping_progress_bar();
+    });
+</script>
+<!-- ==============     Freeshipping progress bar     ============== -->
+
+<script>
+    $(window).scroll(function () {
+        var threshold = $("#top").height() + 70;
+        var dech = $('.description').height();
+        var swatchh = $('#product-order').height();
+
+        var totalh = (dech + swatchh - 50);
+        if ($(window).scrollTop() >= threshold) {
+            $('.left_stiky').addClass('fixed');
+            $('.left_stiky').removeClass('bottom');
+        } else {
+            $('.left_stiky').removeClass('fixed');
+            $('.left_stiky').removeClass('bottom');
+        }
+        if ($(window).scrollTop() >= totalh) {
+            $('.left_stiky').removeClass('fixed');
+            $('.left_stiky').addClass('bottom');
+        }
+    });
+</script>
+<script>window.KlarnaThemeGlobals = {};{% case template.name %} {% when "product" %} window.KlarnaThemeGlobals.data_purchase_amount ="{{ product.first_available_variant.price }}";
+    window.KlarnaThemeGlobals.productVariants = "{{ product.variants | json }}";
+    window.KlarnaThemeGlobals.documentCopy = document.cloneNode(true);{% when "cart" %} window.KlarnaThemeGlobals.data_purchase_amount ="{{ cart.total_price }}";
+    window.KlarnaThemeGlobals.documentCopy = document.cloneNode(true);{% endcase %}
+</script>

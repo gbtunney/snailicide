@@ -10,6 +10,7 @@ interface IProps {
   hr?: boolean,
   path?: string,
   icon_set?: string,
+  content?: string
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -19,7 +20,7 @@ const props = withDefaults(defineProps<IProps>(), {
   el: 'div',
   inline: true,
   path: 'baseline-content-copy',
-  icon_set: 'ic'
+  icon_set: 'ic',
 })
 
 const getBackgroundLineCSS = computed(() => {
@@ -53,9 +54,9 @@ const cssClasses = computed(() => {
 
     <!-- CENTER -->
     <div class="flex justify-center w-full" :style="getBackgroundLineCSS">
-      <span class="inline-flex p-px w-auto">
+      <span :class="(content === undefined ) ? 'hideContent': ''" class="bg-black inline-flex p-px w-auto">
         <slot>
-          <div v-text="'i am empty text'"/>
+          <div v-text="content"/>
         </slot>
       </span>
     </div>
@@ -70,6 +71,10 @@ const cssClasses = computed(() => {
   </component>
 </template>
 <style type="text/css">
+
+.hideContent > * {
+  visibility: hidden;
+}
 
 .v-center {
   justify-content: center;

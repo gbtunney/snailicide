@@ -36,7 +36,7 @@ const cssClasses = computed(() => {
 })
 
 const useIconify = computed(() => {
-  return !(validateString(props.path, ".svg", endsWith))
+  return !(validateString(props.path, ".svg", contains))
 })
 const iconPath = computed(() => {
   return (useIconify.value)
@@ -52,7 +52,6 @@ const iconPath = computed(() => {
       v-bind:is="`${props.el}`"
       :class="cssClasses"
       class="g-svg">
-    <slot>
       <!-- Iconify Icon -->
       <Icon
           v-if="useIconify"
@@ -64,7 +63,6 @@ const iconPath = computed(() => {
           v-else
           :src="iconPath"
           class="iconify"/>
-    </slot>
   </component>
 </template>
 <style type="text/css">

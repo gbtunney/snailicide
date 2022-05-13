@@ -1,3 +1,4 @@
+/*
 export {
     lowerCase,
     upperCase,
@@ -9,14 +10,7 @@ export {
     slugify,
     hyphenate,
     unhyphenate,
-    underscore,
-    removeNonWord,
-    normalizeLineBreaks,
-    replaceAccents,
-    escapeRegExp,
-    escapeHtml,
-    unescapeHtml,
-    escapeUnicode,
+
     stringContainsNumber,
     stringContainsLetter
 } from './src/scripts/string'
@@ -47,3 +41,4 @@ export {
 } from './src/scripts/transformString'
 
 export {importantConsoleLog} from "./src/scripts/_console"
+*/

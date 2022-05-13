@@ -1,9 +1,13 @@
 import { createApp } from 'vue'
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue'
 import WebFont from "webfontloader";
-import { Icon } from '@iconify/vue';
+
+import { gIconify,gKabob,InlineSvg } from '@snailicide/g-patternlab';
 // or as a component
-import InlineSvg from 'vue-inline-svg';
+//import InlineSvg from 'vue-inline-svg';
+//import './styles/styles.theme.2012.css'
+//import './styles/main.css'
+
 import router from './router'
 import 'windi.css'
 
@@ -18,8 +22,8 @@ WebFont.load({
 });
 
 
-import './styles/styles.theme.2012.css'
-import './styles/main.css'
+
+
 
 
 
@@ -31,21 +35,21 @@ const createVueApp = () => {
      * vue components
      * auto-import all vue components
      */
-    const vueComponents = require.context('@/components/', true, /\.(vue|js)$/)
+/*    const vueComponents = require.context('@/components/', true, /\.(vue|js)$/)
 
     vueComponents.keys().forEach(key => {
         const component = vueComponents(key).default
-console.log("Hde",key)
         // if a component has a name defined use the name, else use the path as the component name
         const name = component.name
             ? component.name
             : key.replace(/\.(\/|vue|js)/g, '').replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase())
-
-
         app.component("hello-world", HelloWorld)
-    })
-    app.component("g-icon", Icon)
+    })*/
+    app.component("g-icon", gIconify)
+   app.component("g-kabob", gKabob)
     app.component('inline-svg', InlineSvg);
+
+
 
     return app
 }
@@ -64,7 +68,5 @@ if (appElement) {
 }
 
 
-
 //console.log("VUE_APP_TITLE" , process.env.VUE_APP_TITLE,process.env.VUE_APP_TYPEKIT_ID)
 //createApp(HelloWorld).use(router).mount('#appvue')
-

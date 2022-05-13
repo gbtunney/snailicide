@@ -9,12 +9,13 @@ import preset3rdPartyPlugins from "./presets/active3party.plugins"
 import scratch from "./presets/scratch"
 
 const active_presets = [
-    presetColorDefaults,
+   // presetColorDefaults,
     presetOwool,
-    presetColorScaleDemo,
+ //   presetColorScaleDemo,
     preset3rdPartyPlugins,
     scratch
 ]
+
 export const windiConfig: IWindiConfig = {
     attributify: true,
     //preflight: false,

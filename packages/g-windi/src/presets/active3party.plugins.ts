@@ -5,10 +5,11 @@ import line_clamp from 'windicss/plugin/line-clamp'
 import typography from 'windicss/plugin/typography'
 
 const active_plugins = [
-    filters,
+  /*  filters,
     aspect_ratio,
     forms,
-    line_clamp,
+    line_clamp,*/
+    forms,
     typography({
         modifiers: ['DEFAULT', 'sm', 'lg', 'red'],
     })

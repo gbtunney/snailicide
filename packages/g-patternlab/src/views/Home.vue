@@ -7,6 +7,9 @@
       know what your designer is talking about when they say something like,
       “Can we increase the leading of that paragraph?”, but also
       understand <em>why</em> they want you to increase it.</p>
+    <g-kabob class="w-full text-brandGrey" path="//cdn.shopify.com/s/files/1/0084/4044/7094/t/34/assets/divider.svg?v=299449771904712161651528282">ELLO THRRE</g-kabob>
+
+
     <gIconify :inline="true" path="mdi:home" class="text-2xl text-red-600 bg-red-200 "></gIconify>
     <hr>
     <g-kabob

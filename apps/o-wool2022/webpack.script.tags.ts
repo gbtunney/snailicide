@@ -59,6 +59,8 @@ const CONFIG: ShopifyBoilerplateConfig = {
             from: ["src/assets/snippets/**/*.liquid"],
             to: "shopify/snippets/s-[name][ext]"
         }]
+    //ls src/assets/**/*.{eot,json,ttf,woff,woff2,js,css,svg,js,vue}
+    // ls src/assets/**/*.{js,scss.liquid}
 }
 
 const script_tag_options = {

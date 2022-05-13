@@ -1,1 +1,4 @@
-
+.section-details .view-more {
+    float: right;
+    line-height: 32px;
+}
