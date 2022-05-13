@@ -11,21 +11,58 @@
 
     {% paginate collection.products by 21 %}
       {% if collection.products.size > 0 %}
-    
-        <ul class="product-grid clearfix">
-        {% for product in collection.products %}
-          <li{% cycle '', '', ' class="last-in-row"' %}>
-            {% include 'product-grid-item' %}
-          </li>
-        {% endfor %}
+
+      {% assign gridName = 'product-grid' %}
+
+        <ul class="{{ gridName }} grid gap-8 <sm:grid-cols-1  <md:grid-cols-3  grid-cols-4 clearfix">
+            {% for product in collection.products %}
+                <div class="{{ gridName }}__card">
+                    <a class="{{ gridName }}__image_wrapper" href="{{ product.url | within: collection }}" title="{{ product.featured_image.alt | escape }}">
+                        <div class="{{ gridName }}__image">
+                            <img class="object-contain h-auto w-full " src="{{ product.featured_image | product_img_url: '500x' }}" alt="{{ product.featured_image.alt | escape }}"/>
+                        </div>
+                        <div class="{{ gridName }}__price">
+                            {% if product.price_varies %}
+                                <small>from</small> {{ product.price_min | money }}
+                            {% else %}
+                                {{ product.price_min | money | remove: '.00' }}
+                            {% endif %}
+                        </div>
+
+                        <div class="{{ gridName }}__badge_wrapper">
+                            <div class="{{ gridName }}__badge global_Collection_ic">
+                                {% for tag in product.tags %}
+                                    {% if tag contains 'GLOBAL ORGANIC' %}
+                                        <img src="{{ 'global_organic2.png' | asset_url }}" alt="todo: jocelyn fill me in"/>
+                                    {% endif %}
+                                    {% if tag contains 'GOTS logo' %}
+                                        <img src="{{ 'GOTS-logo.png' | asset_url }}" alt="todo: jocelyn fill me in"/>
+                                    {% endif %}
+                                    {% if tag contains 'GOTSCERES-029' %}
+                                        <img src="{{ 'RGW-GOTS-logo-vert.png' | asset_url }}" alt="todo: jocelyn fill me in"/>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </a>
+                    {% comment %}{% include 'product-grid-item' %}{% endcomment %}
+
+                    <a class="{{ gridName }}__meta" href="{{ product.url | within: collection }}">
+                        <h2>{{ product.title }}</h2>
+                        <h5>{{ product.type }}</h5>
+                    </a>
+
+
+                </div>
+            {% endfor %}
         </ul>
 
         {% include 'pagination' %}
-      
-      {% else %}    
+
+      {% else %}
         <strong>No products found in this collection.</strong>
       {% endif %}
     {% endpaginate %}
   </section>
-  
+
 </div> <!-- /#col-main -->

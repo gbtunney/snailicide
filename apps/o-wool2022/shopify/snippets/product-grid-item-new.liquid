@@ -1,0 +1,50 @@
+<div class="ProductThumb">
+
+  <div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <img class="w-full" src="{{ product.featured_image |  product_img_url: 'x800' }}" class="product-photo" alt="{{ product.featured_image.alt | escape }}" />
+
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">Mountain</div>
+      <p class="text-gray-700 text-base">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
+      </p>
+    </div>
+    <div class="px-6 pt-4 pb-2">
+      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+    </div>
+  </div>
+
+<div class="product-grid-item " id="product-{{ product.variants.first.id }}">
+
+  <a href="{{ product.url | within: collection }}" class="product-link" title="{{ product.featured_image.alt | escape }}">
+    <span class="product-price 123">
+    {% if product.price_varies %}
+      <small>from</small> {{ product.price_min | money }}
+    {% else %}
+      {{ product.price_min | money | remove: '.00' }}
+    {% endif %}
+    </span>
+    {{ product.featured_image  | img_url: 'x800' | img_tag }}
+
+{% comment %}    <img src="{{ product.featured_image | product_img_url: 'large' }}" class="product-photo" alt="{{ product.featured_image.alt | escape }}" />
+{% endcomment %}      {% for tag in product.tags %}
+		{% if tag contains 'GLOBAL ORGANIC' %}
+<span class="global_Collection_ic"><img src="//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/global_organic2.png" alt="" /></span>
+     	{% endif %}
+  {% if tag contains 'GOTS logo' %}
+<span class="global_Collection_ic"><img src="//cdn.shopify.com/s/files/1/0155/0473/files/GOTS-logo.png" alt="" /></span>
+     	{% endif %}
+  {% if tag contains 'GOTSCERES-029' %}
+<span class="global_Collection_ic"><img src="//cdn.shopify.com/s/files/1/0155/0473/files/RGW-GOTS-logo-vert.png" alt="" /></span>
+     	{% endif %}
+     {% endfor %}
+  </a>
+
+  <div class="product-information">
+    <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  </div>
+
+</div>
+</div>

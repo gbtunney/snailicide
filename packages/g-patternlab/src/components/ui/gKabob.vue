@@ -4,8 +4,9 @@ import gIconify from './gIconify.vue';
 
 interface IProps {
   direction?: "column" | "row"
+  fit?: boolean,
+  grid?: boolean,
   line_width?: string,
-  inline?: boolean,
   el?: string,
   hr?: boolean,
   path?: string,
@@ -14,13 +15,15 @@ interface IProps {
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  direction: "row",
+  grid: true,
+  direction: "column",
+  fit: false,
   line_width: '1px',
   hr: true,
   el: 'div',
-  inline: true,
   path: 'baseline-content-copy',
   icon_set: 'ic',
+  content: 'fff',
 })
 
 const getBackgroundLineCSS = computed(() => {
@@ -31,8 +34,10 @@ const getBackgroundLineCSS = computed(() => {
 
 const cssClasses = computed(() => {
   return [
-    'flex',
-    ...props.direction === "row" ? ['flex-row'] : ['flex-column']
+    ...props.grid !== true ? ['flex'] : ['grid'],
+    ...props.direction === "row"
+        ? [`${props.grid !== true ? 'flex' : 'grid'}-row`]
+        : [`${props.grid !== true ? 'flex' : 'grid'}-column`]
   ]
 })
 
@@ -41,7 +46,7 @@ const cssClasses = computed(() => {
   <component
       v-bind:is="`${props.el}`"
       :class="cssClasses"
-      class="justify-center items-center"
+      class="items-center"
   >
     <!-- LEFT COLUMN -->
     <slot name="left">
@@ -53,8 +58,10 @@ const cssClasses = computed(() => {
     </slot>
 
     <!-- CENTER -->
-    <div class="flex justify-center w-full" :style="getBackgroundLineCSS">
-      <span :class="(content === undefined ) ? 'hideContent': ''" class="bg-black inline-flex p-px w-auto">
+    <div
+        :class="props.fit ? 'w-auto' : 'w-full'"
+        class="text-center" :style="getBackgroundLineCSS">
+      <span :class="(content === undefined ) ? 'hideContent': ''" class="inline-flex p-px w-auto">
         <slot>
           <div v-text="content"/>
         </slot>
@@ -70,7 +77,31 @@ const cssClasses = computed(() => {
     </slot>
   </component>
 </template>
-<style type="text/css">
+<style type="text/css" lang="scss">
+
+.grid {
+  display: grid;
+
+  &-row {
+    grid-template-rows: auto 1fr auto
+  }
+
+  &-column {
+    grid-template-columns: auto 1fr auto
+  }
+}
+
+.flex {
+  display: flex;
+
+  &-row {
+    flex-direction: row;
+  }
+
+  &-column {
+    flex-direction: column;
+  }
+}
 
 .hideContent > * {
   visibility: hidden;

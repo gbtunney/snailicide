@@ -1,0 +1,70 @@
+<!-- /snippets/search-bar.liquid -->
+{% comment %}
+				{% render 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header', searchplaceholder: ' ',input_flags: '',button_flags:'--no-border' %}
+
+A snippet to include a search bar anywhere in your theme.
+Note we are using 'input-group' for the layout. Look under Forms > Input Groups for some demos.
+
+More information:
+- http://docs.shopify.com/themes/liquid-variables/search
+
+To return only products in results:
+- http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+- Or manually add type=product to the search URL as a query parameter
+- Uncomment hidden input with value="product" below
+
+{% endcomment %}
+
+{% assign default_component_id = 'icon' %}
+
+{% assign defaultplaceholder = 'Search Our Store' %}
+
+{% assign input_group_component_name = 'c-input-group' %}
+{% assign input_component_name = 'c-input' %}
+{% assign button_component_name = 'c-button' %}
+{% assign search_icon_name = 'search' %}
+
+{% assign input_style_modifier = 'light-alt' %}
+{% assign button_style_modifier = 'light-alt' %}
+{% assign input_flags = '' %}
+{% assign button_flags = '--round-right' %}
+
+{% comment %}
+Set the default button style if not defined
+{% endcomment %}
+{% unless search_btn_style %}
+    {% assign search_btn_style = 'btn--secondary' %}
+{% endunless %}
+
+<form action="/search" method="get" class=" search-bar {{ search_bar_location }}" role="search">
+    {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+    <input class="{{ input_component_name }} {{ input_component_name }}--{{ input_style_modifier }} {{ input_flags }}" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ searchplaceholder | default: defaultplaceholder }}" aria-label="{{ 'general.search.placeholder' | t }}">
+
+    <label for="q" class="{{ button_component_name }} {{ button_component_name }}--{{ button_style_modifier }} {{ button_flags }}  icon-fallback-text">
+        <div class="c-button__icon">
+            <g-icon path="fe:search"/>
+        </div>
+        <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
+    </label>
+    <script>
+        var CLICKDONE = false;
+        $(document).ready(function () {
+
+            if (!CLICKDONE) {
+                $('.mobile-nav__item--search .js-mobile-search-button-trigger').click(function () {
+                    // event.preventDefault();
+                    console.log("CLICKEDD!", $('.mobile-nav__item--search .js-mobile-search-button-trigger').data('events'), $('bc-sf-search-suggestion-mobile-top-panel'));
+                    $('.bc-sf-search-suggestion-mobile-top-panel').css('display', 'block');
+                    // document.querySelector('#bc-sf-search-box-mobile').focus();
+                });
+            }
+
+            CLICKDONE = true;
+        });
+    </script>
+</form>
+{% assign searchplaceholder= nil %}
+{% assign search_bar_location= nil %}
+
+
+

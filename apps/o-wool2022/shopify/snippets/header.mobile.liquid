@@ -1,0 +1,40 @@
+<header class="{{ menu_name }} hidden" role="banner">
+
+	<div class="{{ menu_name }}__wrapper">
+		<div class="{{ menu_name }}__col">
+			<div class="{{ menu_name }}__mobile-nav-trigger">
+				<button type="button" class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left" aria-controls="NavDrawer">
+					<div class="c-button c-button--accent-primary --rounded  padding--sm ">
+						<div class="c-button__icon">
+							<g-icon path="quill:hamburger"/>
+						</div>
+					</div>
+					<span class="fallback-text">{{ 'general.drawers.navigation' | t }}</span>
+				</button>
+			</div>
+
+		</div>
+		<div class="{{ menu_name }}__col">
+			<div class="{{ menu_name }}__logo">
+				<a href="/" itemprop="url"
+				   class="site-logo{% if section.settings.logo != blank %} site-header__logo-image{% endif %}">
+					<div alt="{{ shop.name }}" class="Owool_Logo_SVG g-svg">
+						<inline-svg src="{{ 'o-wool-logo-w-text.svg' | asset_url }}" alt="{{ shop.name | escape }}"/>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="{{ menu_name }}__col col__final">
+			<div js-mount-vue="CartIndicator"></div>
+
+			<div class="{{ menu_name }}__search">
+				{% include 'search-bar', input_style_modifier: 'accent-primary' ,button_style_modifier: 'accent-primary', search_bar_location: 'search-bar--header' %}
+			</div>
+		</div>
+
+	</div>
+
+	<div class="{{ menu_name }}__divider">
+		{% include 'c-divider'   with  style_modifier: header_style_modifier__divider %}
+	</div>
+</header>

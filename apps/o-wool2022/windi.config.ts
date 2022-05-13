@@ -55,13 +55,25 @@ export const windiConfig: IWindiConfig = {
         typography,
         plugin(({addComponents, theme}) => {
             const buttons = {
+                '.flex-center': {
+                    'justify-content': 'center',
+                    'align-items': 'center'
+                },
+                '.reflect-x': {
+                    'transform': 'scale(-1, 1)'
+                },
+                '.reflect-y': {
+                    'transform': 'scale(1, -1)'
+                },
+                '.g-svg-fill svg': {
+                    '& path, & g, & rect, & circle': {
+                        "fill": 'currentColor'
+                    },
+                },
                 '.g-svg svg': {
                     'display': 'block',
                     'width': '100%',
                     'height': '100%',
-                    '& path, & g, & rect, & circle': {
-                        "fill": 'currentColor'
-                    },
                 },
                 '.btn': {
                     padding: '.5rem 1rem',

@@ -122,18 +122,20 @@ body {
 }
 
 #col-main.content {
+    /*
     width: 900px;
+    */
     font-size: 16px;
     letter-spacing: 0.05em;
 }
 
 #col-main.index {
-    width: 916px !important;
+   /* width: 916px !important;*/
     margin: 0 auto;
 }
 
 #col-main.full {
-    width: 900px;
+/*    width: 900px;*/
     float: none;
     margin: 0 auto;
 }
@@ -499,58 +501,66 @@ body {
     color: #555 !important;
 }
 
-.product-grid {
+.product-grid-new {
     list-style: none;
     margin: 0;
+   /* display: grid;
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: auto;*/
 }
 
-.product-grid li {
-    width: 253px;
+.product-grid-new li {
+   /* width: 253px;
     float: left;
     margin: 0 35px 10px 0;
-    padding: 8px 10px;
+    padding: 8px 10px;*/
     position: relative;
     border: 1px solid #FFF;
 }
 
-.product-grid li:hover {
+.product-grid-new li:hover {
     border: 1px solid #aed2c2;
     background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/grid-hover.png?v=3899892385498010040) no-repeat right bottom;
 }
 
-.product-grid .last-in-row {
+/*.product-grid-new .last-in-row {
     margin-right: 0;
-}
+}*/
 
-.generated-height .product-grid-item {
+/*.generated-height .product-grid-new-item {
     width: 253px;
     position: absolute;
     top: 10px;
     margin: 0 auto;
-}
+}*/
 
-.product-grid img {
+.product-grid-new img {
     display: block;
-    max-width: 253px;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+
+  /*  max-width: 253px;*/
     margin: 0 auto;
 }
 
-.product-grid a {
+.product-grid-new a {
     text-decoration: none;
     display: block;
 }
 
-.product-grid a:hover {
+.product-grid-new a:hover {
     color: #555;
 }
 
-.product-grid .product-link {
+.product-grid-new .product-link {
     display: block;
     position: relative;
     z-index: 1;
     text-decoration: none;
     margin: 0;
-    min-height: 50px;
+    min-height: auto;
     /* for ie6: */
     width: 100%;
 }
@@ -560,7 +570,7 @@ body {
     margin: 0 auto;
 }
 
-.ie6 .product-grid {
+.ie6 .product-grid-new {
     overflow: hidden;
 }
 
@@ -596,7 +606,7 @@ body {
     background: #FFF;
 }
 
-.product-grid li:hover .product-price {
+.product-grid-new li:hover .product-price {
     display: block;
 }
 
@@ -2089,7 +2099,7 @@ a.btn:hover,
     background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/placeholder-product.png?v=3352225548228640857) 50% 50% no-repeat;
 }
 
-.product-grid .placeholder {
+.product-grid-new .placeholder {
     width: 177px;
     height: 130px;
     display: block;

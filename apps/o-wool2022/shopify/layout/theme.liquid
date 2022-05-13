@@ -67,6 +67,19 @@
     {{ '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js' | script_tag }}
     {{ 'jquery.selectbox-0.2.min.js' | asset_url | script_tag }}
 
+    <script>
+        window.windicssRuntimeOptions = {
+            // enabled preflight
+            preflight: true,
+            // scan the entire dom tree to infer the classnames on page loaded
+            extractInitial: true,
+            // generate mock classes for browser to do the auto-completeion
+            mockClasses: false,
+            // the windi config you are used to put in `windi.config.js`
+            config: {}
+        }
+    </script>
+    <script src="https://unpkg.com/windicss-runtime-dom"></script>
     {% render 'shogun-head' %}
 </head>
 
@@ -75,9 +88,10 @@
 
 <div id="app" class="wrapper">
 
+    {% section 'header' %}
 
     <!-- Header -->
-    <header id="top" class="clearfix">
+    <header  style="display: none" id="top" class="clearfix">
         <button type="button" class="mobile-nav-trigger navbar-toggle" id="MobileNavTrigger" data-menu-state="close" style="display:none;">
             <span class="icon icon-hamburger sr-only" aria-hidden="true"></span>
             <span class="icon-bar"></span>
@@ -87,12 +101,15 @@
         </button>
         <h1 id="site-title">
             <a href="/" title="Home">
-                <img src="{{ 'o-wool-logo.png' | asset_url }}" alt="{{ shop.name | escape }}"/>
+                <div class="g-svg w-1/12">
+                    <inline-svg src="{{ 'o-wool-logo-w-text.svg' | asset_url }}" alt="{{ shop.name | escape }}"/>
+                </div>
             </a>
         </h1>
 
-        <nav id="top-menu" class="clearfix">
-            <ul>
+
+        <nav style="display: none" class="clearfix">
+            <ul id="top-menu" >
                 {% for link in linklists.main-menu.links %}
                     <li class="{% if forloop.first %}first{% elsif forloop.last %}last{% endif %}">
                         {% assign child_list_handle = link.title | handleize %}
@@ -116,13 +133,11 @@
                 {% endfor %}
             </ul>
 
-            {% if settings.show_header_search %}
                 <form id="header-search" action="/search" method="get">
                     <label for="top-search-input" class="visuallyhidden">Search</label>
                     <input type="text" id="top-search-input" name="q" class="search-input" value="" accesskey="4" autocomplete="off" placeholder="Search"/>
                     <input type="submit" id="top-search-submit" class="search-submit ir" value="Search"/>
                 </form>
-            {% endif %}
 
         </nav>
 
@@ -131,9 +146,9 @@
 
     </header>
 
-    <div class="container bg-red">
-        <g-kabob class="text-brandGrey" :inline="true" path="{{ 'divider.svg' | asset_url }}"></g-kabob>
-        {% render 'g-styleguide' %}
+    <div class="container ">
+
+  {% comment %}      {% render 'g-styleguide' %}{% endcomment %}
     </div>
 
 

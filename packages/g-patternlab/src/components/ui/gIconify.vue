@@ -51,7 +51,7 @@ const iconPath = computed(() => {
   <component
       v-bind:is="`${props.el}`"
       :class="cssClasses"
-      class="g-svg">
+      class="g-svg g-svg-fill">
       <!-- Iconify Icon -->
       <Icon
           v-if="useIconify"

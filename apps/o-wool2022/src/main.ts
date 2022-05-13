@@ -5,11 +5,19 @@ import WebFont from "webfontloader";
 import { gIconify,gKabob,InlineSvg } from '@snailicide/g-patternlab';
 // or as a component
 //import InlineSvg from 'vue-inline-svg';
-//import './styles/styles.theme.2012.css'
-//import './styles/main.css'
+import 'windi.css'
+import './styles/styles.theme.2012.css'
+
+import './styles/reset.scss'
+import './styles/main.css'
+
+import './styles/_product-grid-card.scss'
+
+
+
 
 import router from './router'
-import 'windi.css'
+
 
 WebFont.load({
     fontactive: function (familyName:string, fvd) {
@@ -28,6 +36,18 @@ WebFont.load({
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 const createVueApp = () => {
     const app = createApp({})
     //console.log("Hde",HelloWorld)
@@ -36,6 +56,10 @@ const createVueApp = () => {
      * auto-import all vue components
      */
 /*    const vueComponents = require.context('@/components/', true, /\.(vue|js)$/)
+
+
+
+
 
     vueComponents.keys().forEach(key => {
         const component = vueComponents(key).default
@@ -48,8 +72,6 @@ const createVueApp = () => {
     app.component("g-icon", gIconify)
    app.component("g-kabob", gKabob)
     app.component('inline-svg', InlineSvg);
-
-
 
     return app
 }
@@ -68,5 +90,11 @@ if (appElement) {
 }
 
 
-//console.log("VUE_APP_TITLE" , process.env.VUE_APP_TITLE,process.env.VUE_APP_TYPEKIT_ID)
+
+
+
+
+
+//console.log("VUE_APP_
+// TITLE" , process.env.VUE_APP_TITLE,process.env.VUE_APP_TYPEKIT_ID)
 //createApp(HelloWorld).use(router).mount('#appvue')

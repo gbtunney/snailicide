@@ -1,0 +1,53 @@
+<header class="{{ menu_name }}" role="banner">
+
+	<div class="{{ menu_name }}__wrapper">
+		<div class="{{ menu_name }}__logo">
+			<a href="/" itemprop="url"
+			   class="site-logo{% if section.settings.logo != blank %} site-header__logo-image{% endif %}">
+				<div alt="{{ shop.name }}" class="Owool_Logo_SVG g-svg">
+					<inline-svg src="{{ 'o-wool-logo-w-text.svg' | asset_url }}" alt="{{ shop.name | escape }}"/>
+				</div>
+			</a>
+		</div>
+		<div class="{{ menu_name }}__meta">
+			<div class="{{ menu_name }}__search" >
+				{% render 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header', searchplaceholder: ' ',input_flags: '',button_flags:'--no-border' %}
+			</div>
+
+			<div class="{{ menu_name }}__social">
+				{% render 's-ui-social-icons' %}
+			</div>
+			<hr>
+			{% if shop.customer_accounts_enabled %}
+				<div class="{{ menu_name }}__customer">
+					{% if customer %}
+						<div class="{{ menu_name }}__customer-account">
+							{% if customer.first_name != blank %}
+								{% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+								{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+							{% else %}
+								<a href="/account">{{ 'layout.customer.account' | t }}</a>
+							{% endif %}
+						</div>
+						<div class="{{ menu_name }}__customer-logout">
+							{{ 'layout.customer.log_out' | t | customer_logout_link }}
+						</div>
+					{% else %}
+						<div class="{{ menu_name }}__customer-login">
+							{{ 'layout.customer.log_in' | t | customer_login_link }}
+						</div>
+						<div class="{{ menu_name }}__customer-create">
+							{{ 'layout.customer.create_account' | t | customer_register_link }}
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
+
+		</div>
+		{% render 'header.menu' %}
+	</div>
+
+	<div class="{{ menu_name }}__divider">
+		<g-kabob class="text-dark" :inline="true" path="{{ 'divider.svg' | asset_url }}"></g-kabob>
+	</div>
+</header>
