@@ -21,6 +21,7 @@ const getFileArr = function (_globpath: string) {
 type Pattern = {
     from: string | string[]
     to: string,
+    force?: boolean
 }
 
 type ShopifyBoilerplateConfig = {
@@ -48,16 +49,38 @@ const CONFIG: ShopifyBoilerplateConfig = {
     },
     assets: [
         {
-            from: ["dist/js/*.js", "dist/css/*.css"],
+            from: ["dist/**/*.{js,css}"],
+            to: "shopify/assets/[name][ext]",
+            force: true
+        },
+        {
+            from: ["src/shopify/assets/**/*"],
             to: "shopify/assets/[name][ext]"
         },
         {
-            from: ["src/assets/**/*"],
-            to: "shopify/assets/[name][ext]"
-        },
-        {
-            from: ["src/assets/snippets/**/*.liquid"],
+            from: ["src/shopify/snippets/**/*.liquid"],
             to: "shopify/snippets/s-[name][ext]"
+        }]
+    //ls src/assets/**/*.{eot,json,ttf,woff,woff2,js,css,svg,js,vue}
+    // ls src/assets/**/*.{js,scss.liquid}
+}
+
+const WATCH_CONFIG: ShopifyBoilerplateConfig = {
+    script_tag: {
+        input_template: "build/template/template-script-tag.liquid",
+        output: "shopify/snippets/s-script-tag.liquid",
+        build: {
+            js: "dist/js/*.js",
+            css: "dist/css/*.css",
+        },
+        copy: true
+    },
+
+    assets: [
+        {
+            from: ["dist/**/*.{js,css}"],
+            to: "shopify/assets/[name][ext]",
+            force: true
         }]
     //ls src/assets/**/*.{eot,json,ttf,woff,woff2,js,css,svg,js,vue}
     // ls src/assets/**/*.{js,scss.liquid}
@@ -88,15 +111,19 @@ const getCopyPattern = (from: string, to: string): Pattern => {
     return {
         from: path.resolve(__dirname, from),
         to: path.resolve(__dirname, to),
+        force: true,
     }
 }
-
-module.exports = {
-    entry: path.resolve(__dirname, "index.ts"),
-    plugins: [
-        new HtmlWebpackPlugin(script_tag_options),
-        new CopyPlugin({
-            patterns: getAssetPatterns(CONFIG)
-        }),
-    ],
+module.exports = (env) => {
+    console.log('MODE: ', env.mode);
+    return {
+        entry: path.resolve(__dirname, "index.ts"),
+        plugins: [
+            new HtmlWebpackPlugin(script_tag_options),
+            new CopyPlugin({
+                patterns: [...getAssetPatterns(CONFIG)]
+            }),
+        ],
+    };
 };
+

@@ -1,0 +1,19 @@
+.section-details .view-more {
+	float: right;
+	line-height: 32px;
+}
+
+.Owool_Logo_SVG {
+	width: 200px;
+	background: red;
+}
+
+@import "@snailicide/g-patternlab/stylesheets/mixins.scss";
+.debug-children {
+	@include debug-boundaries-children();
+}
+
+.debug-parent {
+	@include debug-boundaries-parent();
+}
+

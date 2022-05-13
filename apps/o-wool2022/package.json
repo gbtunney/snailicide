@@ -5,15 +5,18 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "start": "run-p -sr  build-watch shopify:serve && --live-reload hot-reload",
-    "deploy": "run-s build webpack && cd shopify && shopify theme push",
-    "build-watch": "vue-cli-service build-watch --mode development",
+    "deploy:dev": "run-s clean build:dev webpack ",
+    "deploy": "run-s clean build webpack shopify:push",
+    "shopify:serve": "cd shopify && shopify theme serve",
+    "shopify:push": "cd shopify && shopify theme push",
     "build": "vue-cli-service build",
+    "build:dev": "vue-cli-service build --mode development",
+    "build-watch": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.config.watch.js NODE_ENV=development vue-cli-service build-watch --mode development",
     "clean": "run-s clean:dist clean:snippets",
     "clean:dist": "rm -R -f dist   &&   rm -R -f shopify/assets",
     "clean:snippets": " rm -f shopify/snippets/s-*.liquid",
     "test:build": "run-s  webpack",
     "webpack": "webpack --config=webpack.script.tags.ts",
-    "shopify:serve": "cd shopify && shopify theme serve",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
@@ -27,7 +30,7 @@
     "@types/webfontloader": "^1.6.34",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@vue/apollo-option": "^4.0.0-alpha.16",
-    "@vueuse/core": "^8.2.0",
+    "@vueuse/core": "^8.4.2",
     "add": "^2.0.6",
     "core-js": "^3.8.3",
     "graphql": "^16.3.0",
@@ -71,7 +74,8 @@
     "vue-cli-plugin-windicss": "~1.1.3",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
-    "windicss-analysis": "^0.3.5"
+    "windicss-analysis": "^0.3.5",
+    "windicss-runtime-dom": "^3.0.0"
   },
   "eslintConfig": {
     "root": true,
