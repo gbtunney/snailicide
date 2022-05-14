@@ -31,8 +31,8 @@ if (process.env.NODE_ENV !== 'production') {
         new CopyPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, "dist/js/*.js"),
-                    to: path.resolve(__dirname, "shopify/assets/[name][ext]"),
+                    from: path.resolve(__dirname, "./../../dist/js/*.js"),
+                    to: path.resolve(__dirname, "./../../shopify/assets/[name][ext]"),
                 },
             ],
         }),

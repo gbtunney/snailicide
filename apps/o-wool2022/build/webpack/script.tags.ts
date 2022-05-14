@@ -39,48 +39,27 @@ type ShopifyBoilerplateConfig = {
 
 const CONFIG: ShopifyBoilerplateConfig = {
     script_tag: {
-        input_template: "build/template/template-script-tag.liquid",
-        output: "shopify/snippets/s-script-tag.liquid",
+        input_template: "./../template/template-script-tag.liquid",
+        output: "./../../shopify/snippets/s-script-tag.liquid",
         build: {
-            js: "dist/js/*.js",
-            css: "dist/css/*.css",
+            js: "./../../dist/js/*.js",
+            css: "./../../dist/css/*.css",
         },
         copy: true
     },
     assets: [
         {
-            from: ["dist/**/*.{js,css}"],
-            to: "shopify/assets/[name][ext]",
+            from: ["./../../dist/**/*.{js,css}"],
+            to: "./../../shopify/assets/[name][ext]",
             force: true
         },
         {
-            from: ["src/shopify/assets/**/*"],
-            to: "shopify/assets/[name][ext]"
+            from: ["./../../src/shopify/assets/**/*"],
+            to: "./../../shopify/assets/[name][ext]"
         },
         {
-            from: ["src/shopify/snippets/**/*.liquid"],
-            to: "shopify/snippets/s-[name][ext]"
-        }]
-    //ls src/assets/**/*.{eot,json,ttf,woff,woff2,js,css,svg,js,vue}
-    // ls src/assets/**/*.{js,scss.liquid}
-}
-
-const WATCH_CONFIG: ShopifyBoilerplateConfig = {
-    script_tag: {
-        input_template: "build/template/template-script-tag.liquid",
-        output: "shopify/snippets/s-script-tag.liquid",
-        build: {
-            js: "dist/js/*.js",
-            css: "dist/css/*.css",
-        },
-        copy: true
-    },
-
-    assets: [
-        {
-            from: ["dist/**/*.{js,css}"],
-            to: "shopify/assets/[name][ext]",
-            force: true
+            from: ["./../../src/shopify/snippets/**/*.liquid"],
+            to: "./../../shopify/snippets/s-[name][ext]"
         }]
     //ls src/assets/**/*.{eot,json,ttf,woff,woff2,js,css,svg,js,vue}
     // ls src/assets/**/*.{js,scss.liquid}
@@ -115,9 +94,8 @@ const getCopyPattern = (from: string, to: string): Pattern => {
     }
 }
 module.exports = (env) => {
-    console.log('MODE: ', env.mode);
     return {
-        entry: path.resolve(__dirname, "index.ts"),
+        entry: path.resolve(__dirname, "./../../index.ts"),
         plugins: [
             new HtmlWebpackPlugin(script_tag_options),
             new CopyPlugin({

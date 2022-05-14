@@ -1,0 +1,33 @@
+<footer id="footer-app" class="container  lg:text-left">
+    <g-kabob class="text-sm text-primary-dk"  path="{{ 'divider.svg' | asset_url }}"></g-kabob>
+    <div class=" leading-4 text-left  p-6 text-gray-800">
+
+        <div class="grid lg:grid-cols-3 gap-4">
+            <ul class="footer-nav" class="clearfix">
+                {% for link in linklists.footer.links %}
+                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <ul class="footer-nav" class="clearfix">
+                {% for link in linklists.footer.links %}
+                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div class="mb-6 md:mb-0">
+                <h5 class="text-med text-left mb-2 uppercase">Footer text</h5>
+
+                <p class="mb-4  leading-5">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                    molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+                    aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center text-gray-700 p-4" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright: O-Wool
+    </div>
+</footer>

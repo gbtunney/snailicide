@@ -29,9 +29,12 @@ export const windiConfig: IWindiConfig = {
     },
     //preflight: false,
     //exclude:[/^hover:/,/^text/,],
-    safelist: 'p-1 p-2 p-3 p-4 font-sans prose font-serif flex inline-flex flex-row flex-column justify-center items-center',
+    safelist: 'radius-circle p-1 p-2 p-3 p-4 font-sans prose font-serif flex inline-flex flex-row flex-column justify-center items-center',
     presets: active_presets,
     rules: [],
+    shortcuts: {
+        'sm-caps': 'tracking-wide uppercase',
+    },
     theme: {
         gillian: {
             textColor: 'white',
@@ -55,6 +58,9 @@ export const windiConfig: IWindiConfig = {
         typography,
         plugin(({addComponents, theme}) => {
             const buttons = {
+                '.radius-circle':{
+                    'border-radius': '100%'
+                },
                 '.flex-center': {
                     'justify-content': 'center',
                     'align-items': 'center'

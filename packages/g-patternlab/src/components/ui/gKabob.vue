@@ -23,7 +23,6 @@ const props = withDefaults(defineProps<IProps>(), {
   el: 'div',
   path: 'baseline-content-copy',
   icon_set: 'ic',
-  content: 'fff',
 })
 
 const getBackgroundLineCSS = computed(() => {

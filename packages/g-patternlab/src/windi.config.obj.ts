@@ -8,6 +8,7 @@ export const windiConfig = {
     //exclude:[/^hover:/,/^text/,],
     //safelist: 'p-1 p-2 p-3 p-4 bg-pink bg-red hover:bg-corn-300',
     rules: [],
+
     theme: {
         gillian: {
             textColor: 'white',

@@ -43,7 +43,7 @@ const CUSTOM_THEME_COLORS = {
     "accent-primary": {
         "lt": colorMap.getIn(['gumleaf', '300']),
         "DEFAULT": colorMap.getIn(['gumleaf', 'DEFAULT']),
-        "dk": colorMap.getIn(['gumleaf', '700']),
+        "dk": colorMap.getIn(['gumleaf', '600']),
     },
     "accent-secondary": {
         "lt": colorMap.getIn(['corn', '300']),

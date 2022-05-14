@@ -1,34 +1,12 @@
 <div id="umbrella flex">
     <ul class="text-2xl text-dark hover:text-accent-secondary">
-        {% if settings.sm_facebook %}
-            <li class="icon facebook">
-                <a href="{{ settings.sm_facebook_link }}" target="_blank">
-                    <g-icon path="eva:facebook-fill"/>
-                </a>
-            </li>{% endif %}
-        {% if settings.sm_twitter %}
-            <li class="icon twitter">
-                <a href="{{ settings.sm_twitter_link }}"  target="_blank">
-                    <g-icon path="dashicons:twitter-alt" /></a>
-            </li>{% endif %}
-        {% if settings.sm_ravelry %}
-            <li class="icon ravelry">
-                <a href="{{ settings.sm_ravelry_link }}" target="_blank">
-                    <g-icon path="fa-brands:ravelry" />
-                </a>
-            </li>{% endif %}
-        {% if settings.sm_pinterest %}
-            <li class="icon pinterest">
-                <a href="{{ settings.sm_pinterest_link }}" target="_blank">
-                    <g-icon path="fa-brands:pinterest" />
-                </a>
-            </li>{% endif %}
-        {% if settings.sm_instagram %}
-            <li class="icon instagram" >
-                <a href="{{ settings.sm_instagram_link }}" target="_blank">
-                    <g-icon path="ant-design:instagram-filled" />
-                </a>
-            </li>{% endif %}
+
+        {% render 's-ui-social-icon', social_id: 'facebook', social_icon_path: 'eva:facebook-fill' %}
+        {% render 's-ui-social-icon', social_id: 'twitter', social_icon_path: 'dashicons:twitter-alt' %}
+        {% render 's-ui-social-icon', social_id: 'ravelry', social_icon_path: 'fa-brands:ravelry' %}
+        {% render 's-ui-social-icon', social_id: 'pinterest', social_icon_path: 'fa-brands:pinterest' %}
+        {% render 's-ui-social-icon', social_id: 'instagram', social_icon_path: 'ant-design:instagram-filled' %}
+
         {% if shop.customer_accounts_enabled %}
             <li class="customer-account-links">
                 {% if customer %}

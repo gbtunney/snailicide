@@ -13,10 +13,13 @@ import 'windi.css'
 import '@snailicide/g-patternlab/stylesheets/reset.scss'
 
 /* *OWOOL 2012 styles * */
-import './styles/styles.theme.2012.scss'
+//import './styles/styles.theme.2012.scss'
 
 /* * OWOOL STYLESHEET NEW * */
 import './styles/main.scss'
+
+
+
 
 //import './styles/_product-grid-card.scss'
 
@@ -33,6 +36,7 @@ WebFont.load({
     },
 
 });
+
 
 const createVueApp = () => {
     const app = createApp({})
@@ -62,6 +66,7 @@ const createVueApp = () => {
  * create and mount vue instance(s)
  */
 const appElement = document.querySelector('#app')
+const appFooterElement = document.querySelector('#footer-app')
 
 if (appElement) {
 
@@ -70,4 +75,9 @@ if (appElement) {
 } else {
     //   const vueElements = document.querySelectorAll('[vue]')
     //  if (vueElements) vueElements.forEach(el => createVueApp().mount(el))
+}
+
+if (appFooterElement) {
+    createVueApp().mount(appFooterElement)
+  //  const runtimeDom = useWindiCSSRuntimeDom({el: '#app'})
 }
