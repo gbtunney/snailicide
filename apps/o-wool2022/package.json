@@ -2,25 +2,33 @@
   "name": "@snailcide/o-wool2022",
   "version": "0.1.0",
   "private": true,
+  "config": {
+    "production": "132783243495",
+    "staging": "132783276263",
+    "development": "132783374567",
+    "SESSION_ENDPOINT": "my-value"
+  },
   "scripts": {
-    "serve": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service serve",
+
     "start": "run-p -sr  build-watch shopify:serve && --live-reload hot-reload",
     "dev": "run-s clean build:dev webpack:dev start",
     "deploy:dev": "run-s clean build:dev webpack:dev shopify:push",
     "deploy": "run-s clean build webpack shopify:push",
     "shopify:serve": "cd shopify && shopify theme serve",
-    "shopify:push": "cd shopify && shopify theme push",
+    "shopify:push": "cd shopify && shopify theme push ",
     "build": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build",
     "build:dev": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build --mode development",
     "build-watch": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.watch.js NODE_ENV=development vue-cli-service build-watch --mode development",
-    "clean": "run-s clean:dist clean:snippets",
-    "clean:dist": "rm -R -f dist && rm -R -f shopify/assets",
-    "clean:snippets": "rm -f shopify/snippets/s-*.liquid",
+
+    "clean": "rm -R -f dist && rm -R -f shopify/assets && rm -f shopify/snippets/s-*.liquid",
     "test:build": "run-s webpack",
     "webpack:dev": "webpack --env=development --config=build/webpack/script.tags.ts",
     "webpack": "webpack --config=build/webpack/script.tags.ts",
+
     "test:unit": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test:log": "echo {$npm_package_config_ENDPOINT};",
+    "vue:serve": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service serve"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
