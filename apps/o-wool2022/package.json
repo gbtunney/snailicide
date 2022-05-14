@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service serve",
     "start": "run-p -sr  build-watch shopify:serve && --live-reload hot-reload",
-    "deploy:dev": "run-s clean build:dev webpack start",
+    "dev": "run-s clean build:dev webpack:dev start",
+    "deploy:dev": "run-s clean build:dev webpack:dev shopify:push",
     "deploy": "run-s clean build webpack shopify:push",
     "shopify:serve": "cd shopify && shopify theme serve",
     "shopify:push": "cd shopify && shopify theme push",
@@ -16,6 +17,7 @@
     "clean:dist": "rm -R -f dist && rm -R -f shopify/assets",
     "clean:snippets": "rm -f shopify/snippets/s-*.liquid",
     "test:build": "run-s webpack",
+    "webpack:dev": "webpack --env=development --config=build/webpack/script.tags.ts",
     "webpack": "webpack --config=build/webpack/script.tags.ts",
     "test:unit": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service test:unit",
     "lint": "vue-cli-service lint"

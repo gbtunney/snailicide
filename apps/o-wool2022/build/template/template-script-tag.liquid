@@ -6,11 +6,17 @@ values: preload , css, js
 {% assign script-tag-section = script-tag %}
 {% case script-tag-section %}
 
-{% when 'preload' %}
-	<% for (var index in htmlWebpackPlugin.options.files_js) { %><link rel="preload" href="{{ '<%= htmlWebpackPlugin.options.files_js[index] %>' | asset_url }}" as="script"><% } %>
-	<% for (var index in htmlWebpackPlugin.options.files_css) { %><link rel="preload" href="{{ '<%= htmlWebpackPlugin.options.files_css[index] %>' | asset_url }}" as="script"><% } %>
-{% when 'css' %}
-	<% for (var index in htmlWebpackPlugin.options.files_css) { %>{{ '<%= htmlWebpackPlugin.options.files_css[index] %>' | asset_url | stylesheet_tag }}<% } %>
-{% when 'js' %}
-	<% for (var index in htmlWebpackPlugin.options.files_js) { %><script src="{{ '<%= htmlWebpackPlugin.options.files_js[index] %>' | asset_url }}" defer="defer"></script><% } %>
+	{% when 'script-url' %}
+		<% for (var index in htmlWebpackPlugin.options.script_url) { %>
+		<script src="<%= htmlWebpackPlugin.options.script_url[index] %>"></script><% } %>
+	{% when 'preload' %}
+		<% for (var index in htmlWebpackPlugin.options.files_js) { %>
+		<link rel="preload" href="{{ '<%= htmlWebpackPlugin.options.files_js[index] %>' | asset_url }}" as="script"><% } %>
+		<% for (var index in htmlWebpackPlugin.options.files_css) { %>
+		<link rel="preload" href="{{ '<%= htmlWebpackPlugin.options.files_css[index] %>' | asset_url }}" as="script"><% } %>
+	{% when 'css' %}
+		<% for (var index in htmlWebpackPlugin.options.files_css) { %>{{ '<%= htmlWebpackPlugin.options.files_css[index] %>' | asset_url | stylesheet_tag }}<% } %>
+	{% when 'js' %}
+		<% for (var index in htmlWebpackPlugin.options.files_js) { %>
+		<script src="{{ '<%= htmlWebpackPlugin.options.files_js[index] %>' | asset_url }}" defer="defer"></script><% } %>
 {% endcase %}

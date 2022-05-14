@@ -18,7 +18,7 @@ import '@snailicide/g-patternlab/stylesheets/reset.scss'
 /* * OWOOL STYLESHEET NEW * */
 import './styles/main.scss'
 
-
+import {tg_isNotUndefined}from '@snailicide/g-library'
 
 
 //import './styles/_product-grid-card.scss'
@@ -80,4 +80,20 @@ if (appElement) {
 if (appFooterElement) {
     createVueApp().mount(appFooterElement)
   //  const runtimeDom = useWindiCSSRuntimeDom({el: '#app'})
+}
+//import {windiConfig} from "../windi.config";
+//console.log("windiConfig",windiConfig)
+if (process.env.NODE_ENV !== 'production'  ) {
+    // @ts-expect-error todo: fix this error
+    window.windicssRuntimeOptions = {
+        // enabled preflight
+        preflight: true,
+        // scan the entire dom tree to infer the classnames on page loaded
+        extractInitial: true,
+        // generate mock classes for browser to do the auto-completeion
+        mockClasses: false,
+        // the windi config you are used to put in `windi.config.js`
+        config: {}
+
+    }
 }

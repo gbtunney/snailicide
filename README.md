@@ -1,6 +1,8 @@
 #Snailicide Monorepo 
 
 ##Packages
+shopify login --store=o-wool.myshopify.com
+
     @snailicide/g-library yarn --cwd packages/g-vue --cwd packages/g-patternlab add ts-expect
 @vueuse/core
 apollo-client graphql pinia ramda ramda-adjunct vue-property-decorator

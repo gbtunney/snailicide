@@ -74,6 +74,13 @@ const script_tag_options = {
     files_css: getFileArr(path.resolve(__dirname, CONFIG.script_tag.build.css)),
 }
 
+const get_script_tag_options = (env: boolean) => {
+    return {
+        ...{script_url: (env) ? ["https://unpkg.com/windicss-runtime-dom"] : []},
+        ...script_tag_options
+    }
+}
+
 const getAssetPatterns = (config: ShopifyBoilerplateConfig): Pattern[] => {
     let assetArr: Pattern[][] = (config.assets) ? config.assets.map((asset) => {
         const sources: string[] = ensureArray(asset.from)
@@ -97,11 +104,10 @@ module.exports = (env) => {
     return {
         entry: path.resolve(__dirname, "./../../index.ts"),
         plugins: [
-            new HtmlWebpackPlugin(script_tag_options),
+            new HtmlWebpackPlugin(get_script_tag_options(env.development)),
             new CopyPlugin({
                 patterns: [...getAssetPatterns(CONFIG)]
             }),
         ],
     };
 };
-
