@@ -1,0 +1,123 @@
+
+/**
+ * Comments
+ */
+
+.comment {
+	margin: 0 0 30px 0;
+	border-bottom: 1px solid #dddddd;
+	color: #888888;
+	font-size: 16px;
+	letter-spacing: 1px;
+}
+
+.comment-author {
+	color: #aed2c2;
+}
+
+.comment-content {
+	padding: 0 0;
+	font-size: 14px;
+	color: #555;
+	letter-spacing: normal;
+}
+
+.comment-posted {
+	font-style: italic;
+	margin: 0;
+	font-size: 11px;
+	line-height: 1;
+}
+
+.comment-form h2.title {
+	font-size: 16px;
+}
+
+.comment-form label {
+	display: block;
+	clear: both;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: 1px;
+	padding: 5px 0 2px;
+}
+
+.comment-form strong.req {
+	font-weight: normal;
+	color: #f4846a;
+}
+
+.comment-form #comment-submit {
+	margin: 10px 0 50px 0;
+	padding: 4px 10px;
+	background: #afd3c3;
+	border: none;
+	font-size: 14px;
+	letter-spacing: 1px;
+	font-style: italic;
+}
+
+.comment-form #comment-submit:hover {
+	color: #FFF;
+}
+
+.comment-form div {
+	margin: 30px 0 10px 0;
+}
+
+.comment-form .text {
+	float: left;
+	border: solid 1px #ccc;
+	padding: 5px;
+	width: 150px;
+	color: #666;
+}
+
+.comment-form .text:focus {
+}
+
+.comment-form textarea.text {
+	width: 500px;
+}
+
+.has-error label {
+	color: #e0360f;
+}
+
+.has-error label.error-msg {
+	color: #fff;
+}
+
+.has-error input,
+.has-error textarea,
+.has-error .text {
+	border: solid 1px #ff0000;
+}
+
+.error-msg,
+.success-msg,
+.errors {
+	padding: 10px;
+	color: #FFF;
+	text-align: left;
+	background: url('//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/btn-small-depth.png?v=17143281382988561562') 0 100% repeat-x;
+}
+
+.error-msg,
+.errors {
+	background-color: #eec517;
+}
+
+.success-msg {
+	background-color: #387700;
+}
+
+.errors {
+	margin: 0 1em 1.5em 0;
+}
+
+.errors ul,
+.errors li {
+	margin: 0;
+	list-style: none;
+}

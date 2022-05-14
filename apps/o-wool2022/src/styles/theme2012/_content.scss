@@ -1,0 +1,145 @@
+/**
+ * Content
+ */
+
+.content {
+	padding-bottom: 20px;
+	line-height: 1.5em;
+}
+
+.content.description { /* collection descriptions */
+
+	padding: 10px 20px 0 20px;
+
+
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	margin: 15px 0 15px 0;
+	float: left;
+	width: 700px;
+}
+
+.content a {
+	font-style: italic !important;
+	letter-spacing: 0.1em;
+	color: #71b799 !important;
+	text-decoration: none !important;
+}
+
+.content h2 {
+	color: #71b799 !important;
+	font-size: 22px;
+	font-weight: normal;
+	letter-spacing: 0.1em !important;
+	margin: 0 0 0 0;
+}
+
+.content a:hover {
+	opacity: 0.7;
+}
+
+.Events .content p {
+	margin: 0 0 0.5em 0;
+}
+
+article {
+	margin: 20px 0 20px 0;
+	padding: 0 0 88px 0;
+	background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/blog-hr.png?v=13988632725243683878) no-repeat center bottom;
+	font-size: 14px;
+	letter-spacing: 1px;
+}
+
+article:last-of-type {
+	background: none;
+	padding: 0 0 50px 0;
+}
+
+h2.title,
+h2.title a {
+	padding: 0;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 26px;
+	color: #555555;
+	letter-spacing: 0.1em;
+	text-decoration: none;
+}
+
+h2.title img {
+	vertical-align: middle;
+}
+
+article .author {
+	font-size: 14px;
+	line-height: 20px;
+	padding-bottom: 18px;
+}
+
+article .author-name {
+	color: #71b799;
+	font-size: 16px;
+}
+
+article .post-content img {
+	max-width: 580px;
+	height: auto;
+}
+
+article .post-content a {
+	font-style: italic;
+	color: #dbb40f;
+	text-decoration: none;
+}
+
+article footer {
+	font-size: 11px;
+	padding-top: 20px;
+}
+
+article footer p {
+	margin: 0;
+	font-size: 16px;
+}
+
+article footer .author {
+	float: left;
+}
+
+article footer .comments-link {
+	float: left;
+	padding: 20px 0;
+}
+
+article footer .comments-link a {
+	border: none;
+	font-style: normal;
+	text-decoration: none;
+	color: #555;
+}
+
+.comment-number {
+	padding: 5px 10px;
+	background: #aed2c2;
+}
+
+.comments-link a:hover .comment-number {
+	color: #FFF;
+}
+
+article footer .comments-link a:hover {
+	color: #aed2c2;
+}
+
+article footer .btn {
+	padding: 2px 10px;
+}
+
+span.prev {
+	float: left;
+}
+
+span.next {
+	float: right;
+}

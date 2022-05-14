@@ -1,0 +1,899 @@
+/**
+ * O-Wool
+ * A Shopify theme.
+ *
+ * Last update: October 8, 2012
+ *
+ * @version     1.0
+ * @author      Aeolidia
+ * @theme_url   http://aeolidia.com/
+ *
+ *
+ */
+
+
+/**
+ * Reset
+ */
+
+/**
+ * Base Content Styles
+ */
+
+/**
+ * Structure
+ */
+
+/**
+ * Header
+ */
+
+#top {
+    padding: 40px 0 0 0;
+    margin: 0 auto 18px auto;
+    position: relative;
+    z-index: 100;
+    width: 904px;
+}
+
+#site-title {
+    margin: 0;
+    position: relative;
+    bottom: 13px;
+}
+
+/**
+ * Top Menu
+ */
+
+/**
+ * Umbrella
+ */
+
+/**
+ * Sections
+ */
+
+.section-details {
+    margin: 0 0 10px 0;
+}
+
+.section-details a {
+    color: #555555;
+    text-decoration: none;
+}
+
+.section-details .view-more {
+    float: right;
+    line-height: 32px;
+}
+
+.section-title {
+    /*  font:  /1  this was broke;*/
+    color: #555555;
+    float: left;
+    margin: 0;
+}
+
+.diagonal-divider {
+
+    margin: 0 0 20px 0;
+}
+
+#page-title {
+    font-size: 22px;
+    padding: 0 0 15px 0;
+    margin: 20px 0 20px 0;
+    text-align: center;
+    color: #555 !important;
+}
+
+/**
+ * Product and Collection Grid
+ */
+
+/**
+ * Single Product
+ */
+
+/**
+ * Content
+ */
+
+.content {
+    padding-bottom: 20px;
+    line-height: 1.5em;
+}
+
+.content.description { /* collection descriptions */
+
+    padding: 10px 20px 0 20px;
+
+
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin: 15px 0 15px 0;
+    float: left;
+    width: 700px;
+}
+
+.content a {
+    font-style: italic !important;
+    letter-spacing: 0.1em;
+    color: #71b799 !important;
+    text-decoration: none !important;
+}
+
+.content h2 {
+    color: #71b799 !important;
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: 0.1em !important;
+    margin: 0 0 0 0;
+}
+
+.content a:hover {
+    opacity: 0.7;
+}
+
+.Events .content p {
+    margin: 0 0 0.5em 0;
+}
+
+article {
+    margin: 20px 0 20px 0;
+    padding: 0 0 88px 0;
+    background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/blog-hr.png?v=13988632725243683878) no-repeat center bottom;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+article:last-of-type {
+    background: none;
+    padding: 0 0 50px 0;
+}
+
+h2.title,
+h2.title a {
+    padding: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 26px;
+    color: #555555;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+}
+
+h2.title img {
+    vertical-align: middle;
+}
+
+article .author {
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 18px;
+}
+
+article .author-name {
+    color: #71b799;
+    font-size: 16px;
+}
+
+article .post-content img {
+    max-width: 580px;
+    height: auto;
+}
+
+article .post-content a {
+    font-style: italic;
+    color: #dbb40f;
+    text-decoration: none;
+}
+
+article footer {
+    font-size: 11px;
+    padding-top: 20px;
+}
+
+article footer p {
+    margin: 0;
+    font-size: 16px;
+}
+
+article footer .author {
+    float: left;
+}
+
+article footer .comments-link {
+    float: left;
+    padding: 20px 0;
+}
+
+article footer .comments-link a {
+    border: none;
+    font-style: normal;
+    text-decoration: none;
+    color: #555;
+}
+
+.comment-number {
+    padding: 5px 10px;
+    background: #aed2c2;
+}
+
+.comments-link a:hover .comment-number {
+    color: #FFF;
+}
+
+article footer .comments-link a:hover {
+    color: #aed2c2;
+}
+
+article footer .btn {
+    padding: 2px 10px;
+}
+
+span.prev {
+    float: left;
+}
+
+span.next {
+    float: right;
+}
+
+
+/**
+ * Pagination
+ * Modified from http://twitter.github.com/bootstrap/
+ */
+
+
+/**
+ * Widgets in the Right Column
+ */
+
+#col-widgets {
+    color: #777777;
+    font-size: 12px;
+}
+
+.widget {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin: 0 0 20px 0;
+    padding: 10px;
+}
+
+.widget h3 {
+    margin: 0 0 10px 0;
+    padding-bottom: 2px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #555;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #555;
+}
+
+#col-widgets .widget h3 a {
+    text-decoration: none;
+}
+
+.widget ul {
+    margin: 0;
+}
+
+.widget li {
+    padding: 0 0 5px 12px;
+    list-style: none;
+}
+
+.widget-btns a {
+    display: block;
+    padding: 6px 12px;
+    margin: 0 0 6px 0;
+    text-decoration: none;
+    overflow: hidden;
+    height: 1%;
+}
+
+.widget-btns img {
+    display: block;
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+.widget-btns .btn-text {
+    display: block;
+    width: 165px;
+    float: right;
+}
+
+/** twitter widget */
+.no-js #widget-twitter {
+    display: none;
+}
+
+.widget .tweet_list {
+    margin: 0;
+}
+
+.widget .tweet_list li {
+    margin: 0 0 10px 15px;
+    padding: 0 0 10px 0;
+    background: none;
+    word-wrap: break-word;
+    line-height: 1.3em;
+    list-style: disc !important;
+}
+
+/** linklist widget */
+.widget-linklist li {
+    padding: 8px 0 0 0;
+    margin: 8px 0 0 15px;
+    list-style: disc !important;
+}
+
+.widget-linklist li:first-child {
+}
+
+.widget-linklist li a {
+    display: block;
+    margin: 0 0 0 0;
+    text-decoration: none;
+    color: #777777;
+}
+
+.ie7 .widget-linklist li a {
+    float: left;
+}
+
+
+/**
+ * Customer Accounts
+ */
+
+.page-header #page-title {
+    float: left;
+    border: none;
+    margin: 0;
+}
+
+.page-header #page-actions {
+    float: right;
+}
+
+.templateCustomersLogin form input {
+    float: left;
+}
+
+.templateCustomersLogin form label {
+    float: left;
+    min-width: 120px;
+    line-height: 22px;
+}
+
+.templateCustomersLogin .form-row,
+.templateCustomersActivateAccount .form-row {
+    margin: 0 0 8px 0;
+}
+
+.templateCustomersLogin .action-bottom {
+    margin: 20px 0 0 0;
+}
+
+.templateCustomersLogin .action-bottom .note {
+    font-size: 11px;
+    padding: 0 0 0 5px;
+    line-height: 27px;
+}
+
+
+/* >> login Form */
+#customer-login,
+#recover-password {
+    float: left;
+    width: 58%;
+    border-right: solid 1px #adadad;
+}
+
+#recover-password {
+    display: none;
+}
+
+#recover_email label {
+    min-width: 75px;
+}
+
+#forgot_password {
+    margin: 2px 0 0 5px;
+    font-size: 11px;
+    float: left;
+}
+
+#guest {
+    float: right;
+    width: 38%
+}
+
+
+/* >> manage orders and addresses */
+#customer_orders {
+    width: 75%;
+    float: left;
+}
+
+#customer_sidebar {
+    float: right;
+    width: 20%;
+}
+
+.address p,
+.view_address p {
+    margin: 0;
+}
+
+#view_address {
+    border-top: solid 1px;
+    padding: 10px 0 0 0;
+    margin-top: 10px;
+    display: block;
+}
+
+.address_actions {
+    float: right;
+}
+
+.address_actions .action_edit {
+    border-right: solid 1px;
+    padding-right: 10px;
+}
+
+.address_actions .action_delete {
+    padding-left: 16px;
+}
+
+.action_top {
+    margin: 0 0 20px 0;
+}
+
+.action_edit,
+.action_delete,
+.action_add {
+    display: inline-block;
+    padding-left: 16px;
+}
+
+.action_edit {
+    background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/edit-sml.png?v=545564349873160916) 0 0 no-repeat;
+}
+
+.action_delete {
+    background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/delete-sml.png?v=5784986205168018584) 0 1px no-repeat;
+}
+
+.action_add {
+    background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/add-sml.png?v=10697888949845629741) 0 0 no-repeat;
+}
+
+.address_table,
+#add_address {
+    padding: 10px;
+    margin: 0 0 20px 0;
+}
+
+.address_table .label,
+#add_address .label {
+    width: 125px;
+    padding-left: 0;
+}
+
+.address_table h4 {
+    padding: 0 0 5px 0;
+    margin: 0 0 10px 0;
+}
+
+.customer_address_table {
+    margin: 0;
+}
+
+.customer_address_table td {
+    border: none;
+    padding: 2px 0;
+}
+
+.customer_address_table input {
+    margin: 0 5px 0 0;
+}
+
+.customer_address .action-bottom {
+    margin-left: 141px;
+}
+
+
+/** >> view individual orders */
+.order_date {
+    border-bottom: solid 1px;
+    padding: 0 0 5px 0;
+    margin: 0 0 20px 0;
+}
+
+#order_address {
+    overflow: hidden;
+    height: 1%;
+    margin: 0 0 20px 0;
+}
+
+#order_address #order_payment,
+#order_address #order_shipping {
+    float: left;
+    width: 46%;
+    margin-right: 2%;
+}
+
+
+/**
+ * Comments
+ */
+
+.comment {
+    margin: 0 0 30px 0;
+    border-bottom: 1px solid #dddddd;
+    color: #888888;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.comment-author {
+    color: #aed2c2;
+}
+
+.comment-content {
+    padding: 0 0;
+    font-size: 14px;
+    color: #555;
+    letter-spacing: normal;
+}
+
+.comment-posted {
+    font-style: italic;
+    margin: 0;
+    font-size: 11px;
+    line-height: 1;
+}
+
+.comment-form h2.title {
+    font-size: 16px;
+}
+
+.comment-form label {
+    display: block;
+    clear: both;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 5px 0 2px;
+}
+
+.comment-form strong.req {
+    font-weight: normal;
+    color: #f4846a;
+}
+
+.comment-form #comment-submit {
+    margin: 10px 0 50px 0;
+    padding: 4px 10px;
+    background: #afd3c3;
+    border: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+.comment-form #comment-submit:hover {
+    color: #FFF;
+}
+
+.comment-form div {
+    margin: 30px 0 10px 0;
+}
+
+.comment-form .text {
+    float: left;
+    border: solid 1px #ccc;
+    padding: 5px;
+    width: 150px;
+    color: #666;
+}
+
+.comment-form .text:focus {
+}
+
+.comment-form textarea.text {
+    width: 500px;
+}
+
+.has-error label {
+    color: #e0360f;
+}
+
+.has-error label.error-msg {
+    color: #fff;
+}
+
+.has-error input,
+.has-error textarea,
+.has-error .text {
+    border: solid 1px #ff0000;
+}
+
+.error-msg,
+.success-msg,
+.errors {
+    padding: 10px;
+    color: #FFF;
+    text-align: left;
+    background: url('//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/btn-small-depth.png?v=17143281382988561562') 0 100% repeat-x;
+}
+
+.error-msg,
+.errors {
+    background-color: #eec517;
+}
+
+.success-msg {
+    background-color: #387700;
+}
+
+.errors {
+    margin: 0 1em 1.5em 0;
+}
+
+.errors ul,
+.errors li {
+    margin: 0;
+    list-style: none;
+}
+
+
+/**
+ * Search
+ */
+
+#search-form {
+    padding: 0 0 20px 0;
+    overflow: hidden;
+    height: 1%;
+}
+
+#search-form #q {
+    font-size: 16px;
+    padding: 6px;
+    width: 575px;
+    border: solid 1px #adadad;
+    float: left;
+}
+
+#search-form #search-submit { /* overriding some of .btn's styles */
+    padding-top: 7px;
+    padding-bottom: 6px;
+    float: right;
+    width: 100px;
+}
+
+.ie7 #search-form #search-submit {
+    border: none;
+}
+
+#widget-search .search-field {
+    border: 1px solid #b6d6c8;
+    width: 170px;
+    float: left;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#widget-search .search-submit {
+    background: #add2c2;
+    color: #555;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-style: italic;
+    border: none;
+    padding: 3px 8px;
+}
+
+#widget-search .search-submit:hover {
+    color: #FFF;
+}
+
+.results .item {
+    margin: 0 0 20px 0;
+    padding: 0 0 20px 0;
+    border-bottom: solid 1px #adadad;
+}
+
+.results .thumbnail {
+    float: left;
+}
+
+.results .search-excerpt {
+    margin: 0 0 0 75px;
+}
+
+
+/**
+ * Cart
+ */
+
+#cartform table {
+    width: 100%;
+    margin: 0 0 20px 0;
+}
+
+#cartform table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 5px;
+}
+
+#cartform table tr {
+    border-bottom: solid 1px #AED2C2;
+}
+
+#cartform table th {
+    text-align: center;
+}
+
+col.checkout-image {
+    width: 50px;
+}
+
+col.checkout-delete {
+    width: 80px;
+}
+
+
+#cartform td img {
+    display: block;
+}
+
+#cartform input.text {
+    border: solid 1px #AED2C2;
+    padding: 4px;
+    text-align: center;
+}
+
+#cartform .subtotal {
+    text-align: center;
+}
+
+#cartform .update-quantities {
+    text-align: center;
+    padding: 5px;
+    width: 170px;
+}
+
+#checkout-proceed {
+    float: right;
+    width: 38%;
+    text-align: right;
+}
+
+#checkout-addnote {
+    float: left;
+    width: 60%;
+}
+
+#checkout-addnote a {
+    display: block;
+    font-size: 14px;
+    width: 165px;
+    float: left;
+}
+
+#checkout-addnote textarea {
+    border: solid 1px;
+    font-size: 14px;
+    width: 250px;
+    height: 60px;
+    float: left;
+    padding: 4px;
+}
+
+.js #checkout-addnote textarea {
+    display: none;
+}
+
+#additional-checkout-buttons {
+    padding: 5px;
+    margin: 5px 0 0 0;
+}
+
+#additional-checkout-buttons-label {
+    border-bottom: solid 1px;
+    display: block;
+    margin: 0 0 8px 0;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+/**
+ * Footer
+ */
+
+/**
+ * Homepage Carousel
+ */
+
+/**
+ * Utils
+ */
+
+.btn,
+a.btn,
+.btn-reversed {
+    display: inline-block;
+    background: #FFF;
+    border: solid 1px #aed2c2;
+    padding: 5px 10px 4px 10px;
+    font-family: Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 18px;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#cartform .btn {
+    font-size: 14px;
+}
+
+.btn:hover,
+a.btn:hover,
+.btn-reversed:hover {
+    opacity: 0.6;
+}
+
+
+/**
+ * Contact/Newsletter Forms
+ */
+
+
+/* Added by Caroline on January 14th for Customizr */
+
+#product-actions input.text,
+#product-actions input[type=text],
+#product-actions textarea {
+    width: 90%;
+}
+
+#product-actions input[type=text]:invalid,
+#product-actions textarea:invalid {
+    -moz-box-shadow: inset 0 0 1px 1px #FF9494;
+    -webkit-box-shadow: inset 0 0 1px 1px #FF9494;
+    box-shadow: inset 0 0 1px 1px #FF9494;
+}
+
+.error span {
+    line-height: 2;
+    color: red;
+}
+
+/* SelectBox Styles
+ sb-selector.scss
+ */
+
+/* HC - Display Footer - 18 Jan '17 */
+#bottom {
+    height: unset !important;
+}
+
+#purchase {
+    text-align: center;
+}

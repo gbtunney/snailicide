@@ -1,0 +1,182 @@
+
+/**
+ * Customer Accounts
+ */
+
+.page-header #page-title {
+	float: left;
+	border: none;
+	margin: 0;
+}
+
+.page-header #page-actions {
+	float: right;
+}
+
+.templateCustomersLogin form input {
+	float: left;
+}
+
+.templateCustomersLogin form label {
+	float: left;
+	min-width: 120px;
+	line-height: 22px;
+}
+
+.templateCustomersLogin .form-row,
+.templateCustomersActivateAccount .form-row {
+	margin: 0 0 8px 0;
+}
+
+.templateCustomersLogin .action-bottom {
+	margin: 20px 0 0 0;
+}
+
+.templateCustomersLogin .action-bottom .note {
+	font-size: 11px;
+	padding: 0 0 0 5px;
+	line-height: 27px;
+}
+
+
+/* >> login Form */
+#customer-login,
+#recover-password {
+	float: left;
+	width: 58%;
+	border-right: solid 1px #adadad;
+}
+
+#recover-password {
+	display: none;
+}
+
+#recover_email label {
+	min-width: 75px;
+}
+
+#forgot_password {
+	margin: 2px 0 0 5px;
+	font-size: 11px;
+	float: left;
+}
+
+#guest {
+	float: right;
+	width: 38%
+}
+
+
+/* >> manage orders and addresses */
+#customer_orders {
+	width: 75%;
+	float: left;
+}
+
+#customer_sidebar {
+	float: right;
+	width: 20%;
+}
+
+.address p,
+.view_address p {
+	margin: 0;
+}
+
+#view_address {
+	border-top: solid 1px;
+	padding: 10px 0 0 0;
+	margin-top: 10px;
+	display: block;
+}
+
+.address_actions {
+	float: right;
+}
+
+.address_actions .action_edit {
+	border-right: solid 1px;
+	padding-right: 10px;
+}
+
+.address_actions .action_delete {
+	padding-left: 16px;
+}
+
+.action_top {
+	margin: 0 0 20px 0;
+}
+
+.action_edit,
+.action_delete,
+.action_add {
+	display: inline-block;
+	padding-left: 16px;
+}
+
+.action_edit {
+	background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/edit-sml.png?v=545564349873160916) 0 0 no-repeat;
+}
+
+.action_delete {
+	background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/delete-sml.png?v=5784986205168018584) 0 1px no-repeat;
+}
+
+.action_add {
+	background: url(//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/add-sml.png?v=10697888949845629741) 0 0 no-repeat;
+}
+
+.address_table,
+#add_address {
+	padding: 10px;
+	margin: 0 0 20px 0;
+}
+
+.address_table .label,
+#add_address .label {
+	width: 125px;
+	padding-left: 0;
+}
+
+.address_table h4 {
+	padding: 0 0 5px 0;
+	margin: 0 0 10px 0;
+}
+
+.customer_address_table {
+	margin: 0;
+}
+
+.customer_address_table td {
+	border: none;
+	padding: 2px 0;
+}
+
+.customer_address_table input {
+	margin: 0 5px 0 0;
+}
+
+.customer_address .action-bottom {
+	margin-left: 141px;
+}
+
+
+/** >> view individual orders */
+.order_date {
+	border-bottom: solid 1px;
+	padding: 0 0 5px 0;
+	margin: 0 0 20px 0;
+}
+
+#order_address {
+	overflow: hidden;
+	height: 1%;
+	margin: 0 0 20px 0;
+}
+
+#order_address #order_payment,
+#order_address #order_shipping {
+	float: left;
+	width: 46%;
+	margin-right: 2%;
+}

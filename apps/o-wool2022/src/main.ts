@@ -11,7 +11,7 @@ import 'windi.css'
 import '@snailicide/g-patternlab/stylesheets/reset.scss'
 
 /* *OWOOL 2012 styles * */
-//import './styles/styles.theme.2012.scss'
+import './styles/theme2012/index.scss'
 
 /* * OWOOL STYLESHEET NEW * */
 import './styles/main.scss'
