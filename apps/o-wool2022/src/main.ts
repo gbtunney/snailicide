@@ -1,10 +1,8 @@
-import {createApp} from 'vue'
+import {createApp,App} from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import WebFont from "webfontloader";
 
 import {gIconify, gKabob, InlineSvg} from '@snailicide/g-patternlab';
-// or as a component
-//import InlineSvg from 'vue-inline-svg';
 
 /* * WindiCSS + PREFLIGHT* */
 import 'windi.css'
@@ -26,61 +24,53 @@ import {tg_isNotUndefined}from '@snailicide/g-library'
 import {useWindiCSSRuntimeDom} from '@snailicide/g-windi'
 
 import router from './router'
+import * as process from "process";
+
+//todo:move to env someqhwe.
+const LOGGING = true;
+
+//TODO: MOVE THIS TO g-vue
+const createVueApp = ( _config ={}) : App => {
+    const app = createApp({})
+    //TODO: MAKE THIS INTO CONFIG LIKE g-vue
+    app.component("g-icon", gIconify)
+    app.component("g-kabob", gKabob)
+    app.component('inline-svg', InlineSvg);
+    return app
+}
+const mountApp = (_id : string, _app:App =   createVueApp() )=>{
+    if ( document.querySelector(_id ) ){
+        _app.mount(document.querySelector(_id ) )
+        if ( LOGGING ) console.log( "VUEAPP MOUNTED ID:" ,_id,_app)
+    }else{
+        if ( LOGGING ) console.error( "VUEAPP MOUNT FAILED ID:" ,_id,_app)
+    }
+}
 
 WebFont.load({
     fontactive: function (familyName: string, fvd) {
-        console.log("loading   ", familyName);
+        if ( LOGGING ) console.log("WebFont.load", familyName);
     },
     typekit: {
         id: process.env.VUE_APP_TYPEKIT_ID,
     },
-
 });
-
-
-const createVueApp = () => {
-    const app = createApp({})
-    //console.log("Hde",HelloWorld)
-    /**
-     * vue components
-     * auto-import all vue components
-     */
-    /*    const vueComponents = require.context('@/components/', true, /\.(vue|js)$/)
-
-        vueComponents.keys().forEach(key => {
-            const component = vueComponents(key).default
-            // if a component has a name defined use the name, else use the path as the component name
-            const name = component.name
-                ? component.name
-                : key.replace(/\.(\/|vue|js)/g, '').replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase())
-            app.component("hello-world", HelloWorld)
-        })*/
-    app.component("g-icon", gIconify)
-    app.component("g-kabob", gKabob)
-    app.component('inline-svg', InlineSvg);
-
-    return app
-}
 
 /**
  * create and mount vue instance(s)
  */
-const appElement = document.querySelector('#app')
-const appFooterElement = document.querySelector('#footer-app')
+const mainAppID ='#mainApp'
+const headerAppID ='#headerApp'
+const footerAppID ='#footerApp'
 
-if (appElement) {
+mountApp( mainAppID)
+mountApp( headerAppID)
+mountApp( footerAppID)
 
-    createVueApp().mount(appElement)
-    const runtimeDom = useWindiCSSRuntimeDom({el: '#app'})
-} else {
-    //   const vueElements = document.querySelectorAll('[vue]')
-    //  if (vueElements) vueElements.forEach(el => createVueApp().mount(el))
-}
-
-if (appFooterElement) {
-    createVueApp().mount(appFooterElement)
-  //  const runtimeDom = useWindiCSSRuntimeDom({el: '#app'})
-}
+if ( LOGGING) console.log("NODE ENV:", process.env.NODE_ENV , "ENV FULL", process.env)
+    // const runtimeDom = useWindiCSSRuntimeDom({el: '#app'})
+//   const vueElements = document.querySelectorAll('[vue]')
+//  if (vueElements) vueElements.forEach(el => createVueApp().mount(el))
 //import {windiConfig} from "../windi.config";
 //console.log("windiConfig",windiConfig)
 if (process.env.NODE_ENV !== 'production'  ) {

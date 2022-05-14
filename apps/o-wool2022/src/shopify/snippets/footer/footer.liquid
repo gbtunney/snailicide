@@ -1,23 +1,28 @@
-<footer id="footer-app" class="container  lg:text-left">
-    <g-kabob class="text-sm text-primary-dk"  path="{{ 'divider.svg' | asset_url }}"></g-kabob>
-    <div class=" leading-4 text-left  p-6 text-gray-800">
+<!-- VUE : footerApp Footer  -->
+<footer id="footerApp" class="container  lg:text-left">
 
+    {% render 's-ui-divider' %}
+
+    <div class="leading-4 text-left  p-6 text-gray-800">
         <div class="grid lg:grid-cols-3 gap-4">
+
+            <!-- Footer : Column 1 -->
             <ul class="footer-nav" class="clearfix">
                 {% for link in linklists.footer.links %}
                     <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
                 {% endfor %}
             </ul>
 
+            <!-- Footer : Column 2 -->
             <ul class="footer-nav" class="clearfix">
-                {% for link in linklists.footer.links %}
+                {% for link in linklists.footer-right.links %}
                     <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
                 {% endfor %}
             </ul>
 
+            <!-- Footer : Column 3 -->
             <div class="mb-6 md:mb-0">
                 <h5 class="text-med text-left mb-2 uppercase">Footer text</h5>
-
                 <p class="mb-4  leading-5">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
                     molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
@@ -27,7 +32,6 @@
         </div>
     </div>
 
-    <div class="text-center text-gray-700 p-4" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2021 Copyright: O-Wool
-    </div>
+    {% render 's-copyright' %}
+
 </footer>

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "config": {
+    "store" : "o-wool.myshopify.com",
     "production": "132783243495",
     "staging": "132783276263",
     "development": "132783374567",
@@ -16,6 +17,8 @@
     "deploy": "run-s clean build webpack shopify:push",
     "shopify:serve": "cd shopify && shopify theme serve",
     "shopify:push": "cd shopify && shopify theme push ",
+    "shopify:login": "shopify login --store=$npm_package_config_store",
+
     "build": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build",
     "build:dev": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build --mode development",
     "build-watch": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.watch.js NODE_ENV=development vue-cli-service build-watch --mode development",
