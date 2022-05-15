@@ -1,0 +1,181 @@
+{%- comment -%} VERSION: 1.0.0 Please do not delete this line. {%- endcomment -%}
+{%- capture bc_layout -%}
+{%- case layout -%}
+{%- when 'productGridItemHtml' -%}
+{% raw %}
+<div class="boost-pfs-filter-product-item boost-pfs-filter-product-item-grid {{gridWidthClass}}{{soldOutClass}}{{saleClass}} {{itemActiveSwapClass}}">
+    <div class="boost-pfs-filter-product-item-inner">
+        <div class="boost-pfs-filter-product-item-image">
+            {{itemImages}}
+            <div class="boost-pfs-filter-product-item-label">{{itemLabels}}{{itemTagLabels}}</div>
+        </div>
+
+        <div class="boost-pfs-filter-product-bottom">
+          <div class="boost-pfs-filter-product-bottom-inner">
+            <a href="{{itemUrl}}#" class="boost-pfs-filter-product-item-title">{{itemTitle}}</a>
+            {{itemVendor}}
+            {{itemReviews}}
+            {{itemPrice}}
+            {{itemSwatches}}
+          </div>
+        </div>
+    </div>
+</div>
+{% endraw %}
+{%- when 'productListItemHtml' -%}
+{% raw %}
+<div class="boost-pfs-filter-product-item boost-pfs-filter-product-item-list {{soldOutClass}}{{saleClass}} {{itemActiveSwapClass}}">
+  <div class="boost-pfs-filter-product-item-inner">
+    <div class="boost-pfs-filter-product-item-image">
+        {{itemImages}}
+        <div class="boost-pfs-filter-product-item-label">{{itemLabels}}{{itemTagLabels}}</div>
+    </div>
+    <div class="boost-pfs-filter-product-bottom">
+      <div class="boost-pfs-filter-product-bottom-inner">
+        <a href="{{itemUrl}}" class="boost-pfs-filter-product-item-title">{{itemTitle}}</a>
+        {{itemVendor}}
+        {{itemReviews}}
+        {{itemPrice}}
+        <p class="boost-pfs-filter-des">{{itemDescription}}</p>
+        {{itemSwatches}}
+      </div>
+    </div>
+  </div>
+</div>
+{% endraw %}
+{%- when 'productListPlaceholderHtml' -%}
+{% raw %}
+<div class="boost-pfs-filter-product-item boost-pfs-filter-product-item-list {{class.filterProductSkeleton}}">
+  <div class="boost-pfs-filter-product-item-image">
+    <div class="{{class.filterProductSkeleton}}-image" style="padding-top: {{paddingTop}}%"></div>
+  </div>
+  <div class="boost-pfs-filter-product-bottom">
+    <div class="boost-pfs-filter-product-bottom-inner">
+    <a href="#" class="boost-pfs-filter-product-item-title"><span class="boost-pfs-filter-skeleton-text boost-pfs-filter-skeleton-width4"></span></a>
+    <p class="boost-pfs-filter-product-item-vendor"><span class="boost-pfs-filter-skeleton-text boost-pfs-filter-skeleton-width1"></span></p>
+    <p class="boost-pfs-filter-product-item-price"><span class="boost-pfs-filter-skeleton-text boost-pfs-filter-skeleton-width2"></span></p>
+    <p class="boost-pfs-filter-des">
+      <span class="boost-pfs-filter-skeleton-text" style="width: 100%"></span><br />
+      <span class="boost-pfs-filter-skeleton-text" style="width: 100%"></span><br />
+      <span class="boost-pfs-filter-skeleton-text" style="width: 100%"></span><br />
+      <span class="boost-pfs-filter-skeleton-text" style="width: 30%"></span>
+    </p>
+    </div>
+  </div>
+</div>
+{% endraw %}
+
+{%- when 'soldOutLabelHtml' -%}
+
+<span class="soldout boost-pfs-filter-label boost-pfs-filter-label-display-{{- sold_out_display -}}">
+{% if sold_out_display == 'image' %}
+<img src="{{sold_out_img | img_url: 'medium'}}" alt="Sold out" />
+{% else %}
+{{ label_soldout | default: 'Sold Out' }}
+{% endif %}
+</span>
+
+{%- when 'saleLabelHtml' -%}
+<span class="sale boost-pfs-filter-label boost-pfs-filter-label-display-{{- sale_label_display -}}">
+  {% if sale_label_display == 'image' %}
+  <img src="{{sale_label_img | img_url: 'medium'}}" alt="Sale" />
+  {% else %}
+    {% if sale_label_display == 'sale_percent' %}
+        {{label_sale_percent}}
+    {% else %}
+    {{- label_sale | default: 'Sale' -}}
+    {% endif %}
+  {% endif %}
+</span>
+
+
+{%- when 'tagLabelHtml' -%}
+{% raw %}
+<span class="tag boost-pfs-filter-label {{labelTag}}" >{{labelTag}}</span>
+{% endraw %}
+
+{%- when 'vendorHtml' -%}
+{% raw %}
+<p class="boost-pfs-filter-product-item-vendor">{{itemVendorLabel}}</p>
+{% endraw %}
+
+{%- when 'previousActiveHtml' -%}
+{% raw %}
+<li><a href="{{itemUrl}}" aria-label="Page Previous"><svg width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.646446 4.35355C0.451185 4.15829 0.451185 3.84171 0.646446 3.64645L3.82843 0.464466C4.02369 0.269204 4.34027 0.269204 4.53553 0.464466C4.7308 0.659728 4.7308 0.976311 4.53553 1.17157L1.70711 4L4.53553 6.82843C4.7308 7.02369 4.7308 7.34027 4.53553 7.53553C4.34027 7.7308 4.02369 7.7308 3.82843 7.53553L0.646446 4.35355ZM17 4.5H1V3.5H17V4.5Z" fill="#3D4246"/>
+</svg></a></li>
+{% endraw %}
+
+
+{%- when 'previousDisabledHtml' -%}
+<li class="boost-pfs-filter-pagination-disabled"><span aria-label="Page Previous"><svg width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.646446 4.35355C0.451185 4.15829 0.451185 3.84171 0.646446 3.64645L3.82843 0.464466C4.02369 0.269204 4.34027 0.269204 4.53553 0.464466C4.7308 0.659728 4.7308 0.976311 4.53553 1.17157L1.70711 4L4.53553 6.82843C4.7308 7.02369 4.7308 7.34027 4.53553 7.53553C4.34027 7.7308 4.02369 7.7308 3.82843 7.53553L0.646446 4.35355ZM17 4.5H1V3.5H17V4.5Z" fill="#3D4246" fill-opacity="0.4"/>
+</svg></span></li>
+
+{%- when 'nextActiveHtml' -%}
+{% raw %}
+<li><a href="{{itemUrl}}" aria-label="Page Next"><svg width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.3536 4.35355C16.5488 4.15829 16.5488 3.84171 16.3536 3.64645L13.1716 0.464466C12.9763 0.269204 12.6597 0.269204 12.4645 0.464466C12.2692 0.659728 12.2692 0.976311 12.4645 1.17157L15.2929 4L12.4645 6.82843C12.2692 7.02369 12.2692 7.34027 12.4645 7.53553C12.6597 7.7308 12.9763 7.7308 13.1716 7.53553L16.3536 4.35355ZM0 4.5H16V3.5H0V4.5Z" fill="#3D4246"/>
+</svg></a></li>
+{% endraw %}
+
+{%- when 'nextDisabledHtml' -%}
+<li class="boost-pfs-filter-pagination-disabled"><span aria-label="Page Next"><svg width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.3536 4.35355C16.5488 4.15829 16.5488 3.84171 16.3536 3.64645L13.1716 0.464466C12.9763 0.269204 12.6597 0.269204 12.4645 0.464466C12.2692 0.659728 12.2692 0.976311 12.4645 1.17157L15.2929 4L12.4645 6.82843C12.2692 7.02369 12.2692 7.34027 12.4645 7.53553C12.6597 7.7308 12.9763 7.7308 13.1716 7.53553L16.3536 4.35355ZM0 4.5H16V3.5H0V4.5Z" fill="#3D4246" fill-opacity="0.4"/>
+</svg></span></li>
+
+{%- when 'pageItemHtml' -%}
+{% raw %}
+<li><a href="{{itemUrl}}" aria-label="Page {{itemTitle}}" title="Page {{itemTitle}}">{{itemTitle}}</a></li>
+{% endraw %}
+
+{%- when 'pageItemSelectedHtml' -%}
+{% raw %}
+<li><span class="boost-pfs-filter-pagination-active" aria-label="Page {{itemTitle}}">{{itemTitle}}</span></li>
+{% endraw %}
+
+{% when 'pageItemRemainHtml' %}
+{% raw %}
+<li><span aria-label="Page {{itemTitle}}">{{itemTitle}}</span></li>
+{% endraw %}
+
+{%- when 'paginateHtml' -%}
+{% raw %}
+<ul>{{previous}}{{pageItems}}{{next}}</ul>
+{% endraw %}
+
+{%- when 'sortingHtml' -%}
+
+<button class="boost-pfs-filter-top-sorting-wrapper" aria-label="{%- assign temp = 'collections.sorting.title' | t  -%} {%- unless temp contains 'translation missing'  -%} {{- temp -}} {%- else -%} Sorting {%- endunless -%}"><span aria-hidden="true"><span aria-hidden="true"> {%- assign temp = 'collections.sorting.title' | t  -%} {%- unless temp contains 'translation missing'  -%} {{- temp -}} {%- else -%} Sorting {%- endunless -%}</span></span></button>
+{% raw %}
+<ul class="boost-pfs-filter-filter-dropdown">{{sortingItems}}</ul>
+{% endraw %}
+
+{%- when 'showLimitHtml' -%}
+{% raw %}
+<label> Show </label><select class="boost-pfs-filter-filter-dropdown">{{showLimitItems}}</select>
+{% endraw %}
+
+{%- when 'breadcrumbHtml' -%}
+{% raw %}
+<a href="/"> Home </a> {{breadcrumbDivider}} {{breadcrumbItems}}
+{% endraw %}
+
+{%- when 'breadcrumbDivider' -%}
+<span class="divider">/</span>
+
+{%- when 'breadcrumbItemLink' -%}
+{% raw %}
+<a href="{{itemLink}}">{{itemTitle}}</a>
+{% endraw %}
+
+{%- when 'breadcrumbItemSelected' -%}
+{% raw %}
+<span>{{itemTitle}}</span>
+{% endraw %}
+
+{%- endcase -%}
+{%- endcapture -%}
+
+{%- assign str = '}}' -%}
+{{- bc_layout | json | replace: '[[', '{{' | replace: ']]', str -}}

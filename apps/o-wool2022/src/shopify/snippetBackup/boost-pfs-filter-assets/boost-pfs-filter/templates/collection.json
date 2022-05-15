@@ -1,0 +1,11 @@
+{
+	"sections": {
+		"product-grid": {
+			"type": "collection-template-boost-pfs-filter",
+			"settings": {}
+		}
+	},
+	"order": [
+		"product-grid"
+	]
+}

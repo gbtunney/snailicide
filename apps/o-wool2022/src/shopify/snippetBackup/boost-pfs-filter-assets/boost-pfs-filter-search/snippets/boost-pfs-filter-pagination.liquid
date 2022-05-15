@@ -1,0 +1,24 @@
+{%- comment -%} VERSION: 1.0.0 Please do not delete this line. {%- endcomment -%}
+<ul>
+  {%- if paginate.previous -%}
+    <li><a href="{{ paginate.previous.url }}" aria-label="Page Previous" title="Page Previous">←</a></li>
+  {%- else -%}
+    <li class="boost-pfs-filter-pagination-disabled" aria-label="Page Previous"><span>←</span></li>
+  {%- endif -%}
+
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link -%}
+      <li><a href="{{ part.url }}" aria-label="Page {{ part.title }}" title="Page {{ part.title }}">{{ part.title }}</a></li>
+    {%- elsif part.title == '&hellip;' -%}
+      <li><span aria-label="Page ...">...</span></li>
+    {%- else -%}
+      <li><span class="boost-pfs-filter-pagination-active" aria-label="Page {{ part.title }}">{{ part.title }}</span></li>
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if paginate.next -%}
+    <li><a href="{{ paginate.next.url }}" aria-label="Page Next" title="Page Next">→</a></li>
+  {%- else -%}
+    <li class="boost-pfs-filter-pagination-disabled"><span aria-label="Page Next">→</span></li>
+  {%- endif -%}
+</ul>

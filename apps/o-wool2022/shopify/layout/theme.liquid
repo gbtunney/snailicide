@@ -55,6 +55,7 @@
     {% endif %}
     {% comment %}{{ 'custom.css' | asset_url | stylesheet_tag }}{% endcomment %}
     {{ 'slick.css' | asset_url | stylesheet_tag }}
+    {% render 's-boost-pfs-style' %}
     {% render 's-script-tag', script-tag: "css" %}
 
     <!-- SCRIPTS TAGS -->
@@ -68,6 +69,7 @@
     {{ '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js' | script_tag }}
     {{ 'jquery.selectbox-0.2.min.js' | asset_url | script_tag }}
 
+    {% render 's-boost-pfs' %}
     {% comment %}windicss-runtime-dom{% endcomment %}
     {% render 's-script-tag', script-tag: "script-url" %}
     {% render 'shogun-head' %}

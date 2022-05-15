@@ -1,0 +1,112 @@
+{% comment %}
+Collection template, used on collection.liquid and collection.image.liquid
+{% endcomment %}
+
+{% assign products_per_page = 12 %}
+{% paginate collection.products by products_per_page %}
+
+<header class="section-header text-center">
+    <h1 id="bc-sf-filter-collection-header">{{ collection.title }}</h1>
+    <hr class="hr--small">
+	{% if collection.description != blank %}
+        <div class="grid">
+            <div class="grid__item">
+                <div id="bc-sf-filter-collection-description" class="rte">
+					{{ collection.description }}
+                </div>
+            </div>
+        </div>
+	{% endif %}
+
+    <hr class="hr--small hr--clear">
+
+    <div id="bc-sf-filter-tree-mobile"></div>
+</header>
+
+<div id="bc-sf-filter-tree"></div>
+
+<div id="bc-sf-filter-right">
+	{% if section.settings.collection_products_grid == 'collage' %}
+
+        <div id="bc-sf-filter-products" class="grid grid-collage" data-bc-sort="{{ collection.default_sort_by }}">
+			{% comment %}
+            Loop through our products in the current collection.
+            See the snippet 'snippets/product-grid-collage.liquid'.
+
+            `is_reverse_row__product`, `three_row_index__product`, `collection_product_count`, and `divisible_by_three__product` are
+            all used by 'snippets/product-grid-collage.liquid'
+			{% endcomment %}
+			{% assign is_reverse_row__product = false %}
+			{% assign three_row_index__product = 0 %}
+			{% assign collection_product_count__product = collection.products.size %}
+			{% assign divisible_by_three__product = collection_product_count__product | modulo:3 %}
+			{% for product in collection.products %}
+				{% include 'product-grid-collage' %}
+			{% endfor %}
+        </div>
+
+		{% elsif section.settings.collection_products_grid == 'grid' %}
+
+        <div id="bc-sf-filter-products" class="grid-uniform" data-bc-sort="{{ collection.default_sort_by }}">
+			{% if collection.default_sort_by != 'best-selling' %}
+				{% assign grid_item_width = 'medium--one-half large--one-third' %}
+				{% for product in collection.products %}
+					{% include 'product-grid-item' %}
+				{% endfor %}
+			{% endif %}
+        </div>
+
+	{% endif %}
+
+    <div id="bc-sf-filter-bottom-pagination">
+		{% include 'pagination' %}
+    </div>
+    <div id="bc-sf-filter-load-more"></div>
+</div>
+
+<div class="bc-sf-filter-clearfix"></div>
+
+{% endpaginate %}
+
+<script>
+    // Declare bcSfFilterConfig variable
+    var bcSfFilterConfig = {
+        label: {
+            sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Sorting" {% endunless %},
+            sorting_best_selling: {% assign temp = 'collections.sorting.best_selling' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Best Selling" {% endunless %},
+            sorting_featured: {% assign temp = 'collections.sorting.featured' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Featured" {% endunless %},
+            sorting_title_ascending: {% assign temp = 'collections.sorting.az' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Alphabetically, A-Z" {% endunless %},
+            sorting_title_descending: {% assign temp = 'collections.sorting.za' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Alphabetically, Z-A" {% endunless %},
+            sorting_price_ascending: {% assign temp = 'collections.sorting.price_ascending' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Lowest Price" {% endunless %},
+            sorting_price_descending: {% assign temp = 'collections.sorting.price_descending' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Highest Price" {% endunless %},
+            sorting_date_ascending: {% assign temp = 'collections.sorting.date_ascending' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Date, Old to New" {% endunless %},
+            sorting_date_descending: {% assign temp = 'collections.sorting.date_descending' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Date, New to Old" {% endunless %},
+            sorting_sale_descending: {% assign temp = 'collections.sorting.sale_descending' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "% Off" {% endunless %},
+            sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Relevance" {% endunless %},
+
+            sold_out: {{ 'products.product.sold_out_html' | t | json }},
+            regular_price: {{ 'products.general.regular_price' | t | json }},
+            sale_price: {{ 'products.general.sale_price' | t | json }},
+            save_price: {{ 'products.general.save_html' | t | json }},
+        },
+        custom: {
+            products_per_page : {% if products_per_page %} {{ products_per_page | json }} {% else %} 24 {% endif %},
+            vendor_enable: {% if settings.product_vendor_enable %} {{ settings.product_vendor_enable | json }} {% else %} false {% endif %},
+            layout: {% if section.settings.collection_products_grid %} {{ section.settings.collection_products_grid | json }} {% else %} "grid" {% endif %},
+            max_width: 310,
+            max_height: 415
+        }
+    };
+</script>
+
+{% comment %} start-bc-most-popular-template {% endcomment %}
+<div class="bc-sf-most-popular-products-wrapper bc-sf-widget-slider-wrapper">
+    <div class="bc-sf-most-popular-products bc-sf-widget-products owl-carousel"></div>
+</div>
+{% comment %} end-bc-most-popular-template {% endcomment %}
+
+{% comment %} start-bc-recently-viewed-template {% endcomment %}
+<div class="bc-sf-recent-products-wrapper bc-sf-widget-slider-wrapper">
+    <div class="bc-sf-recent-products bc-sf-widget-products owl-carousel"></div>
+</div>
+{% comment %} end-bc-recently-viewed-template {% endcomment %}
