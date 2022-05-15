@@ -91,44 +91,40 @@
  * Header Search
  */
 
-#header-search{
+.header-search{
     float: right;
     margin: 0;
-}
-#header-search #top-search-input{
-    width: 175px;
-    font-size: 12px;
-    padding: 6px 3px;
-    border: solid 1px ;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    float: left;
-}
-#header-search #top-search-submit{
-    border: none;
-    width: 24px;
-    height: 25px;
-    float: right;
-    margin: 0 0 0 8px;
-    font-size: 0; /* ie7 */
-    line-height: 50px; /* ie7 */
-}
-#header-search #top-search-submit:hover{
-
-    background-position: 0 -75px;
-
-}
-
-#header-search{
     width: 215px;
-}
 
+
+    #top-search-input{
+        width: 175px;
+        font-size: 12px;
+        padding: 6px 3px;
+        border: solid 1px ;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        float: left;
+    }
+    #top-search-submit{
+        border: none;
+        width: 24px;
+        height: 25px;
+        float: right;
+        margin: 0 0 0 8px;
+        font-size: 0; /* ie7 */
+        line-height: 50px; /* ie7 */
+        &:hover{
+            background-position: 0 -75px;
+        }
+    }
+}
 
 
 /**
  * Shopping Cart at the Top
  */
 
-body{ border-top: solid 6px #aed2c2; }
+//body{ border-top: solid 6px #aed2c2; }
 

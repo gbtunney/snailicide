@@ -13,6 +13,9 @@ import '@snailicide/g-patternlab/stylesheets/reset.scss'
 /* *OWOOL 2012 styles * */
 import './styles/theme2012/index.scss'
 
+/* *OWOOL 2012 RANDOM CUSTON.CSS FIL? * */
+import './styles/theme2012/custom/_custom.scss'
+
 /* * OWOOL STYLESHEET NEW * */
 import './styles/main.scss'
 
@@ -55,6 +58,7 @@ WebFont.load({
         id: process.env.VUE_APP_TYPEKIT_ID,
     },
 });
+
 
 /**
  * create and mount vue instance(s)

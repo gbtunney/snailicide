@@ -1,17 +1,19 @@
 {% comment %}
 {% render 's-ui-social-icon', social_id: 'facebook', social_icon_path: 'eva:facebook-fill' %}
+social_classes
 {% endcomment %}
 
 {% assign social_setting = 'sm_' | append: social_id %}
 {% assign social_setting_link = social_setting | append: '_link' %}
 
+    {%if settings[social_setting]  %}
+        <li class="{{ social_id }} {{ social_classes | default: 'bg-blue-500' }}">
+            <a href="{{ settings[ social_setting_link ] }}" target="_blank">
+                <g-icon :inline='false' path="{{ social_icon_path }}"/>
+            </a>
+        </li>
+    {% endif %}
 
-{% if settings[ social_setting ] %}
-    <li class="{{ social_id }}">
-        <a href="{{ settings[ social_setting_link ] }}" target="_blank">
-            <g-icon path="{{ social_icon_path }}"/>
-        </a>
-    </li>
-{% endif %}
 {% assign social_id= nil %}
 {% assign social_icon_path = nil %}
+{% assign social_classes = nil %}

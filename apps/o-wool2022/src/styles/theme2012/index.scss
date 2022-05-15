@@ -14,12 +14,12 @@
 /**
  * Reset
  */
-@import "reset";
+//@import "reset";
 
 /**
  * Base Content Styles
  */
-@import "base";
+//@import "base";
 
 /**
  * Structure
@@ -30,7 +30,7 @@
  * Header
  */
 
-#top {
+.top {
 	padding: 40px 0 0 0;
 	margin: 0 auto 18px auto;
 	position: relative;
@@ -38,10 +38,15 @@
 	width: 904px;
 }
 
-#site-title {
+.site-title {
 	margin: 0;
 	position: relative;
 	bottom: 13px;
+}
+@media (max-width: 991px) {
+	.site-title {
+	//	text-align: center;
+	}
 }
 
 /**
@@ -91,6 +96,11 @@
 	text-align: center;
 	color: #555 !important;
 }
+
+/**
+ * Breadcrumb
+ */
+@import "breadcrumb";
 
 /**
  * Product and Collection Grid

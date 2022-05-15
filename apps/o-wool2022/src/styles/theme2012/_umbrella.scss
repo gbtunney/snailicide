@@ -9,18 +9,34 @@
 	top: 25px;
 	right: 12px;
 
+	@media (max-width: 991px) {
+		top: 35%;
+		right: 0;
+		padding: 0px;
+		position: static;
+	}
+
 	ul {
 		margin: 0;
 		padding: 0;
 		list-style: none;
+		@media (max-width: 991px) {
+			text-align: center;
+		}
 	}
 
 	li {
 		float: left;
-		padding: 3px 6px 0 0;
-		margin: 0 0 0 0;
-		font-weight: normal;
+		//padding: 3px 6px 0 0;
+		//margin: 0 0 0 0;
+		//font-weight: normal;
 		list-style: none;
+
+		@media (max-width: 991px) {
+
+			display: inline-block;
+			float: none;
+		}
 	}
 
 	p {
@@ -28,13 +44,13 @@
 	}
 
 	a {
-		color: #adadad;
+		/*color: #adadad;
 		font-style: italic;
 		letter-spacing: 1px;
-		text-decoration: none;
+		text-decoration: none;*/
 
 		&:hover {
-			color: #eec517;
+			//color: #eec517;
 		}
 	}
 
@@ -52,6 +68,27 @@
 		padding: 0;
 		margin-right: 0;
 		border: none;
+	}
+
+	@media (max-width: 991px) {
+		li.customer-account-links {
+			position: absolute;
+			top: 10px;
+			left: 0;
+			padding: 0px;
+		}
+		li.cart-link {
+			position: absolute;
+			top: 10px;
+			right: 0;
+			padding: 0px;
+		}
+		.customer-logged-in & li.customer-account-links + li {
+			position: absolute;
+			top: 10px;
+			left: 60px;
+			padding: 0px;
+		}
 	}
 
 	.sm-twitter a {
@@ -75,7 +112,6 @@
 	}
 }
 
-
 .social-icons {
 	width: 24px;
 	height: 24px;
@@ -84,12 +120,4 @@
 	text-indent: -9999em;
 	position: relative;
 	bottom: 4px;
-}
-
-#sm-twitter a:hover,
-#sm-facebook a:hover,
-#sm-ravelry a:hover,
-#sm-pinterest a:hover,
-#sm-instagram a:hover {
-	background-position: 0 -25px;
 }

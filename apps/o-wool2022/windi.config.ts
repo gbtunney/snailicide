@@ -34,6 +34,7 @@ export const windiConfig: IWindiConfig = {
     rules: [],
     shortcuts: {
         'sm-caps': 'tracking-wide uppercase',
+        'border': 'border border-solid',
     },
     theme: {
         gillian: {
