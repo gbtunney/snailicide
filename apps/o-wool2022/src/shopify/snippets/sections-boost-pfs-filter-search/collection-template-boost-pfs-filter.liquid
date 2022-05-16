@@ -40,7 +40,7 @@
 
 	assign boost_translations = shop.metafields.boostpfs-settings.labelTranslations
   assign boost_settings = shop.metafields.bc-sf-filter.settings
-	assign boost_in_collection_search = boost_settings | split: 'enableCollectionSearch":' | last | split: ',"' | first | strip 
+	assign boost_in_collection_search = boost_settings | split: 'enableCollectionSearch":' | last | split: ',"' | first | strip
 	assign current_locale = request.locale.iso_code
 	assign primary_locale = current_locale
 	for locale in shop.published_locales
@@ -62,7 +62,7 @@
   assign show_collection_des = shop.metafields.pfs-default-theme.show_collection_des
   assign collection_header_bg = shop.metafields.pfs-default-theme.collection_header_bg | default: ''
   assign collection_header_text = shop.metafields.pfs-default-theme.collection_header_text | default: ''
-	
+
 	assign show_view_as = shop.metafields.pfs-default-theme.show_view_as
 	assign show_product_count = shop.metafields.pfs-default-theme.show_product_count
 	assign show_sort_by = shop.metafields.pfs-default-theme.show_sort_by
@@ -83,7 +83,7 @@
   assign aspect_ratio = shop.metafields.pfs-default-theme.aspect_ratio | default: 'auto'
 	assign aspect_ratio_other = shop.metafields.pfs-default-theme.aspect_ratio_other | default: ''
 	assign product_img_crop = shop.metafields.pfs-default-theme.product_img_crop | default: 'none'
-  
+
   assign products_per_page = shop.metafields.pfs-default-theme.products_per_page | default: 15
   assign products_per_row = shop.metafields.pfs-default-theme.products_per_row | default: 3
 	assign products_per_row_m = shop.metafields.pfs-default-theme.products_per_row_m | default: 2
@@ -140,14 +140,14 @@
   assign sold_out_bg = shop.metafields.pfs-default-theme.sold_out_bg
   assign sold_out_text = shop.metafields.pfs-default-theme.sold_out_text
   assign sold_out_img = shop.metafields.pfs-default-theme.sold_out_img
-	
+
   assign tag_label_enable = shop.metafields.pfs-default-theme.tag_label_enable | default: false
   assign tag_label_bg = shop.metafields.pfs-default-theme.tag_label_bg
   assign tag_label_text = shop.metafields.pfs-default-theme.tag_label_text
 -%}
 
 {% capture products_item_settings %}
-	{% if aspect_ratio == 'auto' %}boost-pfs-filter-product-item-equal-height-auto {% endif %} boost-pfs-filter-product-item-label-type-{{ label_type }} boost-pfs-filter-product-item-show-details-{{ show_detail_when_hover }} boost-pfs-filter-product-item-layout-{{ product_item_layout }} boost-pfs-filter-product-item-label-{{ label_position }}  boost-pfs-filter-product-item-text-alignment-{{ text_alignment }}  
+	{% if aspect_ratio == 'auto' %}boost-pfs-filter-product-item-equal-height-auto {% endif %} boost-pfs-filter-product-item-label-type-{{ label_type }} boost-pfs-filter-product-item-show-details-{{ show_detail_when_hover }} boost-pfs-filter-product-item-layout-{{ product_item_layout }} boost-pfs-filter-product-item-label-{{ label_position }}  boost-pfs-filter-product-item-text-alignment-{{ text_alignment }}
 {% endcapture %}
 
 {%- paginate collection.products by products_per_page -%}
@@ -156,7 +156,7 @@
   {% if collection_header_text != blank %}
   .boost-pfs-filter-collection-header-wrapper .boost-pfs-filter-collection-description,
   .boost-pfs-filter-collection-header-wrapper .boost-pfs-filter-collection-description p,
-  .boost-pfs-filter-collection-header-wrapper .boost-pfs-filter-collection-header, 
+  .boost-pfs-filter-collection-header-wrapper .boost-pfs-filter-collection-header,
   .boost-pfs-search-container .boost-pfs-search-result-header {
     color: {{ collection_header_text }};
   }
@@ -323,7 +323,7 @@
     {% endif %}
   }
   {% endif %}
-  
+
 </style>
 {%- comment -%} COLLECTION HEADER {%- endcomment -%}
 <div class="boost-pfs-filter-collection-header-wrapper boost-pfs-filter-collection-image {% if collection.image and show_collection_image %}boost-pfs-filter-collection-has-image{% endif %}" {% if collection.image and show_collection_image %} style="background-image: url({{ collection.image | img_url: '2048x600', crop: 'top' }});" {% endif %}>
@@ -346,7 +346,7 @@
 
 {% if boost_in_collection_search == 'true' %}
   <div class="boost-pfs-container-default-{{ layout_type }} boost-pfs-in-collection-search">
-    {% render 'boost-pfs-filter-skeleton', width: 4 %}
+    {% render 's-boost-pfs-filter-skeleton', width: 4 %}
   </div>
 {% endif %}
 
@@ -354,9 +354,9 @@
 <div class="boost-pfs-filter-toolbar-top-mobile {% if hide_toolbar_sort_by_mobile %} boost-pfs-filter-toolbar-top-mobile-hide-sort-by {% endif %} {% if enable_filter_sticky_m %}boost-pfs-filter-tree-mobile-button-stick-wrapper {% endif %}">
   <div class="boost-pfs-filter-toolbar-top-mobile-inner {% if show_sort_by_m %} boost-pfs-filter-toolbar-show-sort-by-mobile {% endif %}">
     {%- if show_sort_by_m -%}
-    	<div class="boost-pfs-filter-top-sorting boost-pfs-filter-top-sorting-mobile boost-pfs-filter-custom-sorting">{%- render 'boost-pfs-filter-skeleton', type: 'button' -%}</div>
+    	<div class="boost-pfs-filter-top-sorting boost-pfs-filter-top-sorting-mobile boost-pfs-filter-custom-sorting">{%- render 's-boost-pfs-filter-skeleton', type: 'button' -%}</div>
     {% endif %}
-    <div class="boost-pfs-filter-tree-mobile-button" data-filter-tree-id="boost-pfs-filter-tree">{%- render 'boost-pfs-filter-skeleton', type: 'button' -%}</div>
+    <div class="boost-pfs-filter-tree-mobile-button" data-filter-tree-id="boost-pfs-filter-tree">{%- render 's-boost-pfs-filter-skeleton', type: 'button' -%}</div>
   </div>
 </div>
 {%- comment -%} END TOOLBAR TOP MOBILE {%- endcomment -%}
@@ -369,22 +369,22 @@
       {% if show_view_as == true or show_view_as_m == true or enable_filter_tree_button_desktop == true %}
         <div class="boost-pfs-filter-toolbar-item boost-pfs-filter-toolbar-type boost-pfs-filter-{{ view_as_type }} {% if show_view_as == true or enable_filter_tree_button_desktop == true  %} boost-pfs-filter-display-type-d{% endif %} {% if show_view_as_m == true or enable_filter_tree_button_desktop == true  %} boost-pfs-filter-display-type-m{% endif %}">
           {% if enable_filter_tree_button_desktop %}
-            <div class="boost-pfs-filter-tree-desktop-button">{%- render 'boost-pfs-filter-skeleton', type: 'button' -%}</div>
+            <div class="boost-pfs-filter-tree-desktop-button">{%- render 's-boost-pfs-filter-skeleton', type: 'button' -%}</div>
           {% endif %}
           {%- if show_view_as == true or show_view_as_m == true -%}
-            <div class="boost-pfs-filter-top-display-type {% if show_view_as == true %} boost-pfs-filter-top-display-type-d{% endif %} {% if show_view_as_m == true %} boost-pfs-filter-top-display-type-m{% endif %}">{%- render 'boost-pfs-filter-skeleton', width: 2 -%}</div>
+            <div class="boost-pfs-filter-top-display-type {% if show_view_as == true %} boost-pfs-filter-top-display-type-d{% endif %} {% if show_view_as_m == true %} boost-pfs-filter-top-display-type-m{% endif %}">{%- render 's-boost-pfs-filter-skeleton', width: 2 -%}</div>
           {%- endif -%}
         </div>
       {%- endif -%}
-      
+
       {%- if show_product_count == true or show_product_count_m == true -%}
         <div class="boost-pfs-filter-toolbar-item boost-pfs-filter-toolbar-count {% if show_product_count %} boost-pfs-filter-toolbar-count-d {% endif %} {% if show_product_count_m %} boost-pfs-filter-toolbar-count-m {% endif %}">
-          <span class="boost-pfs-filter-total-product">{%- render 'boost-pfs-filter-skeleton', width: 1 -%}</span>
+          <span class="boost-pfs-filter-total-product">{%- render 's-boost-pfs-filter-skeleton', width: 1 -%}</span>
         </div>
       {%- endif -%}
-      
+
       {%- if show_sort_by -%}
-        <div class="boost-pfs-filter-toolbar-item boost-pfs-filter-custom-sorting boost-pfs-filter-top-sorting">{%- render 'boost-pfs-filter-skeleton', width: 1 -%}</div>
+        <div class="boost-pfs-filter-toolbar-item boost-pfs-filter-custom-sorting boost-pfs-filter-top-sorting">{%- render 's-boost-pfs-filter-skeleton', width: 1 -%}</div>
       {%- endif -%}
     </div>
   {%- endif -%}
@@ -397,7 +397,7 @@
       <div class="boost-pfs-container-default-{{ layout_type }}">
         <div class="boost-pfs-filter-tree boost-pfs-filter-tree-h" data-is-desktop id="boost-pfs-filter-tree3">
           {%- unless enable_filter_tree_button_desktop -%}
-            {% render 'boost-pfs-filter-skeleton', type: 'filter-tree-h' %}
+            {% render 's-boost-pfs-filter-skeleton', type: 'filter-tree-h' %}
           {%- endunless -%}
         </div>
       </div>
@@ -412,7 +412,7 @@
         <div class="boost-pfs-filter-left-col-inner">
           <div class="boost-pfs-filter-tree boost-pfs-filter-tree-v" data-is-desktop id="boost-pfs-filter-tree2">
             {%- unless enable_filter_tree_button_desktop -%}
-              {% render 'boost-pfs-filter-skeleton', type: 'filter-tree' %}
+              {% render 's-boost-pfs-filter-skeleton', type: 'filter-tree' %}
             {%- endunless -%}
           </div>
         </div>
@@ -424,14 +424,14 @@
 		{%- endif -%}
 			<div class="boost-pfs-filter-products {{ products_item_settings }}">
 				{%- for product in collection.products -%}
-				{%- render 'boost-pfs-filter-product-item',
+				{%- render 's-boost-pfs-filter-product-item',
 					product: product,
 					products_per_row: products_per_row,
 					products_per_row_m: products_per_row_m,
 					show_detail_when_hover: show_detail_when_hover,
 					show_vendor: show_vendor,
 					show_price: show_price,
-					
+
 					active_image_swap: active_image_swap,
 					show_product_review: show_product_review,
 					swatch_enable: swatch_enable,
@@ -458,7 +458,7 @@
 					sale_label_enable: sale_label_enable,
           sale_label_display: sale_label_display,
 					sale_label_img: sale_label_img,
-          
+
           sold_out_enable: sold_out_enable,
           sold_out_display: sold_out_display,
 					sold_out_img: sold_out_img,
@@ -476,7 +476,7 @@
 			</div>
 			<div class="boost-pfs-filter-bottom-pagination boost-pfs-filter-bottom-pagination-default">
 				{%- if paginate.pages > 1 -%}
-				{%- render 'boost-pfs-filter-pagination' -%}
+				{%- render 's-boost-pfs-filter-pagination' -%}
 				{%- endif -%}
 			</div>
 			<div class="boost-pfs-filter-load-more"></div>
@@ -500,7 +500,7 @@
 </div>
 {%- endpaginate -%}
 
-{%- render 'boost-pfs-theme-config',
+{%- render 's-boost-pfs-theme-config',
 	layout_type: layout_type,
 	enable_filter_sticky_d: enable_filter_sticky_d,
 	view_as_type: view_as_type,
@@ -512,7 +512,7 @@
 	show_price: show_price,
 	active_image_swap: active_image_swap,
 	show_product_review: show_product_review,
-  
+
 	swatch_enable: swatch_enable,
   show_swatch_tooltip: show_swatch_tooltip,
 	swatch_change_img: swatch_change_img,

@@ -14,7 +14,7 @@ general: {
   limit: boostPFSThemeConfig.custom.products_per_page,
   /* Optional */
   loadProductFirst: true,
-  // Placeholder  
+  // Placeholder
   showPlaceholderProductList: true,
   placeholderProductPerRow: 3,
   placeholderProductGridItemClass: 'boost-pfs-filter-product-item boost-pfs-filter-product-item-grid boost-pfs-filter-grid-width-3 boost-pfs-filter-grid-width-mb-2',
@@ -75,6 +75,9 @@ ProductGridItem.prototype.compileTemplate = function(data) {
   if (!data) data = this.data;
   // Customize API data to get the Shopify data
   data = prepareShopifyData(data);
+
+  alert();
+  debugger;
 
   // Get Template
   var itemHtml = boostPFSTemplate.productGridItemHtml;
@@ -378,7 +381,7 @@ function buildProductOptionSwatches(data) {
         countSwatch = 0,
         swatchValues = [],
         swatchLimit = 4;
-    
+
         var dataImgSize = '360',
           bgSize = '50x',
           dataImgSrc = Utils.getFeaturedImage(data.images_info, dataImgSize + 'x'),
@@ -407,7 +410,7 @@ function buildProductOptionSwatches(data) {
               if (sImageIndex != '') {
                 dataImgSrc = Utils.optimizeImage(data.images[sImageIndex], dataImgSize + 'x') + ' ' + dataImgSize + 'w';
               }
-              
+
               if (swatchType) {
                 switch (swatchType) {
                   case 'img':
@@ -455,7 +458,7 @@ function buildProductOptionSwatches(data) {
           }
         }
       }
-      
+
     }
   }
   return swatchesProductOptionHtml;
@@ -636,7 +639,7 @@ ProductSorting.prototype.bindEvents = function() {
 };
 // For Toolbar - Build Display type
 ProductDisplayType.prototype.compileTemplate = function() {
-  
+
   var itemHtml = '<span>' + boostPFSThemeConfig.label.toolbar_viewas + '</span>';
   if (boostPFSThemeConfig.custom.product_item_type == 'grid') {
     if (boostPFSThemeConfig.custom.view_as_type == 'view_as_type_list_grid_multi_col' && !Utils.isMobile()) {
@@ -674,7 +677,7 @@ function buildDisplayTitle(type, count) {
   // Build title for list view
   if(type === 'list') {
     return Labels.listView || 'List view';
-  } 
+  }
   // Build title for grid view
   if(typeof count === 'undefined' || count === 0) return Labels.gridView || 'Grid view';
   return (Labels.gridViewColumns || 'Grid view {{ count }} Columns').replace(/{{ count }}/g, count);
@@ -702,7 +705,7 @@ ProductDisplayType.prototype.render = function() {
         var $cssNames = jQ('.boost-pfs-filter-top-display-type').attr('class').split(' ');
         var $activeClass = $cssNames[$cssNames.length - 1];
         var indexCurrentColumn = $activeClass.split('-')[$activeClass.split('-').length - 1];
-        
+
         if($parent.hasClass('boost-pfs-filter-view-as-click') && jQ(this).data('view') == $activeClass){
             jQ(this).addClass('active');
 
@@ -712,7 +715,7 @@ ProductDisplayType.prototype.render = function() {
             if(jQ('.boost-pfs-filter-product-item').length > 0) {
               var arrClass = jQ('.boost-pfs-filter-product-item').attr('class').split(' ');
               var prevClass = '';
-              for (var i = 0; i < arrClass.length; i++) {     
+              for (var i = 0; i < arrClass.length; i++) {
                 if(arrClass[i].match (/(^|\s)boost-pfs-filter-grid-width-\S+/g)) {
                   prevClass = arrClass[i];
                   break;
@@ -725,7 +728,7 @@ ProductDisplayType.prototype.render = function() {
               // jQ('.boost-pfs-filter-product-item').addClass('boost-pfs-filter-grid-width-' + indexCurrentColumn);
             }
 
-        } else if(!$parent.hasClass('boost-pfs-filter-view-as-click') && jQ(this).data('view').split('-')[1] == curentGridColumn) {    
+        } else if(!$parent.hasClass('boost-pfs-filter-view-as-click') && jQ(this).data('view').split('-')[1] == curentGridColumn) {
             jQ(this).addClass('active');
         }
       });
@@ -880,7 +883,7 @@ ProductDisplayType.prototype._onClickEvent = function(event) {
 
   // Do your custom code after the original function has run
   /*  View As Type 2/3/4/5/6 */
-  
+
   if (boostPFSThemeConfig.custom.view_as_type == 'view_as_type_list_grid_multi_col' && !Utils.isMobile()) {
       jQ('.boost-pfs-filter-top-display-type').addClass('boost-pfs-filter-view-as-click');
       var currentClass = jQ(event.target).data('view');
