@@ -35,6 +35,10 @@ export const windiConfig: IWindiConfig = {
     shortcuts: {
         'sm-caps': 'tracking-wide uppercase',
         'border': 'border border-solid',
+        'border-y':'border-t border-b',
+        'border-x':'border-l border-r',
+        'border-y-2':'border-t-2 border-b-2',
+        'border-x-2':'border-l-2 border-r-2'
     },
     theme: {
         gillian: {
@@ -59,6 +63,24 @@ export const windiConfig: IWindiConfig = {
         typography,
         plugin(({addComponents, theme}) => {
             const buttons = {
+                'bg-opacity-80':{
+                    '--tw-bg-opacity' :'.9'
+                },
+                'rotate--45':{
+                    'transform': 'rotate(-45deg)'
+                },
+                'rotate-45':{
+                    'transform': 'rotate(45deg)'
+                },
+                'rotate-90':{
+                    'transform': 'rotate(90deg)'
+                },
+                'rotate-180':{
+                    'transform': 'rotate(180deg)'
+                },
+                'rotate--90':{
+                    'transform': 'rotate(-90deg)'
+                },
                 '.radius-circle':{
                     'border-radius': '100%'
                 },

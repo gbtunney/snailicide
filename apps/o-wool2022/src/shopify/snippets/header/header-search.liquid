@@ -1,5 +1,12 @@
-<form id="header-search" class="hidden" action="/search" method="get">
+{% comment %}<form   action="/search" method="get">
     <label for="top-search-input" class="visuallyhidden">Search</label>
     <input type="text" id="top-search-input" name="q" class="search-input" value="" accesskey="4"  autocomplete="off" placeholder="Search" />
     <input type="submit" id="top-search-submit" class="search-submit ir" value="Search" />
+</form>{% endcomment %}
+<form id="header-search" class="text-xl mx-auto search-form page text-primary" name="search" action="/search">
+    <input type="text" id="q" name="q" class="w-full border-b border-primary-lt px-2 pb-1 mr-1  placeholder:italic placeholder:text-primary-lt " placeholder="Search..." title="Search"/>
+    <input type="submit" class="hidden" alt="Search" class="submit" value="Search"/>
+    <button alt="Search" id="search-submit" type="submit" class="text-2xl">
+        <g-icon class="px-2" :inline='false' path="fe:search"/>
+    </button>
 </form>

@@ -75,10 +75,7 @@ ProductGridItem.prototype.compileTemplate = function(data) {
   if (!data) data = this.data;
   // Customize API data to get the Shopify data
   data = prepareShopifyData(data);
-
-  alert();
-  debugger;
-
+  console.log("prepare data ", data )
   // Get Template
   var itemHtml = boostPFSTemplate.productGridItemHtml;
   // Add Custom class

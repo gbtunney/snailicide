@@ -1,15 +1,17 @@
-<div id="product-header" class="diagonal-divider clearfix">
+<div id="product-header" class="">
 
-    <div id="product-header-title">
-      <h1 id="product-title"><img src="{{ 'prod-title-img.png' | asset_url }}" alt="leaves" style="vertical-align:middle;" /> {{ product.title }}</h1>
-      <p class="price"></p> 
+    <div class="product-header-title pt-2">
+      <h1 class="product-title text-2xl">
+          <g-icon class="reflect-x text-xl text-accent-secondary" :inline='true' path="{{ 'leaves-a.svg' | asset_url }}"></g-icon>
+        {% comment %}  <img src="{{ 'prod-title-img.png' | asset_url }}" alt="leaves" style="vertical-align:middle;" />{% endcomment %} {{ product.title }}</h1>
+      <p class="price"></p>
     </div>
+
 	<span class="product-tag">{% if product.tags contains "PDF download" %}PDF download{% endif %}</span>
   </div><!-- /#product-header -->
 
-  
-  <div class="description">
+  <div class="description text-left">
 	{% if settings.show_vendor %}<h2 id="product-vendor">{{ product.vendor | link_to_vendor }}</h2>{% endif %}
     {{ product.description }}
-  
+
   </div>

@@ -102,6 +102,9 @@ const getCopyPattern = (from: string, to: string): Pattern => {
 }
 module.exports = (env) => {
     return {
+        optimization: {
+            minimize: (env.development) ? false : true,
+        },
         entry: path.resolve(__dirname, "./../../index.ts"),
         plugins: [
             new HtmlWebpackPlugin(get_script_tag_options(env.development)),

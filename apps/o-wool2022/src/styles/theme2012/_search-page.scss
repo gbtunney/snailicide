@@ -3,19 +3,26 @@
  * Search
  */
 
-#search-form {
-	padding: 0 0 20px 0;
+#search-form{
+
+/*	padding: 0 0 20px 0;
 	overflow: hidden;
-	height: 1%;
+	height: 1%;*/
+
+	/*#q {
+   font-size: 16px;
+   padding: 6px;
+   width: 575px;
+   border: solid 1px #adadad;
+   float: left;
+}*/
+}
+.search-form.page{
+	display: flex;
+	justify-content: space-between;
 }
 
-#search-form #q {
-	font-size: 16px;
-	padding: 6px;
-	width: 575px;
-	border: solid 1px #adadad;
-	float: left;
-}
+
 
 #search-form #search-submit { /* overriding some of .btn's styles */
 	padding-top: 7px;
@@ -28,7 +35,7 @@
 	border: none;
 }
 
-#widget-search .search-field {
+/*#widget-search .search-field {
 	border: 1px solid #b6d6c8;
 	width: 170px;
 	float: left;
@@ -44,10 +51,10 @@
 	font-style: italic;
 	border: none;
 	padding: 3px 8px;
-}
+}*/
 
 #widget-search .search-submit:hover {
-	color: #FFF;
+	//color: #FFF;
 }
 
 .results .item {
