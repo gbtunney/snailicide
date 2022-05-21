@@ -78,5 +78,6 @@ const iconPath = computed(() => {
 
 .inlineDimensions {
   height: 1em;
+  width:1em;/*safari needs this */
 }
 </style>

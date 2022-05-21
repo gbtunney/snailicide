@@ -1,4 +1,5 @@
 <div id="col-main" class="full">
+  <h2>RECS!!{{ product.id }}</h2>
 
   <div id="product" class="clearfix content">
 
@@ -73,6 +74,7 @@
   </div><!-- /#product -->
 
 </div><!-- /#product-gallery -->
+  {% comment %}/recommendations/products?section_id=template--14225964105846__product-recommendations&product_id=2651981414518&limit=4{% endcomment %}
 
   <div class="product-recommendations" data-product-id="{{ product.id }}" data-limit="4">
     {%- if recommendations.products_count > 0 -%}

@@ -9,6 +9,13 @@ query productByID($id: ID!) {
     }
 }
 
+query productRecommendations($id: ID!) {
+    productRecommendations(productId: $id){
+        ...ProductFragment
+    }
+}
+
+
 query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
     product(handle: $handle) {
         variantBySelectedOptions(selectedOptions:$selectedOptions){

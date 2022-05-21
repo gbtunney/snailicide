@@ -1695,7 +1695,7 @@ export type Country = {
 };
 
 /**
- * The code designating a country, which generally follows ISO 3166-1 alpha-2 guidelines.
+ * The code designating a country/region, which generally follows ISO 3166-1 alpha-2 guidelines.
  * If a territory doesn't have a country code value in the `CountryCode` enum, it might be considered a subdivision
  * of another country. For example, the territories associated with Spain are represented by the country code `ES`,
  * and the territories associated with the United States of America are represented by the country code `US`.
@@ -3098,14 +3098,16 @@ export type DiscountApplicationEdge = {
 };
 
 /**
- * Which lines on the order that the discount is allocated over, of the type
- * defined by the Discount Application's target_type.
+ * The lines on the order to which the discount is applied, of the type defined by
+ * the discount application's `targetType`. For example, the value `ENTITLED`, combined with a `targetType` of
+ * `LINE_ITEM`, applies the discount on all line items that are entitled to the discount.
+ * The value `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the discount on all shipping lines.
  *
  */
 export enum DiscountApplicationTargetSelection {
   /** The discount is allocated onto all the lines. */
   All = 'ALL',
-  /** The discount is allocated onto only the lines it is entitled for. */
+  /** The discount is allocated onto only the lines that it's entitled for. */
   Entitled = 'ENTITLED',
   /** The discount is allocated onto explicitly chosen lines. */
   Explicit = 'EXPLICIT'
@@ -6585,6 +6587,16 @@ export type ProductByIdQuery = { __typename: 'QueryRoot', product?: (
     & ProductFragment
   ) | undefined };
 
+export type ProductRecommendationsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ProductRecommendationsQuery = { __typename: 'QueryRoot', productRecommendations?: Array<(
+    { __typename: 'Product' }
+    & ProductFragment
+  )> | undefined };
+
 export type VariantBySelectedOptionsQueryVariables = Exact<{
   handle: Scalars['String'];
   selectedOptions: Array<SelectedOptionInput> | SelectedOptionInput;
@@ -6802,6 +6814,19 @@ ${PageInfoFragment}`;
 export const ProductById = gql`
     query productByID($id: ID!) {
   product(id: $id) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragment}
+${PriceRange}
+${PriceFragment}
+${ProductOptionFragment}
+${ImageFragment}
+${ProductVariantFragment}
+${PageInfoFragment}`;
+export const ProductRecommendations = gql`
+    query productRecommendations($id: ID!) {
+  productRecommendations(productId: $id) {
     ...ProductFragment
   }
 }
@@ -7164,6 +7189,42 @@ export function useProductByIdLazyQuery(variables: ProductByIdQueryVariables | V
   return VueApolloComposable.useLazyQuery<ProductByIdQuery, ProductByIdQueryVariables>(ProductByIdDocument, variables, options);
 }
 export type ProductByIdQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<ProductByIdQuery, ProductByIdQueryVariables>;
+export const ProductRecommendationsDocument = gql`
+    query productRecommendations($id: ID!) {
+  productRecommendations(productId: $id) {
+    ...ProductFragment
+  }
+}
+    ${ProductFragmentDoc}
+${PriceRangeFragmentDoc}
+${PriceFragmentDoc}
+${ProductOptionFragmentDoc}
+${ImageFragmentDoc}
+${ProductVariantFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useProductRecommendationsQuery__
+ *
+ * To run a query within a Vue component, call `useProductRecommendationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductRecommendationsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useProductRecommendationsQuery({
+ *   id: // value for 'id'
+ * });
+ */
+export function useProductRecommendationsQuery(variables: ProductRecommendationsQueryVariables | VueCompositionApi.Ref<ProductRecommendationsQueryVariables> | ReactiveFunction<ProductRecommendationsQueryVariables>, options: VueApolloComposable.UseQueryOptions<ProductRecommendationsQuery, ProductRecommendationsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ProductRecommendationsQuery, ProductRecommendationsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ProductRecommendationsQuery, ProductRecommendationsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<ProductRecommendationsQuery, ProductRecommendationsQueryVariables>(ProductRecommendationsDocument, variables, options);
+}
+export function useProductRecommendationsLazyQuery(variables: ProductRecommendationsQueryVariables | VueCompositionApi.Ref<ProductRecommendationsQueryVariables> | ReactiveFunction<ProductRecommendationsQueryVariables>, options: VueApolloComposable.UseQueryOptions<ProductRecommendationsQuery, ProductRecommendationsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ProductRecommendationsQuery, ProductRecommendationsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ProductRecommendationsQuery, ProductRecommendationsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<ProductRecommendationsQuery, ProductRecommendationsQueryVariables>(ProductRecommendationsDocument, variables, options);
+}
+export type ProductRecommendationsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<ProductRecommendationsQuery, ProductRecommendationsQueryVariables>;
 export const VariantBySelectedOptionsDocument = gql`
     query variantBySelectedOptions($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
   product(handle: $handle) {

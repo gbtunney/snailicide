@@ -18,7 +18,7 @@
             {% for product in collection.products %}
                 <div class="{{ gridName }}__card group box-border hover:border-solid border-1 p-4"
                         border="accent-primary">
-                    <a class="{{ gridName }}__image_wrapper relative" href="{{ product.url | within: collection }}" title="{{ product.featured_image.alt | escape }}">
+                    <a class="{{ gridName }}__image_wrapper block relative" href="{{ product.url | within: collection }}" title="{{ product.featured_image.alt | escape }}">
                         <div class="{{ gridName }}__image">
                             <img class="object-contain h-auto w-full " src="{{ product.featured_image | product_img_url: '500x' }}" alt="{{ product.featured_image.alt | escape }}"/>
                         </div>
@@ -52,16 +52,13 @@
                     </a>
                     {% comment %}{% include 'product-grid-item' %}{% endcomment %}
 
-                    <a class="{{ gridName }}__meta pt-1 hover-group:bg-green-500 relative" href="{{ product.url | within: collection }}">
+                    <a class="{{ gridName }}__meta pt-1 hover-group:bg-green-500 block relative" href="{{ product.url | within: collection }}">
                         <h2 class="text-2xl pt-2">{{ product.title }}</h2>
                         <h5 class="font-sans text-sm text-accent-primary-dk sm-caps">{{ product.type }}</h5>
                         <div class="absolute justify-end bottom-0 flex w-full">
-                            <g-icon class="text-accent-primary w-auto" path="{{ 'vintage-arrow-2.svg' | asset_url }}"/>
+                            <g-icon class="text-accent-primary w-auto" :inline="false" path="{{ 'vintage-arrow-2.svg' | asset_url }}"/>
                         </div>
-
-
                     </a>
-
                 </div>
             {% endfor %}
         </ul>

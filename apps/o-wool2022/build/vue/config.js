@@ -4,6 +4,7 @@ process.env.VUE_TEST_APP_VERSION = "i am a gillian!!!!"//require('./package.json
 
 module.exports = defineConfig({
     filenameHashing: (process.env.NODE_ENV === 'production'),
+    productionSourceMap: false,
     runtimeCompiler: true,
     css: {
         //TODO: figure out how to minify the css sourceMap:true,

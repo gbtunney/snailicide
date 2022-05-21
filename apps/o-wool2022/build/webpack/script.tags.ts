@@ -103,7 +103,7 @@ const getCopyPattern = (from: string, to: string): Pattern => {
 module.exports = (env) => {
     return {
         optimization: {
-            minimize: (env.development) ? false : true,
+            minimize: false,//(env.development) ? false : true,
         },
         entry: path.resolve(__dirname, "./../../index.ts"),
         plugins: [
