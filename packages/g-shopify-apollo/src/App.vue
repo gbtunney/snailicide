@@ -21,7 +21,7 @@ export default defineComponent({
   },
   data: () => {
     return {
-      handle: 'local'
+      handle: ''
     }
   },
 });

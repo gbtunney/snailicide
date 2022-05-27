@@ -5,7 +5,7 @@ query productByHandleCustom($handle: String!) {
 }
 query productByID($id: ID!) {
     product(id: $id) {
-        ...ProductFragment
+        ...FullProductFragment
     }
 }
 

@@ -13,7 +13,7 @@ import {
 } from "./generated/storefront-types";
 import {TProductInstanceGQL} from "./generated";
 
-export { tg_isUndefined as isUndefined ,tg_isNotUndefined as isNotUndefined } from "./utilities";
+export { tg_isUndefined as isUndefined ,tg_isNotUndefined as isNotUndefined } from "@snailicide/g-library";
 
 export type {CustomTypePolicy, CustomFieldPolicy} from "./apolloTypedPolicies"
 export {readField} from './apolloTypedPolicies'

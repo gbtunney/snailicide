@@ -7,7 +7,7 @@ const CLIENT = useApolloClient().client
 
 /* * COMPONENTS!!!!!! * */
 import SimpleSelect from './../ui/SimpleSelect.vue';
-import LoadingSpinner from './../ui/LoadingSpinner.vue';
+//import LoadingSpinner from './../ui/LoadingSpinner.vue';
 
 /* * TYPES!!!!!!!! * */
 import {PlainObject} from "@snailicide/g-library";
@@ -65,7 +65,7 @@ Selected variant : {{SelectedVariant}}
     </div>
   <hr>
 
-    <loading-spinner v-if="isLoading"/>
+<!--    <loading-spinner v-if="isLoading"/>-->
     <div v-if="isReady">
       <h2 class="bg-red-800">Product :: {{ Product.title }}</h2>
       <div v-for="(option,index) in Options" :key="index">

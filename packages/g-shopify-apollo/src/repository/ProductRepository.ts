@@ -72,11 +72,11 @@ export class ProductRepository extends Repository<ProductModel> {
         })
         const OptionValues = computed(() => {
             if (!isReady.value) return undefined
-            if (product.value?.options) {
+            //if (product.value?.options) {
                 /*  product.value.options.map((_option)=>{
                      // return _option.
                   })*/
-            }
+           // }
             return undefined
         })
         return {isReady, isLoading, Product, Variants, Options, OptionValues, Images}

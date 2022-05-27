@@ -5058,6 +5058,7 @@ export type Product = Extended_Id & HasMetafields & Node & OnlineStorePublishabl
    *
    */
   tags: Array<Scalars['String']>;
+  testing?: Maybe<Scalars['String']>;
   /** The product’s title. */
   title: Scalars['String'];
   /** The total quantity of inventory in stock for this Product. */
@@ -6522,7 +6523,36 @@ export type PriceRangeFragment = { __typename: 'ProductPriceRange', minVariantPr
 
 export type ImageFragment = { __typename: 'Image', id?: string | undefined, altText?: string | undefined, width?: number | undefined, height?: number | undefined, src: string, variants?: Array<{ __typename: 'ProductVariant', id: string }> | undefined };
 
-export type ProductFragment = { __typename: 'Product', id: string, handle: string, title: string, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, compareAtPriceRange: (
+export type FullProductFragment = { __typename: 'Product', id: string, handle: string, title: string, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, description: string, descriptionHtml: Element, compareAtPriceRange: (
+    { __typename: 'ProductPriceRange' }
+    & PriceRangeFragment
+  ), priceRange: (
+    { __typename: 'ProductPriceRange' }
+    & PriceRangeFragment
+  ), options: Array<(
+    { __typename: 'ProductOption' }
+    & ProductOptionFragment
+  )>, image?: (
+    { __typename: 'Image' }
+    & ImageFragment
+  ) | undefined, Variants: Array<(
+    { __typename: 'ProductVariant' }
+    & ProductVariantFragment
+  )>, variants: { __typename: 'ProductVariantConnection', pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ), edges: Array<{ __typename: 'ProductVariantEdge', cursor: string, node: (
+        { __typename: 'ProductVariant' }
+        & ProductVariantFragment
+      ) }> }, images: { __typename: 'ImageConnection', pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ), edges: Array<{ __typename: 'ImageEdge', cursor: string, node: (
+        { __typename: 'Image' }
+        & ImageFragment
+      ) }> } };
+
+export type ProductFragment = { __typename: 'Product', id: string, handle: string, title: string, availableForSale: boolean, productType: string, vendor: string, tags: Array<string>, onlineStoreUrl?: string | undefined, createdAt: Date, updatedAt: Date, publishedAt: Date, compareAtPriceRange: (
     { __typename: 'ProductPriceRange' }
     & PriceRangeFragment
   ), priceRange: (
@@ -6584,7 +6614,7 @@ export type ProductByIdQueryVariables = Exact<{
 
 export type ProductByIdQuery = { __typename: 'QueryRoot', product?: (
     { __typename: 'Product' }
-    & ProductFragment
+    & FullProductFragment
   ) | undefined };
 
 export type ProductRecommendationsQueryVariables = Exact<{
@@ -6714,8 +6744,8 @@ export const PageInfoFragment = gql`
   hasPreviousPage
 }
     `;
-export const ProductFragment = gql`
-    fragment ProductFragment on Product {
+export const FullProductFragment = gql`
+    fragment FullProductFragment on Product {
   id
   handle
   title
@@ -6768,6 +6798,58 @@ export const ProductFragment = gql`
   descriptionHtml
 }
     `;
+export const ProductFragment = gql`
+    fragment ProductFragment on Product {
+  id
+  handle
+  title
+  availableForSale
+  productType
+  vendor
+  tags
+  onlineStoreUrl
+  createdAt
+  updatedAt
+  publishedAt
+  compareAtPriceRange {
+    ...PriceRange
+  }
+  priceRange {
+    ...PriceRange
+  }
+  options {
+    ...ProductOptionFragment
+  }
+  image: featuredImage {
+    ...ImageFragment
+  }
+  Variants @client {
+    ...ProductVariantFragment
+  }
+  variants(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ProductVariantFragment
+      }
+    }
+  }
+  images(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ImageFragment
+      }
+    }
+  }
+}
+    `;
 export const Testproductop = gql`
     query testproductop {
   allVariants @client {
@@ -6814,10 +6896,10 @@ ${PageInfoFragment}`;
 export const ProductById = gql`
     query productByID($id: ID!) {
   product(id: $id) {
-    ...ProductFragment
+    ...FullProductFragment
   }
 }
-    ${ProductFragment}
+    ${FullProductFragment}
 ${PriceRange}
 ${PriceFragment}
 ${ProductOptionFragment}
@@ -6966,8 +7048,8 @@ export const PageInfoFragmentDoc = gql`
   hasPreviousPage
 }
     `;
-export const ProductFragmentDoc = gql`
-    fragment ProductFragment on Product {
+export const FullProductFragmentDoc = gql`
+    fragment FullProductFragment on Product {
   id
   handle
   title
@@ -7018,6 +7100,58 @@ export const ProductFragmentDoc = gql`
   }
   description
   descriptionHtml
+}
+    `;
+export const ProductFragmentDoc = gql`
+    fragment ProductFragment on Product {
+  id
+  handle
+  title
+  availableForSale
+  productType
+  vendor
+  tags
+  onlineStoreUrl
+  createdAt
+  updatedAt
+  publishedAt
+  compareAtPriceRange {
+    ...PriceRange
+  }
+  priceRange {
+    ...PriceRange
+  }
+  options {
+    ...ProductOptionFragment
+  }
+  image: featuredImage {
+    ...ImageFragment
+  }
+  Variants @client {
+    ...ProductVariantFragment
+  }
+  variants(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ProductVariantFragment
+      }
+    }
+  }
+  images(first: 250) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      cursor
+      node {
+        ...ImageFragment
+      }
+    }
+  }
 }
     `;
 export const TestproductopDocument = gql`
@@ -7156,10 +7290,10 @@ export type ProductByHandleCustomQueryCompositionFunctionResult = VueApolloCompo
 export const ProductByIdDocument = gql`
     query productByID($id: ID!) {
   product(id: $id) {
-    ...ProductFragment
+    ...FullProductFragment
   }
 }
-    ${ProductFragmentDoc}
+    ${FullProductFragmentDoc}
 ${PriceRangeFragmentDoc}
 ${PriceFragmentDoc}
 ${ProductOptionFragmentDoc}

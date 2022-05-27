@@ -28,6 +28,7 @@ extend type Product implements Extended_ID{
     gid : String
     cacheID:String
 
+    testing:String @client
     Variants: [ProductVariant!]! @client
     Images: [Image!]! @client
 }

@@ -1,6 +1,6 @@
 import * as RA from "ramda-adjunct"
 import {composeGid} from '@shopify/admin-graphql-api-utilities';
-import {getDigitCount, isInteger, toInteger} from '@snailicide/g-library'
+import {getDigitCount, isInteger, toInteger,tg_isNilOrEmpty} from '@snailicide/g-library'
 import {Bool, HasMany, Model, Repository, Str} from '@vuex-orm/core'
 import {ProductOptionModel} from './ProductOption'
 import {ProductVariantModel} from "./ProductVariant";
@@ -8,7 +8,6 @@ import {ProductImageModel} from "./ProductImage";
 /* * TYPES   GENERSTED * */
 import {TProductGQL, TProductGQLPartial} from "./../types/generated";
 import {isNotUndefined} from "./../types";
-import {tg_isNilOrEmpty} from "./../types/utilities";
 import {useStore} from "vuex";
 import ProductInstanceRepository from "@/repository/ProductInstanceRepository";
 import {Vue} from "vue-property-decorator";

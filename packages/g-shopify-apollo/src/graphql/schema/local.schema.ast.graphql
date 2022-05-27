@@ -5701,6 +5701,7 @@ type Product implements Extended_ID & HasMetafields & Node & OnlineStorePublisha
 
   "A comma separated list of tags that have been added to the product.\nAdditional access scope required for private apps: unauthenticated_read_product_tags.\n"
   tags: [String!]!
+  testing: String
 
   """The product’s title."""
   title: String!

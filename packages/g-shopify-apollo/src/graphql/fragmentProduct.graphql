@@ -1,4 +1,4 @@
-fragment ProductFragment on Product {
+fragment FullProductFragment on Product {
     id
     handle
     title
@@ -55,4 +55,61 @@ fragment ProductFragment on Product {
     }
     description
     descriptionHtml
+}
+
+fragment ProductFragment on Product {
+    id
+    handle
+    title
+
+    availableForSale
+    productType
+    vendor
+    tags
+    onlineStoreUrl
+
+    createdAt
+    updatedAt
+    publishedAt
+
+    compareAtPriceRange{
+        ...PriceRange
+    }
+    priceRange{
+        ...PriceRange
+    }
+
+    options {
+        ...ProductOptionFragment
+    }
+    image:featuredImage{
+        ...ImageFragment
+    }
+    Variants @client {
+        ...ProductVariantFragment
+
+    }
+    variants(first: 250) {
+        pageInfo {
+            ...PageInfoFragment
+        }
+        edges {
+            cursor
+            node {
+                ...ProductVariantFragment
+            }
+        }
+    }
+    images(first: 250) {
+        pageInfo {
+            ...PageInfoFragment
+        }
+        edges {
+            cursor
+            node {
+                ...ImageFragment
+            }
+
+        }
+    }
 }

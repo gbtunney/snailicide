@@ -1,24 +1,17 @@
-import {ApolloClient, from, gql} from "@apollo/client/core";
+import {ApolloClient, from, gql, InMemoryCache} from "@apollo/client/core";
 /* * Project Imports  * */
 import {createApolloHttpLink, useApolloLogging} from ".";
 import {iStorefrontApiConfig} from "./../types";
 import parseDataLink from "./parseServerData";
 
-const typeDefs = gql`
-    extend input VariantOptionFilter {
-        index:Int!
-    }
-`
-//const typeDefs = TestmessageDocument
+// @ts-expect-error the local schema ?
+import typeDefs from './../graphql/client.schema.graphql'
+
+//THE CACHE BREAKS, BC ANY @CLIENT directive will make it repull from the server.....UGH
 export const createApolloClient = (payload: iStorefrontApiConfig) => {
     return new ApolloClient({
         typeDefs,
         cache: payload.cache,
-        defaultOptions: {
-            query:{
-                fetchPolicy:'cache-only'
-            }
-        },
         link: from([
             useApolloLogging(payload.logging, payload.logging),
             parseDataLink,
