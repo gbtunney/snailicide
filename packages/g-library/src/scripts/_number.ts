@@ -12,13 +12,13 @@ export const getDigitCount = (value: number): number =>
     Math.log(toInteger(value) as number) * Math.LOG10E + 1 | 0;
 
 export const formatCurrency = (
-    value: number | string,
+    value: number ,
     minimumFractionDigits = 2,
     currency = "USD"): string => {
-    if (RA.isString(value) && !isInteger(value)) return value
+   // if (!isInteger(value)) return value
     return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency,
         minimumFractionDigits,
-    }).format(toInteger(value) as number);
+    }).format(value );
 };

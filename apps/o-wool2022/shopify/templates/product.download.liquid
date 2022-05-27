@@ -1,77 +1,88 @@
 <div id="col-main" class="full">
 
-  <div id="product" class="clearfix content download">	
-	<div id="product-gallery"{% if settings.main_image_display == 'Zoom-in' %} class="zoom-in"{% endif %}>
+    <div id="product" class="clearfix content download">
+        <div id="product-gallery"{% if settings.main_image_display == 'Zoom-in' %} class="zoom-in"{% endif %}>
 
-     {% include 'product-image' %}
-	
-    <div id="product-information">
+            {% include 'product-image' %}
 
-      {% include 'prod-title-desc' %}            
-	<img src="//cdn.shopify.com/s/files/1/0155/0473/t/9/assets/yarn_border.png?4494133213929464764" alt="divider" />
-    	<div id="product-order" class="default">
-			<ul id="thumbs" {% if product.images.size == 1 %}class="visuallyhidden"{% endif %}>
-	        	{% for image in product.images %}
-	        	{% unless forloop.first and settings.main_image_display == 'Lightbox' %}
-						{%  unless forloop.last %}
-							<li>
-              		            <a{% if settings.main_image_display == 'Lightbox' %} rel="fancybox"{% endif %} class="gallery" href="{{ image | product_img_url: 'original' }}" title="{{ image.alt | escape }}">
-	            	                <img src="{{ image | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}" style="max-width: none;" />
-	          		            </a>
-	        	            </li>
-						{% endunless %}        	
-				
-	        	{% endunless %}
-	        	{% endfor %}
-			</ul>
-            {% for image in product.images %}
-                {%  if forloop.last %}
-                    <div class="download-btn">
-              	        <a href="{{ image.alt | escape }}" target="_blank" onClick="pageTracker._trackPageview('{{ image.alt | escape }}');" class="download-link">
-	            	        <img src="{{ image | product_img_url: 'original' }}" alt="download" />
-	          	        </a>
-	                </div>
-                {% endif %}
-            {% endfor %}
-            <div class="hidden">
-			<p id="add-to-cart-msg"></p>
-            {% if product.available %}
-	          <form action="/cart/add" method="post" class="variants" id="product-actions" enctype="multipart/form-data">
-	            <div class="options clearfix">  
+            <div id="product-information">
 
-	              <div class="variants-wrapper clearfix {% if product.variants.size == 1 %}visuallyhidden{% endif %}"> 
-	                <select id="product-select" name="id">
-	                  {% for variant in product.variants %}
-	                  <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
-	                  {% endfor %}
-	                </select>
-	              </div>            
+                {% include 'prod-title-desc' %}
+                {% render 's-ui-divider' %}
 
-	             
-	            </div><!-- /.options -->
-	          </form>
-        {% else %}
-	            
-	        {% endif %}	
-			   
-    </div>
-	</div><!-- /#product-order -->	
-        
-    </div><!-- /#product-information -->
-    
-    
+                <div id="product-order" class="default">
+                    <ul id="thumbs"
+                            class="grid md:gap-2 gap-6
+                            grid-cols-{% if product.type == 'Patterns' and product.images.size > 7 %}6{% else %}{{ product.images.size  | minus: 1 }}{% endif %}" {% if product.images.size == 1 %}class="visuallyhidden"{% endif %}>
+                        {% for image in product.images %}
+                            {% unless forloop.first and settings.main_image_display == 'Lightbox' %}
+                                {% unless forloop.last %}
+                                    <li>
+                                        <a{% if settings.main_image_display == 'Lightbox' %} rel="fancybox"{% endif %} class="gallery" href="{{ image | product_img_url: 'original' }}" title="{{ image.alt | escape }}">
+                                            <img class="radius-circle object-cover w-full " style="aspect-ratio: 1/1;" src="{{ image | product_img_url: '300x' }}" alt="{{ image.alt | escape }}"/>
+                                        </a>
+                                    </li>
+                                {% endunless %}
+                            {% endunless %}
+                        {% endfor %}
+                    </ul>
+                </div>
 
-  </div><!-- /#product -->
+                {% for image in product.images %}
+                    {% if forloop.last %}
+                        <div class="download-btn">
+                            <a href="{{ image.alt | escape }}" target="_blank" onClick="pageTracker._trackPageview('{{ image.alt | escape }}');" class="download-link">
+                                <img src="{{ image | product_img_url: 'original' }}" alt="download"/>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div id="product-order" class="default">
+                    <ul id="thumbs" class="product-thumbs {% if product.images.size == 1 %}visuallyhidden{% endif %}">
+                        {% for image in product.images %}
+                            {% unless forloop.first and settings.main_image_display == 'Lightbox' %}
+                                {% unless forloop.last %}
+                                    <li>
+                                        <a{% if settings.main_image_display == 'Lightbox' %} rel="fancybox"{% endif %} class="gallery" href="{{ image | product_img_url: 'original' }}" title="{{ image.alt | escape }}">
+                                            <img src="{{ image | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}" style="max-width: none;"/>
+                                        </a>
+                                    </li>
+                                {% endunless %}
 
-</div><!-- /#product-gallery -->	 
+                            {% endunless %}
+                        {% endfor %}
+                    </ul>
 
+                    <div class="hidden">
+                        <p id="add-to-cart-msg"></p>
+                        {% if product.available %}
+                            <form action="/cart/add" method="post" class="variants" id="product-actions" enctype="multipart/form-data">
+                                <div class="options clearfix">
+
+                                    <div class="variants-wrapper clearfix {% if product.variants.size == 1 %}visuallyhidden{% endif %}">
+                                        <select id="product-select" name="id">
+                                            {% for variant in product.variants %}
+                                                <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+
+                                </div><!-- /.options -->
+                            </form>
+                        {% else %}
+
+                        {% endif %}
+
+                    </div>
+                </div><!-- /#product-order -->
+
+            </div><!-- /#product-information -->
+
+
+        </div><!-- /#product -->
+
+    </div><!-- /#product-gallery -->
+    {% render 's-ui-recommended' %}
 </div><!-- /#col-main -->
 
-<style>
-  @media only screen and (min-width:990px) 
-{	
-#product-information
-{	min-height:700px;
-}
-}
-</style>

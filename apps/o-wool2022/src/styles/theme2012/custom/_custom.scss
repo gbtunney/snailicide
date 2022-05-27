@@ -141,9 +141,9 @@ a:focus {
 	#footer-1 input[type="submit"] {
 		right: 31px;
 	}
-	#thumbs {
-		text-align: left;
-	}
+	/*	#thumbs {
+			text-align: left;
+		}*/
 }
 
 @media (max-width: 991px) {
@@ -230,10 +230,6 @@ a:focus {
 		width: 370px !important;
 	}
 
-
-	#thumbs {
-		padding-left: 15px;
-	}
 	#product-information {
 		width: 100%;
 	}
@@ -328,9 +324,7 @@ a:focus {
 	#product-order.kit, #product-order.yarn, #product-order {
 		width: 100%;
 	}
-	.kit #thumbs, .yarn #thumbs {
-		padding: 0px;
-	}
+
 	#product-actions .p_center {
 		width: 37%;
 	}
@@ -416,7 +410,7 @@ a:focus {
 		font-size: 12px;
 	}
 	#thumbs {
-		padding-left: 0px;
+		//padding-left: 0px;
 	}
 	#breadcrumb a {
 		font-size: 15px;
@@ -531,12 +525,12 @@ a:focus {
 }
 
 .download #thumbs li {
-	float: left;
+	//float: left;
 }
 
 .download #thumbs li img {
-	margin: 0px;
-	min-height: 76px;
+	//margin: 0px;
+	//	min-height: 76px;
 }
 
 #product-order.kit {

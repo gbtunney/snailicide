@@ -1,8 +1,31 @@
 import {createApp,App} from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
+/**
+ * WebFont Load
+ */
 import WebFont from "webfontloader";
 
-import {gIconify, gKabob, InlineSvg} from '@snailicide/g-patternlab';
+WebFont.load({
+    fontactive: function (familyName: string, fvd) {
+        if ( LOGGING ) console.log("WebFont.load", familyName);
+    },
+    typekit: {
+        id: process.env.VUE_APP_TYPEKIT_ID,
+    },
+});
+
+import {useCache, gShopify, iStorefrontApiConfig,persistCache,LocalStorageWrapper} from "@snailicide/g-shopify-apollo";
+
+const options: iStorefrontApiConfig = {
+    domain: process.env.VUE_APP_SHOPIFY_DOMAIN,
+    storefrontAccessToken: process.env.VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    version: process.env.VUE_APP_SHOPIFY_STOREFRONT_VERSION,
+    persist: cleanBooleanType(process.env.VUE_APP_APOLLO_PERSIST_CACHE) as boolean, //todo: these env variables come in as strings :(
+    logging: cleanBooleanType(process.env.VUE_APP_APOLLO_OPERATION_LOGGING) as boolean,
+    cache: useCache()
+}
+
+import {gIconify, gKabob, InlineSvg,LoadingSpinner} from '@snailicide/g-patternlab';
 
 /* * WindiCSS + PREFLIGHT* */
 import 'windi.css'
@@ -19,7 +42,7 @@ import './styles/theme2012/custom/_custom.scss'
 /* * OWOOL STYLESHEET NEW * */
 import './styles/main.scss'
 
-import {tg_isNotUndefined}from '@snailicide/g-library'
+import {cleanBooleanType, tg_isNotUndefined} from '@snailicide/g-library'
 
 
 //import './styles/_product-grid-card.scss'
@@ -35,16 +58,20 @@ import {ProductRecommendationsContainer} from "@snailicide/g-shopify-apollo";
 const LOGGING = true;
 
 //TODO: MOVE THIS TO g-vue
-const createVueApp = ( _config ={}) : App => {
+const createVueApp = ( _config ={},options: iStorefrontApiConfig) : App => {
     const app = createApp({})
     //TODO: MAKE THIS INTO CONFIG LIKE g-vue
     app.component("g-icon", gIconify)
     app.component("g-kabob", gKabob)
     app.component('inline-svg', InlineSvg);
+    app.component('loading-spinner',LoadingSpinner)
+
     app.component('product-recommendations',ProductRecommendationsContainer)
+    app.use(gShopify, options)
     return app
 }
-const mountApp = (_id : string, _app:App =   createVueApp() )=>{
+
+const mountApp = (_id : string ,_app:App= createVueApp({},options) )=>{
     if ( document.querySelector(_id ) ){
         _app.mount(document.querySelector(_id ) )
         if ( LOGGING ) console.log( "VUEAPP MOUNTED ID:" ,_id,_app)
@@ -53,16 +80,6 @@ const mountApp = (_id : string, _app:App =   createVueApp() )=>{
     }
 }
 
-WebFont.load({
-    fontactive: function (familyName: string, fvd) {
-        if ( LOGGING ) console.log("WebFont.load", familyName);
-    },
-    typekit: {
-        id: process.env.VUE_APP_TYPEKIT_ID,
-    },
-});
-
-
 /**
  * create and mount vue instance(s)
  */
@@ -70,9 +87,29 @@ const mainAppID ='#mainApp'
 const headerAppID ='#headerApp'
 const footerAppID ='#footerApp'
 
-mountApp( mainAppID)
-mountApp( headerAppID)
-mountApp( footerAppID)
+const mountAll = ()=>{
+    mountApp( mainAppID,   createVueApp({},options))
+    mountApp( headerAppID)
+    mountApp( footerAppID)
+}
+
+if (options.persist) {
+    persistCache({
+        cache: options.cache,
+        storage: new LocalStorageWrapper(window.localStorage),
+    }).then(() => {
+        if (options.cache) {
+            console.warn("calling option", options.cache)
+            mountAll();
+            // mountApp(options)
+        }
+    })
+} else {
+    console.warn("calling no promise      option")
+    mountAll();
+   // mountApp(options)
+}
+
 
 if ( LOGGING) console.log("NODE ENV:", process.env.NODE_ENV , "ENV FULL", process.env)
     // const runtimeDom = useWindiCSSRuntimeDom({el: '#app'})

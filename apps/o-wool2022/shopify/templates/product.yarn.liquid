@@ -1,98 +1,89 @@
 <div id="col-main" class="full">
-  <h2>RECS!!{{ product.id }}</h2>
 
-  <div id="product" class="clearfix content">
+    <div id="product" class="clearfix content">
 
-	<div id="product-gallery"{% if settings.main_image_display == 'Zoom-in' %} class="zoom-in"{% endif %}>
+        <div id="product-gallery"{% if settings.main_image_display == 'Zoom-in' %} class="zoom-in"{% endif %}>
 
-     {% include 'product-image' %}
-    <div id="product-information">
+            {% include 'product-image' %}
+            <div id="product-information">
 
-      {% render 'prod-title-desc' %}
+                {% render 'prod-title-desc' %}
 
-      {% render 's-ui-divider' %}
-      {% comment %}<img src="{{ 'yarn_border.png' | asset_url }}" alt="divider" />{% endcomment %}
+                {% render 's-ui-divider' %}
+                {% comment %}<img src="{{ 'yarn_border.png' | asset_url }}" alt="divider" />{% endcomment %}
 
-      <div id="product-order" class="yarn">
-        <ul id="thumbs">
-          {% for image in product.images %}
-          <li>
-            <a{% if settings.main_image_display == 'Lightbox' %} rel="fancybox"{% endif %} class="gallery" href="{{ image | product_img_url: 'original' }}" title="{{ image.alt | escape }}">
-              <img src="{{ image | product_img_url: 'large' }}" alt="{{ image.alt | escape }}" />
+                <div id="product-order" class="yarn">
+                    <ul id="thumbs"
+                            class="grid gap-1 grid-cols-8">
+                        {% for image in product.images %}
+                            <li>
+                                <a{% if settings.main_image_display == 'Lightbox' %} rel="fancybox"{% endif %} class="gallery" href="{{ image | product_img_url: 'original' }}" title="{{ image.alt | escape }}">
+                                    <img class="radius-circle object-cover w-full " style="aspect-ratio: 1/1;" src="{{ image | product_img_url: '50x50', crop: 'center' }}" alt="{{ image.alt | escape }}"/>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- /#product-order -->
+                <div id="product-order" class="yarn">
+                    <ul id="thumbs"
+                            class="product-thumbs ">
+                        {% for image in product.images %}
+                            <li>
+                                <a{% if settings.main_image_display == 'Lightbox' %} rel="fancybox"{% endif %} class="gallery" href="{{ image | product_img_url: 'original' }}" title="{{ image.alt | escape }}">
+                                    <img src="{{ image | product_img_url: 'large' }}" alt="{{ image.alt | escape }}"/>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- /#product-order -->
 
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div><!-- /#product-order -->
+                {% if product.available %}
+                    <form action="/cart/add" method="post" class="variants" id="product-actions" enctype="multipart/form-data">
+                        <div class="options clearfix">
 
-      {% if product.available %}
-        <form action="/cart/add" method="post" class="variants" id="product-actions" enctype="multipart/form-data">
-          <div class="options clearfix">
+                            <div class="variants-wrapper clearfix {% if product.variants.size == 1 %}visuallyhidden{% endif %}">
+                                <select id="product-select" name="id">
+                                    {% for variant in product.variants %}
+                                        <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div id="product-header-title" class="p_center">
+                                <p class="price"></p>
+                            </div>
+                            <div id="qty-box">
+                                <label for="quantity">Qty: </label>
+                                <select id="quantity" name="quantity">
+                                    {% for i in (1..20) %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
 
-            <div class="variants-wrapper clearfix {% if product.variants.size == 1 %}visuallyhidden{% endif %}">
-              <select id="product-select" name="id">
-                {% for variant in product.variants %}
-                <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
-                {% endfor %}
-              </select>
-            </div>
-            <div id="product-header-title" class="p_center">
-              <p class="price"></p>
-            </div>
-            <div id="qty-box">
-				<label for="quantity">Qty: </label>
-				<select id="quantity" name="quantity">
-                    {% for i in (1..20) %}
-				    <option value="{{ i }}">{{ i }}</option>
-				    {% endfor %}
-				</select>
+                            </div>
+                            <div id="qty-box">
+                                <p id="number-available"></p>
+                            </div>
+                            <div id="purchase" class="yarn">
+                                <p id="add-to-cart-msg"></p>
 
-			</div>
-            <div id="qty-box" >
-			<p id="number-available"></p>
-            </div>
-            <div id="purchase" class="yarn">
-              <p id="add-to-cart-msg"></p>
+                                <input class="btn" type="submit" name="add" id="add-to-cart" value="Add to Cart"/>
+                            </div>
 
-              <input class="btn" type="submit" name="add" id="add-to-cart" value="Add to Cart" />
-            </div>
+                        </div><!-- /.options -->
+                    </form>
 
-          </div><!-- /.options -->
-        </form>
+                {% else %}
+                    <div id="product-actions" class="sold-out">
+                        <div id="purchase">
+                            <p class="price">Sold out.</p>
+                        </div>
+                    </div>
+                {% endif %}
 
-      {% else %}
-        <div id="product-actions" class="sold-out">
-          <div id="purchase">
-            <p class="price">Sold out.</p>
-          </div>
-        </div>
-      {% endif %}
+            </div><!-- /#product-information -->
 
-    </div><!-- /#product-information -->
+        </div><!-- /#product -->
 
-  </div><!-- /#product -->
-
-</div><!-- /#product-gallery -->
-  {% comment %}/recommendations/products?section_id=template--14225964105846__product-recommendations&product_id=2651981414518&limit=4{% endcomment %}
-<h2>You may also like: {{ product.id }}</h2>
-{% comment %}  <product-recommendations product_id="{{ product.id }}">
-
-</product-recommendations>{% endcomment %}
-  <div class="product-recommendations" data-product-id="{{ product.id }}" data-limit="4">
-    {%- if recommendations.products_count > 0 -%}
-      <h2>You may also like</h2>
-      <ul>
-        {%- for product in recommendations.products -%}
-          <li class="product">
-            <a href="{{ product.url }}">
-              <img class="product__img" src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.featured_image.alt }}" />
-              <p class="product__title">{{ product.title }}</p>
-              <p class="product__price">{{ product.price | money}}</p>
-            </a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-  </div>
+    </div><!-- /#product-gallery -->
+    {% render 's-ui-recommended' %}
 </div><!-- /#col-main -->

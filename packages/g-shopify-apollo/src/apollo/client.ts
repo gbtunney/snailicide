@@ -4,13 +4,13 @@ import {createApolloHttpLink, useApolloLogging} from ".";
 import {iStorefrontApiConfig} from "./../types";
 import parseDataLink from "./parseServerData";
 
-// @ts-expect-error the local schema ?
-import typeDefs from './../graphql/client.schema.graphql'
+
+//import typeDefs from './../graphql/client.schema.graphql'
 
 //THE CACHE BREAKS, BC ANY @CLIENT directive will make it repull from the server.....UGH
 export const createApolloClient = (payload: iStorefrontApiConfig) => {
     return new ApolloClient({
-        typeDefs,
+       // typeDefs,
         cache: payload.cache,
         link: from([
             useApolloLogging(payload.logging, payload.logging),
