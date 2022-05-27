@@ -29,6 +29,8 @@ import {useWindiCSSRuntimeDom} from '@snailicide/g-windi'
 import router from './router'
 import * as process from "process";
 
+import {ProductRecommendationsContainer} from "@snailicide/g-shopify-apollo";
+
 //todo:move to env someqhwe.
 const LOGGING = true;
 
@@ -39,6 +41,7 @@ const createVueApp = ( _config ={}) : App => {
     app.component("g-icon", gIconify)
     app.component("g-kabob", gKabob)
     app.component('inline-svg', InlineSvg);
+    app.component('product-recommendations',ProductRecommendationsContainer)
     return app
 }
 const mountApp = (_id : string, _app:App =   createVueApp() )=>{

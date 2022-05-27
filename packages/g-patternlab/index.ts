@@ -1,1 +1,1 @@
-export {gIconify,gKabob,CodeBlock,InlineSvg} from "./src/components";
+export {gIconify,gKabob,CodeBlock,InlineSvg,LoadingSpinner} from "./src/components";

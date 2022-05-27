@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "config": {
-    "store" : "o-wool.myshopify.com",
+    "store": "o-wool.myshopify.com",
     "production": "132783243495",
     "staging": "132783276263",
     "development": "132783374567",
     "SESSION_ENDPOINT": "my-value"
   },
   "scripts": {
-
     "start": "run-p -sr  build-watch shopify:serve && --live-reload hot-reload",
     "dev": "run-s clean build:dev webpack:dev start",
     "deploy:dev": "run-s clean build:dev webpack:dev shopify:push",
@@ -18,16 +17,13 @@
     "shopify:serve": "cd shopify && shopify theme serve",
     "shopify:push": "cd shopify && shopify theme push ",
     "shopify:login": "shopify login --store=$npm_package_config_store",
-
     "build": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build",
     "build:dev": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build --mode development",
     "build-watch": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.watch.js NODE_ENV=development vue-cli-service build-watch --mode development",
-
     "clean": "rm -R -f dist && rm -R -f shopify/assets && rm -f shopify/snippets/s-*.liquid",
     "test:build": "run-s webpack",
     "webpack:dev": "webpack --env=development --config=build/webpack/script.tags.ts",
     "webpack": "webpack --config=build/webpack/script.tags.ts",
-
     "test:unit": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "test:log": "echo {$npm_package_config_ENDPOINT};",
@@ -38,6 +34,7 @@
     "@shopify/admin-graphql-api-utilities": "^1.0.9",
     "@snailicide/g-library": "^1.0.0",
     "@snailicide/g-patternlab": "^0.1.0",
+    "@snailicide/g-shopify-apollo": "^0.1.0",
     "@snailicide/g-windi": "^0.1.0",
     "@types/copy-webpack-plugin": "^10.1.0",
     "@types/webfontloader": "^1.6.34",
