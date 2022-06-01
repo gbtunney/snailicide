@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import {toRefs, defineProps, withDefaults, computed} from 'vue';
 import gIconify from './gIconify.vue';
-
 interface IProps {
   direction?: "column" | "row"
   fit?: boolean,

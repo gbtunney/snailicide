@@ -1,0 +1,18 @@
+<script>
+    GorgiasChat.init().then(function () {
+        GorgiasChat.on('widget:opened', function () {
+            var timer = setInterval(function () {
+                var chatWindowHead = document.querySelector('#gorgias-chat-container')?.querySelector('#chat-window')?.contentWindow.document.querySelector('head');
+                if (![...chatWindowHead?.children].some(x => x.getAttribute("data-emotion"))) {
+                    return;
+                }
+                clearInterval(timer);
+
+                var chatStyle = document.createElement('style');
+                chatStyle.textContent = '.message-window-iframe-1g7otri {box-shadow: none; background-color: lawngreen}'; // window header green
+                chatWindowHead.appendChild(chatStyle);
+            }, 50);
+        })
+
+    })
+</script>

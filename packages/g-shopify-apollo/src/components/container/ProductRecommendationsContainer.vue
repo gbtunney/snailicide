@@ -106,7 +106,7 @@ const productQueryResult = useResult(result,null, ( data )=>{
               <h2 class="text-xl pt-2">{{ product.title }}</h2>
               <h5 class="font-sans text-sm text-accent-primary-dk sm-caps">{{ product.vendor }}</h5>
               <div class="absolute justify-end bottom-0 flex w-full">
-             <g-icon class="text-accent-primary w-auto" :inline="false" :path="getAssetURL('vintage-arrow-2.svg')"/>
+             <g-icon class="text-accent-primary w-auto" :inline="true" :path="getAssetURL('vintage-arrow-2.svg')"/>
               </div>
             </a>
           </div>

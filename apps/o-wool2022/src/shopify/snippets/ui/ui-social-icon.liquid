@@ -9,7 +9,7 @@ social_classes
     {%if settings[social_setting]  %}
         <li class="{{ social_id }} {{ social_classes | default: 'bg-blue-500' }}">
             <a href="{{ settings[ social_setting_link ] }}" target="_blank">
-                <g-icon :inline='false' path="{{ social_icon_path }}"/>
+                <g-icon :inline='true' path="{{ social_icon_path }}"/>
             </a>
         </li>
     {% endif %}

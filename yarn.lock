@@ -3772,13 +3772,6 @@
   resolved "https://registry.yarnpkg.com/@vant/use/-/use-1.3.6.tgz#7618d3a72ad6cd622a8b3cbc693ed1540426a05b"
   integrity sha512-3z+nywPaV2F5BdJO7RQxWlgfzJeEOmViD2yHMb7Tg+R4NR/7iQskqW8v2Cnv9FWSJgTOSHlcr7UzeLpiTAP4HA==
 
-"@vue/apollo-components@^4.0.0-alpha.17":
-  version "4.0.0-alpha.17"
-  resolved "https://registry.yarnpkg.com/@vue/apollo-components/-/apollo-components-4.0.0-alpha.17.tgz#2b3f731398eebc4d8e5bc9c7929b77efbca8fb5c"
-  integrity sha512-98aLBmc/DD93hT0wAMMp3p82BJOsMOwOAlwyR9nm/CFrdDobVIUlf9sCDOG3yJxSz3mgP+5ekHcW3nHQXGxwlA==
-  dependencies:
-    "@vue/apollo-option" "^4.0.0-alpha.17"
-
 "@vue/apollo-composable@^4.0.0-alpha.16":
   version "4.0.0-alpha.16"
   resolved "https://registry.yarnpkg.com/@vue/apollo-composable/-/apollo-composable-4.0.0-alpha.16.tgz#f0974372b07b016271a96425c3f676588e640bf4"
@@ -3792,13 +3785,6 @@
   version "4.0.0-alpha.16"
   resolved "https://registry.yarnpkg.com/@vue/apollo-option/-/apollo-option-4.0.0-alpha.16.tgz#bc1596da3095b263d738642a8fde86b5c5120d4a"
   integrity sha512-MkNBzTZfVSV9qj/+EHD+CKxRLh1CwkCn3d6Ww4Ju8tQjkfsIac+im2do6qPeijrrd7z3CYV/SqPghVrz4QzNlA==
-  dependencies:
-    throttle-debounce "^3.0.1"
-
-"@vue/apollo-option@^4.0.0-alpha.17":
-  version "4.0.0-alpha.17"
-  resolved "https://registry.yarnpkg.com/@vue/apollo-option/-/apollo-option-4.0.0-alpha.17.tgz#443b5a8e04145e30722a5159cd43f3609b61cc95"
-  integrity sha512-JDoQqbmWMlHMIVuzsHdNKp9AwDc+K1or5V0SsMeu9sf/JCEujmydQ+T/EBnXBLOOHwwJtGz6HlTud1V8ua2mlQ==
   dependencies:
     throttle-debounce "^3.0.1"
 
@@ -4464,12 +4450,30 @@
     toml "^3.0.0"
     upath "^1.1.0"
 
+"@vueuse/components@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/components/-/components-8.5.0.tgz#de04f901f338957ff9bb9b555c6623b663b24241"
+  integrity sha512-JZ5D56YQMoGCvE5UJPKsWmPG3ywedqaKVgl+d+1HiCBR//2ufHpsp1SlLZmkkLAgX3qoL0GX2LXi7uyr2PLfSw==
+  dependencies:
+    "@vueuse/core" "8.5.0"
+    "@vueuse/shared" "8.5.0"
+    vue-demi "*"
+
 "@vueuse/core@7.7.1", "@vueuse/core@^7.6.2":
   version "7.7.1"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-7.7.1.tgz#fc284f4103de73c7fb79bc06579d8066790db511"
   integrity sha512-PRRgbATMpoeUmkCEBtUeJgOwtew8s+4UsEd+Pm7MhkjL2ihCNrSqxNVtM6NFE4uP2sWnkGcZpCjPuNSxowJ1Ow==
   dependencies:
     "@vueuse/shared" "7.7.1"
+    vue-demi "*"
+
+"@vueuse/core@8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-8.5.0.tgz#2b7548e52165c88e1463756c36188e105d806543"
+  integrity sha512-VEJ6sGNsPlUp0o9BGda2YISvDZbhWJSOJu5zlp2TufRGVrLcYUKr31jyFEOj6RXzG3k/H4aCYeZyjpItfU8glw==
+  dependencies:
+    "@vueuse/metadata" "8.5.0"
+    "@vueuse/shared" "8.5.0"
     vue-demi "*"
 
 "@vueuse/core@^8.0.1", "@vueuse/core@^8.1.2", "@vueuse/core@^8.2.0":
@@ -4509,6 +4513,11 @@
   resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-8.4.2.tgz#b33e6b7bd5ca69e3f24ea41b149267118bcd566f"
   integrity sha512-2BIj++7P0/I5dfMsEe8q7Kw0HqVAjVcyNOd9+G22/ILUC9TVLTeYOuJ1kwa1Gpr+0LWKHc6GqHiLWNL33+exoQ==
 
+"@vueuse/metadata@8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-8.5.0.tgz#1aaa3787922cfda0f38243aaa7779366a669b4db"
+  integrity sha512-WxsD+Cd+bn+HcjpY6Dl9FJ8ywTRTT9pTwk3bCQpzEhXVYAyNczKDSahk50fCfIJKeWHhyI4B2+/ZEOxQAkUr0g==
+
 "@vueuse/motion@^2.0.0-beta.9":
   version "2.0.0-beta.12"
   resolved "https://registry.yarnpkg.com/@vueuse/motion/-/motion-2.0.0-beta.12.tgz#5ce0afd04f1991a87370ce90907e3979b82f6380"
@@ -4539,6 +4548,13 @@
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.4.2.tgz#5900f06ff78bd8b6df4cbf48f8ca82dd6d9747d1"
   integrity sha512-hILXMEjL8YQhj1LHN/HZ49UThyfk8irTjhele2nW+L3N55ElFUBGB/f4w0rg8EW+/suhqv7kJJPTZzvHCqxlIw==
+  dependencies:
+    vue-demi "*"
+
+"@vueuse/shared@8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.5.0.tgz#fa01ecd3161933f521dd6428b9ef8015ded1bbd3"
+  integrity sha512-qKG+SZb44VvGD4dU5cQ63z4JE2Yk39hQUecR0a9sEdJA01cx+XrxAvFKJfPooxwoiqalAVw/ktWK6xbyc/jS3g==
   dependencies:
     vue-demi "*"
 
@@ -19314,6 +19330,11 @@ vue-inline-svg@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/vue-inline-svg/-/vue-inline-svg-3.1.0.tgz#3cedcd4c2ae15a16a1cf3815a1b4170705a87519"
   integrity sha512-4FUu6q7l6jSL0sc8bs0lzV7MgWMsuSSQAJiQdKsxhGP9sNJfepCWiPfWxU1IPY1mf4LZjTtX93DAiEegWt6cTg==
+
+vue-inner-image-zoom@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vue-inner-image-zoom/-/vue-inner-image-zoom-2.0.0.tgz#d84a8d5f4b76ba8d9675bfb67927aef06c4cf62c"
+  integrity sha512-PrCppBbgffCLCpvetEWzt+8qzYs984HrhEj/9649/4nPV9leCeditl2MY5IgKWElWpDgtR3j0O2sLDVcpgGbYA==
 
 vue-jest@^3.0.5:
   version "3.0.7"

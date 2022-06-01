@@ -4,7 +4,8 @@ import HelloWorld from './components/HelloWorld.vue'
  * WebFont Load
  */
 import WebFont from "webfontloader";
-
+import InnerImageZoom from 'vue-inner-image-zoom'
+import 'vue-inner-image-zoom/lib/vue-inner-image-zoom.css'
 WebFont.load({
     fontactive: function (familyName: string, fvd) {
         if ( LOGGING ) console.log("WebFont.load", familyName);
@@ -25,7 +26,7 @@ const options: iStorefrontApiConfig = {
     cache: useCache()
 }
 
-import {gIconify, gKabob, InlineSvg,LoadingSpinner} from '@snailicide/g-patternlab';
+import {gIconify, gKabob, InlineSvg,LoadingSpinner,ViewportSticky} from '@snailicide/g-patternlab';
 
 /* * WindiCSS + PREFLIGHT* */
 import 'windi.css'
@@ -65,8 +66,9 @@ const createVueApp = ( _config ={},options: iStorefrontApiConfig) : App => {
     app.component("g-kabob", gKabob)
     app.component('inline-svg', InlineSvg);
     app.component('loading-spinner',LoadingSpinner)
-
+    app.component('viewport-sticky',ViewportSticky)
     app.component('product-recommendations',ProductRecommendationsContainer)
+    app.component('inner-image-zoom',InnerImageZoom)
     app.use(gShopify, options)
     return app
 }

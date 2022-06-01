@@ -100,6 +100,14 @@ const CUSTOM_THEME_FONTS = {
 //todo: turn this into a factory thing.
 
 export default {
+    shortcuts: {
+        'theme-primary': 'text-primary bg-white fill-white',
+        'theme-primary-inverse': 'bg-primary fill-primary text-white',
+        'theme-accent-primary': 'text-accent-primary fill-accent-primary bg-white',
+        'theme-accent-primary-inverse': 'bg-accent-primary fill-white text-white',
+        'theme-accent-secondary': 'text-accent-secondary fill-accent-primary bg-white',
+        'theme-accent-secondary-inverse': 'bg-accent-secondary text-white fill-white',
+    },
     theme: {
         colors: {
             ...color_obj,

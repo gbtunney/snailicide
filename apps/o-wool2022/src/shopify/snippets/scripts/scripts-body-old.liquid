@@ -1,0 +1,67 @@
+<!--[if lt IE 8]>
+<script>
+    // g notes: adjjust umbrella for IE
+    // IE 6+7 do not calculate the width of the #umbrella properly
+    $('#umbrella').width($('#umbrella ul').width());
+</script>
+<![endif]-->
+
+{% comment %}Not {% endcomment %}
+{% if settings.twitterwidget_visible and settings.show_right_column %}
+    {{ 'jquery.tweet.js' | asset_url | script_tag }}
+    <script>
+        $(".tweets-wrapper").tweet(
+            {
+                count: {{ settings.twitterwidget_numtweets }},
+                username: "{{ settings.twitterwidget_username }}",
+                loading_text: "loading tweets...",
+                template: function (i) {
+                    return i["text"]
+                }
+            });
+    </script>
+{% endif %}
+
+<!--- dont know if still used??? -->
+{% if template contains 'product' and settings.main_image_display == 'Lightbox' %}
+    {{ 'jquery.easing-1.3.pack.js' | asset_url | script_tag }}
+    {{ 'jquery.mousewheel-3.0.4.pack.js' | asset_url | script_tag }}
+    {{ 'jquery.fancybox-1.3.4.pack.js' | asset_url | script_tag }}
+    <script>
+        $("a[rel='fancybox']").fancybox({
+            'hideOnContentClick': true
+        });
+    </script>
+{% endif %}
+
+<script type="text/javascript" charset="utf-8">
+    //<![CDATA[
+    ///g note NO IDEA WHAT THIS IS???
+    // Including api.jquery.js conditionnally.
+    if (typeof Shopify.onCartShippingRatesUpdate === 'undefined') {
+        document.write({{ "api.jquery.js" | shopify_asset_url | script_tag | json }});
+    }
+    //]]>
+</script>
+
+{% comment %}<script>
+    $(window).scroll(function () {
+        var threshold = $("#top").height() + 70;
+        var dech = $('.description').height();
+        var swatchh = $('#product-order').height();
+
+        var totalh = (dech + swatchh - 50);
+        if ($(window).scrollTop() >= threshold) {
+            $('.left_stiky').addClass('fixed');
+            $('.left_stiky').removeClass('bottom');
+        } else {
+            $('.left_stiky').removeClass('fixed');
+            $('.left_stiky').removeClass('bottom');
+        }
+        if ($(window).scrollTop() >= totalh) {
+            $('.left_stiky').removeClass('fixed');
+            $('.left_stiky').addClass('bottom');
+        }
+    });
+</script>{% endcomment %}
+

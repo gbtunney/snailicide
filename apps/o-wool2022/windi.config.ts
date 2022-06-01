@@ -9,10 +9,24 @@ import  {presetColorDefaults} from "@snailicide/g-windi"
 //colorScalePresetFactory preset3rdPartyPlugins
 //console.log("wiehiwuehuwihr",process.env.VUE_APP_TYPEKIT_ID,JSON.stringify(presetColorDefaults, null, 4))
 export type IWindiConfig = ReturnType<typeof defineConfig>
+const  range=(size, startAt = 1)=> {
+    return Array.from(Array(size).keys()).map(i => i + startAt)
+}
+const testpreset = {
+    shortcuts: {
+        'sm-caps': 'tracking-wide uppercase',
+        'border': 'border border-solid',
+        'border-y':'border-t border-b',
+        'border-x':'border-l border-r',
+        'border-y-2':'border-t-2 border-b-2',
+        'border-x-2':'border-l-2 border-r-2',
+    },
+}
 
 const active_presets = [
     presetColorDefaults,
     presetOwool,
+    testpreset
   // preset3rdPartyPlugins,
 ]
 export const windiConfig: IWindiConfig = {
@@ -29,17 +43,13 @@ export const windiConfig: IWindiConfig = {
     },
     //preflight: false,
     //exclude:[/^hover:/,/^text/,],
-    safelist: 'radius-circle p-1 p-2 p-3 p-4 font-sans prose font-serif flex inline-flex flex-row flex-column justify-center items-center',
-    presets: active_presets,
+    safelist: 'radius-circle p-1 p-2 p-3 p-4 font-sans prose font-serif flex inline-flex flex-row flex-column justify-center items-center animate-spin w-8 h-8',
     rules: [],
-    shortcuts: {
-        'sm-caps': 'tracking-wide uppercase',
-        'border': 'border border-solid',
-        'border-y':'border-t border-b',
-        'border-x':'border-l border-r',
-        'border-y-2':'border-t-2 border-b-2',
-        'border-x-2':'border-l-2 border-r-2'
+    shortcuts:{
+        ...testpreset.shortcuts,
+       ... presetOwool.shortcuts
     },
+    presets: active_presets,
     theme: {
         gillian: {
             textColor: 'white',

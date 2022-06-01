@@ -1,7 +1,7 @@
 {% assign umbrella_id = 'umbrella' %}
 {% assign umbrella_child_css = 'text-primary text-lg italic tracking-wide ml-2 hover:text-accent-secondary' %}
 
-<div class="{{ umbrella_id }} flex ">
+<div class="{{ umbrella_id }} flex text-16px">
     {% render 's-header-search' %}
     {% render 's-ui-social-icons', social_classes: "ml-2 first:ml-0 radius-circle p-1 text-2xl text-white bg-primary-lt hover:bg-accent-secondary" %}
 
@@ -28,6 +28,7 @@
                 <g-icon class="text-2xl text-accent-primary" :inline='true' path="bx:cart-alt"></g-icon>
             </a>
         </li>
+
 
         {% if cart.item_count != 0 %}
             <li class="cart-link ">
