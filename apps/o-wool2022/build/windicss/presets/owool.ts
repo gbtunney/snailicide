@@ -1,7 +1,7 @@
 import {Map, List} from 'immutable';
 import colors from "windicss/colors";
 
-const color_obj = {
+const BRAND_COLOR_OBJ = {
     "corn": {
         "DEFAULT": "#efc618",
         "50": "#fefcf3",
@@ -37,7 +37,7 @@ const color_obj = {
         "DEFAULT": "#7f7f7f"
     }
 }
-const colorMap = Map(color_obj)
+const colorMap = Map(BRAND_COLOR_OBJ)
 const CUSTOM_THEME_COLORS = {
     /** PRIMARY ACCENT ----  BRAND MINT GREEN COLOR w defaults */
     "accent-primary": {
@@ -110,7 +110,7 @@ export default {
     },
     theme: {
         colors: {
-            ...color_obj,
+            ...BRAND_COLOR_OBJ,
             ...CUSTOM_THEME_COLORS
         },
         fontFamily: {...DEFAULT_FONTS, ...CUSTOM_BASE_FONTS},
