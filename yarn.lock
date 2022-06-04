@@ -1593,7 +1593,7 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
-"@iconify/iconify@^2.1.2":
+"@iconify/iconify@^2.1.2", "@iconify/iconify@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@iconify/iconify/-/iconify-2.2.1.tgz#03ad4d8554c6f2d7741d3b9440115efa0c707b37"
   integrity sha512-WJzw+3iicrF/tbjbxxRinSgy5FHdJoz/egTqwi3xCDkNRJPq482RX1iyaWrjNuY2vMNSPkQMuqHvZDXgA+WnwQ==
@@ -11053,6 +11053,13 @@ hyphenate-style-name@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz#691879af8e220aea5750e8827db4ef62a54e361d"
   integrity sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==
+
+iconify-icon@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/iconify-icon/-/iconify-icon-0.0.6.tgz#50c17b52ca43a9261302c73ddb001437de874b7d"
+  integrity sha512-S8HhDt4Z6FpTwgBW/ImWtt9BW5Uv3NQQ37wCkILbf3/5QKQlxn8OB/BT20gJibvY8pOAwJbOEpZWb54kzvc5Uw==
+  dependencies:
+    "@iconify/types" "^1.1.0"
 
 iconv-lite@0.4, iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"

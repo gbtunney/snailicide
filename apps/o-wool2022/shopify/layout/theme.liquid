@@ -80,12 +80,12 @@
 <body border="t-8 solid accent-primary"
         class="{% if customer %}customer-logged-in {% endif %}template{{ template | split: '.' | first | camelize }} {{ page.title }} {{ product.title }}">
 
-<div id="main-content-wrapper" class="w-[85%] text-left m-auto" font="serif garamond">
+<div id="main-content-wrapper bg-yellow-500" class="w-[85%] text-left m-auto" font="serif garamond">
 
     <!-- Header headerApp-->
     <header id="headerApp" class="top clearfix">
         <button type="button" class="mobile-nav-trigger navbar-toggle" id="MobileNavTrigger" data-menu-state="close" style="display:none;">
-            <span class="icon icon-hamburger sr-only" aria-hidden="true"></span>
+            <span class="text-2xl icon icon-hamburger sr-only" aria-hidden="true"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
