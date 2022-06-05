@@ -42,6 +42,8 @@ export const windiConfig: IWindiConfig = {
             '.git/**/*',
         ],
     },
+
+
     //preflight: false,
    // exclude:[/grid/],
         safelist: 'grid-test radius-circle p-1 p-2 p-3 p-4 font-sans prose font-serif flex inline-flex flex-row flex-column justify-center items-center animate-spin w-8 h-8',
