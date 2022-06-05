@@ -9,7 +9,7 @@ import 'iconify-icon';
 /* * WindiCSS + PREFLIGHT* */
 import 'windi.css'
 import { iStorefrontApiConfig, useCache} from "@snailicide/g-shopify-apollo";
-import { gKabob, InlineSvg} from "@snailicide/g-patternlab/src/components";
+import { gKabob, gIconify,InlineSvg} from "@snailicide/g-patternlab/src/components";
 //import process from "process";
 import {cleanBooleanType} from "@snailicide/g-library";
 const MyTestElement =defineCustomElement(gKabob)
@@ -22,7 +22,8 @@ const MyVueElement = defineCustomElement({
             type:String
         }
     },
-ccomponents:{gKabob},
+    shadowRoot:false,
+components:{gKabob},
     emits: {},
     template: `<h1 class="testing">{{$props.message}}<g-kabob path="mdi:alert"></g-kabob></h1>`,
 
@@ -49,7 +50,14 @@ const mountApp = (_id : string ,_app:App= createVueApp({},options) )=>{
     }else{
         if ( LOGGING ) console.error( "VUEAPP MOUNT FAILED ID:" ,_id,_app)
     }
+
+    if ( document.querySelector('.vue') ){
+       // alert();
+        const vueElements = document.querySelectorAll('.vue')
+        if (vueElements) vueElements.forEach(el =>  _app.mount(el))
+    }
 }
+
 //TODO: MOVE THIS TO g-vue
 const createVueApp = ( _config ={},options: iStorefrontApiConfig) : App => {
     const app = createApp({})
@@ -58,12 +66,13 @@ const createVueApp = ( _config ={},options: iStorefrontApiConfig) : App => {
 // After registration, all `<my-vue-element>` tags
 // on the page will be upgraded.
     customElements.define('gbt-vue-element', MyVueElement)
-    customElements.define('gbt-kabob', defineCustomElement(gKabob) )
+
+    customElements.define('gbt-kabob', defineCustomElement({...gKabob,shadowRoot:false}) )
     customElements.define('gbt-inline-svg',defineCustomElement(InlineSvg) )
 
    // createApp(MainApp).mount('#app')
    // customElements.define('gbt-kabob',gKabob)
-    // app.component("g-icon", gIconify)
+     app.component("gbt-icon", gIconify)
      //    app.component("g-kabob", gKabob)
       //app.component('gbt-inline-svg', InlineSvg);
      /* app.component('loading-spinner',LoadingSpinner)

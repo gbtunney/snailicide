@@ -1,7 +1,7 @@
 <script lang="ts">
 import {Icon} from '@iconify/vue';
 import InlineSvg from 'vue-inline-svg';
-import 'windi.css'
+//import 'windi.css'
 export default {
   name: "gIconify",
   components: {iconifyIcon: Icon, 'inline-svg': InlineSvg}

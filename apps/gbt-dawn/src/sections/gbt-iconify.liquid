@@ -1,0 +1,4 @@
+{% render 'gbt-block-iconify', _settings: section.settings %}
+{% schema %}
+	<% if (htmlWebpackPlugin.options.data_map['base-section-wrapper-settings']){ %><%= JSON.stringify(htmlWebpackPlugin.options.data_map['base-section-wrapper-settings'] ) %><% } %>
+{% endschema %}

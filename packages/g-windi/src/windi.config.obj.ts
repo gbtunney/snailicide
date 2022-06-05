@@ -8,6 +8,7 @@ import presetColorScaleDemo, {colorScalePresetFactory} from "./presets/color.sca
 import preset3rdPartyPlugins from "./presets/active3party.plugins"
 import scratch from "./presets/scratch"
 
+
 const active_presets = [
    // presetColorDefaults,
     presetOwool,
