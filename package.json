@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "lerna": "^4.0.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "typescript-library-boilerplate": "^1.0.1"
   }
 }
