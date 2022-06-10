@@ -6,12 +6,11 @@ values: preload , css, js
 {% assign script-tag-section = script-tag %}
 {% case script-tag-section %}
 	{% when 'script-url' %}
-		<script src="https://unpkg.com/windicss-runtime-dom"></script>
+		
 	{% when 'preload' %}
 		
 		<link rel="preload" href="{{ 'app.js' | asset_url }}" as="script">
 		<link rel="preload" href="{{ 'chunk-vendors.js' | asset_url }}" as="script">
-		
 	{% when 'css' %}
 		
 	{% when 'js' %}

@@ -3,8 +3,9 @@
 {
   "name": "new UI Icon",
   "class":"vue",
-  "settings": 	<% if (htmlWebpackPlugin.options.data_map['base-section-wrapper-settings']){ %><%= JSON.stringify(htmlWebpackPlugin.options.data_map['base-section-wrapper-settings'] ) %><% } %>
+  "settings": [...<% if (htmlWebpackPlugin.options.data_map['base-section-wrapper-settings']){ %><%= JSON.stringify(htmlWebpackPlugin.options.data_map['base-section-wrapper-settings'] ) %><% } %>
 
+],
   "presets": [
     {
       "name": "new-iconify-icon",

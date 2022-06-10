@@ -103,4 +103,4 @@ export {
   tg_isUndefined,
   tg_isNotUndefined
 } from './types//utilities'
-
+export {tg_isCSSColorSpecial,tg_isNotCSSColorSpecial}from './types'
