@@ -1,4 +1,5 @@
-#Snailicide Monorepo 
+ #Snailicide Monorepo 
+https://github.com/VitorLuizC/typescript-library-boilerplate.git
 
 ##Packages
 shopify login --store=o-wool.myshopify.com

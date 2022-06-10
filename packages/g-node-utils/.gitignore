@@ -28,7 +28,3 @@ pnpmfile.js
 # Log files.
 *.log
 *.log.*
-
-
-#types
-/types/

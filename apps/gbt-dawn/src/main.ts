@@ -14,6 +14,9 @@ import { gKabob, gIconify,InlineSvg} from "@snailicide/g-patternlab/src/componen
 import {cleanBooleanType} from "@snailicide/g-library";
 const MyTestElement =defineCustomElement(gKabob)
 
+
+
+
 const MyVueElement = defineCustomElement({
     // normal Vue component options here
     props: {

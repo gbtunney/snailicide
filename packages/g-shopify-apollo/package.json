@@ -12,7 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@gabrielurbina/type-guard": "^0.1.9",
-    "@snailicide/g-library": "^1.0.0",
+    "@snailicide/g-library": "0.1.0",
     "@snailicide/g-patternlab": "^0.1.0",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@vue/apollo-option": "^4.0.0-alpha.16",

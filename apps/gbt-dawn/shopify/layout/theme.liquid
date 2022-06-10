@@ -17,7 +17,8 @@
     {%- endunless -%}
 
     {% render 's-script-tag', script-tag: "preload" %}
-
+    <meta name="theme-color" content="#ff0000" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#181919" media="(prefers-color-scheme: dark)">
     <title>
         {{ page_title }}
         {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
