@@ -193,6 +193,14 @@ module.exports = (env) => {
     const _html_plugins = getMappedHTMLPluginsBatch(ENTRY_CONFIG, dataForTemplatesObject)  //ENTRY_CONFIG,
     //console.log("THE REFULE IS!",JSON.stringify(_html_plugins,undefined,4))
     return {
+        resolve: {
+            alias: {
+                '@node': path.resolve(__dirname, 'node_modules'),
+                '@': path.resolve(__dirname, './../../src/'),
+                '@shopify': path.resolve(__dirname, './../../shopify/'),
+
+            },
+        },
         module:{
             rules: [
                 {
@@ -216,6 +224,22 @@ module.exports = (env) => {
                     schema: `${__dirname}/../../src/schemajs`
                 },
                 to: `${__dirname}/../../shopify/sections`
+            }),
+            new CopyPlugin({
+                patterns: [
+                    {
+                        from: path.resolve(__dirname, "./../../dist/**/*"),
+                        to: path.resolve(__dirname, "./../../shopify/assets/[name][ext]"),
+                    },
+                    {
+                        from: path.resolve(__dirname, "./../../src/snippets/*.liquid"),
+                        to: path.resolve(__dirname, "./../../shopify/snippets/s-[name][ext]")
+                    },
+                    {
+                        from: path.resolve(__dirname, "./../../src/assets/**/*"),
+                        to: path.resolve(__dirname,"./../../shopify/assets/[name][ext]"),
+                    },
+                ],
             }),
             ..._html_plugins,
         ],

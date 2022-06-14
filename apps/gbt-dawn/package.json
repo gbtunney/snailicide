@@ -7,7 +7,8 @@
     "production": "132783243495",
     "staging": "132783276263",
     "development": "132783374567",
-    "SESSION_ENDPOINT": "my-value"
+    "SESSION_ENDPOINT": "my-value",
+    "clean_glob": "s-*.liquid"
   },
   "scripts": {
     "start": "run-p -sr  build-watch shopify:serve && --live-reload hot-reload",
@@ -20,7 +21,11 @@
     "build": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build",
     "build:dev": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.js vue-cli-service build --mode development",
     "build-watch": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/build/vue/config.watch.js NODE_ENV=development vue-cli-service build-watch --mode development",
-    "clean": "rm -R -f dist && rm -f shopify/snippets/s-*.liquid",
+    "clean": "run-p  clean:dist clean:assets clean:snippets clean:sections",
+    "clean:dist": "rm -R -f dist",
+    "clean:assets": "rm -f shopify/assets/*",
+    "clean:snippets": "rm -f shopify/snippets/$npm_package_config_clean_glob",
+    "clean:sections": "rm -f shopify/sections/$npm_package_config_clean_glob",
     "test:build": "run-s webpack",
     "webpack:dev": "webpack --env=development --config=build/webpack/script.tags.ts",
     "webpack": "webpack --config=build/webpack/script.tags.ts",
