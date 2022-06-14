@@ -35,7 +35,7 @@ export const windiConfig: IWindiConfig = {
     extract: {
         // accepts globs and file paths relative to project root
         include: [
-            '**/**/*.{vue,html,jsx,liquid,ts}',
+            '**/**/*.{vue,html,jsx,liquid,ts,js}',
         ],
         exclude: [
             'node_modules/**/*',
@@ -77,7 +77,7 @@ export const windiConfig: IWindiConfig = {
         plugin(({addComponents, theme}) => {
             const buttons = {
                 'bg-opacity-80':{
-                    '--tw-bg-opacity' :'.9'
+                    '--tw-bg-opacity' :'.8'
                 },
                 'rotate--45':{
                     'transform': 'rotate(-45deg)'

@@ -9,12 +9,12 @@ values: preload , css, js
 		
 	{% when 'preload' %}
 		
-		<link rel="preload" href="{{ 'app.js' | asset_url }}" as="script">
-		<link rel="preload" href="{{ 'chunk-vendors.js' | asset_url }}" as="script">
+		<link rel="preload" href="{{ 'app.86042936.js' | asset_url }}" as="script">
+		<link rel="preload" href="{{ 'chunk-vendors.7ad72be0.js' | asset_url }}" as="script">
 	{% when 'css' %}
-		
+		{{ 'app.e96f99ca.css' | asset_url | stylesheet_tag }}
 	{% when 'js' %}
 		
-		<script src="{{ 'app.js' | asset_url }}" defer="defer"></script>
-		<script src="{{ 'chunk-vendors.js' | asset_url }}" defer="defer"></script>
+		<script src="{{ 'app.86042936.js' | asset_url }}" defer="defer"></script>
+		<script src="{{ 'chunk-vendors.7ad72be0.js' | asset_url }}" defer="defer"></script>
 {% endcase %}

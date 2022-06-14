@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
+
     "target": "esnext",
-    "module": "esnext",
     "strict": false,
     "jsx": "preserve",
     "moduleResolution": "node",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "module": "commonjs",
+
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
@@ -19,7 +22,8 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "src/*",
+        "build/*"
       ]
     },
     "lib": [
@@ -30,6 +34,7 @@
     ]
   },
   "include": [
+    "build/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",

@@ -1,0 +1,143 @@
+{% render 'gbt-block-iconify', _settings: section.settings %}
+{% schema %}
+{
+    "name": "NEW UI Icon",
+    "class": "vue",
+    "settings": [
+        {
+            "id": "icon_path",
+            "type": "text",
+            "label": "Icon Path or SVG Filename:",
+            "default": "mdi:alert"
+        },
+        {
+            "type": "checkbox",
+            "id": "color_toggle",
+            "default": false,
+            "label": "Override color",
+            "info": "Use TAILWIND classes for text-red-500 etc."
+        },
+        {
+            "type": "color",
+            "id": "icon_color",
+            "label": "Color",
+            "default": "#3d4246"
+        },
+        {
+            "id": "custom_styles",
+            "type": "text",
+            "label": "Text",
+            "default": "font-size: 48px;"
+        },
+        {
+            "id": "css_classes",
+            "type": "text",
+            "label": "Add custom css below",
+            "default": "bg-blue-500"
+        },
+        {
+            "type": "select",
+            "id": "desktop_content_position",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "t:sections.rich-text.settings.desktop_content_position.options__1.label"
+                },
+                {
+                    "value": "center",
+                    "label": "t:sections.rich-text.settings.desktop_content_position.options__2.label"
+                },
+                {
+                    "value": "right",
+                    "label": "t:sections.rich-text.settings.desktop_content_position.options__3.label"
+                }
+            ],
+            "default": "center",
+            "label": "t:sections.rich-text.settings.desktop_content_position.label",
+            "info": "t:sections.rich-text.settings.desktop_content_position.info"
+        },
+        {
+            "type": "select",
+            "id": "content_alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "t:sections.rich-text.settings.content_alignment.options__1.label"
+                },
+                {
+                    "value": "center",
+                    "label": "t:sections.rich-text.settings.content_alignment.options__2.label"
+                },
+                {
+                    "value": "right",
+                    "label": "t:sections.rich-text.settings.content_alignment.options__3.label"
+                }
+            ],
+            "default": "center",
+            "label": "t:sections.rich-text.settings.content_alignment.label"
+        },
+        {
+            "type": "select",
+            "id": "color_scheme",
+            "options": [
+                {
+                    "value": "theme-primary",
+                    "label": "Primary"
+                },
+                {
+                    "value": "theme-primary-inverse",
+                    "label": "Primary Inverse"
+                },
+                {
+                    "value": "theme-accent-primary",
+                    "label": "Accent Primary"
+                },
+                {
+                    "value": "theme-accent-primary-inverse",
+                    "label": "Accent Primary Inverse"
+                },
+                {
+                    "value": "theme-accent-secondary",
+                    "label": "Accent Secondary"
+                },
+                {
+                    "value": "theme-accent-secondary-inverse",
+                    "label": "Accent Secondary Inverse"
+                }
+            ],
+            "default": "background-1",
+            "label": "t:sections.all.colors.label"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_width",
+            "default": true,
+            "label": "t:sections.rich-text.settings.full_width.label"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 40
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 52
+        }
+    ]
+}
+{% endschema %}

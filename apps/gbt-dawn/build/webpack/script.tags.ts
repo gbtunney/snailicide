@@ -5,7 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const glob = require('glob')
 const fs = require('fs')
+const LiquidSchemaPlugin = require('liquid-schema-plugin');
 
+import   option from './../../src/schemajs/options.json'
+//import _option = require('./../../src/schemajs/options.json')
 const getFileKeyPairs = function (_globpath: string) {
     const pairArray = glob.sync(_globpath).map(function (_path: string) {
         const regex: RegExp = /[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/;
@@ -39,6 +42,9 @@ const getFileArr = function (_globpath: string) {
         }
     });
 };
+
+//console.log(wildcard('theme-*', 'theme-accent-primary-inverse'));
+
 type Pattern = {
     from: string | string[]
     to: string,
@@ -126,13 +132,13 @@ const ENTRY_CONFIG: TEntryConfig[] = [{
     // output_directory: `${__dirname}/../../shopify/snippets`,
     output_directory: `${__dirname}/../../shopify/snippets`,
     output_prefix: 's-'
-},
-    {
-        input_template: `${__dirname}/../../src/sections/*`,
-        // output_directory: `${__dirname}/../../shopify/snippets`,
-        output_directory: `${__dirname}/../../shopify/sections`,
-        output_prefix: 's-'
-    }]
+}
+    /*  {
+          input_template: `${__dirname}/../../src/sections/!*`,
+          // output_directory: `${__dirname}/../../shopify/snippets`,
+          output_directory: `${__dirname}/../../shopify/sections`,
+          output_prefix: 's-'
+      }*/]
 
 const HtmlWebpackDataDefaults = {
     inject: false,
@@ -184,15 +190,34 @@ module.exports = (env) => {
     // * GET FULLY POPULATED DATA OBJECT
     const dataForTemplatesObject = composeTemplateData(env.development)
     // * GET HTML WEBPACK PLUGIN ARRAY
-   const _html_plugins = getMappedHTMLPluginsBatch(ENTRY_CONFIG,dataForTemplatesObject)  //ENTRY_CONFIG,
-     console.log("THE REFULE IS!",JSON.stringify(_html_plugins,undefined,4))
+    const _html_plugins = getMappedHTMLPluginsBatch(ENTRY_CONFIG, dataForTemplatesObject)  //ENTRY_CONFIG,
+    //console.log("THE REFULE IS!",JSON.stringify(_html_plugins,undefined,4))
     return {
+        module:{
+            rules: [
+                {
+                    test: /\.json5$/i,
+                    loader: 'json5-loader',
+                    type: 'javascript/auto',
+                    options: {
+                        esModule: true,
+                    },
+                },
+            ],
+        },
         optimization: {
             minimize: false,//(env.development) ? false : true,
         },
         entry: path.resolve(__dirname, "./../../index.ts"),
         plugins: [
-           ..._html_plugins,
+            new LiquidSchemaPlugin({
+                from: {
+                    liquid: `${__dirname}/../../src/sections`,
+                    schema: `${__dirname}/../../src/schemajs`
+                },
+                to: `${__dirname}/../../shopify/sections`
+            }),
+            ..._html_plugins,
         ],
     };
 };
