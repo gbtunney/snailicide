@@ -1,0 +1,17 @@
+{% assign sectionPaddingDefault = 52 %}
+
+<style type="text/css">
+{%- style -%}
+.section-{{ _section.id }}-padding {
+    padding-top: {{ _section.settings.padding_top | times: 0.75 | round: 0 |  default: sectionPaddingDefault }}px;
+    padding-bottom: {{ _section.settings.padding_bottom | times: 0.75 | round: 0 | default: sectionPaddingDefault }}px;
+}
+@media screen and (min-width: 750px) {
+    .section-{{ _section.id }}-padding {
+        padding-top: {{ _section.settings.padding_top | default : sectionPaddingDefault }}px;
+        padding-bottom: {{ _section.settings.padding_bottom  | default : sectionPaddingDefault }}px;
+    }
+}
+{%- endstyle -%}
+</style>
+{% assign _section = null %}

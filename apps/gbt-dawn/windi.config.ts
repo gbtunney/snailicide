@@ -14,7 +14,7 @@ const  range=(size, startAt = 1)=> {
 }
 const testpreset = {
     shortcuts: {
-        'grid-test':'grid',
+        //'grid-test':'grid',
         'sm-caps': 'tracking-wide uppercase',
         'border': 'border border-solid',
         'border-y':'border-t border-b',
@@ -42,11 +42,9 @@ export const windiConfig: IWindiConfig = {
             '.git/**/*',
         ],
     },
-
-
     //preflight: false,
-   // exclude:[/grid/],
-        safelist: 'grid-test radius-circle p-1 p-2 p-3 p-4 font-sans prose font-serif flex inline-flex flex-row flex-column justify-center items-center animate-spin w-8 h-8',
+    exclude: [/grid/],
+    safelist: 'grid-test radius-circle p-1 p-2 p-3 p-4 font-sans prose font-serif flex inline-flex flex-row flex-column justify-center items-center animate-spin w-8 h-8',
     rules: [],
     shortcuts:{
         ...testpreset.shortcuts,

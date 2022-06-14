@@ -4,19 +4,7 @@
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}</noscript>
 
-{%- style -%}
-    .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    }
-
-    @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-    }
-{%- endstyle -%}
+{% render 's-section-padding', _section: section %}
 
 <div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
     <div class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
@@ -47,7 +35,7 @@
                             </div>
                         {%- when 'icon' -%}
                         <div class="vue rich-text__icon">
-                            {% render 'gbt-block-iconify', _settings: block.settings %}
+                            {% render 's-block-iconify', _settings: block.settings %}
                         </div>
                     {%- endcase -%}
                 {%- endfor -%}
@@ -57,7 +45,7 @@
 </div>
 {% schema %}
 {
-    "name": "GillianTIch",
+    "name": "g UI Rich Text",
     "tag": "section",
     "class": "section",
     "settings": [
@@ -107,27 +95,31 @@
             "id": "color_scheme",
             "options": [
                 {
-                    "value": "accent-1",
-                    "label": "t:sections.all.colors.accent_1.label"
+                    "value": "theme-primary",
+                    "label": "Primary"
                 },
                 {
-                    "value": "accent-2",
-                    "label": "t:sections.all.colors.accent_2.label"
+                    "value": "theme-primary-inverse",
+                    "label": "Primary Inverse"
                 },
                 {
-                    "value": "background-1",
-                    "label": "t:sections.all.colors.background_1.label"
+                    "value": "theme-accent-primary",
+                    "label": "Accent Primary"
                 },
                 {
-                    "value": "background-2",
-                    "label": "t:sections.all.colors.background_2.label"
+                    "value": "theme-accent-primary-inverse",
+                    "label": "Accent Primary Inverse"
                 },
                 {
-                    "value": "inverse",
-                    "label": "t:sections.all.colors.inverse.label"
+                    "value": "theme-accent-secondary",
+                    "label": "Accent Secondary"
+                },
+                {
+                    "value": "theme-accent-secondary-inverse",
+                    "label": "Accent Secondary Inverse"
                 }
             ],
-            "default": "background-1",
+
             "label": "t:sections.all.colors.label"
         },
         {

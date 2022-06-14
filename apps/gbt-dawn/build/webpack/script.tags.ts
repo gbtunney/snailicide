@@ -128,7 +128,7 @@ const ASSET_CONFIG: Pattern[] = [
 
 /*************** TEMPLATE FUNCTIONS *****/
 const ENTRY_CONFIG: TEntryConfig[] = [{
-    input_template: `${__dirname}/../../src/snippets/*`,
+    input_template: `${__dirname}/../../src/template/*`,
     // output_directory: `${__dirname}/../../shopify/snippets`,
     output_directory: `${__dirname}/../../shopify/snippets`,
     output_prefix: 's-'

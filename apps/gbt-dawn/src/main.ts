@@ -14,17 +14,16 @@ import { gKabob, gIconify,InlineSvg} from "@snailicide/g-patternlab/src/componen
 import {cleanBooleanType} from "@snailicide/g-library";
 const MyTestElement =defineCustomElement(gKabob)
 
-
-
-
 const MyVueElement = defineCustomElement({
     // normal Vue component options here
     props: {
         message: {
             default:"message not set",
             type:String
+
         }
     },
+
     shadowRoot:false,
 components:{gKabob},
     emits: {},
@@ -42,6 +41,7 @@ const options: iStorefrontApiConfig = {
     logging: cleanBooleanType(process.env.VUE_APP_APOLLO_OPERATION_LOGGING) as boolean,
     cache: useCache()
 }
+
 
 //todo:move to env someqhwe.
 const LOGGING = true;
