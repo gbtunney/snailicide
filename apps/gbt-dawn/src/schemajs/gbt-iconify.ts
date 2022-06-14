@@ -5,5 +5,5 @@ const base_settings = require('./base-section-wrapper-settings')
 module.exports = {
     "name": "NEW UI Icon",
     "class":"vue",
-    settings: [...icon_settings_section,...base_settings]
+    "settings": [...icon_settings_section,...base_settings]
 }

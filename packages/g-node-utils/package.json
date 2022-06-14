@@ -47,5 +47,22 @@
     "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
     "build": "rollup --config ./rollup.config.js",
     "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gillian Tunney/.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Gillian Tunney"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gillian Tunney//issues"
+  },
+  "homepage": "https://github.com/Gillian Tunney/#readme",
+  "dependencies": {
+    "ramda": "^0.27.1",
+    "ramda-adjunct": "^3.1.0"
   }
 }

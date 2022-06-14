@@ -1,6 +1,6 @@
-//import   option from './options.json'
 const  theme_options =require('./getThemeOptionsFromWindi')
-module.exports = [
+import {defineSectionSettings,Shopify} from '@snailicide/g-node-utils'
+module.exports = defineSectionSettings<Shopify.TSidebarSettingType|Shopify.TBasicInputSettingType>([
     {
       "type": "select",
       "id": "desktop_content_position",
@@ -80,4 +80,4 @@ module.exports = [
       "default": 52
     }
 
-  ]
+  ])

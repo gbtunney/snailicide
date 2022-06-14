@@ -21,4 +21,5 @@ export declare type NumberParseable = (number | string | boolean) & {
  * @param value - An `unknown` value to be checked.
  */
 export declare const isNumberParseable: (value: unknown) => value is NumberParseable;
+export { Shopify, defineSectionSchema, defineSectionSetting, defineSectionSettings } from './shopify_settings';
 //# sourceMappingURL=index.d.ts.map

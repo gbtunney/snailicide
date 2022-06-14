@@ -35,6 +35,7 @@
     "@iconify/types": "^1.1.0",
     "@shopify/admin-graphql-api-utilities": "^1.0.9",
     "@snailicide/g-library": "0.1.0",
+    "@snailicide/g-node-utils": "^0.0.0",
     "@snailicide/g-patternlab": "^0.1.0",
     "@snailicide/g-shopify-apollo": "^0.1.0",
     "@snailicide/g-windi": "^0.1.0",

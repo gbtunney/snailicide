@@ -7,7 +7,7 @@ const glob = require('glob')
 const fs = require('fs')
 const LiquidSchemaPlugin = require('liquid-schema-plugin');
 
-import   option from './../../src/schemajs/options.json'
+//import   option from './../../src/schemajs/options.json'
 //import _option = require('./../../src/schemajs/options.json')
 const getFileKeyPairs = function (_globpath: string) {
     const pairArray = glob.sync(_globpath).map(function (_path: string) {

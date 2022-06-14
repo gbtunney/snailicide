@@ -23,3 +23,5 @@ export type NumberParseable = (number | string | boolean) & {
  */
 export const isNumberParseable = (value: unknown): value is NumberParseable =>
   !Number.isNaN(Number(value));
+
+export {Shopify,defineSectionSchema,defineSectionSetting,defineSectionSettings} from './shopify_settings'
