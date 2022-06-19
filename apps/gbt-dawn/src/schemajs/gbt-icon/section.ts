@@ -2,7 +2,7 @@ import {defineSectionSchema} from '@snailicide/g-node-utils'
 
 module.exports = () =>{
     const base_settings = require('./../base-section/wrapper-settings')
-    const icon_settings = require('./../gbt-icon/settings')
+    const icon_settings = require('./settings')
 
     return defineSectionSchema({
         "name": "NEW UI Icon",

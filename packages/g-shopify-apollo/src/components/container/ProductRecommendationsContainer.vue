@@ -5,7 +5,7 @@ import {defineProps, toRefs, withDefaults} from "vue";
 import {getDigitCount, toInteger, isInteger,formatCurrency} from "@snailicide/g-library";
 import {composeGid} from '@shopify/admin-graphql-api-utilities';
 import {useProductRecommendationsQuery} from "./../../types/generated/storefront-types";
-import {LoadingSpinner} from '@snailicide/g-patternlab';
+//import {LoadingSpinner} from '@snailicide/g-patternlab';
 import {ShopifyMediaURL} from "./../../scripts/shopify";
 
 /* * PROPS * */

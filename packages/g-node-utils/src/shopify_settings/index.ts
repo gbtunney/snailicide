@@ -257,7 +257,7 @@ export module Shopify {
     * @example
     * "Each customer will see their preferred payment method from those available on your store,
     * such as PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/online-store/dynamic-checkout)" */
-    type TSectionSettingBaseProps = {
+    export type TSectionSettingBaseProps = {
         id: string;
         label: string;
         info?: string;
@@ -332,7 +332,7 @@ export module Shopify {
             ) & TSectionSettingBaseProps
     }
 
-    export type Setting<T> = T extends Type.BasicInput
+    export type Setting<T> = & TSectionSettingBaseProps & T extends Type.BasicInput
         ? SettingType.TBasic<T>
         : T extends Type.SpecializedInput
             ? SettingType.TSpecialized<T>
@@ -348,10 +348,16 @@ export module Shopify {
         limit?: number;
         settings: Setting<T>[];
     }
-
+  /* export type PresetSettings<S> = {
+        [P in keyof S]?: T[P];
+    }*/
     export interface Preset<T =  Type.All> {
         name: string;
-        blocks: Pick<Block<T>, "type">[];
+        blocks?: Pick<Block<T>, "type">[];
+        settings?: unknown
+        /* {
+            "title": "Slideshow"
+        },*/
     }
 
     export interface SectionSchema<T = Type.All> {
@@ -368,3 +374,37 @@ import * as RA from "ramda-adjunct"
 
 export const defineSectionSettings = <T = Shopify.Type.All>(value: Shopify.Setting<T> | Shopify.Setting<T>[]): Shopify.Setting<T>[] => RA.ensureArray(value)
 export const defineSectionSchema = <T = Shopify.Type.All>(value: Shopify.SectionSchema<T>): Shopify.SectionSchema<T> => value
+
+import type {ValueOf} from 'type-fest';
+/*export const getData = <T = Shopify.Type.All>(value:Shopify.Setting<T> | Shopify.Setting<T>[] , key: string): ValueOf<typeof data> {
+
+    //   return data[name];
+}*/
+import  R from "ramda"
+//import * as RA from "ramda-adjunct"
+export const definePreset = <T = 'text'>(setting:Shopify.Setting<T>, key: ValueOf<Shopify.Setting<"text">, 'id'>)=>{
+    const [_setting] = defineSectionSettings(setting)
+    const setting_obj_no_id= R.omit(["id"], (   _setting as Shopify.TSectionSettingBaseProps ) )
+
+    return  { [key] : setting_obj_no_id }
+}
+const testme  = definePreset( {
+    "id": "css_classes",
+    "type": "text",
+    "label": "Add custom css below",
+    "default": "bg-blue-500"
+}, "css_clanmsses")
+
+console.log("jkjkjk",testme)
+export const definePresets = <T = Shopify.Type.All>(value: Shopify.SectionSchema<T>, key = "id")=>{
+    const _settings = defineSectionSettings(value.settings)
+     const new = _settings.reduce((accumulator, setting: Shopify.Setting<T> ) => {
+       //console.log("::: REDUCE :::: TOTAL:",accumulator ," currentValue:", currentValue)
+         //./thhis is a hack
+         //ValueOf<typeof data, 'bar'>
+        const setting_obj_no_id= R.omit(["id"], (   setting as Shopify.TSectionSettingBaseProps ) )
+         const _id =(   setting as Shopify.TSectionSettingBaseProps )?.id
+
+       return { ...accumulator, ... { [_id] : setting_obj_no_id }}
+     }, {});
+}

@@ -6,44 +6,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const glob = require('glob')
 const fs = require('fs')
 const LiquidSchemaPlugin = require('liquid-schema-plugin');
-
-//import   option from './../../src/schemajs/options.json'
-//import _option = require('./../../src/schemajs/options.json')
-const getFileKeyPairs = function (_globpath: string) {
-    const pairArray = glob.sync(_globpath).map(function (_path: string) {
-        const regex: RegExp = /[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/;
-        const matchArr: RegExpMatchArray | null = _path.toString().match(regex);
-        if (matchArr === null) return undefined
-        if ((matchArr !== null || matchArr !== undefined)
-            && matchArr.length > 0) {
-            const [, filekey] = (path.resolve(__dirname, _path)).match(/([^:\\/]*?)(?:\.([^ :\\/.]*))?$/) /// split file extenstion
-            const fileentry = fs.readFileSync(path.resolve(__dirname, _path), 'utf8');
-            try {
-                return [filekey, JSON.parse(fileentry)];
-            } catch (e) {
-                console.error('invalid json', filekey);
-                return [filekey, fileentry];
-            }
-        }
-    });
-    return pairArray.reduce((accumulator, [key, value]) => {
-        return {...accumulator, [key]: value}
-    }, {});
-};
-const getFileArr = function (_globpath: string) {
-    return glob.sync(_globpath).map(function (_path: string) {
-        const regex: RegExp = /[A-Za-z0-9_\-\.]+\.[A-Za-z0-9]+$/;
-        const matchArr: RegExpMatchArray | null = _path.toString().match(regex);
-        if (matchArr === null) return undefined
-        if ((matchArr !== null || matchArr !== undefined)
-            && matchArr.length > 0) {
-            const [filename] = matchArr
-            return filename;
-        }
-    });
-};
-
-//console.log(wildcard('theme-*', 'theme-accent-primary-inverse'));
+const {getFileKeyPairs,getFileArr}=require('./directory.file.list')
 
 type Pattern = {
     from: string | string[]
@@ -108,7 +71,7 @@ type TEntryConfig = {
     output_directory: string
     output_filename?: string /// OUTPUT FILENAME WITH NO EXTENSION> IF UNDEFINED, it uses the templates name + prefix
     output_prefix?: string
-
+    context? : string //base path. if not set "__dirname will be used.
     render_template_data?: TConfigTemplateData
 }
 type THtmlWebpackOptions = {
@@ -116,6 +79,7 @@ type THtmlWebpackOptions = {
     minify?: boolean
     template: string    ///these are the single specifoc file names
     filename: string
+    context? : string //base path. if not set "__dirname will be used.
 }
 
 const ASSET_CONFIG: Pattern[] = [
@@ -191,7 +155,6 @@ module.exports = (env) => {
     const dataForTemplatesObject = composeTemplateData(env.development)
     // * GET HTML WEBPACK PLUGIN ARRAY
     const _html_plugins = getMappedHTMLPluginsBatch(ENTRY_CONFIG, dataForTemplatesObject)  //ENTRY_CONFIG,
-    //console.log("THE REFULE IS!",JSON.stringify(_html_plugins,undefined,4))
     return {
         resolve: {
             alias: {

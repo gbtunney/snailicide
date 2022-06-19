@@ -116,7 +116,40 @@ export default {
         fontFamily: {...DEFAULT_FONTS, ...CUSTOM_BASE_FONTS},
         /** EXTEND THEME */
         extend: {
-            fontFamily: CUSTOM_THEME_FONTS,
+            "corn": {
+                "DEFAULT": "#efc618",
+                "50": "#fefcf3",
+                "100": "#fdf9e8",
+                "200": "#fbf1c5",
+                "300": "#f9e8a3",
+                "400": "#f4d75d",
+                "500": "#efc618",
+                "600": "#d7b216",
+                "700": "#b39512",
+                "800": "#8f770e",
+                "900": "#75610c"
+            },
+            "gumleaf": {
+                "DEFAULT": "#afd3c2",
+                "50": "#fbfdfc",
+                "100": "#f7fbf9",
+                "200": "#ebf4f0",
+                "300": "#dfede7",
+                "400": "#c7e0d4",
+                "500": "#afd3c2",
+                "600": "#9ebeaf",
+                "700": "#839e92",
+                "800": "#697f74",
+                "900": "#56675f"
+            },
+            "brandGrey": {
+                "dk": "#585858",
+                "DEFAULT": "#7f7f7f",
+                "lt": "#b0b0b0"
+            },
+            "grey": {
+                "DEFAULT": "#7f7f7f"
+            }
         },
     },
 }

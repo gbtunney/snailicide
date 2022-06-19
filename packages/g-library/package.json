@@ -31,17 +31,17 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
     "prettier": "^2.6.2",
+    "ramda": "^0.27.1",
+    "ramda-adjunct": "^2.35.0",
     "rollup": "^2.70.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
     "ts-jest": "^27.1.4",
     "ts-jest-resolver": "^2.0.0",
+    "type-fest": "^2.13.0",
     "typedoc": "^0.22.15",
     "typedoc-plugin-markdown": "^3.12.1",
-    "typescript": "^4.6.3",
-    "ramda": "^0.27.1",
-    "ramda-adjunct": "^2.35.0",
-    "type-fest": "^2.13.0"
+    "typescript": "^4.6.3"
   },
   "scripts": {
     "doc": "typedoc src/index.ts",
@@ -63,5 +63,8 @@
   "bugs": {
     "url": "https://github.com/Gillian Tunney//issues"
   },
-  "homepage": "https://github.com/Gillian Tunney/#readme"
+  "homepage": "https://github.com/Gillian Tunney/#readme",
+  "dependencies": {
+    "fp-ts": "^2.12.1"
+  }
 }
