@@ -32,10 +32,10 @@ const getBackgroundLineCSS = computed(() => {
 
 const cssClasses = computed(() => {
   return [
-    ...props.grid !== true ? ['flex'] : ['grid'],
+    ...props.grid !== true ? ['pl-flex'] : ['pl-grid'],
     ...props.direction === "row"
-        ? [`${props.grid !== true ? 'flex' : 'grid'}-row`]
-        : [`${props.grid !== true ? 'flex' : 'grid'}-column`]
+        ? [`${props.grid !== true ? 'pl-flex' : 'pl-grid'}-row`]
+        : [`${props.grid !== true ? 'pl-flex' : 'pl-grid'}-column`]
   ]
 })
 
@@ -77,7 +77,7 @@ const cssClasses = computed(() => {
 </template>
 <style type="text/css" lang="scss">
 
-.grid {
+.pl-grid {
   display: grid;
 
   &-row {
@@ -89,7 +89,7 @@ const cssClasses = computed(() => {
   }
 }
 
-.flex {
+.pl-flex {
   display: flex;
 
   &-row {
