@@ -17,7 +17,9 @@ export {
     replaceAccents,
     escapeHtml,
     unescapeHtml,
-    escapeUnicode
+    escapeUnicode,
+    escapeRegExp
+
 } from './_stringUtils'
 
-export {stringContainsNumber, stringContainsLetter} from "./_string"
+export {stringContainsNumber, stringContainsLetter, getHTMLElementFromString} from "./_string"

@@ -1,13 +1,14 @@
-import RA from "ramda-adjunct";
-import R from "ramda";
+import * as RA from "ramda-adjunct";
+import * as R from "ramda";
 import type {ReplaceCharacters, ReplaceSinglePatternCharacters, TransformBatch} from "./type";
+import {tg_isNonEmptyArray} from './../../types/utilities'
 
 const replaceCharactersSinglePattern = ({
-                                            value,
-                                            pattern = " ",
-                                            replacement = ""
-                                        }: ReplaceSinglePatternCharacters): string =>
-    R.replace(pattern, replacement, value)
+                                                   value,
+                                                   pattern = " ",
+                                                   replacement = ""
+                                               }: ReplaceSinglePatternCharacters): string =>
+    RA.replaceAll(pattern, replacement, value)
 
 /* * Function replaceAllCharacters * * * *
 * @param { string } - single value
@@ -33,14 +34,15 @@ export const batchReplaceAll = ({
                                     value,
                                     pattern = " ",
                                     replacement = ""
-                                }: TransformBatch<ReplaceCharacters>): string[] => {
+                                }: TransformBatch<ReplaceCharacters>): string | string[] => {
     const _value =
         (RA.isString(value))
             ? RA.ensureArray(value) :
             value //already an array
 
-    return _value.map((single_value) => {
+    const result = _value.map((single_value) => {
         return replaceAllCharacters({value: single_value, pattern, replacement})
     })
+    return ((RA.isString(value)) && tg_isNonEmptyArray<string>(result)) ? (result[0] as string) : result
 }
 export default replaceAllCharacters

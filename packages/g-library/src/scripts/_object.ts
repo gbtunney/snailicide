@@ -1,9 +1,9 @@
- import * as R from "ramda"
-import {PlainObject} from "../types/types";
+import * as R from "ramda"
+import type {PlainObject} from "./../types/utilities";
 
 export const mergeOptions = function (
-    base_options: PlainObject={} ,
-    override_options:PlainObject={} ,
+    base_options: PlainObject = {},
+    override_options: PlainObject = {},
     remove_false = true
 ) {
     const relevant_override_options = R.pick(Array.from(Object.keys(base_options)), override_options);

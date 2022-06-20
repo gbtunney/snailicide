@@ -7,6 +7,9 @@ import type {Primitive as tsPrimitive} from 'type-fest';
 export type EmptyObject = {
     [K in string]: never
 }
+export type EmptyArray = {
+    [K in number]: never
+}
 export type PlainObject = {
     [x: string]: any
     [y: number]: never
@@ -68,6 +71,12 @@ export const tg_isNotUndefined
     = <T=unknown>(value: (   T  extends NonNullable<T> ? T : never ) | Nullish)
             : value is (  T extends NonNullable<T> ? T : never )  => RA.isNotNil(value)
 
+export const tg_isEmptyArray = <T = unknown>(value: T[] extends EmptyArray ? EmptyArray : never)
+    : value is T[] extends EmptyArray ? EmptyArray : never =>
+    RA.isEmptyArray(value)
+export const tg_isNonEmptyArray = <T = unknown>(value: T[] extends EmptyArray ? never : T[])
+    : value is T[] extends EmptyArray ? never : T[] =>
+    RA.isNonEmptyArray(value)
 
 //Test case  --
 /*const test_value  = 22 //'   ' //PlainObject = { hhihih:'hjhj'}

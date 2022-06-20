@@ -176,6 +176,13 @@ export const abbreviate = (value: string): string => {
 }
 
 /**
+ * Escapes special characters in string for regexp
+ */
+export const escapeRegExp = (value: string): string | undefined => {
+    return (value).toString().replace(/[-[/\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
+/**
  * Escapes a string for insertion into HTML.
  */
 export const escapeHtml = (value: string) =>

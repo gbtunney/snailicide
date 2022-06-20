@@ -1,6 +1,8 @@
-import RA from "ramda-adjunct";
-import R from "ramda";
+import * as RA from "ramda-adjunct";
+import * as R from "ramda";
 import type {TrimCharacters, TrimSinglePatternCharacters, TransformBatch} from "./type";
+import {tg_isNonEmptyArray} from "./../../types/utilities";
+import {escapeRegExp} from './../string/index'
 
 const trimCharactersforSinglePattern = function ({
                                                             value,
@@ -34,19 +36,15 @@ const trimCharactersforSinglePattern = function ({
 //R.replace(new RegExp( '^gi' ,'g' ) ,"","gillian"
 export const trimCharacters = ({value, pattern = " ", trimStart = true, trimEnd = true}: TrimCharacters): string => {
     if (!trimStart && !trimEnd) return value
-    const result_string = RA.ensureArray(pattern).reduce((accumulator: string, pattern_single: RegExp | string) => {
-        //  console.log("pattern::: REDUCE :::: TOTAL:", accumulator, " currentValue:", pattern_single)
+    return RA.ensureArray(pattern).reduce((accumulator: string, pattern_single: RegExp | string) => {
         return trimCharactersforSinglePattern(
             {
                 value: accumulator,
                 pattern: pattern_single,
                 trimStart,
                 trimEnd
-            }
-        )
+            })
     }, value);
-    console.log("the result issss", result_string)
-    return result_string
 }
 
 export const batchTrimCharacters = ({
@@ -54,15 +52,16 @@ export const batchTrimCharacters = ({
                                         pattern = " ",
                                         trimStart = true,
                                         trimEnd = true
-                                    }: TransformBatch<TrimCharacters>): string[] => {
+                                    }: TransformBatch<TrimCharacters>): string | string[] => {
     const _value =
         (RA.isString(value))
             ? RA.ensureArray(value) :
             value //already an array
 
-    return _value.map((single_value) => {
+    const result = _value.map((single_value) => {
         return trimCharacters({value: single_value, pattern, trimStart, trimEnd})
     })
+    return ((RA.isString(value)) && tg_isNonEmptyArray<string>(result)) ? (result[0] as string) : result as string[]
 }
 
 export const trimCharactersStart = ({value, pattern = " "}: TrimCharacters): string => {
@@ -87,4 +86,4 @@ export const trimCharactersEnd = ({value, pattern = " "}: TrimCharacters): strin
 }
 
 export const getRegMatchStartOfString = (pattern: string, flags = 'g') => new RegExp(`^${pattern}`, flags)
-export const getRegMatchEndOfString = (pattern: string, flags = 'g') => new RegExp(`${pattern}$`, flags)
+export const getRegMatchEndOfString = (pattern: string, flags = 'g') => new RegExp(`${escapeRegExp(pattern)}$`, flags)

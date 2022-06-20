@@ -47,7 +47,8 @@ export {
     unescapeHtml,
     escapeUnicode,
     stringContainsNumber,
-    stringContainsLetter
+    stringContainsLetter,
+    escapeRegExp
 } from './scripts/string'
 
 export {
@@ -62,7 +63,6 @@ export {randomInt, getRandomNumber, getDigitCount, formatCurrency} from './scrip
 export {
   transformExplodeArray,
   //  explodeCSSClassString,
-    batchReplaceAll,
     replaceCharacters,
     trimCharacters,
     batchTrimCharacters,
@@ -80,6 +80,7 @@ export {
 
 export type {
     EmptyObject,
+    EmptyArray,
     PlainObject,
     EmptyString,
     Primitive,
@@ -104,6 +105,8 @@ export {
     tg_isNullish,
     tg_isNotNullish,
     tg_isUndefined,
-    tg_isNotUndefined
+    tg_isNotUndefined,
+    tg_isEmptyArray,
+    tg_isNonEmptyArray
 } from './types//utilities'
 export {tg_isCSSColorSpecial, tg_isNotCSSColorSpecial} from './types'

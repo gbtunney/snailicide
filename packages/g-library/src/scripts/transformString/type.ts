@@ -21,9 +21,9 @@ export type TransformBatch<T = TrimCharacters> = Omit<T extends TransformCharact
     value: string | string[]
 }
 
-export interface ExplodeArray extends Omit<TransformCharacters, 'pattern'> {
-    delimiter: string | RegExp /// split delimiter. - default is ","
-    prefix: string | undefined  //appended to the start of string
+export interface ExplodeArray extends Omit<TransformBatch<TransformCharacters>, 'pattern'> {
+    delimiter?: string | RegExp | undefined/// split delimiter. - default is ","
+    prefix?: string | undefined  //appended to the start of string
     trim?: Omit<TransformBatch<TrimCharacters>, "value">//SetOptional<TrimCharacters,'value'>
 }
 

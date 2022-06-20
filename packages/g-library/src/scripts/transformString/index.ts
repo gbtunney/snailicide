@@ -1,6 +1,6 @@
 /* * TRANSFORM STRING LIBRARY *
 * @author Gillian Tunney */
-export {replaceAllCharacters as replaceCharacters,batchReplaceAll} from './_replaceCharacters';
+export {batchReplaceAll as replaceCharacters} from './_replaceCharacters';
 
 export {
     trimCharacters, batchTrimCharacters, trimCharactersStart, trimCharactersEnd,
@@ -19,4 +19,4 @@ export {
     match
 } from "./_validateString"
 export {transformExplodeArray,explodeCSSClassString} from "./_transformExplodeArray"
-export default {}
+
