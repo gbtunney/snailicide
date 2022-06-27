@@ -235,8 +235,10 @@
 {% section 'header' %}
 
 <gbt-icon path="//cdn.shopify.com/s/files/1/0084/4044/7094/t/40/assets/vintage-arrow-2.svg?v=184160903872702092441654243298" class="text-blue-500" style="font-size: 60px;"></gbt-icon>
-<div>
+<div class="text-red-500">
     <h1>INLNE:::</h1>
+
+<gbt-kabob content="i am kabob"></gbt-kabob>
     <gbt-inline-svg src="{{ 'vintage-arrow-2.svg' | asset_url }}" alt="{{ shop.name | escape }}"></gbt-inline-svg>
 </div>
 
@@ -244,6 +246,7 @@
     {{ content_for_layout }}
 </main>
 
+<h1 class="font-primary font-garamond border-y rotate--90 hover:bg-gumleaf-300   bg-gumleaf-700">gill</h1>
 {% section 'footer' %}
 
 <ul hidden>

@@ -23,6 +23,7 @@ module.exports = defineConfig({
             }))
     },
     configureWebpack: {
+        devtool: 'source-map',
         plugins: [],
         resolve: {
             alias: {

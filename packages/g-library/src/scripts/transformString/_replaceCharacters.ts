@@ -1,5 +1,4 @@
 import * as RA from "ramda-adjunct";
-import * as R from "ramda";
 import type {ReplaceCharacters, ReplaceSinglePatternCharacters, TransformBatch} from "./type";
 import {tg_isNonEmptyArray} from './../../types/utilities'
 

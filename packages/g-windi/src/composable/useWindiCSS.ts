@@ -9,23 +9,25 @@ import * as R from "ramda";
 export type windiCSS = typeof useWindiCSS
 export const useWindiCSS = (config: Config = {}) => {
     const processor = ref(new Processor(config))
-    const extractStylesFromHTML = (el: HTMLElement, includeNestedHTML = true, _processor = processor.value) => {
+    const extractStylesFromHTML = (el: HTMLElement, includeNestedHTML = true) => {
         const classString = R.join(" ", Array.from(el.classList))
-        let {success, ignored} = _processor.interpret(classString)
-        const {styleSheet} = _processor.interpret(classString)
+        let {success, ignored} = processor.value.interpret(classString)
+        const {styleSheet} = processor.value.interpret(classString)
+
 
         if (includeNestedHTML) {
             const {
-                success: html_success,
-                ignored: html_ignored,
-                styleSheet: html_styleSheet
-            } = _processor.interpret(el.innerHTML)
+                id
+            } = compileCSS(el.innerHTML, true)
+
             if (styleSheet.children.length > 0) styleSheet.add(styleSheet.children)
-            success = [...success, ...html_success]
-            ignored = [...ignored, ...html_ignored]
+            return {id}
+            // success = [...success, ...html_success]
+            //ignored = [...ignored, ...html_ignored]
         }
-        const compiled = styleSheet.build()
-        return {success, ignored, styleSheet, compiled}
+        //const compiled = html_styleSheet.build()\
+
+        //return {success, ignored, styleSheet}
     }
     const interpretWindiStyles =
         (value: string[] | string, config: Config | undefined = undefined, logging = true) => {
@@ -36,7 +38,7 @@ export const useWindiCSS = (config: Config = {}) => {
                     value: (value).toString(),
                     pattern: ["  ", ","],
                     replacement: " ",
-                })
+                }) as string
             const val_trimmed = trimCharacters(
                 {
                     value: val_replaced,
@@ -61,7 +63,8 @@ export const useWindiCSS = (config: Config = {}) => {
 
     return {
         interpretWindiStyles,
-        compileCSS
+        compileCSS,
+        extractStylesFromHTML
     }
 }
 export default useWindiCSS

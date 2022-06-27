@@ -142,8 +142,9 @@ const composeTemplateData = (env: boolean): TConfigTemplateData => {
             css_file_paths: getFileArr(path.resolve(__dirname, `${__dirname}/../../dist/css/*.css`)),
         },
         script_urls: [
-            ...(env) ? Array.from(Object.values({"windicss-runtime-dom": "https://unpkg.com/windicss-runtime-dom"}))
-                : []],
+            //...(env) ? Array.from(Object.values({"windicss-runtime-dom": "https://unpkg.com/windicss-runtime-dom"}))
+                //: []],
+        ],
         ///the data map will map a directory of .json files to be injected into sections
         data_map: getFileKeyPairs(path.resolve(__dirname, `${__dirname}/../../src/schema/*.json`)),
     }

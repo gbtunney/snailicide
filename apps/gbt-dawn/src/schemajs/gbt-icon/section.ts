@@ -5,7 +5,7 @@ module.exports = () =>{
     const icon_settings = require('./settings')
 
     return defineSectionSchema({
-        "name": "NEW UI Icon",
+        "name": "Gillian UI Icon",
        /* "settings": [{
             "type": "checkbox",
             "id": "full_width",
@@ -13,7 +13,12 @@ module.exports = () =>{
             "label": "t:sections.rich-text.settings.full_width.label"
         }]
 */
-
-       "settings": [...icon_settings,...base_settings]
+       "settings": [...icon_settings,...base_settings],
+        "presets": [
+            {
+                "name": "gbt-icon",
+                blocks:[],
+            }
+        ]
     })
 }

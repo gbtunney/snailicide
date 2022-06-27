@@ -2,7 +2,6 @@
 <gbt-icon
         path="{% if _settings.icon_path contains ".svg" %}{{ _settings.icon_path | asset_url }}{% else %}{{ _settings.icon_path }}{% endif %}"
         class="{{ _settings.css_classes | default: settingsDataDefault.css_classes }}"
-        style="{% if _settings.color_toggle == true %}color: {{ _settings.icon_color | default: settingsDataDefault.iconify_color }};{% endif %}
-        {{ _settings.custom_styles | default: settingsDataDefault.custom_styles }}">
+        style="{% if _settings.color_toggle == true %}color: {{ _settings.icon_color | default: settingsDataDefault.iconify_color }};{% endif %}">
 </gbt-icon>
 {% assign _settings = null %}

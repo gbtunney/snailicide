@@ -1,8 +1,6 @@
 import {createApp,App} from 'vue'
 
 import MainApp from './App.vue'
-
-
 import { defineCustomElement } from 'vue'
 import 'iconify-icon';
 
@@ -13,6 +11,7 @@ import { gKabob, gIconify,InlineSvg} from "@snailicide/g-patternlab/src/componen
 //import process from "process";
 import {cleanBooleanType} from "@snailicide/g-library";
 const MyTestElement =defineCustomElement(gKabob)
+import gProductTestimonial from'./components/ProductTestimonial.vue'
 
 const MyVueElement = defineCustomElement({
     // normal Vue component options here
@@ -20,19 +19,16 @@ const MyVueElement = defineCustomElement({
         message: {
             default:"message not set",
             type:String
-
         }
     },
-
     shadowRoot:false,
 components:{gKabob},
     emits: {},
     template: `<h1 class="testing">{{$props.message}}<g-kabob path="mdi:alert"></g-kabob></h1>`,
-
     // defineCustomElement only: CSS to be injected into shadow root
     styles: [`.testing{background:red; }`]
 })
-console.log(MyVueElement)
+//console.log(MyVueElement)
 const options: iStorefrontApiConfig = {
     domain: process.env.VUE_APP_SHOPIFY_DOMAIN,
     storefrontAccessToken: process.env.VUE_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
@@ -41,8 +37,6 @@ const options: iStorefrontApiConfig = {
     logging: cleanBooleanType(process.env.VUE_APP_APOLLO_OPERATION_LOGGING) as boolean,
     cache: useCache()
 }
-
-
 //todo:move to env someqhwe.
 const LOGGING = true;
 
@@ -59,8 +53,8 @@ const mountApp = (_id : string ,_app:App= createVueApp({},options) )=>{
         const vueElements = document.querySelectorAll('.vue')
         if (vueElements) vueElements.forEach(el =>  _app.mount(el))
     }
-}
 
+}
 //TODO: MOVE THIS TO g-vue
 const createVueApp = ( _config ={},options: iStorefrontApiConfig) : App => {
     const app = createApp({})
@@ -69,13 +63,15 @@ const createVueApp = ( _config ={},options: iStorefrontApiConfig) : App => {
 // After registration, all `<my-vue-element>` tags
 // on the page will be upgraded.
     customElements.define('gbt-vue-element', MyVueElement)
-
-    customElements.define('gbt-kabob', defineCustomElement({...gKabob,shadowRoot:false}) )
+    customElements.define('gbt-kabob', defineCustomElement({...gKabob,shadowRoot:true}) )
     customElements.define('gbt-inline-svg',defineCustomElement(InlineSvg) )
+    customElements.define('gbt-icon',defineCustomElement(gIconify) )
+    customElements.define('product-testimonial',defineCustomElement(gProductTestimonial) )
+
 
    // createApp(MainApp).mount('#app')
    // customElements.define('gbt-kabob',gKabob)
-     app.component("gbt-icon", gIconify)
+    // app.component("gbt-icon", gIconify)
      //    app.component("g-kabob", gKabob)
       //app.component('gbt-inline-svg', InlineSvg);
      /* app.component('loading-spinner',LoadingSpinner)
@@ -111,20 +107,22 @@ mountAll();
  * }
  * {% endschema %}
  */
-
-// @ts-expect-error jjj
+// @ts-expect-error dkjjk
 if (Shopify.designMode) {
     document.addEventListener('shopify:section:load', (event) => {
-   // alert();
-     console.log("shopify:section:load", event, event.target)
-       const _target = (event.target as Element)
-       // alert();
+        // alert();
+        const _target = (event.target as HTMLElement)
+        console.log("shopify:section:load", event, event.target, _target.classList)
+       windiCSS.extractStylesFromHTML(_target, true)
+        // alert();
         // if (_target.classList.value.includes('vue')) {
-           // mountAll();
-            // createVueApp().mount(event.target)
+        // mountAll();
+        // createVueApp().mount(event.target)
         //}
-    })
-} /*else if (!Shopify.designMode && process.env.NODE_ENV === 'development') {
+    }
+    )
+}
+ /*else if (!Shopify.designMode && process.env.NODE_ENV === 'development') {
     new MutationObserver((mutationsList) => {
         mutationsList.forEach(record => {
             // @ts-expect-error klk
@@ -137,26 +135,33 @@ if (Shopify.designMode) {
     })
 }*/
 
-import {useWindiCSSRuntimeDom} from '@snailicide/g-windi'
+const getHTMLElementFromString = (value:string):HTMLElement =>{
+   try {
+       const doc = new DOMParser().parseFromString(value, 'text/html');
+       return doc.body;
+   }
+   catch(_e){
+       const e:Error= _e;
+       console.error("getHTMLElementFromString error", e, value)
+   }
 
+};
 if ( LOGGING) console.log("NODE ENV:", process.env.NODE_ENV , "ENV FULL", process.env)
 // const runtimeDom = useWindiCSSRuntimeDom({el: '#app'})
 //   const vueElements = document.querySelectorAll('[vue]')
 //  if (vueElements) vueElements.forEach(el => createVueApp().mount(el))
-//import {windiConfig} from "../windi.config";
-
-if (process.env.NODE_ENV !== 'production'  ) {
-    console.error("initializing runtime")
-    // @ts-expect-error todo: fix this error
-    window.windicssRuntimeOptions = {
-        // enabled preflight
-        preflight: true,
-        // scan the entire dom tree to infer the classnames on page loaded
-        extractInitial: true,
-        // generate mock classes for browser to do the auto-completeion
-        mockClasses: false,
-        // the windi config you are used to put in `windi.config.js`
-        config: {}
-
+import {windiConfig} from "../windi.config";
+import {useWindiCSS,windiCSS as TwindiCSS}from '@snailicide/g-windi'
+const windiCSS = useWindiCSS(windiConfig)
+declare global {
+    interface Window {
+        windiCSS: TwindiCSS;
     }
+}
+
+//window.windicss.getWindiStyles('bg-red-500')
+if (process.env.NODE_ENV !== 'production'  ) {
+   const extract_html =document.getElementById('MainContent')
+    windiCSS.extractStylesFromHTML( extract_html,true)
+    //console.log("WINDIDIIIII" ,windiCSS.compileCSS('bg-gumleaf-400 text-gumleaf',true) )//window.windiCSS=windiCSS
 }

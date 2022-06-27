@@ -21,12 +21,6 @@ module.exports = defineSectionSettings([
         "default": "#3d4246"
     },
     {
-        "id": "custom_styles",
-        "type": "text",
-        "label": "Text",
-        "default": "font-size: 48px;"
-    },
-    {
         "id": "css_classes",
         "type": "text",
         "label": "Add custom css below",

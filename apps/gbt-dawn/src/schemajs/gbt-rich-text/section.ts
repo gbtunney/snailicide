@@ -4,7 +4,7 @@ module.exports = () => {
     const icon_settings = require('./../gbt-icon/settings')
     const base_settings = require('./../base-section/wrapper-settings')
     return defineSectionSchema({
-        "name": "g UI Rich Text",
+        "name": "Gillian UI Rich Text",
         "tag": "section",
         "class": "section",
         "settings": [...base_settings],
@@ -103,7 +103,7 @@ module.exports = () => {
                     {
                         "type": "richtext",
                         "id": "text",
-                        "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+                        "default": "<p class='text-2xl'>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
                         "label": "t:sections.rich-text.blocks.text.settings.text.label"
                     }
                 ]
@@ -159,7 +159,7 @@ module.exports = () => {
         "presets": [
             {
                 "name": "t:sections.rich-text.presets.name",
-                "settings" : [],
+                "settings" : {},
                 "blocks": [
                     {
                         "type": "heading"

@@ -42,6 +42,12 @@ module.exports = defineSectionSettings([
       "default": "center",
       "label": "t:sections.rich-text.settings.content_alignment.label"
     },
+  {
+    "id": "wrapper_css_classes",
+    "type": "text",
+    "label": "Add wrapper css below",
+    "default": "bg-blue-500"
+  },
     {
       "type": "select",
       "id": "color_scheme",

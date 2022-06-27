@@ -3,7 +3,8 @@ import {defineSectionSettings} from '@snailicide/g-node-utils'
 module.exports = defineSectionSettings([
     {
         "id": "testimonial_data",
-        "type": "textarea",
+        // @ts-expect-error sasasa
+        "type": "json",
         "label": "text Data",
         "info":" {\n" +
             "  image_url: string,\n" +

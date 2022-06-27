@@ -15,7 +15,7 @@ const default_props = () => [{
 export default {}
 </script>
 <script lang="ts" setup>
-import {toRefs, defineProps, defineComponent, withDefaults, PropType, computed} from 'vue';
+import {toRefs,ref, defineProps, defineComponent, withDefaults, PropType, computed} from 'vue';
 //import {Attribute,  BlogArticlesArgs,Maybe, Scalars} from './../types/generated/storefront-types' ;
 type TTestimonial = {
   image_url: string,
@@ -26,16 +26,18 @@ type TTestimonial = {
 
 const props = defineProps({
   data: {
-    type: Array as PropType<TTestimonial>,
-    default: default_props()
+    type: String as PropType<string>,//Array as PropType<TTestimonial>,
+    default:JSON.stringify( default_props())
   }
 })
-console.log("defaultprops",default_props())
-const {data} = toRefs(props)
+//const {data} = toRefs(props)
+const myData = ref(JSON.parse(props.data as string) )
+console.log("defaultprops",JSON.parse(props.data as string))
+
 </script>
 <template>
   <ul class="mx-auto w-2/3 grid gap-8 grid-cols-2">
-    <li v-for="(testimonial,index) in data" :key="index"
+    <li v-for="(testimonial,index) in myData" :key="index"
         class="w-full ">
       <blockquote class="flex flex-column">
         <div class="w-1/4 mx-auto">
