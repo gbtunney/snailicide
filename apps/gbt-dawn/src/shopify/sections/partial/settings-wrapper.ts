@@ -1,35 +1,6 @@
-[
-  {
-    "id": "icon_path",
-    "type": "text",
-    "label": "Icon Path or SVG Filename:",
-    "default": "mdi:alert"
-  },
-  {
-    "type": "checkbox",
-    "id": "color_toggle",
-    "default": false,
-    "label": "Override color",
-    "info": "Use TAILWIND classes for text-red-500 etc."
-  },
-  {
-    "type": "color",
-    "id": "icon_color",
-    "label": "Color",
-    "default": "#3d4246"
-  },
-  {
-    "id": "custom_styles",
-    "type": "text",
-    "label": "Text",
-    "default": "font-size: 48px;"
-  },
-  {
-    "id": "css_classes",
-    "type": "text",
-    "label": "Add custom css below",
-    "default": "bg-red-500"
-  },
+const  theme_options =require('./getThemeOptionsFromWindi')
+import {defineSectionSettings} from '@snailicide/g-node-utils'
+module.exports = defineSectionSettings([
     {
       "type": "select",
       "id": "desktop_content_position",
@@ -71,32 +42,16 @@
       "default": "center",
       "label": "t:sections.rich-text.settings.content_alignment.label"
     },
+  {
+    "id": "wrapper_css_classes",
+    "type": "text",
+    "label": "Add wrapper css below",
+    "default": "bg-blue-500"
+  },
     {
       "type": "select",
       "id": "color_scheme",
-      "options": [
-        {
-          "value": "accent-1",
-          "label": "t:sections.all.colors.accent_1.label"
-        },
-        {
-          "value": "accent-2",
-          "label": "t:sections.all.colors.accent_2.label"
-        },
-        {
-          "value": "background-1",
-          "label": "t:sections.all.colors.background_1.label"
-        },
-        {
-          "value": "background-2",
-          "label": "t:sections.all.colors.background_2.label"
-        },
-        {
-          "value": "inverse",
-          "label": "t:sections.all.colors.inverse.label"
-        }
-      ],
-      "default": "background-1",
+      "options": theme_options,
       "label": "t:sections.all.colors.label"
     },
     {
@@ -129,5 +84,4 @@
       "label": "t:sections.all.padding.padding_bottom",
       "default": 52
     }
-
-  ]
+  ])

@@ -348,10 +348,11 @@ export module Shopify {
         limit?: number;
         settings: Setting<T>[];
     }
-  /* export type PresetSettings<S> = {
-        [P in keyof S]?: T[P];
-    }*/
-    export interface Preset<T =  Type.All> {
+
+    /* export type PresetSettings<S> = {
+          [P in keyof S]?: T[P];
+      }*/
+    export interface Preset<T = Type.All> {
         name: string;
         blocks?: Pick<Block<T>, "type">[];
         settings?: unknown
@@ -372,7 +373,21 @@ export module Shopify {
 }
 import * as RA from "ramda-adjunct"
 
-export const defineSectionSettings = <T = Shopify.Type.All>(value: Shopify.Setting<T> | Shopify.Setting<T>[]): Shopify.Setting<T>[] => RA.ensureArray(value)
+export const defineSectionSettings =
+    <T = Shopify.Type.All>(
+        value: Shopify.Setting<T> | Shopify.Setting<T>[],
+        _prefix: string | undefined = undefined,
+        _key: string = "id"
+    ): Shopify.Setting<T>[] => {
+        return (_prefix !== undefined)
+            ?
+            RA.ensureArray(value).map((setting) => {
+                type SettingKey = keyof typeof setting;
+                const setting_key = _key as SettingKey;
+                return (setting[setting_key]) ? {...setting, [_key]: `${_prefix}${setting[setting_key]}`} : setting
+            })
+            : RA.ensureArray(value)
+    }
 export const defineSectionSchema = <T = Shopify.Type.All>(value: Shopify.SectionSchema<T>): Shopify.SectionSchema<T> => value
 
 import type {ValueOf} from 'type-fest';
@@ -380,31 +395,31 @@ import type {ValueOf} from 'type-fest';
 
     //   return data[name];
 }*/
-import  R from "ramda"
+import R from "ramda"
 //import * as RA from "ramda-adjunct"
-export const definePreset = <T = 'text'>(setting:Shopify.Setting<T>, key: ValueOf<Shopify.Setting<"text">, 'id'>)=>{
+export const definePreset = <T = 'text'>(setting: Shopify.Setting<T>, key: ValueOf<Shopify.Setting<"text">, 'id'>) => {
     const [_setting] = defineSectionSettings(setting)
-    const setting_obj_no_id= R.omit(["id"], (   _setting as Shopify.TSectionSettingBaseProps ) )
+    const setting_obj_no_id = R.omit(["id"], (_setting as Shopify.TSectionSettingBaseProps))
 
-    return  { [key] : setting_obj_no_id }
+    return {[key]: setting_obj_no_id}
 }
-const testme  = definePreset( {
+const testme = definePreset({
     "id": "css_classes",
     "type": "text",
     "label": "Add custom css below",
     "default": "bg-blue-500"
 }, "css_clanmsses")
 
-console.log("jkjkjk",testme)
-export const definePresets = <T = Shopify.Type.All>(value: Shopify.SectionSchema<T>, key = "id")=>{
+console.log("jkjkjk", testme)
+export const definePresets = <T = Shopify.Type.All>(value: Shopify.SectionSchema<T>, key = "id") => {
     const _settings = defineSectionSettings(value.settings)
-     const new = _settings.reduce((accumulator, setting: Shopify.Setting<T> ) => {
-       //console.log("::: REDUCE :::: TOTAL:",accumulator ," currentValue:", currentValue)
-         //./thhis is a hack
-         //ValueOf<typeof data, 'bar'>
-        const setting_obj_no_id= R.omit(["id"], (   setting as Shopify.TSectionSettingBaseProps ) )
-         const _id =(   setting as Shopify.TSectionSettingBaseProps )?.id
+    return _settings.reduce((accumulator, setting: Shopify.Setting<T>) => {
+        //console.log("::: REDUCE :::: TOTAL:",accumulator ," currentValue:", currentValue)
+        //./thhis is a hack
+        //ValueOf<typeof data, 'bar'>
+        const setting_obj_no_id = R.omit([key], (setting as Shopify.TSectionSettingBaseProps))
+        const _id = (setting as Shopify.TSectionSettingBaseProps)?.id
 
-       return { ...accumulator, ... { [_id] : setting_obj_no_id }}
-     }, {});
+        return {...accumulator, ...{[_id]: setting_obj_no_id}}
+    }, {});
 }

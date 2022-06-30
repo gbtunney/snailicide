@@ -184,8 +184,8 @@ module.exports = (env) => {
         plugins: [
             new LiquidSchemaPlugin({
                 from: {
-                    liquid: `${__dirname}/../../src/sections`,
-                    schema: `${__dirname}/../../src/schemajs`
+                    liquid: `${__dirname}/../../src/shopify/sections/**/section-*.liquid`,
+                    schema: `${__dirname}/../../src/shopify/sections/**/schema.ts`
                 },
                 to: `${__dirname}/../../shopify/sections`
             }),
