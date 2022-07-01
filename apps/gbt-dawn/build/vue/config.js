@@ -29,7 +29,6 @@ module.exports = defineConfig({
                 vue:"vue/dist/vue.esm-bundler.js",
                 '@node': path.resolve(__dirname, 'node_modules'),
                 '@': path.resolve(__dirname, 'src/'),
-
             },
         }
     },

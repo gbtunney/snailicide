@@ -332,7 +332,7 @@ export module Shopify {
             ) & TSectionSettingBaseProps
     }
 
-    export type Setting<T> = & TSectionSettingBaseProps & T extends Type.BasicInput
+    export type Setting<T> = TSectionSettingBaseProps & T extends Type.BasicInput
         ? SettingType.TBasic<T>
         : T extends Type.SpecializedInput
             ? SettingType.TSpecialized<T>
@@ -341,6 +341,12 @@ export module Shopify {
                 : T extends Type.Sidebar
                     ? SettingType.TSidebar<T>
                     : never
+
+    export type SettingAny =
+        Setting<Type.BasicInput>
+        | Setting<Type.SpecializedInput>
+        | Setting<Type.ShopifyInput>
+        | Setting<Type.Sidebar>
 
     export interface Block<T = Type.All> {
         type: string;
@@ -361,9 +367,9 @@ export module Shopify {
         },*/
     }
 
-    export interface SectionSchema<T = Type.All> {
+    export interface SectionSchema<T = SettingAny> {
         name: string;
-        settings: Setting<T>[];
+        settings: T[];
         tag?: TElementTag;
         class?: string;
         limit?: number; // section limit count
@@ -374,11 +380,11 @@ export module Shopify {
 import * as RA from "ramda-adjunct"
 
 export const defineSectionSettings =
-    <T = Shopify.Type.All>(
-        value: Shopify.Setting<T> | Shopify.Setting<T>[],
+    <T = Shopify.SettingAny>(
+        value: T | T[],
         _prefix: string | undefined = undefined,
         _key: string = "id"
-    ): Shopify.Setting<T>[] => {
+    ): T[] => {
         return (_prefix !== undefined)
             ?
             RA.ensureArray(value).map((setting) => {
@@ -388,13 +394,14 @@ export const defineSectionSettings =
             })
             : RA.ensureArray(value)
     }
-export const defineSectionSchema = <T = Shopify.Type.All>(value: Shopify.SectionSchema<T>): Shopify.SectionSchema<T> => value
+export const defineSectionSchema = <T =  Shopify.SettingAny>(value: Shopify.SectionSchema<T>): Shopify.SectionSchema<T> => value
 
-import type {ValueOf} from 'type-fest';
+//import type {ValueOf} from 'type-fest';
 /*export const getData = <T = Shopify.Type.All>(value:Shopify.Setting<T> | Shopify.Setting<T>[] , key: string): ValueOf<typeof data> {
 
     //   return data[name];
 }*/
+/*
 import R from "ramda"
 //import * as RA from "ramda-adjunct"
 export const definePreset = <T = 'text'>(setting: Shopify.Setting<T>, key: ValueOf<Shopify.Setting<"text">, 'id'>) => {
@@ -423,3 +430,4 @@ export const definePresets = <T = Shopify.Type.All>(value: Shopify.SectionSchema
         return {...accumulator, ...{[_id]: setting_obj_no_id}}
     }, {});
 }
+*/
