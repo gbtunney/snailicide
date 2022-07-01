@@ -1650,11 +1650,6 @@
   resolved "https://registry.yarnpkg.com/@iconify/types/-/types-1.1.0.tgz#dc15fc988b1b3fd558dd140a24ede7e0aac11280"
   integrity sha512-Jh0llaK2LRXQoYsorIH8maClebsnzTcve+7U3rQUSnC11X4jtPnFuyatqFLvMxZ8MLG8dB4zfHsbPfuvxluONw==
 
-"@iconify/types@^2.0.0-beta.1":
-  version "2.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@iconify/types/-/types-2.0.0-beta.1.tgz#0e5f7046336c50ecd7b956157ded03722f02d1ed"
-  integrity sha512-M8I8ReRIEj4oIddjUjw3CoKv1wfSX2F3CIDjn3RwxQSOz2nG7/s5r5BJxRHwr+t7p0RPkbyiR640/FQPDZjeYg==
-
 "@iconify/utils@^1.0.23":
   version "1.0.32"
   resolved "https://registry.yarnpkg.com/@iconify/utils/-/utils-1.0.32.tgz#ad6262478a27a4ff59f610a0c930710f3d7d970a"
@@ -11200,12 +11195,12 @@ hyphenate-style-name@^1.0.2:
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz#691879af8e220aea5750e8827db4ef62a54e361d"
   integrity sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==
 
-iconify-icon@^`0.0.6:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/iconify-icon/-/iconify-icon-0.0.7.tgz#aab7a918a3cc94094884af641b5e76ee96054424"
-  integrity sha512-ifGVNsvWOOR0Fl6SLqtW3D8wKQdDpnrtXTHrfoCBM+wdDEeKmqnfPu4LYQ6C1DRNV4eX428VySYXZFhUJeAvtg==
+iconify-icon@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/iconify-icon/-/iconify-icon-0.0.6.tgz#50c17b52ca43a9261302c73ddb001437de874b7d"
+  integrity sha512-S8HhDt4Z6FpTwgBW/ImWtt9BW5Uv3NQQ37wCkILbf3/5QKQlxn8OB/BT20gJibvY8pOAwJbOEpZWb54kzvc5Uw==
   dependencies:
-    "@iconify/types" "^2.0.0-beta.1"
+    "@iconify/types" "^1.1.0"
 
 iconv-lite@0.4, iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
@@ -13467,9 +13462,9 @@ linkify-it@^3.0.1:
   dependencies:
     uc.micro "^1.0.1"
 
-liquid-schema-plugin@gbtunney/liquid-schema-plugin:
+liquid-schema-plugin@gbtunney/liquid-schema-plugin#ca1862152b8de5ddbc415bf59b4235f55855878a:
   version "1.1.0"
-  resolved "https://codeload.github.com/gbtunney/liquid-schema-plugin/tar.gz/9a7769e20e9231c8567333ffac0c9d19ac3536c7"
+  resolved "https://codeload.github.com/gbtunney/liquid-schema-plugin/tar.gz/ca1862152b8de5ddbc415bf59b4235f55855878a"
   dependencies:
     fs-extra "^8.1.0"
     schema-utils "^2.6.1"

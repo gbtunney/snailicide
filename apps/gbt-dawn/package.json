@@ -57,7 +57,7 @@
     "git": "^0.1.5",
     "graphql": "^16.3.0",
     "iconify-icon": "^0.0.6",
-    "liquid-schema-plugin": "gbtunney/liquid-schema-plugin",
+    "liquid-schema-plugin": "gbtunney/liquid-schema-plugin#ca1862152b8de5ddbc415bf59b4235f55855878a",
     "pinia": "^2.0.12",
     "ramda-adjunct": "^3.1.0",
     "type-fest": "^2.13.0",
