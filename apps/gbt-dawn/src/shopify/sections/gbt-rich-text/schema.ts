@@ -159,7 +159,7 @@ module.exports = () => {
         "presets": [
             {
                 "name": "t:sections.rich-text.presets.name",
-                "settings" : {},
+                "settings": {},
                 "blocks": [
                     {
                         "type": "heading"
