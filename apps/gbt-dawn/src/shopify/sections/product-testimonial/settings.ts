@@ -1,12 +1,11 @@
-import {defineSectionSettings} from '@snailicide/g-node-utils'
+import {defineSectionSettings, Shopify} from '@snailicide/g-node-utils'
 
-module.exports = defineSectionSettings([
+module.exports = defineSectionSettings<Shopify.SettingAny>([
     {
         "id": "testimonial_data",
-        // @ts-expect-error sasasa
-        "type": "json",
+        "type": "textarea",
         "label": "text Data",
-        "info":" {\n" +
+        "info": " {\n" +
             "  image_url: string,\n" +
             "  name: string,\n" +
             "  content: string,\n" +

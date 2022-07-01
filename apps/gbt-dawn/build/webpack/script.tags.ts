@@ -200,7 +200,7 @@ module.exports = (env) => {
                         to: path.resolve(__dirname, "./../../shopify/snippets/s-[name][ext]")
                     },
                     {
-                        from: path.resolve(__dirname, "./../../src/assets/**/*"),
+                        from: path.resolve(__dirname, "./../../src/shopify/assets/**/*"),
                         to: path.resolve(__dirname,"./../../shopify/assets/[name][ext]"),
                     },
                 ],

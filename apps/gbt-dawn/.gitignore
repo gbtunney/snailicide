@@ -24,8 +24,9 @@ pnpm-debug.log*
 
 #Custom
 shopify/snippets/s-*.liquid
-shopify/sections/s-*.liquid
+shopify/sections/section-*.liquid
 shopify/sections/gbt-*.liquid
+shopify/assets
 dist/
 #shopify/assets
 src/assets/brooklyn_assets

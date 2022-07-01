@@ -1,7 +1,7 @@
 import {defineSectionSchema} from '@snailicide/g-node-utils'
 
 module.exports = () =>{
-    const base_settings = require('./../base-section/wrapper-settings')
+    const base_settings = require('./../partial/settings-wrapper')
     const icon_settings = require('./../gbt-icon/settings')
 
     return defineSectionSchema({

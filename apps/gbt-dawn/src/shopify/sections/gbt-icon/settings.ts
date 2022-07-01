@@ -1,6 +1,6 @@
-import {defineSectionSettings} from '@snailicide/g-node-utils'
+import {defineSectionSettings,Shopify} from '@snailicide/g-node-utils'
 
-module.exports = defineSectionSettings([
+module.exports = defineSectionSettings<Shopify.SettingAny>([
     {
         "id": "icon_path",
         "type": "text",
