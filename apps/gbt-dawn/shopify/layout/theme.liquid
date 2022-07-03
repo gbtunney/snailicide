@@ -236,52 +236,50 @@
 
 <gbt-icon path="//cdn.shopify.com/s/files/1/0084/4044/7094/t/40/assets/vintage-arrow-2.svg?v=184160903872702092441654243298" class="text-blue-500" style="font-size: 60px;"></gbt-icon>
 <div class="text-red-500">
-    <h1>INLNE:::</h1>
-
-<gbt-kabob content="i am kabob"></gbt-kabob>
+    <gbt-kabob content="i am kabob"></gbt-kabob>
     <gbt-inline-svg src="{{ 'vintage-arrow-2.svg' | asset_url }}" alt="{{ shop.name | escape }}"></gbt-inline-svg>
 </div>
 
-<main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-    {{ content_for_layout }}
-</main>
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+        {{ content_for_layout }}
+    </main>
 
-<h1 class="font-primary font-garamond border-y rotate--90 hover:bg-gumleaf-300   bg-gumleaf-700">gill</h1>
+    <h1 class="font-primary font-garamond border-y rotate--90 hover:bg-gumleaf-300   bg-gumleaf-700">gill</h1>
 {% section 'footer' %}
 
-<ul hidden>
-    <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
-    <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
-</ul>
+    <ul hidden>
+        <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+        <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
 
-<script>
-    window.shopUrl = '{{ request.origin }}';
-    window.routes = {
-        cart_add_url: '{{ routes.cart_add_url }}',
-        cart_change_url: '{{ routes.cart_change_url }}',
-        cart_update_url: '{{ routes.cart_update_url }}',
-        cart_url: '{{ routes.cart_url }}',
-        predictive_search_url: '{{ routes.predictive_search_url }}'
-    };
+    <script>
+        window.shopUrl = '{{ request.origin }}';
+        window.routes = {
+            cart_add_url: '{{ routes.cart_add_url }}',
+            cart_change_url: '{{ routes.cart_change_url }}',
+            cart_update_url: '{{ routes.cart_update_url }}',
+            cart_url: '{{ routes.cart_url }}',
+            predictive_search_url: '{{ routes.predictive_search_url }}'
+        };
 
-    window.cartStrings = {
-        error: `{{ 'sections.cart.cart_error' | t }}`,
-        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
-    }
+        window.cartStrings = {
+            error: `{{ 'sections.cart.cart_error' | t }}`,
+            quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+        }
 
-    window.variantStrings = {
-        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
-        soldOut: `{{ 'products.product.sold_out' | t }}`,
-        unavailable: `{{ 'products.product.unavailable' | t }}`,
-    }
+        window.variantStrings = {
+            addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+            soldOut: `{{ 'products.product.sold_out' | t }}`,
+            unavailable: `{{ 'products.product.unavailable' | t }}`,
+        }
 
-    window.accessibilityStrings = {
-        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
-        shareSuccess: `{{ 'general.share.success_message' | t }}`,
-        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
-        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
-    }
-</script>
+        window.accessibilityStrings = {
+            imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+            shareSuccess: `{{ 'general.share.success_message' | t }}`,
+            pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+            playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+        }
+    </script>
 
 {%- if settings.predictive_search_enabled -%}
     <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>

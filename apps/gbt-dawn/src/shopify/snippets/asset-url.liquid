@@ -1,0 +1,15 @@
+{% comment %}
+{% capture testvar -%}{% render 's-asset-url', asset_string: '%ASSET%arrow-edge.svg' -%}{% endcapture -%}
+{{ testvar | strip_newlines | strip }}
+{% endcomment %}
+{% assign use_flag = "%ASSET%" -%}
+{% assign asset_string_test = '%ASSET%arrow-edge.svg   ' -%}
+{% if asset_string contains use_flag %}
+    {% capture asset_string -%}
+        {{ asset_string | replace: use_flag, "" -}}
+    {% endcapture -%}
+    {% capture asset_string -%}
+        {{ asset_string | asset_url -}}
+    {% endcapture -%}{% endif %}
+{{ asset_string | strip_newlines }}
+{% assign asset_string = null -%}

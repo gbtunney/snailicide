@@ -15,6 +15,7 @@ const options: iStorefrontApiConfig = {
     persist: cleanBooleanType(process.env.VUE_APP_APOLLO_PERSIST_CACHE) as boolean, //todo: these env variables come in as strings :(
     logging: cleanBooleanType(process.env.VUE_APP_APOLLO_OPERATION_LOGGING) as boolean,
     cache: useCache()
+
 }
 //todo:move to env someqhwe.
 const LOGGING = true;
