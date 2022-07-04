@@ -1,8 +1,6 @@
 import {useStyleTag, UseStyleTagOptions} from "@vueuse/core";
 import Processor from "windicss";
 import type {Config} from "windicss/types/interfaces";
-
-
 import {replaceCharacters, trimCharacters,} from "@snailicide/g-library"
 import {ref} from 'vue'
 import * as R from "ramda";
