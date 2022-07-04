@@ -1,6 +1,8 @@
 {% assign settingsDataDefault = section.settings %}
+svg_path: _settings.svg_path
 {% assign icon_path = _settings.icon_path  %}
 {% if _settings.svg_path != "none" %}
+    svg_path: _settings.svg_path
     {% assign icon_path = _settings.svg_path  -%}
 {% endif %}
 {% assign icon_path_fin = icon_path  %}
@@ -10,6 +12,7 @@
 <h1>ICON {{ icon_path_fin }}</h1>
 <gbt-icon
         path="{{ icon_path_fin | strip | strip_newlines }}"
+        {% if _settings.preserve_toggle == true %}preserve_color{% endif %}
         class="{{ _settings.css_classes | default: settingsDataDefault.css_classes }}"
         style="{% if _settings.color_toggle == true %}color: {{ _settings.icon_color | default: settingsDataDefault.iconify_color }};{% endif %}">
 </gbt-icon>

@@ -24,6 +24,13 @@ const _icon_settings = () => {
             "info": "Use TAILWIND classes for text-red-500 etc."
         },
         {
+            "type": "checkbox",
+            "id": "preserve_toggle",
+            "default": false,
+            "label": "Preserve Default Colors",
+            "info": "toggle preserve color "
+        },
+        {
             "id": "icon_color",
             "type": "color",
             "label": "Color",
@@ -33,7 +40,6 @@ const _icon_settings = () => {
             "id": "css_classes",
             "type": "text",
             "label": "Add custom css below",
-            "default": "bg-blue-500"
         }
     ])
 }

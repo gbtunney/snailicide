@@ -41,6 +41,7 @@ export const windiConfig: IWindiConfig = {
         exclude: [
             'node_modules/**/*',
             '.git/**/*',
+            ''
         ],
     },
     //preflight: false,

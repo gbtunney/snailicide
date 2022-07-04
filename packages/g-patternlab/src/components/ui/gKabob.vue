@@ -76,16 +76,35 @@ const cssClasses = computed(() => {
   </component>
 </template>
 <style type="text/css" lang="scss">
+.w{
+  &-auto{
+     width:auto;
+   }
+  &-full{
+    width:100%;
+  }
+}
+.items-center{
+  align-items: center;
+}
+.h{
+  &-auto{
+    width:auto;
+  }
+  &-full{
+    width:100%;
+  }
+}
 
 .pl-grid {
   display: grid;
 
   &-row {
-    grid-template-rows: auto 1fr auto
+    grid-template-rows: auto 1fr auto;
   }
 
   &-column {
-    grid-template-columns: auto 1fr auto
+    grid-template-columns: auto 1fr auto;
   }
 }
 

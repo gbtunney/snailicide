@@ -41,6 +41,11 @@ export const tg_isNotNilOrEmpty = <T>(value: T | NilOrEmpty): value is T =>
 export const tg_isEmptyString = <T = unknown>(value: T | EmptyString): value is EmptyString =>
     RA.isEmptyString(value)
 
+export const tg_isString = <T = unknown>(value: T | string ): value is string =>
+    RA.isString(value)
+export const tg_isNotString = <T = unknown>(value: T | string ): value is T =>
+    RA.isNotString(value)
+
 export const tg_isPrimitive = <T = unknown>(value: T | tsPrimitive): value is tsPrimitive =>
     RA.isPrimitive(value)
 export const tg_isNotPrimitive = <T = unknown>(value: T | tsPrimitive): value is T =>

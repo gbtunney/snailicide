@@ -98,6 +98,8 @@ export {
     tg_isNilOrEmpty,
     tg_isNotNilOrEmpty,
     tg_isEmptyString,
+    tg_isString,
+    tg_isNotString,
     tg_isPrimitive,
     tg_isNotPrimitive,
     tg_isNilLike,

@@ -1,10 +1,11 @@
 import _InlineSvg from 'vue-inline-svg';
 import _CodeBlock from './generic/CodeBlockProp.vue';
-import _gIconify from './ui/gIconify.vue';
+import _gIconify from './ui/gIconify.ce.vue';
 import _gKabob from "./ui/gKabob.vue";
 import _LoadingSpinner from './ui/LoadingSpinner.vue'
 import _ViewportSticky from './ViewportSticky.vue'
-
+//import _gIconify from './ui/gIconify.ce.vue';
+//import ce
 
 export const InlineSvg = _InlineSvg
 export const CodeBlock = _CodeBlock

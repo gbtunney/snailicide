@@ -15,7 +15,6 @@ const options: iStorefrontApiConfig = {
     persist: cleanBooleanType(process.env.VUE_APP_APOLLO_PERSIST_CACHE) as boolean, //todo: these env variables come in as strings :(
     logging: cleanBooleanType(process.env.VUE_APP_APOLLO_OPERATION_LOGGING) as boolean,
     cache: useCache()
-
 }
 //todo:move to env someqhwe.
 const LOGGING = true;
@@ -126,8 +125,39 @@ declare global {
         windiCSS: WindiCSS;
     }
 }
+// g-svg g-svg-fill
 if (process.env.NODE_ENV !== 'production') {
     const extract_html = document.getElementById('MainContent')
-    windiCSS.extractStylesFromHTML(extract_html, true)
-    //console.log("WINDIDIIIII" ,windiCSS.compileCSS('bg-gumleaf-400 text-gumleaf',true) )//window.windiCSS=windiCSS
+  windiCSS.extractStylesFromHTML(extract_html, true)
+    console.log("WINDIDIIIII" ,extract_html,windiCSS.compileCSS('bg-gumleaf-400 text-gumleaf',true) )//window.windiCSS=windiCSS
 }
+/*py-1
+px-2
+p-px
+p-1
+p-2
+p-3
+p-4
+right-0
+fixed
+bottom-0
+relative
+absolute
+top-0
+
+inline-flex
+flex
+hidden
+block
+animate-spin
+text-center
+w-full
+h-full
+w-1/6
+w-auto
+h-auto
+overflow-auto
+items-center
+justify-center
+
+ */

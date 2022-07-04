@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "importsNotUsedAsValues": "error",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+
+    "strict": true,
+
+    "lib": ["ES2020","dom"],
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "types": [
+      "jest"
+    ],
+    "target": "esnext",
+    "module": "esnext",
+
+    "declaration": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+  },
+ // "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+}

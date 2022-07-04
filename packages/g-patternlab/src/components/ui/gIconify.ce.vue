@@ -18,6 +18,7 @@ interface IProps {
 
   path?: string,
   icon_set?: string,
+  preserve_color?: boolean
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -25,11 +26,13 @@ const props = withDefaults(defineProps<IProps>(), {
   el: 'span',
   inline: true,
   path: 'baseline-content-copy',
-  icon_set: 'ic'
+  icon_set: 'ic',
+  preserve_color: false
 })
 
 const cssClasses = computed(() => {
   return [
+    ...!props.preserve_color ? ['g-svg-fill'] : [],
     ...props.center ? ['centerContent'] : [],
     ...props.inline ? ['inlineDimensions', 'inline-flex'] : ['blockDimensions', 'flex']
   ]
@@ -51,17 +54,52 @@ const iconPath = computed(() => {
   <component
       v-bind:is="`${props.el}`"
       :class="cssClasses"
-      class="g-svg g-svg-fill">
-      <!-- Iconify Icon -->
-      <Icon
-          v-if="useIconify"
-          :icon="iconPath"
-          class="iconify"/>
+      class="g-svg">
+    <!-- Iconify Icon -->
+    <Icon
+        v-if="useIconify"
+        :icon="iconPath"
+        class="iconify"/>
 
-      <!-- Load Inline SVG -->
-      <inline-svg
-          v-else
-          :src="iconPath"
-          class="iconify"/>
+    <!-- Load Inline SVG -->
+    <inline-svg
+        v-else
+        :src="iconPath"
+        class="iconify"/>
   </component>
 </template>
+<style type="text/scss">
+
+.g-svg-fill svg path, .g-svg-fill svg g, .g-svg-fill svg rect, .g-svg-fill svg circle {
+  fill: currentColor;
+}
+
+.g-svg svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex {
+  display: flex;
+}
+
+.centerContent {
+  justify-content: center;
+  align-items: center;
+}
+
+.blockDimensions {
+  height: 100%;
+  width: 100%;
+}
+
+.inlineDimensions {
+  height: 1em;
+  width: 1em; /*safari needs this */
+}
+</style>

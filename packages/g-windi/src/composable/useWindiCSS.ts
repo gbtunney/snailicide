@@ -6,6 +6,7 @@ import {replaceCharacters, trimCharacters,} from "@snailicide/g-library"
 import {ref} from 'vue'
 import * as R from "ramda";
 
+
 export type windiCSS = typeof useWindiCSS
 export const useWindiCSS = (config: Config = {}) => {
     const processor = ref(new Processor(config))

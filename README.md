@@ -9,6 +9,8 @@ shopify login --store=o-wool.myshopify.com
 apollo-client graphql pinia ramda ramda-adjunct vue-property-decorator
 @graphql-codegen/typescript-vue-apollo @graphql-codegen/typescript-document-nodes @graphql-codegen/typescript-operations @graphql-codegen/typescript @graphql-codegen/add @graphql-codegen/cli @graphql-codegen/introspection
 
+## multiselect
+https://github.com/shentao/vue-multiselect/tree/next
 ###add package     
     yarn --cwd packages/g-shopify-orm ramda ramda-adjunct  remove @snailicide/g-vue    add  @snailicide/g-vue @snailicide/g-library @snailicide/g-patternlab
     yarn --cwd apps/owool add @snailicide/g-vue   @tailwindcss/typography@0.5.0-alpha.2  @tailwindcss/forms tailwind-css-variables

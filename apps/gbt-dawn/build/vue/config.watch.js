@@ -48,10 +48,10 @@ if (process.env.NODE_ENV !== 'production') {
                     from: path.resolve(__dirname, "./../../dist/js/*.js"),
                     to: path.resolve(__dirname, "./../../shopify/assets/[name][ext]"),
                 },
-                {
-                    from: path.resolve(__dirname, "./../../src/snippets/*.liquid"),
+                /*{
+                    from: path.resolve(__dirname, "./../../src/snippets/!*.liquid"),
                     to: path.resolve(__dirname, "./../../shopify/snippets/s-[name][ext]")
-                }
+                }*/
             ],
         }),
     ]);

@@ -191,14 +191,22 @@ module.exports = (env) => {
             }),
             new CopyPlugin({
                 patterns: [
+                    //copies generated build files( js & css) into assets
                     {
                         from: path.resolve(__dirname, "./../../dist/**/*"),
                         to: path.resolve(__dirname, "./../../shopify/assets/[name][ext]"),
                     },
+                    //copies snippets out of src/shopify into theme
                     {
                         from: path.resolve(__dirname, "./../../src/shopify/snippets/*.liquid"),
                         to: path.resolve(__dirname, "./../../shopify/snippets/s-[name][ext]")
                     },
+                    //copies block- prefixed snippets file out of section package
+                    {
+                        from: `${__dirname}/../../src/shopify/sections/**/block-*.liquid` ,
+                        to: path.resolve(__dirname, "./../../shopify/snippets/s-[name][ext]")
+                    },
+                    //flattens & copies source asset folders to thheme assets
                     {
                         from: path.resolve(__dirname, "./../../src/shopify/assets/**/*"),
                         to: path.resolve(__dirname,"./../../shopify/assets/[name][ext]"),
