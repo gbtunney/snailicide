@@ -1,4 +1,4 @@
-# @snailicide/g-windi
+# g-windi2
 
 ## Project setup
 ```

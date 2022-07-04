@@ -1,11 +1,9 @@
 import {useStyleTag, UseStyleTagOptions} from "@vueuse/core";
 import Processor from "windicss";
-import {Config} from "windicss/types/interfaces";
-
+import type {Config} from "windicss/types/interfaces";
 import {replaceCharacters, trimCharacters,} from "@snailicide/g-library"
 import {ref} from 'vue'
 import * as R from "ramda";
-
 
 export type windiCSS = typeof useWindiCSS
 export const useWindiCSS = (config: Config = {}) => {
@@ -14,21 +12,18 @@ export const useWindiCSS = (config: Config = {}) => {
         const classString = R.join(" ", Array.from(el.classList))
         let {success, ignored} = processor.value.interpret(classString)
         const {styleSheet} = processor.value.interpret(classString)
-
-
         if (includeNestedHTML) {
-            const {
-                id
-            } = compileCSS(el.innerHTML, true)
-
+            const result = compileCSS(el.innerHTML, true)
+            if (result !== undefined) {
+                const {id} = result
+            }
             if (styleSheet.children.length > 0) styleSheet.add(styleSheet.children)
-            return {id}
+            return result
             // success = [...success, ...html_success]
             //ignored = [...ignored, ...html_ignored]
         }
         //const compiled = html_styleSheet.build()\
-
-        //return {success, ignored, styleSheet}
+        return {success, ignored, styleSheet}
     }
     const interpretWindiStyles =
         (value: string[] | string, config: Config | undefined = undefined, logging = true) => {
@@ -56,8 +51,11 @@ export const useWindiCSS = (config: Config = {}) => {
         }
     const compileCSS = (value: string[] | string, inject: boolean, styleTagOptions: UseStyleTagOptions = {}) => {
         const {styleSheetCompiled} = interpretWindiStyles(value)
-        const result = useStyleTag(styleSheetCompiled, styleTagOptions)
-        return result
+        if (styleSheetCompiled !== undefined) {
+            const result = useStyleTag(styleSheetCompiled, styleTagOptions)
+            return result
+        }
+        return undefined
     }
     const getClassString = (value: Array<string>): string => R.join(" ", value)
     const masterReg = /\${([\s\S]+?)}/g
