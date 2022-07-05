@@ -1,9 +1,0 @@
-fragment ImageFragment on Image{
-    type:__typename
-    id
-    gid:id
-    src:originalSrc
-    alt:altText
-    width
-    height
-}
