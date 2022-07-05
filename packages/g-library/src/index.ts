@@ -5,6 +5,8 @@ export type NumberParseable = (number | string | boolean) & {
     readonly isNumberParseble: unique symbol;
 };
 
+
+
 /**
  * Check if value is parseable to number.
  * @example

@@ -1,5 +1,6 @@
 import {toInteger, isInteger} from "./_valueTypes";
 import * as RA from "ramda-adjunct";
+const tttt = "jkjk"
 
 export const randomInt = (min = 0, max = 100): number =>
     Math.floor(Math.random() * (max - min + 1) + min);

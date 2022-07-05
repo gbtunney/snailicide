@@ -1,8 +1,7 @@
 {
-  "name": "@snailicide/g-library",
+  "name": "g-boilerplate",
+  "version": "0.0.1",
   "private": true,
-  "version": "0.1.0",
-  "description": "",
   "cdn": "dist/index.umd.js",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -10,17 +9,17 @@
   "module": "dist/index.esm.js",
   "jsdelivr": "dist/index.umd.js",
   "umd:main": "dist/index.umd.js",
-  "exports": {
-    ".": [
-      {
-        "import": "./dist/index.mjs",
-        "require": "./dist/index.cjs",
-        "default": "./dist/index.js"
-      },
-      "./dist/index.js"
-    ]
+  "scripts": {
+    "doc": "typedoc src/index.ts",
+    "test": "jest",
+    "lint": "eslint \"*/**/*.{ts,js,json}\"",
+    "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
+    "build": "rollup --config ./rollup.config.js",
+    "tsconfig": "tsc --showConfig",
+    "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
+    "@types/node": "^17.0.44",
     "@types/eslint": "^8.4.1",
     "@types/jest": "^27.4.1",
     "@types/prettier": "^2.6.0",
@@ -36,21 +35,23 @@
     "rollup-plugin-typescript2": "^0.31.2",
     "ts-jest": "^27.1.4",
     "ts-jest-resolver": "^2.0.0",
-    "type-fest": "^2.13.0",
-    "ramda": "^0.27.1",
-    "ramda-adjunct": "^2.35.0",
     "typedoc": "^0.22.15",
     "typedoc-plugin-markdown": "^3.12.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "type-fest": "^2.13.0",
+    "ramda": "^0.27.1",
+    "ramda-adjunct": "^2.35.0"
   },
-  "scripts": {
-    "doc": "typedoc src/index.ts",
-    "test": "jest",
-    "lint": "eslint \"*/**/*.{ts,js,json}\"",
-    "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
-    "build": "rollup --config ./rollup.config.js",
-    "tsconfig": "tsc --showConfig",
-    "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build"
+  "dependencies": {},
+  "exports": {
+    ".": [
+      {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.cjs",
+        "default": "./dist/index.js"
+      },
+      "./dist/index.js"
+    ]
   },
   "repository": {
     "type": "git",
