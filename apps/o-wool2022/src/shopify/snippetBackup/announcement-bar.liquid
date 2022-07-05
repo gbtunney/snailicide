@@ -1,9 +1,0 @@
-{% if section.settings.show_announcement %}
-	{% if section.settings.home_page_only == false or template.name == 'index' %}
-
-		<div js-mount-vue="AnnouncementBarApp"
-		     prop-sectionsettings='{{   section.settings | json }}'
-		></div>
-
-	{% endif %}
-{% endif %}
